@@ -1,0 +1,19 @@
+---
+interface Props {
+  link: string
+  content: string
+  reason: string
+}
+
+const { link, content, reason } = Astro.props
+---
+
+<a
+  href={link}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="block b-(2 dark-300) rounded-xl p-6 transition-colors hover:b-dark-400"
+>
+  <h3 class="mb-2 text-lg font-medium">{content}</h3>
+  <p class="text-(sm gray-400)">{reason}</p>
+</a>

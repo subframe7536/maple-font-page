@@ -1,0 +1,28 @@
+---
+import Section from '../components/section.astro'
+import { Button } from '../components/ui/button'
+---
+
+<Section id="hero" class="min-h-screen flex items-center justify-center">
+  <div class="mx-auto px-4 py-20 container">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="mb-6 text-6xl font-bold">
+        Maple Mono
+      </h1>
+      <p class="mb-8 text-xl text-gray-600 font-italic">
+        A modern monospace font that smooth your coding flow
+      </p>
+      <div class="flex justify-center gap-4">
+        <Button as="a" size="lg" href="https://github.com/subframe7536/maple-font">
+          <div class="flex items-center gap-2">
+            <div class="i-lucide-github" />
+            <span>GitHub</span>
+          </div>
+        </Button>
+        <Button as="a" size="lg" href="#features" variant="outline">
+          Learn More
+        </Button>
+      </div>
+    </div>
+  </div>
+</Section>

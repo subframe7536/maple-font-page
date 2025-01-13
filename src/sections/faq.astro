@@ -1,0 +1,46 @@
+---
+import FaqItems from '../components/faq-items'
+import Section from '../components/section.astro'
+
+const faqs = [
+  {
+    question: 'How do I install Maple Mono?',
+    answer:
+      'You can download Maple Mono from our GitHub repository and install it like any other font. For system-wide installation, place the font files in your system\'s font directory. For code editors, refer to your editor\'s documentation for font configuration.',
+  },
+  {
+    question: 'What makes Maple Mono different from other coding fonts?',
+    answer:
+      'Maple Mono combines variable font technology, carefully crafted ligatures, and unique italic styles with excellent readability. It also includes first-class Nerd Font support and extensive customization options for font features.',
+  },
+  {
+    question: 'Does Maple Mono support my programming language?',
+    answer:
+      'Yes! Maple Mono is designed to work with all programming languages. Its comprehensive ligature support and special character designs ensure optimal display for code across different languages and frameworks.',
+  },
+  {
+    question: 'Can I customize the font features?',
+    answer:
+      'Absolutely! Maple Mono provides extensive customization options through font features. You can enable or disable specific features like ligatures, alternative characters, and stylistic sets to create your perfect coding environment.',
+  },
+  {
+    question: 'Is Maple Mono free to use?',
+    answer:
+      'Yes, Maple Mono is completely free and open source. You can use it in both personal and commercial projects without any restrictions.',
+  },
+];
+---
+
+<Section id="faq" class="py-20">
+  <div class="mx-auto px-4 container">
+    <h2 class="mb-4 text-center text-4xl font-bold">
+      Frequently Asked Questions
+    </h2>
+    <p class="mx-auto mb-12 max-w-2xl text-(center gray-400)">
+      Everything you need to know about Maple Mono
+    </p>
+    <div class="mx-auto max-w-2xl rounded-xl p-6 shadow-sm">
+      <FaqItems client:load faqs={faqs} />
+    </div>
+  </div>
+</Section>

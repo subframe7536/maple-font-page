@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Comparison from '../sections/comparison.astro'
+import Credits from '../sections/credits.astro'
+import FAQ from '../sections/faq.astro'
+import Features from '../sections/features.astro'
+import Hero from '../sections/hero.astro'
+import Preview from '../sections/preview.astro'
+import Testimonials from '../sections/testimonials.astro'
+---
+
+<Layout>
+  <main>
+    <Hero />
+    <Features />
+    <Preview />
+    <Comparison />
+    <Testimonials />
+    <FAQ />
+    <Credits />
+  </main>
+</Layout>
+<script>
+import { useInView } from 'unocss-preset-inview/runtime'
+
+const [start] = useInView()
+start()
+</script>

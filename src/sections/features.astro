@@ -1,0 +1,43 @@
+---
+import Feature from '../components/feature.astro'
+import Section from '../components/section.astro'
+
+const features = [
+  {
+    title: 'Variable Font',
+    description: 'Infinity font weights with fine-grained italic glyphs',
+    icon: 'i-lucide-infinity',
+  },
+  {
+    title: 'Smooth Design',
+    description: 'Round corner, brand-new glyph designs with cursive style in italics',
+    icon: 'i-lucide-pen-tool',
+  },
+  {
+    title: 'Smart Ligatures',
+    description: 'Large amount of smart ligatures for better code readability',
+    icon: 'i-lucide-sparkles',
+  },
+  {
+    title: 'Nerd Font Support',
+    description: 'First-Class Nerd-Font support to make your terminal more vivid',
+    icon: 'i-lucide-terminal',
+  },
+  {
+    title: 'Customizable',
+    description: 'Enable or disable font features as you want, create your perfect font',
+    icon: 'i-lucide-settings',
+  },
+]
+---
+
+<Section id="features" class="py-20 moveup">
+  <div class="mx-auto px-4 container">
+    <h2 class="mb-12 text-center text-4xl font-bold">Features</h2>
+    <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
+      {features.map(feature => (
+        <Feature {...feature} />
+      ))}
+    </div>
+  </div>
+</Section>

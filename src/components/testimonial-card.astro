@@ -1,0 +1,33 @@
+---
+interface Props {
+  content: string
+  author: string
+  platform: 'twitter' | 'discord' | 'v2ex' | 'github'
+  date: string
+}
+
+const { content, author, platform, date } = Astro.props
+
+const platformIcons = {
+  twitter: 'i-lucide-twitter',
+  discord: 'i-lucide-message-circle',
+  v2ex: 'i-lucide-message-square',
+  github: 'i-lucide-github',
+}
+
+const platformColors = {
+  twitter: 'bg-sky-50 border-sky-100',
+  discord: 'bg-indigo-50 border-indigo-100',
+  v2ex: 'bg-gray-50 border-gray-100',
+  github: 'bg-purple-50 border-purple-100',
+}
+---
+
+<div class={`p-6 rounded-xl border-2 ${platformColors[platform]} hover:scale-[1.02] transition-transform`}>
+  <div class="mb-4 flex items-center gap-2">
+    <div class={`${platformIcons[platform]} text-xl`}></div>
+    <span class="font-medium">{author}</span>
+    <span class="ml-auto text-sm text-gray-500">{date}</span>
+  </div>
+  <p class="text-gray-700">{content}</p>
+</div>

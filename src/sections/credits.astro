@@ -1,0 +1,41 @@
+---
+import CreditCard from '../components/credit-card.astro'
+import Section from '../components/section.astro'
+
+const credits = [
+  {
+    link: 'https://github.com/JetBrains/JetBrainsMono',
+    content: 'JetBrains Mono',
+    reason: 'Inspiration for ligature design and programming-first approach',
+  },
+  {
+    link: 'https://github.com/tonsky/FiraCode',
+    content: 'Fira Code',
+    reason: 'Pioneer in programming ligatures and readability optimization',
+  },
+  {
+    link: 'https://github.com/ryanoasis/nerd-fonts',
+    content: 'Nerd Fonts',
+    reason: 'Reference for icon integration and patching methodology',
+  },
+  {
+    link: 'https://github.com/be5invis/Iosevka',
+    content: 'Iosevka',
+    reason: 'Inspiration for the customizable font feature system',
+  },
+] as const
+---
+
+<Section id="credits" class="py-20">
+  <div class="mx-auto px-4 container">
+    <h2 class="mb-4 text-center text-4xl font-bold">Credits</h2>
+    <p class="mx-auto mb-12 max-w-2xl text-center text-gray-600">
+      Standing on the shoulders of giants - projects that inspired Maple Mono
+    </p>
+    <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
+      {credits.map(credit => (
+        <CreditCard {...credit} />
+      ))}
+    </div>
+  </div>
+</Section>
