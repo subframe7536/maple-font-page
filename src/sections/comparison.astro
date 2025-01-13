@@ -1,58 +1,29 @@
 ---
+import ComparsionTabs from '../components/comparison-tabs'
 import Section from '../components/section.astro'
-
-const comparisonCode = `// Example code to showcase font differences
-interface User {
-  id: string;
-  name: string;
-}
-
-function fetchUser(id: string): Promise<User> {
-  return fetch(\`/api/users/\${id}\`)
-    .then(res => res.json())
-    .then(data => ({
-      id: data.id ?? '',
-      name: data.name ?? 'Anonymous'
-    }));
-}
-
-// Special characters: -> => != >= <=
-// Operators: && || ?? ?. %%
-// Numbers: 0123456789
-// Symbols: @#$%^&*()`
 
 const fonts = [
   {
-    name: 'Maple Mono',
-    features: ['Variable font weights', 'Smart ligatures', 'Nerd Font support', 'Rounded corners', 'Cursive italics'],
-    class: 'font-maple',
-  },
-  {
     name: 'JetBrains Mono',
-    features: ['Fixed weights', 'Programming ligatures', 'Clean design', 'Square corners', 'Standard italics'],
-    class: 'font-jetbrains',
+    fontClass: 'font-jetbrains',
   },
   {
     name: 'Fira Code',
-    features: ['Fixed weights', 'Programming ligatures', 'Sharp design', 'Angular corners', 'Standard italics'],
-    class: 'font-fira',
+    fontClass: 'font-fira',
   },
   {
     name: 'Iosevka',
-    features: ['Variable font', 'Condensed design', 'Customizable build', 'Narrow width', 'Multiple styles'],
-    class: 'font-iosevka',
+    fontClass: 'font-iosevka',
   },
   {
     name: 'Consolas',
-    features: ['Fixed weight', 'No ligatures', 'Clear design', 'Standard width', 'Basic italics'],
-    class: 'font-consolas',
+    fontClass: 'font-consolas',
   },
   {
     name: 'Ubuntu Mono',
-    features: ['Fixed weight', 'No ligatures', 'Friendly design', 'Standard width', 'Basic italics'],
-    class: 'font-ubuntu',
+    fontClass: 'font-ubuntu',
   },
-] as const
+]
 ---
 
 <Section id="comparison" class="py-20">
@@ -63,21 +34,7 @@ const fonts = [
     </p>
 
     <div class="grid mx-auto max-w-5xl gap-8">
-      {fonts.map(font => (
-        <div class="overflow-hidden rounded-xl shadow-sm">
-          <div class="flex items-center justify-between bg-primary p-4 text-white">
-            <h3 class="text-xl font-bold">{font.name}</h3>
-            <ul class="flex gap-2 text-sm">
-              {font.features.map(feature => (
-                <li class="rounded bg-primary/50 px-2 py-1">{feature}</li>
-              ))}
-            </ul>
-          </div>
-          <pre class={`p-6 overflow-x-auto ${font.class}`}>
-            <code>{comparisonCode}</code>
-          </pre>
-        </div>
-      ))}
+      <ComparsionTabs client:load items={fonts} class="w-400px" />
     </div>
   </div>
 </Section>

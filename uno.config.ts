@@ -37,6 +37,28 @@ const features = [
   'ss08',
 ]
 
+const slantColor = {
+  'background': '222.2 84% 4.9%',
+  'foreground': '210 40% 98%',
+  'card': '222.2 84% 4.9%',
+  'card-foreground': '210 40% 98%',
+  'popover': '222.2 84% 4.9%',
+  'popover-foreground': '210 40% 98%',
+  'primary': '210 40% 98%',
+  'primary-foreground': '222.2 47.4% 11.2%',
+  'secondary': '217.2 32.6% 17.5%',
+  'secondary-foreground': '210 40% 98%',
+  'muted': '217.2 32.6% 17.5%',
+  'muted-foreground': '215 20.2% 65.1%',
+  'accent': '217.2 32.6% 17.5%',
+  'accent-foreground': '210 40% 98%',
+  'destructive': '0 62.8% 30.6%',
+  'destructive-foreground': '210 40% 98%',
+  'border': '217.2 32.6% 17.5%',
+  'input': '217.2 32.6% 17.5%',
+  'ring': '212.7 26.8% 83.9%',
+}
+
 export default defineConfig({
   presets: [
     presetUno({
@@ -74,7 +96,46 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      primary: '#3eaf7c',
+      border: 'hsl(var(--border))',
+      input: 'hsl(var(--input))',
+      background: 'hsl(212deg 30% 30%)',
+      text: 'hsl(32deg 90% 85%)',
+      ring: 'hsl(var(--ring))',
+      foreground: 'hsl(var(--foreground))',
+      primary: {
+        DEFAULT: 'hsl(var(--primary))',
+        foreground: 'hsl(var(--primary-foreground))',
+      },
+      secondary: {
+        DEFAULT: 'hsl(var(--secondary))',
+        foreground: 'hsl(var(--secondary-foreground))',
+      },
+      destructive: {
+        DEFAULT: 'hsl(var(--destructive))',
+        foreground: 'hsl(var(--destructive-foreground))',
+      },
+      muted: {
+        DEFAULT: 'hsl(var(--muted))',
+        foreground: 'hsl(var(--muted-foreground))',
+      },
+      accent: {
+        DEFAULT: 'hsl(var(--accent))',
+        foreground: 'hsl(var(--accent-foreground))',
+      },
+      popover: {
+        DEFAULT: 'hsl(var(--popover))',
+        foreground: 'hsl(var(--popover-foreground))',
+      },
+      card: {
+        DEFAULT: 'hsl(var(--card))',
+        foreground: 'hsl(var(--card-foreground))',
+      },
+    },
+    borderRadius: {
+      xl: 'calc(var(--radius) + 4px)',
+      lg: 'var(--radius)',
+      md: 'calc(var(--radius) - 2px)',
+      sm: 'calc(var(--radius) - 4px)',
     },
     fontFamily: {
       maple: 'MapleMono, monospace',
@@ -89,8 +150,8 @@ export default defineConfig({
         'accordion-up': 'ease-in-out',
       },
       durations: {
-        'accordion-down': '0.2s',
-        'accordion-up': '0.2s',
+        'accordion-down': '0.3s',
+        'accordion-up': '0.3s',
       },
     },
   },
@@ -119,6 +180,10 @@ export default defineConfig({
           ::selection {
             background-color: #2a3447;
             color: #aaaaaa;
+          }
+          :root {
+            --radius: 0.5rem;
+            ${Object.entries(slantColor).map(([name, hsl]) => `--${name}: ${hsl}`).join(';\n')}
           }
           .font-maple {
             font-feature-settings: ${features.map(fea => `"${fea}" var(--ffs-${fea})`).join(', ')};

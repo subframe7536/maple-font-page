@@ -45,7 +45,7 @@ export function AccordionTrigger<T extends ValidComponent = 'button'>(props: Pol
         {...rest}
       >
         {local.children}
-        <div class="i-lucide-chevron-down data-[expanded]-rotate-180" />
+        <div class="i-lucide-chevron-down transition [[data-expanded]_&]-rotate-90" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
