@@ -7,15 +7,12 @@ import { splitProps } from 'solid-js'
 
 export const buttonVariants = clsvDefault(
   clsv(
-    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-[color,background-color,box-shadow] fv-effect disabled:(pointer-events-none opacity-50)',
+    'inline-flex items-center justify-center rounded-md text-sm font-medium transition-[color,background-color,box-shadow] fv-effect disabled:(pointer-events-none opacity-50) select-none',
     {
       variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
-        outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary:
-          'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
+        default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+        outline: 'b-(2 border) bg-background shadow-sm hover:(bg-secondary text-accent-foreground)',
+        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
@@ -49,7 +46,7 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
       class={cls(
         buttonVariants({
           size: local.size,
-          variant: local.variant,
+          variant: local.variant || 'default',
         }),
         local.class,
       )}

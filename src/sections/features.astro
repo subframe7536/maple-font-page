@@ -31,13 +31,11 @@ const features = [
 ]
 ---
 
-<Section id="features" class="py-20 moveup">
+<Section id="features" class="py-20">
   <div class="mx-auto px-4 container">
-    <h2 class="mb-12 text-center text-4xl font-bold">Features</h2>
+    <h2 class="mb-12 text-(center 4xl accent) font-bold">Features</h2>
     <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
-      {features.map(feature => (
-        <Feature {...feature} />
-      ))}
+      {features.map(feature => <Feature {...feature} />)}
     </div>
   </div>
 </Section>

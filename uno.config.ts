@@ -37,27 +37,7 @@ const features = [
   'ss08',
 ]
 
-const slantColor = {
-  'background': '222.2 84% 4.9%',
-  'foreground': '210 40% 98%',
-  'card': '222.2 84% 4.9%',
-  'card-foreground': '210 40% 98%',
-  'popover': '222.2 84% 4.9%',
-  'popover-foreground': '210 40% 98%',
-  'primary': '210 40% 98%',
-  'primary-foreground': '222.2 47.4% 11.2%',
-  'secondary': '217.2 32.6% 17.5%',
-  'secondary-foreground': '210 40% 98%',
-  'muted': '217.2 32.6% 17.5%',
-  'muted-foreground': '215 20.2% 65.1%',
-  'accent': '217.2 32.6% 17.5%',
-  'accent-foreground': '210 40% 98%',
-  'destructive': '0 62.8% 30.6%',
-  'destructive-foreground': '210 40% 98%',
-  'border': '217.2 32.6% 17.5%',
-  'input': '217.2 32.6% 17.5%',
-  'ring': '212.7 26.8% 83.9%',
-}
+const radius = '0.5rem'
 
 export default defineConfig({
   presets: [
@@ -96,46 +76,37 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      border: 'hsl(var(--border))',
-      input: 'hsl(var(--input))',
-      background: 'hsl(212deg 30% 30%)',
-      text: 'hsl(32deg 90% 85%)',
-      ring: 'hsl(var(--ring))',
-      foreground: 'hsl(var(--foreground))',
+      border: 'hsl(212 80% 60%)',
+      input: 'hsl(212 80% 60%)',
+      background: 'hsl(212 30% 30%)',
+      ring: 'hsl(213 27% 84%)',
+      foreground: 'hsl(197 50% 90%)',
       primary: {
-        DEFAULT: 'hsl(var(--primary))',
-        foreground: 'hsl(var(--primary-foreground))',
+        DEFAULT: 'hsl(197 50% 76%)',
+        foreground: 'hsl(197 47% 12%)',
       },
       secondary: {
-        DEFAULT: 'hsl(var(--secondary))',
-        foreground: 'hsl(var(--secondary-foreground))',
+        DEFAULT: 'hsl(215 32% 80%)',
+        foreground: 'hsl(215 40% 20%)',
       },
       destructive: {
-        DEFAULT: 'hsl(var(--destructive))',
-        foreground: 'hsl(var(--destructive-foreground))',
+        DEFAULT: 'hsl(0 63% 30%)',
+        foreground: 'hsl(210 40% 98%)',
       },
       muted: {
-        DEFAULT: 'hsl(var(--muted))',
-        foreground: 'hsl(var(--muted-foreground))',
+        DEFAULT: 'hsl(217 33% 18%)',
+        foreground: 'hsl(215 20% 65%)',
       },
       accent: {
-        DEFAULT: 'hsl(var(--accent))',
-        foreground: 'hsl(var(--accent-foreground))',
-      },
-      popover: {
-        DEFAULT: 'hsl(var(--popover))',
-        foreground: 'hsl(var(--popover-foreground))',
-      },
-      card: {
-        DEFAULT: 'hsl(var(--card))',
-        foreground: 'hsl(var(--card-foreground))',
+        DEFAULT: 'hsl(32 90% 85%)',
+        foreground: 'hsl(217 33% 18%)',
       },
     },
     borderRadius: {
-      xl: 'calc(var(--radius) + 4px)',
-      lg: 'var(--radius)',
-      md: 'calc(var(--radius) - 2px)',
-      sm: 'calc(var(--radius) - 4px)',
+      xl: `calc(${radius} + 4px)`,
+      lg: radius,
+      md: `calc(${radius} - 2px)`,
+      sm: `calc(${radius} - 4px)`,
     },
     fontFamily: {
       maple: 'MapleMono, monospace',
@@ -160,7 +131,7 @@ export default defineConfig({
   ],
   preflights: [
     {
-      getCSS: () => {
+      getCSS: ({ theme }: { theme: any & { colors: any } }) => {
         const getSrc = (isItalic?: boolean) => [
           `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2')`,
           'local("Maple Mono")',
@@ -178,12 +149,8 @@ export default defineConfig({
         `
         return `
           ::selection {
-            background-color: #2a3447;
-            color: #aaaaaa;
-          }
-          :root {
-            --radius: 0.5rem;
-            ${Object.entries(slantColor).map(([name, hsl]) => `--${name}: ${hsl}`).join(';\n')}
+            background-color: ${theme.colors.foreground};
+            color: ${theme.colors.background};
           }
           .font-maple {
             font-feature-settings: ${features.map(fea => `"${fea}" var(--ffs-${fea})`).join(', ')};
