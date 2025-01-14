@@ -78,7 +78,7 @@ export default defineConfig({
     colors: {
       border: 'hsl(212 80% 60%)',
       input: 'hsl(212 80% 60%)',
-      background: 'hsl(212 30% 30%)',
+      background: 'hsl(212 30% 25%)',
       ring: 'hsl(213 27% 84%)',
       foreground: 'hsl(197 50% 90%)',
       primary: {

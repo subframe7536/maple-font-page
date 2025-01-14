@@ -17,8 +17,10 @@ export default function FaqItems(props: Props) {
     <Accordion collapsible class="w-full">
       <For each={props.faqs}>
         {(item, idx) => (
-          <AccordionItem value={`item-${idx()}`}>
-            <AccordionTrigger>{item.question}</AccordionTrigger>
+          <AccordionItem value={`item-${idx()}`} class="my-2">
+            <AccordionTrigger class="text-primary font-semibold">
+              {item.question}
+            </AccordionTrigger>
             <AccordionContent>{item.answer}</AccordionContent>
           </AccordionItem>
         )}
