@@ -46,7 +46,7 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
       class={cls(
         buttonVariants({
           size: local.size,
-          variant: local.variant || 'default',
+          variant: local.variant,
         }),
         local.class,
       )}

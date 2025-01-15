@@ -10,14 +10,22 @@ import { Button } from '../components/ui/button';
   <div class="mx-auto animate-fade-in px-4 py-20 container">
     <div class="mx-auto max-w-3xl text-center space-y-8">
       <h1
-        class="from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) text-4xl text-transparent font-700 lg:text-8xl md:text-6xl !leading-relaxed"
+        class="hero-gradient text-12 text-transparent font-700 leading-snug lg:text-20 md:text-16"
       >
         Maple Mono
       </h1>
-      <p class="text-2xl font-(medium italic) leading-relaxed">
+      <p class="text-xl font-(medium italic) leading-relaxed">
         A modern monospace font that smooth your coding flow
       </p>
       <div class="flex justify-center gap-6">
+        <Button
+          as="a"
+          href="#features"
+          size="lg"
+          variant="outline"
+        >
+          Learn More
+        </Button>
         <Button
           as="a"
           size="lg"
@@ -28,15 +36,6 @@ import { Button } from '../components/ui/button';
             <div class="i-lucide-github"></div>
             <span>GitHub</span>
           </div>
-        </Button>
-        <Button
-          as="a"
-          size="lg"
-          href="#features"
-          variant="outline"
-          class="transition-colors hover:(border-primary/50 bg-primary/10)"
-        >
-          Learn More
         </Button>
       </div>
     </div>

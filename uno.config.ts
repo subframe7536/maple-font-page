@@ -57,22 +57,11 @@ export default defineConfig({
   ],
   shortcuts: [
     ['fv-effect', 'focus-visible:(outline-none ring-1.5 ring)'],
-    ['flex-center', 'flex items-center justify-between'],
+    ['hero-gradient', 'from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text)'],
     [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
   ],
   rules: [
     ['liga', { 'font-feature-settings': 'var(--liga)' }],
-  ],
-  variants: [
-    (matcher) => {
-      if (!matcher.startsWith('inview:')) {
-        return matcher
-      }
-      return {
-        matcher: matcher.slice(7),
-        selector: s => `${s}:not([no-inview])`,
-      }
-    },
   ],
   theme: {
     colors: {
@@ -86,8 +75,8 @@ export default defineConfig({
         foreground: 'hsl(197 47% 12%)',
       },
       secondary: {
-        DEFAULT: 'hsl(215 32% 80%)',
-        foreground: 'hsl(215 40% 20%)',
+        DEFAULT: 'hsl(140 32% 80%)',
+        foreground: 'hsl(140 40% 20%)',
       },
       destructive: {
         DEFAULT: 'hsl(0 63% 30%)',
@@ -147,10 +136,14 @@ export default defineConfig({
             font-style: ${isItalic ? 'italic' : 'normal'};
           }
         `
+        // font size: https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjM3NXB4IiwibWF4V2lkdGgiOiIzODQwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjI0cHgifQ%3D%3D
         return `
           ::selection {
             background-color: ${theme.colors.foreground};
             color: ${theme.colors.background};
+          }
+          html, body {
+            font-size: clamp(1rem, 0.9459rem + 0.2309vw, 1.5rem);
           }
           .font-maple {
             font-feature-settings: ${features.map(fea => `"${fea}" var(--ffs-${fea})`).join(', ')};

@@ -39,7 +39,7 @@ export function AccordionTrigger<T extends ValidComponent = 'button'>(props: Pol
     <AccordionPrimitive.Header class="flex" as="div">
       <AccordionPrimitive.Trigger
         class={cls(
-          'flex-(center 1) py-4 text-sm font-medium transition-shadow hover:underline bg-inherit fv-effect',
+          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-shadow hover:underline bg-inherit fv-effect',
           local.class,
         )}
         {...rest}
