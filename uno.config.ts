@@ -2,7 +2,6 @@ import {
   defineConfig,
   presetIcons,
   presetUno,
-  presetWebFonts,
   transformerVariantGroup,
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
