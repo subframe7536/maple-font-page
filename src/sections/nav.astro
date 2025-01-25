@@ -1,0 +1,20 @@
+---
+import { Button } from '../components/ui/button'
+
+---
+<nav class="fixed z-10 w-full flex items-center bg-background/60 p-4 backdrop-blur-lg">
+  <img src="/favicon.svg" alt="Maple Mono" class="h-8" />
+  <div class="ml-2 w-full flex justify-between">
+    <div class="hidden items-center gap-2 md:flex">
+      <Button as="a" variant="link" href="#hero">INTRO</Button>
+      <Button as="a" variant="link" href="#why">WHY</Button>
+      <Button as="a" variant="link" href="#features">FEATURES</Button>
+      <Button as="a" variant="link" href="#faq">FAQ</Button>
+      <Button as="a" variant="link" href="#credits">CREDITS</Button>
+    </div>
+    <div class="flex items-center gap-2">
+      <Button as="a" variant="link" href="/how">How to Use</Button>
+      <Button as="a" href="/download">Download</Button>
+    </div>
+  </div>
+</nav>
