@@ -11,4 +11,9 @@ export default defineConfig({
     solidJs(),
     sitemap(),
   ],
+  markdown: {
+    shikiConfig: {
+      theme: await import('./src/assets/maple-dark-color-theme.json'),
+    },
+  },
 })

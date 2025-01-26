@@ -15,25 +15,8 @@ interface Config {
 // Special characters showcase
 const symbols = '-> => != >= <= @'
 const operators = '&& || ?? ?. %%'
+`
 
-/* Nerd Font icons demo */
-const icons = '     '`
-
-const cssExample = `@font-face {
-  font-family: 'Maple Mono';
-  font-weight: 100 900;
-  font-style: normal;
-  src: url('/fonts/MapleMono[wght]-VF.woff2') format('woff2');
-}
-
-/* Enable font features */
-.font-maple {
-  font-feature-settings:
-    'calt' 1,  /* Contextual Alternates */
-    'zero' 1,  /* Slashed Zero */
-    'ss01' 1,  /* Stylistic Set 1 */
-    'cv01' 1   /* Character Variant 1 */
-}`
 ---
 
 <Section id="preview" class="py-20">
@@ -43,13 +26,7 @@ const cssExample = `@font-face {
       <div class="space-y-4">
         <h3 class="text-2xl font-bold">TypeScript Example</h3>
         <div class="overflow-hidden rounded-lg shadow-lg">
-          <Code code={codeExample} lang="typescript" theme="github-dark" />
-        </div>
-      </div>
-      <div class="space-y-4">
-        <h3 class="text-2xl font-bold">CSS Configuration</h3>
-        <div class="overflow-hidden rounded-lg shadow-lg">
-          <Code code={cssExample} lang="css" theme="github-dark" />
+          <Code code={codeExample} lang="typescript" />
         </div>
       </div>
     </div>

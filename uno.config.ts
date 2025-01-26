@@ -1,6 +1,8 @@
 import {
   defineConfig,
+  type Preset,
   presetIcons,
+  presetTypography,
   presetUno,
   transformerVariantGroup,
 } from 'unocss'
@@ -34,7 +36,53 @@ const features = [
   'ss06',
   'ss07',
   'ss08',
-]
+] as const
+
+const presetMaple: Preset = {
+  name: 'maple',
+  rules: [
+    [
+      'font-liga',
+      {
+        'font-feature-settings': 'var(--liga)',
+        'font-family': 'var(--ff)',
+      },
+    ],
+  ],
+  preflights: [
+    {
+      getCSS: () => {
+        const getSrc = (isItalic?: boolean) => [
+          `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2')`,
+          'local("Maple Mono")',
+          'local("Maple Mono NF")',
+          'local("Maple Mono NF CN")',
+        ].join(',')
+
+        const fontface = (isItalic?: boolean) => `
+          @font-face {
+            font-family: MapleMono;
+            font-display: swap;
+            src: ${getSrc(isItalic)};
+            font-style: ${isItalic ? 'italic' : 'normal'};
+          }
+        `
+        // font size: https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjM3NXB4IiwibWF4V2lkdGgiOiIzODQwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjI0cHgifQ%3D%3D
+        return `
+          html {
+            font-size: clamp(1rem, 0.9459rem + 0.2309vw, 1.5rem);
+            --ff: MapleMono, monospace;
+          }
+          body {
+            --liga: ${features.map(fea => `"${fea}" var(--ffs-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
+          }
+          ${fontface()}
+          ${fontface(true)}
+        `
+      },
+    },
+  ],
+}
 
 const radius = '0.5rem'
 
@@ -43,9 +91,11 @@ export default defineConfig({
     presetUno({
       preflight: 'on-demand',
     }),
+    presetMaple,
     presetIcons({
       scale: 1.2,
     }),
+    presetTypography(),
     // presetWebFonts({
     //   provider: 'fontsource',
     //   fonts: {
@@ -58,9 +108,6 @@ export default defineConfig({
     ['fv-effect', 'focus-visible:(outline-none ring-1.5 ring)'],
     ['hero-gradient', 'from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text)'],
     [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
-  ],
-  rules: [
-    ['liga', { 'font-feature-settings': 'var(--liga)' }],
   ],
   theme: {
     colors: {
@@ -120,35 +167,11 @@ export default defineConfig({
   preflights: [
     {
       getCSS: ({ theme }: { theme: any & { colors: any } }) => {
-        const getSrc = (isItalic?: boolean) => [
-          `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2')`,
-          'local("Maple Mono")',
-          'local("Maple Mono NF")',
-          'local("Maple Mono NF CN")',
-        ].join(',')
-
-        const fontface = (isItalic?: boolean) => `
-          @font-face {
-            font-family: MapleMono;
-            font-display: swap;
-            src: ${getSrc(isItalic)};
-            font-style: ${isItalic ? 'italic' : 'normal'};
-          }
-        `
-        // font size: https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjM3NXB4IiwibWF4V2lkdGgiOiIzODQwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjI0cHgifQ%3D%3D
         return `
           ::selection {
             background-color: ${theme.colors.foreground};
             color: ${theme.colors.background};
           }
-          html, body {
-            font-size: clamp(1rem, 0.9459rem + 0.2309vw, 1.5rem);
-          }
-          .font-maple {
-            font-feature-settings: ${features.map(fea => `"${fea}" var(--ffs-${fea})`).join(', ')};
-          }
-          ${fontface()}
-          ${fontface(true)}
         `
       },
     },

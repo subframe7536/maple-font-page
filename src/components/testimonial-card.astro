@@ -16,18 +16,18 @@ const platformIcons = {
 }
 
 const platformColors = {
-  twitter: 'bg-sky-50 border-sky-100',
-  discord: 'bg-indigo-50 border-indigo-100',
-  v2ex: 'bg-gray-50 border-gray-100',
-  github: 'bg-purple-50 border-purple-100',
+  twitter: 'bg-blue-800 border-blue-900',
+  discord: 'bg-indigo-800 border-indigo-900',
+  v2ex: 'bg-gray-800 border-gray-900',
+  github: 'bg-purple-800 border-purple-900',
 }
 ---
 
-<div class={`p-6 rounded-xl border-2 ${platformColors[platform]} hover:scale-[1.02] transition-transform`}>
+<div class={`p-6 rounded-xl b-2 ${platformColors[platform]} hover:scale-102 transition-transform`}>
   <div class="mb-4 flex items-center gap-2">
     <div class={`${platformIcons[platform]} text-xl`}></div>
     <span class="font-medium">{author}</span>
-    <span class="ml-auto text-sm text-gray-500">{date}</span>
+    <span class="ml-auto text-sm text-foreground">{date}</span>
   </div>
-  <p class="text-gray-700">{content}</p>
+  <p class="text-foreground/80">{content}</p>
 </div>
