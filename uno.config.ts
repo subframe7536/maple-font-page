@@ -111,7 +111,7 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      border: 'hsl(212 80% 60%)',
+      border: 'hsl(197 50% 76%)',
       input: 'hsl(212 80% 60%)',
       background: 'hsl(212 30% 22%)',
       ring: 'hsl(213 27% 84%)',

@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button'
 
 <Section
   id="hero"
-  class="min-h-screen flex items-center justify-center bg-background"
+  class="h-80dvh flex items-center justify-center bg-background md:min-h-screen"
 >
   <div class="mx-auto animate-fade-in px-4 py-20 container">
     <div class="mx-auto max-w-3xl text-center space-y-8">
@@ -17,25 +17,22 @@ import { Button } from '../components/ui/button'
       <p class="text-xl font-(medium italic) leading-relaxed">
         A modern monospace font that smooth your coding flow
       </p>
-      <div class="flex justify-center gap-6">
+      <div class="flex items-center justify-center gap-6">
         <Button
           as="a"
           href="#features"
           size="lg"
-          variant="outline"
+          variant="default"
         >
           Learn More
         </Button>
         <Button
           as="a"
           size="lg"
-          href="https://github.com/subframe7536/maple-font"
-          class="transition-transform hover:scale-105"
+          href="/download"
+          variant="outline"
         >
-          <div class="flex items-center gap-2">
-            <div class="i-lucide-github"></div>
-            <span>GitHub</span>
-          </div>
+          OpenType Features
         </Button>
       </div>
     </div>

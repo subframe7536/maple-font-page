@@ -1,11 +1,12 @@
 ---
 import { Button } from '../components/ui/button'
-
 ---
-<nav class="fixed z-10 w-full flex items-center bg-background/60 p-4 backdrop-blur-lg">
+<nav
+  class="fixed z-10 w-full flex items-center bg-background/50 p-4 backdrop-blur-lg"
+>
   <img src="/favicon.svg" alt="Maple Mono" class="h-8" />
-  <div class="ml-2 w-full flex justify-between">
-    <div class="flex items-center gap-2">
+  <div class="ml-2 w-full flex justify-end md:justify-between">
+    <div class="hidden items-center gap-2 md:flex">
       <Button as="a" variant="link" href="#hero">INTRO</Button>
       <Button as="a" variant="link" href="#why">WHY</Button>
       <Button as="a" variant="link" href="#features">FEATURES</Button>
@@ -13,7 +14,17 @@ import { Button } from '../components/ui/button'
       <Button as="a" variant="link" href="#credits">CREDITS</Button>
     </div>
     <div class="flex items-center gap-2">
-      <Button as="a" variant="link" href="/how">How to Use</Button>
+      <Button
+        as="a"
+        class="mr--2"
+        variant="link"
+        size="icon"
+        href="https://github.com/subframe7536/maple-font"
+        target="_blank"
+      >
+        <div class="i-lucide-github mr-2"></div>
+      </Button>
+      <Button as="a" variant="link" href="/how">Usage</Button>
       <Button as="a" href="/download">Download</Button>
     </div>
   </div>
