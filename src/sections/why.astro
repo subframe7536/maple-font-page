@@ -1,0 +1,29 @@
+---
+import Section from '../components/section.astro'
+
+const desc = 'There are so many wonderful monospace fonts, but I only want part of them'
+
+const list = {
+  'JetBrains Mono': 'The excellent metric and 16 styles',
+  'Fira Code': 'Various interesting ligatures',
+  'Victor Mono': 'Cool script style glyphs and connected stroke',
+}
+
+---
+
+<Section id="why" class="py-20">
+  <div class="mx-auto px-20 container">
+    <h2 class="mb-12 text-(center 4xl accent) font-bold">Why</h2>
+    <div class="text-xl leading-relaxed">
+      <p>{desc}:</p>
+      <ul>
+        {Object.entries(list).map(([key, item]) => (
+          <li>
+            <span class="font-bold">{key}:</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Section>

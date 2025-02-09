@@ -3,7 +3,7 @@
   "configurations": [
     {
       "command": "nr dev --host",
-      "name": "Development server",
+      "name": "Debug",
       "request": "launch",
       "type": "node-terminal"
     }

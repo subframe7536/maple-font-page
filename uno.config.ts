@@ -4,6 +4,7 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
+  type PresetUnoTheme,
   transformerVariantGroup,
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
@@ -86,7 +87,7 @@ const presetMaple: Preset = {
 
 const radius = '0.5rem'
 
-export default defineConfig({
+export default defineConfig<PresetUnoTheme>({
   presets: [
     presetUno({
       preflight: 'on-demand',
@@ -106,7 +107,7 @@ export default defineConfig({
   ],
   shortcuts: [
     ['fv-effect', 'focus-visible:(outline-none ring-1.5 ring)'],
-    ['hero-gradient', 'from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text)'],
+    ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) text-transparent)'],
     [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
   ],
   theme: {
