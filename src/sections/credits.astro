@@ -1,41 +1,67 @@
 ---
-import CreditCard from '../components/credit-card.astro'
 import Section from '../components/section.astro'
+import { Button } from '../components/ui/button'
 
-const credits = [
+const credits: { link: string | string[], content: string | string[], reason: string }[] = [
   {
     link: 'https://github.com/JetBrains/JetBrainsMono',
     content: 'JetBrains Mono',
-    reason: 'Inspiration for ligature design and programming-first approach',
+    reason: 'Everything based on',
   },
   {
-    link: 'https://github.com/tonsky/FiraCode',
-    content: 'Fira Code',
-    reason: 'Pioneer in programming ligatures and readability optimization',
+    link: ['https://github.com/tonsky/FiraCode', 'https://rubjo.github.io/victor-mono/', 'https://github.com/googlefonts/RobotoMono', 'http://be5invis.github.io/Iosevka', 'https://github.com/eigilnikolajsen/commit-mono', 'https://monolisa.dev', 'https://monaspace.githubnext.com/'],
+    content: ['Fira Code', 'Victor Mono', 'Roboto Mono', 'Iosevka', 'Commit Mono', 'Monolisa', 'Monaspace'],
+    reason: 'Glyphs and ligatures inspiration',
   },
   {
     link: 'https://github.com/ryanoasis/nerd-fonts',
     content: 'Nerd Fonts',
-    reason: 'Reference for icon integration and patching methodology',
+    reason: 'Icon integration',
   },
   {
-    link: 'https://github.com/be5invis/Iosevka',
-    content: 'Iosevka',
-    reason: 'Inspiration for the customizable font feature system',
+    link: 'https://github.com/CyanoHao/Resource-Han-Rounded',
+    content: 'Resource Han Rounded',
+    reason: 'Part of CN glyphs',
+  },
+  {
+    link: ['https://github.com/fonttools/fonttools', 'https://github.com/ftCLI/FoundryTools-CLI', 'https://pyodide.org/en/stable/index.html'],
+    content: ['Fonttools', 'FoundryTools-CLI', 'Pyodide'],
+    reason: 'Ability to build font',
+  },
+  {
+    link: ['https://astro.build', 'https://solidjs.com', 'https://unocss.dev'],
+    content: ['Astro', 'SolidJS', 'UnoCSS'],
+    reason: 'Website framework',
   },
 ] as const
 ---
 
 <Section id="credits" class="py-20">
   <div class="mx-auto px-4 container">
-    <h2 class="mb-4 text-center text-4xl font-bold">Credits</h2>
-    <p class="mx-auto mb-12 max-w-2xl text-center text-foreground/80">
-      Standing on the shoulders of giants - projects that inspired Maple Mono
+    <h2 class="mb-4 text-(center 4xl accent) font-bold">Credits</h2>
+    <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
+      Maple Mono standing on the shoulders of giants. Huge thanks to these projects:
     </p>
-    <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
-      {credits.map(credit => (
-        <CreditCard {...credit} />
-      ))}
+    <div class="mx-auto max-w-2xl text-center">
+      {credits.map(({ content, link, reason }) => {
+        if (!Array.isArray(content)) {
+          content = [content]
+        }
+        if (!Array.isArray(link)) {
+          link = [link]
+        }
+        return (
+          <div class="my-12 flex flex-col">
+            <div class="mb-2 text-lg font-italic">{reason}</div>
+            {content.map((c, idx) => (
+              <Button as="a" variant="link" href={link[idx]} target="_blank" size="lg">
+                {c}
+                <span class="i-lucide-square-arrow-out-up-right ml-1"></span>
+              </Button>
+            ))}
+          </div>
+        )
+      })}
     </div>
   </div>
 </Section>
