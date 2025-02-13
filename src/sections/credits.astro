@@ -52,11 +52,11 @@ const credits: { link: string | string[], content: string | string[], reason: st
         }
         return (
           <div class="my-12 flex flex-col">
-            <div class="mb-2 text-lg font-italic">{reason}</div>
+            <div class="mb-2 text-lg font-(italic medium)">{reason}</div>
             {content.map((c, idx) => (
               <Button as="a" variant="link" href={link[idx]} target="_blank">
                 {c}
-                <span class="i-lucide-square-arrow-out-up-right ml-1"></span>
+                <span class="i-lucide-external-link ml-1"></span>
               </Button>
             ))}
           </div>
