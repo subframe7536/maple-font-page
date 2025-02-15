@@ -51,7 +51,7 @@ const credits: { link: string | string[], content: string | string[], reason: st
           link = [link]
         }
         return (
-          <div class="my-12 flex flex-col">
+          <div class="my-12 flex flex-col items-center">
             <div class="mb-2 text-lg font-(italic medium)">{reason}</div>
             {content.map((c, idx) => (
               <Button as="a" variant="link" href={link[idx]} target="_blank">

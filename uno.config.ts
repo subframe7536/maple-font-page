@@ -106,7 +106,9 @@ export default defineConfig<PresetUnoTheme>({
     presetInView(),
   ],
   shortcuts: [
-    ['fv-effect', 'focus-visible:(outline-none ring-1.5 ring)'],
+    ['fv-effect', 'focus-visible:(outline-none ring-1.5 ring-ring ring-offset-(2 background))'],
+    ['dis-effect', 'disabled:(pointer-events-none opacity-50)'],
+    ['animated-underline', 'relative decoration-none before:(content-empty bg-foreground absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
     ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) text-transparent)'],
     [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
   ],
