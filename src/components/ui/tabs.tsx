@@ -7,6 +7,7 @@ import type {
   TabsTriggerProps,
 } from '@kobalte/core/tabs'
 import type { ValidComponent, VoidProps } from 'solid-js'
+
 import { Tabs as TabsPrimitive } from '@kobalte/core/tabs'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'

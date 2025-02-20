@@ -1,13 +1,14 @@
+import type { Preset, PresetUnoTheme } from 'unocss'
+
 import {
   defineConfig,
-  type Preset,
   presetIcons,
   presetTypography,
   presetUno,
-  type PresetUnoTheme,
   transformerVariantGroup,
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
+
 import { myGhCdnPrefix } from './src/cdn'
 
 const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'

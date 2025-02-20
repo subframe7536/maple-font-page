@@ -4,9 +4,11 @@ import type {
   AccordionTriggerProps,
 } from '@kobalte/core/accordion'
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
+import type { ParentProps, ValidComponent } from 'solid-js'
+
 import { Accordion as AccordionPrimitive } from '@kobalte/core/accordion'
 import { cls } from 'cls-variant'
-import { type ParentProps, splitProps, type ValidComponent } from 'solid-js'
+import { splitProps } from 'solid-js'
 
 export const Accordion = AccordionPrimitive
 

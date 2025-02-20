@@ -1,4 +1,5 @@
 import { For } from 'solid-js'
+
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from './ui/tabs'
 
 interface Props {

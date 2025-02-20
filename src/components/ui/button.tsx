@@ -1,8 +1,10 @@
 import type { ButtonRootProps } from '@kobalte/core/button'
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
+import type { VariantProps } from 'cls-variant'
 import type { ValidComponent } from 'solid-js'
+
 import { Button as ButtonPrimitive } from '@kobalte/core/button'
-import { cls, clsv, clsvDefault, type VariantProps } from 'cls-variant'
+import { cls, clsv, clsvDefault } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
 export const buttonVariants = clsvDefault(
