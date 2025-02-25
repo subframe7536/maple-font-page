@@ -13,7 +13,7 @@ export const buttonVariants = clsvDefault(
     {
       variant: {
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
-        outline: 'b-(2 border) bg-background shadow-sm hover:(b-secondary bg-accent-foreground)',
+        outline: 'b-(2 border/80) bg-background shadow-sm hover:b-border',
         secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         link: 'text-primary animated-underline w-fit',
       },

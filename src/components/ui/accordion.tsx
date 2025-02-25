@@ -21,7 +21,7 @@ export function AccordionItem<T extends ValidComponent = 'div'>(props: Polymorph
   const [local, rest] = splitProps(props as accordionItemProps, ['class'])
 
   return (
-    <AccordionPrimitive.Item class={cls('border-b', local.class)} {...rest} />
+    <AccordionPrimitive.Item class={cls('b-(b border)', local.class)} {...rest} />
   )
 }
 
@@ -41,7 +41,7 @@ export function AccordionTrigger<T extends ValidComponent = 'button'>(props: Pol
     <AccordionPrimitive.Header class="flex" as="div">
       <AccordionPrimitive.Trigger
         class={cls(
-          'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-shadow hover:underline bg-inherit fv-effect',
+          'flex flex-1 items-center justify-between py-4 text-sm font-500 transition-shadow hover:underline bg-inherit fv-effect',
           local.class,
         )}
         {...rest}

@@ -5,36 +5,34 @@ import { Button } from '../components/ui/button'
 
 <Section
   id="hero"
-  class="h-90dvh flex items-center justify-center md:min-h-screen"
+  class="min-h-screen flex items-center justify-center"
 >
-  <div class="mx-auto animate-fade-in px-4 py-20 container">
-    <div class="mx-auto max-w-3xl text-center space-y-10">
-      <h1
-        class="text-12 font-700 leading-snug hero-gradient lg:text-20 md:text-16"
-      >
+  <div class="mx-auto animate-fade-in px-8 container space-y-6">
+    <div class="mx-auto max-w-3xl text-left">
+      <h1 class="mt-16 text-12 font-700 hero-gradient lg:text-20 md:text-16">
         Maple Mono
       </h1>
-      <p class="text-xl font-(medium italic) leading-relaxed">
-        A modern monospace font that smooth your coding flow
+      <p class="mt-4 text-7 c-accent font-(600 italic) lg:text-12 md:text-8">
+        Smooth your coding flow
       </p>
-      <div class="mx-auto flex flex-(wrap) items-center justify-center gap-6">
-        <Button
-          as="a"
-          href="#why"
-          size="lg"
-          variant="default"
-        >
-          Learn More
-        </Button>
-        <Button
-          as="a"
-          size="lg"
-          href="/download#custom"
-          variant="outline"
-        >
-          OpenType Features
-        </Button>
-      </div>
+    </div>
+    <p class="mx-auto max-w-3xl py-4 text-(left 4) leading-loose">
+      We encode our thoughts to product by coding, and font is what makes that flow visible and productive.
+      <b>
+        <i>Maple Mono</i>
+      </b>
+      {' '}
+      is designed for coder, letting you read code with the same ease as writing neatly by hand.
+    </p>
+    <div class="mx-auto max-w-3xl flex flex-wrap items-center justify-start gap-6">
+      <Button as="a" href="#why" size="lg" variant="default">
+        Learn More
+        <div class="i-lucide-arrow-down ml-2"></div>
+      </Button>
+      <Button as="a" size="lg" href="/download#custom" variant="outline">
+        Try it now
+        <div class="i-lucide-arrow-right ml-2"></div>
+      </Button>
     </div>
   </div>
 </Section>

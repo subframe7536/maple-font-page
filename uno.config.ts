@@ -76,7 +76,7 @@ const presetMaple: Preset = {
             --ff: MapleMono, monospace;
           }
           body {
-            --liga: ${features.map(fea => `"${fea}" var(--ffs-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
+            --liga: ${features.map(fea => `"${fea}" var(--fea-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
           }
           ${fontface()}
           ${fontface(true)}
