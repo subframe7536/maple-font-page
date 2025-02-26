@@ -15,7 +15,7 @@ export const buttonVariants = clsvDefault(
         default: 'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         outline: 'b-(2 border/80) bg-background shadow-sm hover:b-border',
         secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
-        link: 'text-primary animated-underline w-fit',
+        link: 'animated-underline w-fit',
       },
       size: {
         default: 'h-9 px-4 py-2 text-sm',

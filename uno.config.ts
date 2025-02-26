@@ -115,14 +115,14 @@ export default defineConfig<PresetUnoTheme>({
   ],
   theme: {
     colors: {
-      border: 'hsl(197 50% 76%)',
+      border: 'hsl(208 64% 74%)',
       input: 'hsl(212 80% 60%)',
       background: 'hsl(212 30% 22%)',
       ring: 'hsl(213 27% 84%)',
-      foreground: 'hsl(197 50% 90%)',
+      foreground: 'hsl(208 50% 90%)',
       primary: {
-        DEFAULT: 'hsl(197 50% 76%)',
-        foreground: 'hsl(197 47% 12%)',
+        DEFAULT: 'hsl(208 64% 74%)',
+        foreground: 'hsl(208 47% 12%)',
       },
       secondary: {
         DEFAULT: 'hsl(140 32% 80%)',
