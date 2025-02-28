@@ -8,7 +8,7 @@ const Label: Component<ComponentProps<'label'>> = (props) => {
   return (
     <label
       class={cls(
-        'text-sm font-medium leading-none peer-disabled:(cursor-not-allowed opacity-70)',
+        'text-sm font-medium leading-none peer-disabled:effect-dis',
         local.class,
       )}
       {...others}

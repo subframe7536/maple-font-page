@@ -59,7 +59,7 @@ function SliderThumb<T extends ValidComponent = 'span'>(props: PolymorphicProps<
   return (
     <SliderPrimitive.Thumb
       class={cls(
-        'top--6px block size-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors fv-effect dis-effect',
+        'top--6px block size-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:effect-fv disabled:effect-dis',
         local.class,
       )}
       {...others}

@@ -20,7 +20,7 @@
     "@iconify-json/lucide": "^1.2.26",
     "@kobalte/core": "^0.13.8",
     "@solid-hooks/core": "^0.4.2",
-    "@subframe7536/eslint-config": "^1.2.0",
+    "@subframe7536/eslint-config": "^1.2.1",
     "@unocss/eslint-plugin": "^65.5.0",
     "@unocss/reset": "^65.5.0",
     "cls-variant": "^0.2.1",

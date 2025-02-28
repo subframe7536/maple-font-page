@@ -56,7 +56,7 @@ export function TabsContent<T extends ValidComponent = 'div'>(props: Polymorphic
   return (
     <TabsPrimitive.Content
       class={cls(
-        'data-[orientation=vertical]:ml-2 data-[orientation=horizontal]:mt-2 transition-shadow duration-200 fv-effect',
+        'data-[orientation=vertical]:ml-2 data-[orientation=horizontal]:mt-2 transition-shadow duration-200 focus-visible:effect-fv',
         local.class,
       )}
       {...rest}
@@ -75,7 +75,7 @@ export function TabsTrigger<T extends ValidComponent = 'button'>(props: Polymorp
   return (
     <TabsPrimitive.Trigger
       class={cls(
-        'w-full relative z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-colors dis-effect data-[selected]:text-foreground peer h-7 outline-none',
+        'w-full relative z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-colors disabled:effect-dis data-[selected]:text-foreground peer h-7 outline-none',
         local.class,
       )}
       {...rest}
