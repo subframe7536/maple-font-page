@@ -3,45 +3,37 @@ import Section from '../components/section.astro'
 import { Button } from '../components/ui/button'
 ---
 
-<Section id="hero" class="min-h-screen flex items-center">
-  <div class="mx-auto w-90% animate-fade-in px-8 container space-y-4">
-    <div class="mx-auto max-w-3xl text-left">
-      <h1
-        class="mt-16 text-12 c-accent font-700 md:(mt-0 text-16) lg:text-20 hero-gradient"
-      >
-        Maple Mono
-      </h1>
-      <p class="mt-4 text-7 c-primary font-(550 italic) lg:text-12 md:text-8">
-        Smooth your coding flow
-      </p>
-    </div>
-    <p class="mx-auto max-w-3xl py-4 text-(left 4) leading-relaxed md:text-5">
-      We encode our thoughts into products using code, and font is crucial to
-      making flow both visible and practical.
-      <br />
-      <b>
-        <i>Maple Mono</i>
-      </b>
-      {' '}
-      is crafted for programmer, to make your coding experience vivid and engaging.
-    </p>
-    <div
-      class="mx-auto max-w-3xl flex flex-wrap items-center justify-start gap-6"
-    >
-      <Button as="a" href="#why" size="lg" class="hover:scale-105">
-        Learn More
-        <div class="i-lucide-arrow-down ml-2"></div>
-      </Button>
-      <Button
-        as="a"
-        size="lg"
-        href="/download#custom"
-        variant="outline"
-        class="hover:scale-105"
-      >
-        Try it now
-        <div class="i-lucide-arrow-right ml-2"></div>
-      </Button>
-    </div>
+<Section
+  id="hero"
+  class="min-h-screen flex flex-col justify-center gap-2 xl:gap-4"
+>
+  <h1
+    class="w-fit text-10 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-12 hero-gradient"
+  >
+    Maple Mono
+  </h1>
+  <p
+    class="xs:text-6 mt-2 w-fit text-5.5 c-accent font-(550 italic) lg:text-10 md:text-8"
+  >
+    Smooth your coding flow
+  </p>
+  <p class="xs:leading-[1.875] py-4 text-4 leading-relaxed md:text-5">
+    We use code to bring ideas to life as products, meanwhile the font we choose
+    shapes how we experience that journey.
+    <br />
+    <b class="font-600"><i>Maple Mono</i></b>
+    {' '}
+    is crafted for programmer, delivering a subtle elegance that makes every line
+    of code a joy to read and write.
+  </p>
+  <div class="flex flex-wrap items-center justify-start gap-6">
+    <Button as="a" href="#why" size="lg">
+      Learn More
+      <div class="i-lucide-arrow-down ml-2"></div>
+    </Button>
+    <Button as="a" size="lg" href="/download#custom" variant="outline">
+      Try it now
+      <div class="i-lucide-arrow-right ml-2"></div>
+    </Button>
   </div>
 </Section>

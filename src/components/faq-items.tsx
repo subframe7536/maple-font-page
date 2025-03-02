@@ -19,10 +19,10 @@ export default function FaqItems(props: Props) {
       <For each={props.faqs}>
         {(item, idx) => (
           <AccordionItem value={`item-${idx()}`} class="my-2">
-            <AccordionTrigger class="text-(left primary) font-semibold">
+            <AccordionTrigger class="text-left font-semibold">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent>{item.answer}</AccordionContent>
+            <AccordionContent class="leading-relaxed">{item.answer}</AccordionContent>
           </AccordionItem>
         )}
       </For>

@@ -36,32 +36,29 @@ const credits: { link: string | string[], content: string | string[], reason: st
 ] as const
 ---
 
-<Section id="credits" class="py-20">
-  <div class="mx-auto px-4 container">
-    <h2 class="mb-4 text-(center 4xl accent) font-bold">Credits</h2>
-    <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
-      Maple Mono standing on the shoulders of giants. Huge thanks to these projects:
-    </p>
-    <div class="mx-auto max-w-2xl text-center">
-      {credits.map(({ content, link, reason }) => {
-        if (!Array.isArray(content)) {
-          content = [content]
-        }
-        if (!Array.isArray(link)) {
-          link = [link]
-        }
-        return (
-          <div class="my-12 flex flex-col items-center">
-            <div class="mb-2 text-lg font-(medium italic)">{reason}</div>
-            {content.map((c, idx) => (
-              <Button as="a" variant="link" href={link[idx]} target="_blank">
-                {c}
-                <span class="i-lucide-external-link ml-1"></span>
-              </Button>
-            ))}
-          </div>
-        )
-      })}
-    </div>
+<Section id="credits" class="py-20" title="Credits">
+  <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
+    Maple Mono standing on the shoulders of giants. Huge thanks to these projects:
+  </p>
+  <div class="mx-auto max-w-2xl text-center">
+    {credits.map(({ content, link, reason }) => {
+      if (!Array.isArray(content)) {
+        content = [content]
+      }
+      if (!Array.isArray(link)) {
+        link = [link]
+      }
+      return (
+        <div class="my-12 flex flex-col items-center">
+          <div class="mb-2 text-lg c-primary font-(medium italic)">{reason}</div>
+          {content.map((c, idx) => (
+            <Button as="a" variant="link" href={link[idx]} target="_blank">
+              {c}
+              <span class="i-lucide-external-link ml-1 c-secondary"></span>
+            </Button>
+          ))}
+        </div>
+      )
+    })}
   </div>
 </Section>

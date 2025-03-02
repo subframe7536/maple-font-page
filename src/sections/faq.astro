@@ -31,16 +31,11 @@ const faqs = [
 ]
 ---
 
-<Section id="faq" class="py-20">
-  <div class="mx-auto px-4 container">
-    <h2 class="mb-4 text-(center 4xl accent) font-bold">
-      Frequently Asked Questions
-    </h2>
-    <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
-      Everything you need to know about Maple Mono
-    </p>
-    <div class="mx-auto max-w-2xl rounded-xl p-6 shadow-sm">
-      <FaqItems client:load faqs={faqs} />
-    </div>
+<Section id="faq" class="py-20" title="FAQ">
+  <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
+    Everything you need to know about Maple Mono
+  </p>
+  <div class="mx-auto max-w-2xl rounded-xl p-6 shadow-sm">
+    <FaqItems client:load faqs={faqs} />
   </div>
 </Section>

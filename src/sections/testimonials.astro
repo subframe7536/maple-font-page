@@ -30,16 +30,13 @@ const testimonials = [
 ] as const
 ---
 
-<Section id="testimonials" class="py-20">
-  <div class="mx-auto px-4 container">
-    <h2 class="mb-4 text-(center 4xl accent) font-bold">What People Say</h2>
-    <p class="mx-auto mb-12 max-w-2xl text-center text-foreground/80">
-      Join thousands of developers who have already fallen in love with Maple Mono
-    </p>
-    <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
-      {testimonials.map(testimonial => (
-        <TestimonialCard {...testimonial} />
-      ))}
-    </div>
+<Section id="testimonials" class="py-20" title="What people says">
+  <p class="mx-auto mb-12 max-w-2xl text-center text-foreground/80">
+    Join thousands of developers who have already fallen in love with Maple Mono
+  </p>
+  <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
+    {testimonials.map(testimonial => (
+      <TestimonialCard {...testimonial} />
+    ))}
   </div>
 </Section>

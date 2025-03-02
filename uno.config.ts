@@ -9,7 +9,7 @@ import {
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
 
-import { myGhCdnPrefix } from './src/cdn'
+import { myGhCdnPrefix, themeJsonURL } from './src/cdn'
 
 const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'
 const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
@@ -55,7 +55,7 @@ const presetMaple: Preset = {
     {
       getCSS: () => {
         const getSrc = (isItalic?: boolean) => [
-          `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2')`,
+          `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2-variations')`,
           'local("Maple Mono")',
           'local("Maple Mono NF")',
           'local("Maple Mono NF CN")',
@@ -69,10 +69,9 @@ const presetMaple: Preset = {
             font-style: ${isItalic ? 'italic' : 'normal'};
           }
         `
-        // font size: https://clamp.font-size.app/?config=eyJyb290IjoiMTYiLCJtaW5XaWR0aCI6IjM3NXB4IiwibWF4V2lkdGgiOiIzODQwcHgiLCJtaW5Gb250U2l6ZSI6IjE2cHgiLCJtYXhGb250U2l6ZSI6IjI0cHgifQ%3D%3D
+
         return `
           html {
-            font-size: clamp(1rem, 0.9459rem + 0.2309vw, 1.5rem);
             --ff: MapleMono, monospace;
           }
           body {
@@ -86,7 +85,57 @@ const presetMaple: Preset = {
   ],
 }
 
+function hue2rgb(p: number, q: number, t: number) {
+  if (t < 0) {
+    t += 1
+  }
+  if (t > 1) {
+    t -= 1
+  }
+  if (t < 1 / 6) {
+    return p + (q - p) * 6 * t
+  }
+  if (t < 1 / 2) {
+    return q
+  }
+  if (t < 2 / 3) {
+    return p + (q - p) * (2 / 3 - t) * 6
+  }
+  return p
+}
+
+function hslToRgb(hslString: string): string {
+  if (!hslString.startsWith('hsl(') || !hslString.endsWith(')')) {
+    return hslString
+  }
+  let [h, s, l] = hslString
+    .slice(4, -1)
+    .split(' ')
+    .map(str => str.endsWith('%') ? Number(str.slice(0, -1)) / 100 : Number(str) / 360)
+
+  let r, g, b
+
+  if (s === 0) {
+    r = g = b = l // achromatic
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+    const p = 2 * l - q
+    r = hue2rgb(p, q, h + 1 / 3)
+    g = hue2rgb(p, q, h)
+    b = hue2rgb(p, q, h - 1 / 3)
+  }
+
+  return `rgb(${Math.round(r * 255)} ${Math.round(g * 255)} ${Math.round(b * 255)})`
+}
+
 const radius = '0.5rem'
+
+function accessDefault(themeColor: string | { DEFAULT?: string }): string {
+  if (typeof themeColor === 'string') {
+    return themeColor
+  }
+  return themeColor.DEFAULT || 'none'
+}
 
 export default defineConfig<PresetUnoTheme>({
   presets: [
@@ -97,7 +146,16 @@ export default defineConfig<PresetUnoTheme>({
     presetIcons({
       scale: 1.2,
     }),
-    presetTypography(),
+    presetTypography({
+      cssExtend: ({ colors }) => {
+        const { primary } = colors || {}
+        return {
+          'strong, em': {
+            color: accessDefault(primary),
+          },
+        }
+      },
+    }),
     // presetWebFonts({
     //   provider: 'fontsource',
     //   fonts: {
@@ -109,36 +167,36 @@ export default defineConfig<PresetUnoTheme>({
   shortcuts: [
     ['effect-fv', 'outline-none ring-1.5 ring-ring ring-offset-(2 background)'],
     ['effect-dis', 'pointer-events-none opacity-50 cursor-not-allowed'],
-    ['animated-underline', 'relative decoration-none before:(content-empty bg-foreground absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
+    ['animated-underline', 'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
     ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)'],
     [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
   ],
   theme: {
     colors: {
-      border: 'hsl(208 64% 74%)',
+      border: 'hsl(212 64% 80%)',
       input: 'hsl(212 80% 60%)',
       background: 'hsl(212 30% 22%)',
-      ring: 'hsl(213 27% 84%)',
-      foreground: 'hsl(208 50% 90%)',
+      ring: 'hsl(212 27% 84%)',
+      foreground: 'hsl(202 50% 90%)',
       primary: {
-        DEFAULT: 'hsl(208 64% 74%)',
-        foreground: 'hsl(208 47% 12%)',
+        DEFAULT: 'hsl(202 64% 80%)',
+        foreground: 'hsl(202 47% 12%)',
       },
       secondary: {
         DEFAULT: 'hsl(140 32% 80%)',
         foreground: 'hsl(140 40% 20%)',
       },
-      destructive: {
-        DEFAULT: 'hsl(0 63% 30%)',
-        foreground: 'hsl(210 40% 98%)',
-      },
+      // destructive: {
+      //   DEFAULT: 'hsl(0 63% 30%)',
+      //   foreground: 'hsl(212 40% 98%)',
+      // },
       muted: {
-        DEFAULT: 'hsl(217 33% 18%)',
-        foreground: 'hsl(215 20% 65%)',
+        DEFAULT: 'hsl(202 33% 18%)',
+        foreground: 'hsl(202 20% 65%)',
       },
       accent: {
         DEFAULT: 'hsl(32 90% 85%)',
-        foreground: 'hsl(217 33% 18%)',
+        foreground: 'hsl(202 33% 18%)',
       },
     },
     borderRadius: {
@@ -164,6 +222,20 @@ export default defineConfig<PresetUnoTheme>({
         'accordion-up': '0.3s',
       },
     },
+  },
+  extendTheme: (theme) => {
+    theme.breakpoints!.xs = '425px'
+    for (const [key, val] of Object.entries(theme.colors!)) {
+      if (typeof val === 'string') {
+        theme.colors![key] = hslToRgb(val)
+      }
+      if (typeof val === 'object' && val.DEFAULT?.startsWith('hsl')) {
+        for (const [k, v] of Object.entries(val)) {
+          // @ts-expect-error fxxk
+          theme.colors![key][k] = hslToRgb(v)
+        }
+      }
+    }
   },
   transformers: [
     transformerVariantGroup(),

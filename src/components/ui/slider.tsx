@@ -29,7 +29,7 @@ function SliderTrack<T extends ValidComponent = 'div'>(props: PolymorphicProps<T
   const [local, others] = splitProps(props as SliderTrackProps, ['class'])
   return (
     <SliderPrimitive.Track
-      class={cls('relative h-2 w-full grow rounded-full bg-secondary', local.class)}
+      class={cls('relative h-2 w-full grow rounded-full bg-primary/50', local.class)}
       {...others}
     />
   )
@@ -59,7 +59,7 @@ function SliderThumb<T extends ValidComponent = 'span'>(props: PolymorphicProps<
   return (
     <SliderPrimitive.Thumb
       class={cls(
-        'top--6px block size-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:effect-fv disabled:effect-dis',
+        'top--6px block size-5 rounded-full b-(2 secondary) bg-background transition-colors focus-visible:effect-fv disabled:effect-dis',
         local.class,
       )}
       {...others}

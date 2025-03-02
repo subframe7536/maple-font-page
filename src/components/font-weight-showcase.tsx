@@ -19,7 +19,7 @@ export default function FontWeightShowcase() {
         maxValue={800}
         value={[fontWeight()]}
         onChange={([val]) => setFontWeight(val)}
-        class="w-full space-y-2"
+        class="!w-70% space-y-2"
       >
         <div class="w-full flex justify-between">
           <SliderLabel>Weight</SliderLabel>
@@ -31,7 +31,7 @@ export default function FontWeightShowcase() {
         </SliderTrack>
       </Slider>
       <div
-        class="mt-4 text-6xl"
+        class="mt-4 text-6xl c-accent"
         style={{ 'font-weight': fontWeight() }}
       >
         Showcase Font
