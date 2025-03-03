@@ -22,7 +22,7 @@ const platformColors: Record<Props['platform'], string> = {
 }
 ---
 
-<div class={`p-6 rounded-xl b-2 ${platformColors[platform]} hover:scale-102 transition-transform`}>
+<div class={`p-6 rounded-xl b-2 ${platformColors[platform]}`}>
   <div class="mb-4 flex items-center gap-2">
     <div class={`${platformIcons[platform]} text-xl`}></div>
     <span class="font-medium">{author}</span>

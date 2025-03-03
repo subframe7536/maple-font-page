@@ -30,10 +30,38 @@ const testimonials = [
   <p class="mx-auto mb-8 max-w-2xl text-foreground/80">
     Join thousands of developers who have already fallen in love with Maple Mono
   </p>
-  <!-- todo)) cards in overlap style -->
-  <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
-    {testimonials.map(testimonial => (
-      <TestimonialCard {...testimonial} />
-    ))}
+
+  {/* Carousel container with overflow hidden */}
+  <div class="relative mx-auto max-w-4xl overflow-hidden">
+    {/* Inner sliding container */}
+    <style>
+      .carousel-track {
+        animation: scroll 20s linear infinite;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Pause animation on hover */
+      .carousel-track:hover {
+        animation-play-state: paused;
+      }
+    </style>
+    <div class="carousel-track animate- flex gap-6">
+      {/* Double the testimonials array for seamless loop */}
+      {[...testimonials, ...testimonials].map(testimonial => (
+        <div
+          class="testimonial-card min-w-[calc(50%-12px)] w-full transition-all duration-500 md:w-[calc(50%-12px)] hover:scale-105"
+        >
+          <TestimonialCard {...testimonial} />
+        </div>
+      ))}
+    </div>
   </div>
 </Section>
