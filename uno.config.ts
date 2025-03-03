@@ -9,7 +9,7 @@ import {
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
 
-import { myGhCdnPrefix, themeJsonURL } from './src/cdn'
+import { myGhCdnPrefix } from './src/cdn'
 
 const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'
 const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
@@ -186,10 +186,6 @@ export default defineConfig<PresetUnoTheme>({
         DEFAULT: 'hsl(140 32% 80%)',
         foreground: 'hsl(140 40% 20%)',
       },
-      // destructive: {
-      //   DEFAULT: 'hsl(0 63% 30%)',
-      //   foreground: 'hsl(212 40% 98%)',
-      // },
       muted: {
         DEFAULT: 'hsl(202 33% 18%)',
         foreground: 'hsl(202 20% 65%)',

@@ -1,0 +1,36 @@
+---
+import { Button } from './ui/button'
+
+interface Props {
+  data: {
+    title: string
+    links: [name: string, href: string][]
+  }
+}
+
+const { title, links } = Astro.props.data
+---
+
+<div
+  class="flex flex-col"
+>
+  <div class="mb-3 text-lg c-primary font-(medium italic)">
+    {title}
+  </div>
+  <div class="flex flex-col gap-2">
+    {
+      links.map(([name, href]) => (
+        <Button
+          as="a"
+          variant="link"
+          href={href}
+          target="_blank"
+          class="ml--4 w-fit"
+        >
+          {name}
+          <span class="i-lucide-external-link ml-1 c-secondary/80" />
+        </Button>
+      ))
+    }
+  </div>
+</div>

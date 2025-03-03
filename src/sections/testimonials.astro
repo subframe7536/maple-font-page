@@ -7,33 +7,30 @@ const testimonials = [
     content: 'Finally found my perfect coding font! The ligatures and rounded corners make my code look beautiful while maintaining excellent readability. The variable font weight is a game changer.',
     author: '@devCoder',
     platform: 'twitter',
-    date: 'Mar 15, 2024',
   },
   {
     content: 'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
     author: 'TechEnthusiast',
     platform: 'discord',
-    date: 'Mar 12, 2024',
   },
   {
     content: 'The italic style is so unique and pleasant to look at. Perfect balance between aesthetics and functionality. Highly recommend for anyone looking for a fresh coding font.',
     author: 'CodeArtist',
     platform: 'v2ex',
-    date: 'Mar 10, 2024',
   },
   {
     content: 'Love how the font handles special characters and ligatures. The attention to detail in each glyph is impressive. This has become my daily driver for coding.',
     author: 'SyntaxMaster',
     platform: 'github',
-    date: 'Mar 8, 2024',
   },
 ] as const
 ---
 
 <Section id="testimonials" class="py-20" title="What people says">
-  <p class="mx-auto mb-12 max-w-2xl text-center text-foreground/80">
+  <p class="mx-auto mb-8 max-w-2xl text-foreground/80">
     Join thousands of developers who have already fallen in love with Maple Mono
   </p>
+  <!-- todo)) cards in overlap style -->
   <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
     {testimonials.map(testimonial => (
       <TestimonialCard {...testimonial} />

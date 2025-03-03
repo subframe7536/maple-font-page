@@ -1,64 +1,79 @@
 ---
+import CreditCard from '../components/credit-card.astro'
 import Section from '../components/section.astro'
-import { Button } from '../components/ui/button'
 
-const credits: { link: string | string[], content: string | string[], reason: string }[] = [
+const data: { title: string, links: [name: string, href: string][] }[] = [
   {
-    link: 'https://github.com/JetBrains/JetBrainsMono',
-    content: 'JetBrains Mono',
-    reason: 'Everything based on',
+    title: 'Base font',
+    links: [['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono']],
   },
   {
-    link: ['https://github.com/tonsky/FiraCode', 'https://rubjo.github.io/victor-mono/', 'https://github.com/googlefonts/RobotoMono', 'http://be5invis.github.io/Iosevka', 'https://github.com/eigilnikolajsen/commit-mono', 'https://monolisa.dev', 'https://monaspace.githubnext.com/'],
-    content: ['Fira Code', 'Victor Mono', 'Roboto Mono', 'Iosevka', 'Commit Mono', 'Monolisa', 'Monaspace'],
-    reason: 'Glyphs and ligatures inspiration',
+    title: 'Icon integration',
+    links: [['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts']],
   },
   {
-    link: 'https://github.com/ryanoasis/nerd-fonts',
-    content: 'Nerd Fonts',
-    reason: 'Icon integration',
+    title: 'Part of CN glyphs',
+    links: [
+      [
+        'Resource Han Rounded',
+        'https://github.com/CyanoHao/Resource-Han-Rounded',
+      ],
+    ],
   },
   {
-    link: 'https://github.com/CyanoHao/Resource-Han-Rounded',
-    content: 'Resource Han Rounded',
-    reason: 'Part of CN glyphs',
+    title: 'Glyphs inspiration',
+    links: [
+      ['Commit Mono', 'https://github.com/eigilnikolajsen/commit-mono'],
+      ['Fira Code', 'https://github.com/tonsky/FiraCode'],
+      ['Iosevka', 'http://be5invis.github.io/Iosevka'],
+      ['Monaspace', 'https://monaspace.githubnext.com/'],
+      ['Monolisa', 'https://monolisa.dev'],
+      ['Roboto Mono', 'https://github.com/googlefonts/RobotoMono'],
+      ['Recursive', 'https://www.recursive.design/'],
+      ['Victor Mono', 'https://rubjo.github.io/victor-mono/'],
+    ],
   },
   {
-    link: ['https://github.com/fonttools/fonttools', 'https://github.com/ftCLI/FoundryTools-CLI', 'https://pyodide.org/en/stable/index.html'],
-    content: ['Fonttools', 'FoundryTools-CLI', 'Pyodide'],
-    reason: 'Ability to build font',
+    title: 'Font build tools',
+    links: [
+      ['Fonttools', 'https://github.com/fonttools/fonttools'],
+      ['FoundryTools-CLI', 'https://github.com/ftCLI/FoundryTools-CLI'],
+      ['Pyodide', 'https://pyodide.org/en/stable/index.html'],
+    ],
   },
   {
-    link: ['https://astro.build', 'https://solidjs.com', 'https://unocss.dev'],
-    content: ['Astro', 'SolidJS', 'UnoCSS'],
-    reason: 'Website framework',
+    title: 'Website framework',
+    links: [
+      ['Astro', 'https://astro.build'],
+      ['SolidJS', 'https://solidjs.com'],
+      ['UnoCSS', 'https://unocss.dev'],
+    ],
   },
-] as const
+]
 ---
 
 <Section id="credits" class="py-20" title="Credits">
-  <p class="mx-auto mb-12 max-w-2xl text-(center foreground/80)">
-    Maple Mono standing on the shoulders of giants. Huge thanks to these projects:
+  <p class="mb-8 max-w-4xl text-foreground/80 md:mb-12">
+    Maple Mono standing on the shoulders of giants.
   </p>
-  <div class="mx-auto max-w-2xl text-center">
-    {credits.map(({ content, link, reason }) => {
-      if (!Array.isArray(content)) {
-        content = [content]
-      }
-      if (!Array.isArray(link)) {
-        link = [link]
-      }
-      return (
-        <div class="my-12 flex flex-col items-center">
-          <div class="mb-2 text-lg c-primary font-(medium italic)">{reason}</div>
-          {content.map((c, idx) => (
-            <Button as="a" variant="link" href={link[idx]} target="_blank">
-              {c}
-              <span class="i-lucide-external-link ml-1 c-secondary"></span>
-            </Button>
-          ))}
-        </div>
-      )
-    })}
+  <div class="grid grid-cols-1 w-full gap-4 md:grid-cols-3 sm:grid-cols-2 *:min-w-18">
+    <div class="row-span-1 md:row-span-2">
+      <CreditCard data={data[0]} />
+    </div>
+    <div class="row-span-1 md:(row-span-2 col-start-1 row-start-3)">
+      <CreditCard data={data[1]} />
+    </div>
+    <div class="row-span-1 md:(row-span-2 col-start-1 row-start-5)">
+      <CreditCard data={data[2]} />
+    </div>
+    <div class="row-span-2 md:(row-span-6 col-start-2 row-start-1)">
+      <CreditCard data={data[3]} />
+    </div>
+    <div class="row-span-1 md:(row-span-3 col-start-3 row-start-1)">
+      <CreditCard data={data[4]} />
+    </div>
+    <div class="row-span-1 md:(row-span-3 col-start-3 row-start-4)">
+      <CreditCard data={data[5]} />
+    </div>
   </div>
 </Section>
