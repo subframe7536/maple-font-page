@@ -31,13 +31,13 @@ export const buttonVariants = clsvDefault(
   },
 )
 
-type buttonProps<T extends ValidComponent = 'button'> = ButtonRootProps<T> &
+type ButtonProps<T extends ValidComponent = 'button'> = ButtonRootProps<T> &
   VariantProps<typeof buttonVariants> & {
     class?: string
   }
 
-export function Button<T extends ValidComponent = 'button'>(props: PolymorphicProps<T, buttonProps<T>>) {
-  const [local, rest] = splitProps(props as buttonProps, [
+function Button<T extends ValidComponent = 'button'>(props: PolymorphicProps<T, ButtonProps<T>>) {
+  const [local, rest] = splitProps(props as ButtonProps, [
     'class',
     'variant',
     'size',
@@ -56,3 +56,5 @@ export function Button<T extends ValidComponent = 'button'>(props: PolymorphicPr
     />
   )
 }
+
+export { Button, type ButtonProps }

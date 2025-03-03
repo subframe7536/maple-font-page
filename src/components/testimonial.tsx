@@ -1,0 +1,95 @@
+import type { CarouselApi } from './ui/carousel'
+
+import { cls } from 'cls-variant'
+import Autoplay from 'embla-carousel-autoplay'
+import { createEffect, createSignal, Index } from 'solid-js'
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from './ui/carousel'
+
+interface ItemData {
+  content: string
+  author: string
+  platform: string
+}
+
+interface Props {
+  class?: string
+  items: ItemData[]
+}
+
+type API = Exclude<ReturnType<CarouselApi>, undefined>
+
+function TestimonialItem(props: ItemData) {
+  return (
+    <div class="flex flex-col items-center justify-center gap-8 text-center md:(flex-row justify-between text-left)">
+      <div class="flex flex-row items-center gap-4">
+        <div class="size-20 rounded-full bg-primary text-(center 12) c-background leading-[5rem]">{props.author[0].toUpperCase()}</div>
+        <div class="flex flex-col items-start gap-1">
+          <div class="text-accent font-medium">{props.author}</div>
+          <div class="text-sm c-primary/50">{props.platform}</div>
+        </div>
+      </div>
+      <blockquote class="max-w-xl p-4 text-lg font-light leading-relaxed md:mb-0">
+        "{props.content}"
+      </blockquote>
+    </div>
+  )
+}
+
+export function TestimonialBanner(props: Props) {
+  const [api, setApi] = createSignal<API | undefined>()
+  // eslint-disable-next-line solid/reactivity
+  const [selectedIndex, setSelectedIndex] = createSignal(props.items.length)
+  const updateIndex = (a: API) => {
+    console.log(a.selectedScrollSnap())
+    setSelectedIndex(a.selectedScrollSnap())
+  }
+  createEffect(() => {
+    const inner = api()
+    if (!inner) {
+      return
+    }
+    updateIndex(inner)
+    inner.on('reInit', updateIndex).on('select', updateIndex)
+  })
+  return (
+    <Carousel
+      class={props.class}
+      plugins={[Autoplay({
+        delay: 5000,
+        playOnInit: true,
+        stopOnMouseEnter: true,
+        stopOnInteraction: false,
+      })]}
+      // opts={}
+      setApi={setApi}
+    >
+      <CarouselContent>
+        <Index each={props.items}>
+          {item => (
+            <CarouselItem>
+              <TestimonialItem {...item()} />
+            </CarouselItem>
+          )}
+        </Index>
+      </CarouselContent>
+      <div class="mt-2 flex justify-center">
+        <Index each={Array.from({ length: props.items.length })}>
+          {(_, i) => (
+            <div
+              class={cls(
+                'm-1 size-2 cursor-pointer rounded-full transition-background-color-500',
+                selectedIndex() === i ? 'bg-secondary' : 'bg-secondary/50',
+              )}
+              onClick={() => api()?.scrollTo(i)}
+            />
+          )}
+        </Index>
+      </div>
+    </Carousel>
+  )
+}

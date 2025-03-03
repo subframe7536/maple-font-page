@@ -1,67 +1,43 @@
 ---
 import Section from '../components/section.astro'
-import TestimonialCard from '../components/testimonial-card.astro'
+import { TestimonialBanner } from '../components/testimonial'
 
 const testimonials = [
   {
-    content: 'Finally found my perfect coding font! The ligatures and rounded corners make my code look beautiful while maintaining excellent readability. The variable font weight is a game changer.',
+    content:
+      'Finally found my perfect coding font! The ligatures and rounded corners make my code look beautiful while maintaining excellent readability. The variable font weight is a game changer.',
     author: '@devCoder',
     platform: 'twitter',
   },
   {
-    content: 'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
+    content:
+      'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
     author: 'TechEnthusiast',
     platform: 'discord',
   },
   {
-    content: 'The italic style is so unique and pleasant to look at. Perfect balance between aesthetics and functionality. Highly recommend for anyone looking for a fresh coding font.',
+    content:
+      'The italic style is so unique and pleasant to look at. Perfect balance between aesthetics and functionality. Highly recommend for anyone looking for a fresh coding font.',
     author: 'CodeArtist',
     platform: 'v2ex',
   },
   {
-    content: 'Love how the font handles special characters and ligatures. The attention to detail in each glyph is impressive. This has become my daily driver for coding.',
+    content:
+      'Love how the font handles special characters and ligatures. The attention to detail in each glyph is impressive. This has become my daily driver for coding.',
     author: 'SyntaxMaster',
     platform: 'github',
   },
-] as const
+]
 ---
 
-<Section id="testimonials" class="py-20" title="What people says">
-  <p class="mx-auto mb-8 max-w-2xl text-foreground/80">
+<Section id="testimonials" title="What people says">
+  <p class="mb-8 text-foreground/80">
     Join thousands of developers who have already fallen in love with Maple Mono
   </p>
-
-  {/* Carousel container with overflow hidden */}
-  <div class="relative mx-auto max-w-4xl overflow-hidden">
-    {/* Inner sliding container */}
-    <style>
-      .carousel-track {
-        animation: scroll 20s linear infinite;
-      }
-
-      @keyframes scroll {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
-
-      /* Pause animation on hover */
-      .carousel-track:hover {
-        animation-play-state: paused;
-      }
-    </style>
-    <div class="carousel-track animate- flex gap-6">
-      {/* Double the testimonials array for seamless loop */}
-      {[...testimonials, ...testimonials].map(testimonial => (
-        <div
-          class="testimonial-card min-w-[calc(50%-12px)] w-full transition-all duration-500 md:w-[calc(50%-12px)] hover:scale-105"
-        >
-          <TestimonialCard {...testimonial} />
-        </div>
-      ))}
-    </div>
+  <div class="relative mx-auto overflow-hidden">
+    <TestimonialBanner
+      client:load
+      items={testimonials}
+    />
   </div>
 </Section>
