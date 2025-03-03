@@ -25,16 +25,20 @@ type API = Exclude<ReturnType<CarouselApi>, undefined>
 
 function TestimonialItem(props: ItemData) {
   return (
-    <div class="flex flex-col items-center justify-center gap-8 text-center md:(flex-row justify-between text-left)">
+    <div class="flex flex-col items-center justify-center gap-2 text-center md:(flex-row justify-between text-left)">
       <div class="flex flex-row items-center gap-4">
-        <div class="size-20 rounded-full bg-primary text-(center 12) c-background leading-[5rem]">{props.author[0].toUpperCase()}</div>
+        <div class="size-16 rounded-full bg-primary text-(center 10) c-background leading-[4rem] md:(size-20 text-12 leading-[5rem])">{props.author[0].toUpperCase()}</div>
         <div class="flex flex-col items-start gap-1">
           <div class="text-accent font-medium">{props.author}</div>
           <div class="text-sm c-primary/50">{props.platform}</div>
         </div>
       </div>
-      <blockquote class="max-w-xl p-4 text-lg font-light leading-relaxed md:mb-0">
-        "{props.content}"
+      <blockquote class="relative max-w-xl p-4 text-lg font-light leading-relaxed md:(mb-0 mr-8)">
+        <span class="absolute left--2 top--4 text-4xl c-primary/50">&#x250F</span>
+        <span class="ml-4 inline-block">
+          {props.content}
+        </span>
+        <span class="absolute bottom--4 right--2 text-4xl c-primary/50">&#x251B</span>
       </blockquote>
     </div>
   )
@@ -77,7 +81,7 @@ export function TestimonialBanner(props: Props) {
           )}
         </Index>
       </CarouselContent>
-      <div class="mt-2 flex justify-center">
+      <div class="mt-4 flex justify-center">
         <Index each={Array.from({ length: props.items.length })}>
           {(_, i) => (
             <div
