@@ -1,28 +1,13 @@
 ---
 import ComparsionTabs from '../components/comparison-tabs'
 import Section from '../components/section.astro'
-
-const fonts = [
-  {
-    name: 'JetBrains Mono',
-    fontClass: 'font-jetbrains',
-  },
-  {
-    name: 'Fira Code',
-    fontClass: 'font-fira',
-  },
-  {
-    name: 'Consolas',
-    fontClass: 'font-consolas',
-  },
-]
 ---
-<!-- todo)) -->
+
 <Section id="comparison" class="py-20" title="Comparison">
   <p class="mx-auto mb-8 text-foreground/80">
     See how Maple Mono compares to other popular programming fonts
   </p>
   <div class="grid mx-auto max-w-5xl gap-8">
-    <ComparsionTabs client:load items={fonts} class="w-400px" />
+    <ComparsionTabs client:load class="w-400px" />
   </div>
 </Section>

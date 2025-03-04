@@ -40,6 +40,8 @@ const features = [
   'ss08',
 ] as const
 
+const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
+
 const presetMaple: Preset = {
   name: 'maple',
   rules: [
@@ -72,7 +74,8 @@ const presetMaple: Preset = {
 
         return `
           html {
-            --ff: MapleMono, monospace;
+            --ff: MapleMono;
+            font-family: var(--ff), ${fallbackFamily};
           }
           body {
             --liga: ${features.map(fea => `"${fea}" var(--fea-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
@@ -156,12 +159,6 @@ export default defineConfig<PresetUnoTheme>({
         }
       },
     }),
-    // presetWebFonts({
-    //   provider: 'fontsource',
-    //   fonts: {
-    //     maple: 'MapleMono, Monaco, "DejaVu Sans Mono", "Lucida Console", consolas, monospace',
-    //   },
-    // }),
     presetInView(),
   ],
   shortcuts: [

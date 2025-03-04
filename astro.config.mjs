@@ -7,7 +7,11 @@ import { defineConfig } from 'astro/config'
 export default defineConfig({
   site: 'https://font.subf.dev',
   integrations: [
-    unocss({ injectReset: true }),
+    unocss({
+      injectReset: true,
+      injectEntry: import.meta.env.DEV,
+      mode: 'dist-chunk',
+    }),
     solidJs(),
     sitemap(),
   ],

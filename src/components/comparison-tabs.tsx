@@ -3,26 +3,32 @@ import { For } from 'solid-js'
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from './ui/tabs'
 
 interface Props {
-  items: {
-    fontClass: string
-    name: string
-  }[]
   class?: string
 }
+
+const families = [
+  'JetBrains Mono',
+  'Fira Code',
+  'Cascadia Code',
+]
 
 export default function ComparsionTabs(props: Props) {
   return (
     <Tabs class={props.class}>
       <TabsList>
-        <For each={props.items}>
-          {item => <TabsTrigger value={item.fontClass}>{item.name}</TabsTrigger>}
+        <For each={families}>
+          {item => <TabsTrigger value={item}>{item}</TabsTrigger>}
         </For>
         <TabsIndicator />
       </TabsList>
-      <For each={props.items}>
+      <For each={families}>
         {item => (
-          <TabsContent value={item.fontClass} class={item.fontClass}>
-            {item.name}: your final coding flow
+          <TabsContent
+            value={item}
+            class="text-(center 4xl) leading-loose"
+            style={{ '--ff': item }}
+          >
+            Your Final Typeface For You Code
           </TabsContent>
         )}
       </For>
