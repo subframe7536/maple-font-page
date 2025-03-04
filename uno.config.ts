@@ -49,7 +49,7 @@ const presetMaple: Preset = {
       'font-liga',
       {
         'font-feature-settings': 'var(--liga)',
-        'font-family': 'var(--ff)',
+        'font-family': `var(--ff), ${fallbackFamily}`,
       },
     ],
   ],
@@ -75,7 +75,7 @@ const presetMaple: Preset = {
         return `
           html {
             --ff: MapleMono;
-            font-family: var(--ff), ${fallbackFamily};
+            font-family: ${fallbackFamily};
           }
           body {
             --liga: ${features.map(fea => `"${fea}" var(--fea-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
@@ -171,7 +171,7 @@ export default defineConfig<PresetUnoTheme>({
   theme: {
     colors: {
       border: 'hsl(212 64% 80%)',
-      input: 'hsl(212 80% 60%)',
+      input: 'hsl(212 36% 55%)',
       background: 'hsl(212 30% 22%)',
       ring: 'hsl(212 27% 84%)',
       foreground: 'hsl(202 50% 90%)',
@@ -184,7 +184,7 @@ export default defineConfig<PresetUnoTheme>({
         foreground: 'hsl(140 40% 20%)',
       },
       muted: {
-        DEFAULT: 'hsl(202 33% 18%)',
+        DEFAULT: 'hsl(202 33% 14%)',
         foreground: 'hsl(202 20% 65%)',
       },
       accent: {

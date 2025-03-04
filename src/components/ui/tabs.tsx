@@ -37,7 +37,7 @@ export function TabsList<T extends ValidComponent = 'div'>(props: PolymorphicPro
   return (
     <TabsPrimitive.List
       class={cls(
-        'relative flex rounded-lg bg-muted p-1 text-muted-foreground data-[orientation=vertical]:(flex-col items-stretch) data-[orientation=horizontal]:items-center w-full',
+        'relative flex rounded-lg bg-muted p-1 text-muted-foreground data-[orientation=vertical]:(flex-col items-stretch) data-[orientation=horizontal]:items-center',
         local.class,
       )}
       {...rest}
@@ -75,7 +75,7 @@ export function TabsTrigger<T extends ValidComponent = 'button'>(props: Polymorp
   return (
     <TabsPrimitive.Trigger
       class={cls(
-        'w-full relative z-10 inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-colors disabled:effect-dis data-[selected]:text-foreground peer h-7 outline-none',
+        'min-w-12 relative z-10 whitespace-nowrap overflow-x-hidden text-ellipsis rounded-md px-3 py-1 text-sm transition-colors disabled:effect-dis data-[selected]:(text-foreground font-600) peer h-7 outline-none',
         local.class,
       )}
       {...rest}

@@ -85,7 +85,7 @@ export function TestimonialBanner(props: Props) {
             <div
               class={cls(
                 'm-1 size-2 cursor-pointer rounded-full transition-background-color-500',
-                selectedIndex() === i ? 'bg-secondary' : 'bg-secondary/50',
+                selectedIndex() === i ? 'bg-secondary' : 'bg-secondary/40',
               )}
               onClick={() => api()?.scrollTo(i)}
             />
