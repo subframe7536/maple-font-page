@@ -1,40 +1,23 @@
-import { createSignal } from 'solid-js'
+import { createMemo, For } from 'solid-js'
 
-import {
-  Slider,
-  SliderFill,
-  SliderLabel,
-  SliderThumb,
-  SliderTrack,
-  SliderValueLabel,
-} from './ui/slider'
-
-export default function FontWeightShowcase() {
-  const [fontWeight, setFontWeight] = createSignal(400)
+export default function FontWeightShowcase(props: { animateText: string }) {
+  const chars = createMemo(() => props.animateText.split(''))
 
   return (
     <div class="w-80% flex flex-col items-center">
-      <Slider
-        minValue={200}
-        maxValue={800}
-        value={[fontWeight()]}
-        onChange={([val]) => setFontWeight(val)}
-        class="!w-70% space-y-2"
-      >
-        <div class="w-full flex justify-between">
-          <SliderLabel>Weight</SliderLabel>
-          <SliderValueLabel>{fontWeight()}</SliderValueLabel>
-        </div>
-        <SliderTrack>
-          <SliderFill />
-          <SliderThumb />
-        </SliderTrack>
-      </Slider>
-      <div
-        class="mt-4 text-6xl c-accent"
-        style={{ 'font-weight': fontWeight() }}
-      >
-        Showcase Font
+      <div class="mt-4 flex text-6xl c-accent">
+        <For each={chars()}>
+          {(char, index) => (
+            <span
+              class="animate-wave-weight font-200"
+              style={{
+                'animation-delay': `${index() * 0.2}s`,
+              }}
+            >
+              {char}
+            </span>
+          )}
+        </For>
       </div>
     </div>
   )

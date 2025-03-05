@@ -75,7 +75,7 @@ export function TabsTrigger<T extends ValidComponent = 'button'>(props: Polymorp
   return (
     <TabsPrimitive.Trigger
       class={cls(
-        'min-w-12 relative z-10 whitespace-nowrap overflow-x-hidden text-ellipsis rounded-md px-3 py-1 text-sm transition-colors disabled:effect-dis data-[selected]:(text-foreground font-600) peer h-7 outline-none',
+        'min-w-12 w-full relative z-10 whitespace-nowrap overflow-x-hidden text-ellipsis rounded-md px-3 py-1 text-sm transition-colors disabled:effect-dis data-[selected]:(text-foreground font-600) peer h-7 outline-none',
         local.class,
       )}
       {...rest}

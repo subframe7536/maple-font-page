@@ -1,39 +1,59 @@
 ---
 import Feature from '../components/feature.astro'
-import FontWeightShowcase from '../components/font-weight-showcase'
 import Section from '../components/section.astro'
 
 const features = [
   {
-    title: 'Variable Font',
-    description: 'Infinity font weights with fine-grained italic glyphs',
+    title: '2 Style, Infinity Weights',
+    description: 'Variable font support with hand-crafted italic glyphs',
     icon: 'i-lucide-infinity',
   },
   {
-    title: 'Smooth Design',
+    // show: `@$&` `abc` `ijk` | `I1l` `0O[0.zero]`
+    title: 'Distinct Glyphs, Smooth Design',
     description: 'Round corner, brand-new glyph designs with cursive style in italics',
     icon: 'i-lucide-pen-tool',
   },
   {
-    title: 'Smart Ligatures',
-    description: 'Large amount of smart ligatures for better code readability',
+    // show: `++a>=b%%c~~>d
+    // !=e::=f=>{|g|}h|>
+    // <!--Comment-->
+    // <>###Title===</>
+    // ` | `todo))` `all`(italic)
+    title: 'Smart Ligatures, Large Amount',
+    description: 'Plain text tags, connected letters, brings the font ability to next level',
     icon: 'i-lucide-sparkles',
   },
   {
-    title: 'Nerd Font Support',
+    // show: codeimg terminal image
+    title: 'Beautiful Icons, Embrace Modern',
     description: 'First-Class Nerd-Font support to make your terminal more vivid',
     icon: 'i-lucide-terminal',
   },
   {
-    title: 'Customizable',
-    description: 'Enable or disable font features as you want, create your perfect font',
-    icon: 'i-lucide-settings',
+    // show: navigate to download page?
+    title: 'Your favor, Your Font',
+    description: 'Configure or freeze font features as you want, create your own perfect font',
+    icon: 'i-lucide-hammer',
   },
 ]
+
+const showcaseText = 'Variable'
 ---
 
 <Section id="features" class="py-20" title="Features">
-  <FontWeightShowcase client:load />
+  <div class="w-80% flex flex-col items-center">
+    <div class="mt-4 flex text-6xl c-accent">
+      {showcaseText.split('').map((char, index) => (
+        <span
+          class="animate-wave-weight font-200"
+          style={`animation-delay: ${index * 0.2}s`}
+        >
+          {char}
+        </span>
+      ))}
+    </div>
+  </div>
   <div class="grid mx-auto max-w-4xl gap-6 md:grid-cols-2">
     {features.map(feature => <Feature {...feature} />)}
   </div>

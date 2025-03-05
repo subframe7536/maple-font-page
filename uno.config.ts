@@ -42,17 +42,43 @@ const features = [
 
 const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
 
-const presetMaple: Preset = {
+const presetMaple: Preset<PresetUnoTheme> = {
   name: 'maple',
   rules: [
     [
       'font-liga',
       {
         'font-feature-settings': 'var(--liga)',
-        'font-family': `var(--ff), ${fallbackFamily}`,
+        'font-variation-settings': '"wght" var(--fw)',
+        'font-family': `var(--ff), ${fallbackFamily} !important`,
       },
     ],
+    ['font-bold', { '--fw': 700 }],
+    [/font-(\d+)/, ([, weight]) => ({ '--fw': weight })],
   ],
+  theme: {
+    animation: {
+      keyframes: {
+        'wave-weight': `{
+    from, to {
+        font-variation-settings: "wght" 200
+    }
+    50% {
+        font-variation-settings: "wght" 800
+    }
+}`,
+      },
+      timingFns: {
+        'wave-weight': 'ease-in-out',
+      },
+      durations: {
+        'wave-weight': '2s',
+      },
+      counts: {
+        'wave-weight': 'infinite',
+      },
+    },
+  },
   preflights: [
     {
       getCSS: () => {
@@ -82,6 +108,7 @@ const presetMaple: Preset = {
           }
           ${fontface()}
           ${fontface(true)}
+
         `
       },
     },
@@ -155,6 +182,10 @@ export default defineConfig<PresetUnoTheme>({
         return {
           'strong, em': {
             color: accessDefault(primary),
+          },
+          'b, strong': {
+            'font-style': 'normal !important',
+            '--fw': 700,
           },
         }
       },
