@@ -25,10 +25,10 @@ const { title, links } = Astro.props.data
           variant="link"
           href={href}
           target="_blank"
-          class="ml--4 w-fit"
+          class="parent ml--4 w-fit"
         >
           {name}
-          <span class="i-lucide-external-link ml-1 c-secondary/80" />
+          <span class="i-lucide-external-link ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)" />
         </Button>
       ))
     }

@@ -15,10 +15,10 @@ const families = [
 ]
 
 export default function ComparsionTabs(props: Props) {
-  const [isItalic, setIsItalic] = createSignal(true)
+  const [isItalic, setIsItalic] = createSignal(false)
   return (
     <Tabs class={props.class}>
-      <div class="flex flex-col-reverse gap-4 sm:(flex-row justify-between)">
+      <div class="flex flex-col-reverse gap-4 sm:flex-row">
         <TabsList class="max-w-5xl w-full xs:w-fit">
           <For each={families}>
             {item => <TabsTrigger value={item}>{item}</TabsTrigger>}
@@ -26,14 +26,14 @@ export default function ComparsionTabs(props: Props) {
           <TabsIndicator />
         </TabsList>
         <Switch
-          class="flex items-center sm:mr-22% space-x-2"
+          class="flex items-center sm:mx-auto"
           checked={isItalic()}
           onChange={setIsItalic}
         >
           <SwitchControl>
             <SwitchThumb />
           </SwitchControl>
-          <SwitchLabel>Italic</SwitchLabel>
+          <SwitchLabel class="pl-2">Italic</SwitchLabel>
         </Switch>
       </div>
       <For each={families}>
@@ -42,11 +42,11 @@ export default function ComparsionTabs(props: Props) {
             value={item}
             class={cls(
               'pr-0 max-w-5xl overflow-(x-scroll y-hidden)',
-              'text-12 leading-16',
-              'xs:(text-14 leading-20)',
-              'sm:(text-21 leading-27)',
-              'md:(text-26 leading-32)',
-              'lg:(text-32 leading-38)',
+              'text-12 leading-16 h-32',
+              'xs:(text-14 leading-20 h-42)',
+              'sm:(text-21 leading-27 h-56)',
+              'md:(text-26 leading-32 h-66)',
+              'lg:(text-32 leading-38 h-78)',
               isItalic() && 'font-italic',
             )}
           >

@@ -52,10 +52,11 @@ const data: { title: string, links: [name: string, href: string][] }[] = [
 ]
 ---
 
-<Section id="credits" class="py-20" title="Credits">
-  <p class="mb-8 max-w-4xl text-foreground/80 md:mb-12">
-    Maple Mono standing on the shoulders of giants.
-  </p>
+<Section
+  id="credits"
+  title="Credits"
+  subTitle="Maple Mono standing on the shoulders of giants."
+>
   <div class="grid grid-cols-1 w-full gap-4 md:grid-cols-3 sm:grid-cols-2 *:min-w-18">
     <div class="row-span-1 md:row-span-2">
       <CreditCard data={data[0]} />

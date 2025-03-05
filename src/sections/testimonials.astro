@@ -1,6 +1,6 @@
 ---
 import Section from '../components/section.astro'
-import { TestimonialBanner } from '../components/testimonial'
+import { TestimonialBanner } from '../components/testimonial-banner'
 
 const testimonials = [
   {
@@ -30,14 +30,12 @@ const testimonials = [
 ]
 ---
 
-<Section id="testimonials" title="What people says">
-  <p class="mb-8 text-foreground/80">
-    Join thousands of developers who have already fallen in love with Maple Mono
-  </p>
+<Section
+  id="testimonials"
+  title="What people says"
+  subTitle="Join thousands of developers who have already fallen in love with Maple Mono"
+>
   <div class="mx-auto">
-    <TestimonialBanner
-      client:load
-      items={testimonials}
-    />
+    <TestimonialBanner client:load items={testimonials} />
   </div>
 </Section>

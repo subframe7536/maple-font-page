@@ -5,6 +5,7 @@ interface Props {
   id: string
   class?: string
   title?: string
+  subTitle?: string
 }
 const props = Astro.props
 ---
@@ -12,15 +13,23 @@ const props = Astro.props
 <section
   id={props.id}
   class={cls(
-    'transition-(500 ease-out) translate-y-24 op-0 inview:(translate-y-0 op-100) no-inview:scroll-mt-24 mx-auto max-w-5xl w-96% xs:w-90% text-left container *:px-6',
+    'transition-(500 ease-out) translate-y-24 op-0 inview:(translate-y-0 op-100) no-inview:scroll-mt-24 mx-auto max-w-5xl w-96% xs:w-90% text-left *:px-6',
+    props.title && 'space-y-8 md:space-y-12 mb-16 pt-20',
     props.class,
   )}
 >
   {
     props.title && (
-      <h1 class="mb-12 text-(4xl secondary) font-bold">
+      <h1 class="text-(4xl secondary) font-bold">
         {props.title}
       </h1>
+    )
+  }
+  {
+    props.subTitle && (
+      <p class="text-(xl foreground/80) md:text-2xl">
+        {props.subTitle}
+      </p>
     )
   }
   <slot />

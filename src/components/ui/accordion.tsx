@@ -41,7 +41,7 @@ export function AccordionTrigger<T extends ValidComponent = 'button'>(props: Pol
     <AccordionPrimitive.Header class="flex" as="div">
       <AccordionPrimitive.Trigger
         class={cls(
-          'flex flex-1 items-center justify-between py-4 text-sm font-500 transition-shadow hover:underline bg-inherit focus-visible:effect-fv',
+          'flex flex-1 items-center justify-between py-4 font-500 transition-shadow hover:underline bg-inherit focus-visible:effect-fv',
           local.class,
         )}
         {...rest}
@@ -68,7 +68,7 @@ export function AccordionContent<T extends ValidComponent = 'div'>(props: Polymo
   return (
     <AccordionPrimitive.Content
       class={cls(
-        'animate-accordion-up overflow-hidden text-sm data-[expanded]:animate-accordion-down',
+        'animate-accordion-up overflow-hidden data-[expanded]:animate-accordion-down',
         local.class,
       )}
       {...rest}

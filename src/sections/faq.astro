@@ -1,6 +1,7 @@
 ---
 import FaqItems from '../components/faq-items'
 import Section from '../components/section.astro'
+import { Button } from '../components/ui/button'
 
 const faqs = [
   {
@@ -31,11 +32,23 @@ const faqs = [
 ]
 ---
 
-<Section id="faq" class="py-20" title="FAQ">
-  <p class="mx-auto max-w-2xl text-foreground/80">
-    Everything you need to know about Maple Mono
-  </p>
-  <div class="mx-auto max-w-2xl rounded-xl p-6 shadow-sm">
+<Section
+  id="faq"
+  title="FAQ"
+  subTitle="Everything you need to know about Maple Mono."
+>
+  <div class="px-6">
     <FaqItems client:load faqs={faqs} />
+  </div>
+  <div class="px-6 text-lg">
+    If you have more questions or suggestions, let's talk in
+    <Button
+      variant="outline"
+      as="a"
+      href="https://github.com/subframe7536/maple-font/discussions/categories/q-a"
+      target="_blank"
+    >
+      GitHub Discussions
+    </Button>
   </div>
 </Section>

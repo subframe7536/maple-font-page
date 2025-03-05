@@ -3,10 +3,11 @@ import ComparsionTabs from '../components/comparison-tabs'
 import Section from '../components/section.astro'
 ---
 
-<Section id="comparison" class="py-20" title="Comparison">
-  <p class="mx-auto mb-8 text-foreground/80">
-    See how Maple Mono compares to other popular programming fonts
-  </p>
+<Section
+  id="comparison"
+  title="Comparison"
+  subTitle="See how Maple Mono compares to other popular programming fonts."
+>
   <div class="mx-auto max-w-5xl">
     <ComparsionTabs client:load />
   </div>
