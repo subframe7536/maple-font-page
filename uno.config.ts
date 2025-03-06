@@ -9,10 +9,8 @@ import {
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
 
-import { myGhCdnPrefix } from './src/cdn'
+import { cdnPrefix } from './src/cdn'
 
-const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'
-const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
 const features = [
   'calt',
   'zero',
@@ -39,6 +37,49 @@ const features = [
   'ss07',
   'ss08',
 ] as const
+
+function fontface(name: string, src: string, isItalic?: boolean) {
+  return `
+    @font-face {
+      font-family: ${name};
+      font-display: swap;
+      font-weight: 400;
+      src: ${src};
+      font-style: ${isItalic ? 'italic' : 'normal'};
+    }
+  `
+}
+
+function getJetBrainsMono(isItalic: boolean) {
+  const suffix = isItalic ? 'Italic' : 'Regular'
+  const src = [
+    `local("JetBrains Mono ${suffix}")`,
+    `local("JetBrainsMono-${suffix}")`,
+    `url('${cdnPrefix}/jetbrains-mono@latest/fonts/webfonts/JetBrainsMono-${suffix}.woff2') format('woff2')`,
+  ].join(',')
+  return fontface('JetBrains Mono', src, isItalic)
+}
+
+function getFiraCode() {
+  const src = [
+    `local("Fira Code Roman Regular")`,
+    `local("FiraCodeRoman")`,
+    `local("Fira Code Regular")`,
+    `local("FiraCode-Regular")`,
+    // `url('${cdnPrefix}/firacode@latest/distr/woff2/FiraCode-Regular.woff2') format('woff2')`,
+  ].join(',')
+  return fontface('Fira Code', src)
+}
+
+function getIosevka(isItalic: boolean) {
+  const src = [
+    `local("Iosevka")`,
+    `local("Iosevka ${isItalic ? 'Italic' : 'Regular'}")`,
+    `local("Iosevka-${isItalic ? 'Italic' : 'Regular'}")`,
+    `url('${cdnPrefix}/@fontsource/iosevka@latest/files/iosevka-latin-400-${isItalic ? 'italic' : 'normal'}.woff2') format('woff2')`,
+  ].join(',')
+  return fontface('Iosevka', src, isItalic)
+}
 
 const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
 
@@ -82,22 +123,6 @@ const presetMaple: Preset<PresetUnoTheme> = {
   preflights: [
     {
       getCSS: () => {
-        const getSrc = (isItalic?: boolean) => [
-          `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2-variations')`,
-          'local("Maple Mono")',
-          'local("Maple Mono NF")',
-          'local("Maple Mono NF CN")',
-        ].join(',')
-
-        const fontface = (isItalic?: boolean) => `
-          @font-face {
-            font-family: MapleMono;
-            font-display: swap;
-            src: ${getSrc(isItalic)};
-            font-style: ${isItalic ? 'italic' : 'normal'};
-          }
-        `
-
         return `
           html {
             --ff: MapleMono;
@@ -106,9 +131,11 @@ const presetMaple: Preset<PresetUnoTheme> = {
           body {
             --liga: ${features.map(fea => `"${fea}" var(--fea-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
           }
-          ${fontface()}
-          ${fontface(true)}
-
+          ${getJetBrainsMono(false)}
+          ${getJetBrainsMono(true)}
+          ${getFiraCode()}
+          ${getIosevka(false)}
+          ${getIosevka(true)}
         `
       },
     },
@@ -234,16 +261,22 @@ export default defineConfig<PresetUnoTheme>({
         'accordion-down': '{ from { height: 0 } to { height: var(--kb-accordion-content-height) } }',
         'accordion-up': '{ from { height: var(--kb-accordion-content-height) } to { height: 0 } }',
         'typing': '{ from { width: 0 } to { width: 10ch } }',
+        'flashing': '{ from, to { opacity: 0 } 50% { opacity: 1 } }',
       },
       timingFns: {
         'accordion-down': 'ease-in-out',
         'accordion-up': 'ease-in-out',
         'typing': 'steps(10)',
+        'flashing': 'ease-in',
       },
       durations: {
         'accordion-down': '0.3s',
         'accordion-up': '0.3s',
         'typing': '1s',
+        'flashing': '2s',
+      },
+      counts: {
+        flashing: 'infinite',
       },
     },
   },

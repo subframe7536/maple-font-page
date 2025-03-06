@@ -11,13 +11,13 @@ interface Props {
 const families = [
   'JetBrains Mono',
   'Fira Code',
-  'Cascadia Code',
+  'Iosevka',
 ]
 
-export default function ComparsionTabs(props: Props) {
+export default function ComparisonTabs(props: Props) {
   const [isItalic, setIsItalic] = createSignal(false)
   return (
-    <Tabs class={props.class}>
+    <Tabs class={props.class} defaultValue={families[0]}>
       <div class="flex flex-col-reverse gap-4 sm:(flex-row gap-0)">
         <TabsList class="max-w-5xl w-full sm:(max-w-70% min-w-fit) xs:max-w-90%">
           <For each={families}>
