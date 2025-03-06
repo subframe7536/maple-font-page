@@ -229,21 +229,21 @@ export default defineConfig<PresetUnoTheme>({
       md: `calc(${radius} - 2px)`,
       sm: `calc(${radius} - 4px)`,
     },
-    fontFamily: {
-      maple: 'MapleMono, monospace',
-    },
     animation: {
       keyframes: {
         'accordion-down': '{ from { height: 0 } to { height: var(--kb-accordion-content-height) } }',
         'accordion-up': '{ from { height: var(--kb-accordion-content-height) } to { height: 0 } }',
+        'typing': '{ from { width: 0 } to { width: 10ch } }',
       },
       timingFns: {
         'accordion-down': 'ease-in-out',
         'accordion-up': 'ease-in-out',
+        'typing': 'steps(10)',
       },
       durations: {
         'accordion-down': '0.3s',
         'accordion-up': '0.3s',
+        'typing': '1s',
       },
     },
   },

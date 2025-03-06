@@ -1,5 +1,6 @@
 ---
 import Section from '../components/section.astro'
+import Title from '../components/title'
 import { Button } from '../components/ui/button'
 ---
 
@@ -7,11 +8,7 @@ import { Button } from '../components/ui/button'
   id="hero"
   class="min-h-screen flex flex-col justify-center gap-2 xl:gap-4"
 >
-  <h1
-    class="w-fit whitespace-nowrap text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-12 hero-gradient"
-  >
-    Maple Mono
-  </h1>
+  <Title client:load />
   <p
     class="mt-2 w-fit text-5.5 c-accent font-(italic 550) lg:text-10 md:text-8 xs:text-6"
   >
