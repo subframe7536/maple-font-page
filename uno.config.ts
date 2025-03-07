@@ -66,19 +66,22 @@ function getFiraCode() {
     `local("FiraCodeRoman")`,
     `local("Fira Code Regular")`,
     `local("FiraCode-Regular")`,
-    // `url('${cdnPrefix}/firacode@latest/distr/woff2/FiraCode-Regular.woff2') format('woff2')`,
+    `url('${cdnPrefix}/firacode@latest/distr/woff2/FiraCode-Regular.woff2') format('woff2')`,
   ].join(',')
   return fontface('Fira Code', src)
 }
 
 function getIosevka(isItalic: boolean) {
   const src = [
-    `local("Iosevka")`,
-    `local("Iosevka ${isItalic ? 'Italic' : 'Regular'}")`,
-    `local("Iosevka-${isItalic ? 'Italic' : 'Regular'}")`,
-    `url('${cdnPrefix}/@fontsource/iosevka@latest/files/iosevka-latin-400-${isItalic ? 'italic' : 'normal'}.woff2') format('woff2')`,
-  ].join(',')
-  return fontface('Iosevka', src, isItalic)
+    `local("Iosevka${isItalic ? ' Italic' : ''}")`,
+  ]
+  if (isItalic) {
+    src.push(`local("Iosevka-Italic")`)
+  }
+  src.push(
+    `url('${cdnPrefix}/gh/iosevka-webfonts/iosevka@latest/WOFF2/Iosevka-${isItalic ? 'Italic' : 'Regular'}.woff2') format('woff2')`,
+  )
+  return fontface('Iosevka', src.join(','), isItalic)
 }
 
 const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
