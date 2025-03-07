@@ -25,10 +25,9 @@ function loadFontFace(url: string, italic: boolean) {
 
 export default function Title() {
   let placeholder: HTMLImageElement | undefined
-  const [isLoading, setIsLoading] = createSignal(false)
+  const [isLoading, setIsLoading] = createSignal(true)
 
-  onMount(async () => {
-    setIsLoading(true)
+  onMount(() => {
     Promise.all([
       loadFontFace(getSrc(false), false),
       loadFontFace(getSrc(true), true),
