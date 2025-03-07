@@ -54,7 +54,7 @@ function SwitchLabel<T extends ValidComponent = 'label'>(props: PolymorphicProps
   return (
     <SwitchPrimitive.Label
       class={cls(
-        'text-sm font-medium leading-none data-[disabled]:effect-dis',
+        'text-sm font-500 leading-none data-[disabled]:effect-dis',
         local.class,
       )}
       {...others}

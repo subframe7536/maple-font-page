@@ -33,7 +33,7 @@ function TestimonialItem(props: ItemData) {
           {props.author[0].toUpperCase()}
         </div>
         <div class="flex flex-col items-start gap-1">
-          <div class="text-accent font-medium">{props.author}</div>
+          <div class="text-accent font-500">{props.author}</div>
           <div class="text-sm c-primary/50">{props.platform}</div>
         </div>
       </div>

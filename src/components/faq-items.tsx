@@ -19,7 +19,7 @@ export default function FaqItems(props: Props) {
       <For each={props.faqs}>
         {(item, idx) => (
           <AccordionItem value={`item-${idx()}`} class="my-2">
-            <AccordionTrigger class="text-(left lg) font-semibold md:text-xl">
+            <AccordionTrigger class="text-(left lg) font-500 md:text-xl">
               <div class="text-primary">
                 {item.question}
               </div>
