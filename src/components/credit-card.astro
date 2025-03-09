@@ -1,14 +1,12 @@
 ---
-import { Button } from '../../components/ui/button'
+import { Button } from './ui/button'
 
-interface Props {
-  data: {
-    title: string
-    links: [name: string, href: string][]
-  }
+export interface Props {
+  title: string
+  links: [name: string, href: string][]
 }
 
-const { title, links } = Astro.props.data
+const { title, links } = Astro.props
 ---
 
 <div

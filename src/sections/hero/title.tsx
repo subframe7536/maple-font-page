@@ -1,10 +1,9 @@
 import { cls } from 'cls-variant'
 import { createSignal, onMount } from 'solid-js'
 
-import { myGhCdnPrefix } from '../../cdn'
+import { isDEV, myGhCdnPrefix } from '../../cdn'
 import Placeholder from './placeholder'
 
-const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'
 const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
 
 function getSrc(isItalic: boolean) {
@@ -46,6 +45,7 @@ export default function Title(props: { slogan: string }) {
     <>
       <h1
         class="relative w-fit whitespace-nowrap text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-14 hero-gradient"
+        aria-label="Maple Mono"
       >
         <div
           ref={placeholder}
@@ -68,7 +68,7 @@ export default function Title(props: { slogan: string }) {
       <p
         class="mt-2 w-fit text-5.5 c-accent font-(italic 550) lg:text-10 md:text-8 xs:text-6"
       >
-        { props.slogan}
+        {props.slogan}
       </p>
     </>
   )

@@ -1,5 +1,7 @@
 ---
-import CardWithFeatureSwitch from './part/card-with-feature-switch'
+import type { FeatureCardProps } from './part/feature-card'
+
+import FeatureCard from './part/feature-card'
 import GenericLigature from './part/generic-ligature'
 import SubSection from './part/sub-section.astro'
 
@@ -9,45 +11,50 @@ const data = {
     'Plain text tags, connected letters, brings the font ability to next level',
   icon: 'i-lucide-sparkles',
 }
+
+const subTitle = 'Special Ligatures'
+
+const features: FeatureCardProps[] = [
+  {
+    showText: '[DEBUG] [INFO] [WARN] [ERROR]',
+    showText1: '[TODO] todo)) [FIXME] fIxMe))',
+    description: 'Plain text tags for log and tasks',
+    feature: 'calt',
+    activeFeatures: ['calt'],
+    sizeClass: 'text-8 sm:text-10 !leading-loose',
+  },
+  {
+    showText: 'all class',
+    showText1: 'ultra suffix',
+    description:
+      'Connected stroke for italic style, use ss06 to disable xxxxxxxxxxx',
+    feature: 'calt',
+    activeFeatures: ['calt'],
+    sizeClass: 'text-8 sm:text-10',
+    italic: true,
+  },
+  {
+    showText: '1>>4',
+    showText1: 'Vec<R<T>>',
+    description:
+      'Smart spacing for generic(or template) and bitwise operations',
+    feature: 'calt',
+    activeFeatures: ['calt'],
+    sizeClass: 'text-8 sm:text-10',
+  },
+]
 ---
 
 <SubSection {...data}>
-  <div class="grid gap-12 md:gap-16">
+  <div class="mb-12 md:mb-16 inview-2">
     <GenericLigature client:visible />
-    <div>
-      <h3 class="py-8 text-2xl c-accent font-600">Special Ligature</h3>
-      <div class="grid gap-6">
-        <CardWithFeatureSwitch
-          showText="[DEBUG] [INFO] [WARN] [ERROR]"
-          showText1="[TODO] todo)) [FIXME] fIxMe))"
-          description="Plain text tags for log and tasks"
-          feature="calt"
-          activeFeatures={['calt']}
-          sizeClass="text-8 sm:text-10 !leading-loose"
-          client:visible
-        />
-        <div class="grid w-full gap-6 md:grid-cols-2">
-          <CardWithFeatureSwitch
-            showText="all class"
-            showText1="ultra suffix"
-            description="Connected stroke for italic style, use ss06 to disable xxxxxxxxxxx"
-            feature="calt"
-            activeFeatures={['calt']}
-            sizeClass="text-8 sm:text-10"
-            italic={true}
-            client:visible
-          />
-          <CardWithFeatureSwitch
-            showText="1>>4"
-            showText1="Vec<R<T>>"
-            description="Smart spacing for generic(or template) and bitwise operations"
-            feature="calt"
-            activeFeatures={['calt']}
-            sizeClass="text-8 sm:text-10"
-            client:visible
-          />
-        </div>
-      </div>
+  </div>
+  <h3 class="py-12 text-2xl c-accent font-600 inview-3">{subTitle}</h3>
+  <div class="grid gap-6 inview-4">
+    <FeatureCard {...features[0]} client:visible />
+    <div class="grid w-full gap-6 md:grid-cols-2">
+      <FeatureCard {...features[1]} client:visible />
+      <FeatureCard {...features[2]} client:visible />
     </div>
   </div>
 </SubSection>

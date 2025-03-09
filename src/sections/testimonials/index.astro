@@ -2,6 +2,13 @@
 import Section from '../../components/section.astro'
 import { TestimonialBanner } from './testimonial-banner'
 
+const data = {
+  id: 'testimonials',
+  title: 'What people says',
+  subTitle:
+    'Join thousands of developers who have already fallen in love with Maple Mono',
+}
+
 const testimonials = [
   {
     content:
@@ -30,12 +37,8 @@ const testimonials = [
 ]
 ---
 
-<Section
-  id="testimonials"
-  title="What people says"
-  subTitle="Join thousands of developers who have already fallen in love with Maple Mono"
->
+<Section {...data}>
   <div class="mx-auto">
-    <TestimonialBanner client:visible items={testimonials} />
+    <TestimonialBanner items={testimonials} client:visible />
   </div>
 </Section>

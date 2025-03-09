@@ -7,7 +7,8 @@ import SubSectionTitle from './part/sub-section-title.astro'
 
 const data = {
   title: 'Your favor, Your Font',
-  description: 'Configure or freeze OpenType features as you want, create your own perfect font',
+  description:
+    'Configure or freeze OpenType features as you want, create your own perfect font',
   icon: 'i-lucide-hammer',
 }
 
@@ -21,23 +22,29 @@ const code = `{
     // ...
   }
 }`
+
+const nextButtonData = {
+  name: 'See Guide',
+  href: 'https://github.com/subframe7536/maple-font#custom-build',
+}
 ---
 
 <SubSectionTitle icon={data.icon} title={data.title}>
   <div class="grid gap-4 md:(grid-cols-2 items-center gap-8)">
-    <Code code={code} theme={mapleTheme as any} lang="jsonc" class="rounded-2xl p-4 inview-1" />
+    <Code
+      code={code}
+      theme={mapleTheme as any}
+      lang="jsonc"
+      class="rounded-2xl p-4 inview-1"
+    />
     <div class="flex flex-col gap-8">
       <p class="text-lg inview-2 md:text-xl">
         {data.description}
       </p>
       <div class="inview-3">
         <!-- todo)) -->
-        <Button
-          as="a"
-          href="https://github.com/subframe7536/maple-font#custom-build"
-          target="_blank"
-        >
-          See Guide
+        <Button as="a" href={nextButtonData.href} target="_blank">
+          {nextButtonData.name}
         </Button>
       </div>
     </div>

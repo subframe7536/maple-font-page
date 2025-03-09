@@ -15,7 +15,7 @@ export default function GenericLigature() {
       class="relative w-fit"
     >
       <Tabs value={calt()} onChange={setCalt}>
-        <TabsList class="max-w-80 w-full">
+        <TabsList class="max-w-80 w-full" title="Click to toggle the features: calt">
           <TabsTrigger value="1">Ligature ON</TabsTrigger>
           <TabsTrigger value="0">Ligature OFF</TabsTrigger>
           <TabsIndicator />

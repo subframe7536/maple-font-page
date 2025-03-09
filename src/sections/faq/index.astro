@@ -3,6 +3,12 @@ import Section from '../../components/section.astro'
 import { Button } from '../../components/ui/button'
 import FaqItems from './faq-items'
 
+const data = {
+  id: 'faq',
+  title: 'FAQ',
+  subTitle: 'Everything you need to know about Maple Mono.',
+}
+
 const faqs = [
   {
     question: 'How do I install Maple Mono?',
@@ -30,24 +36,20 @@ const faqs = [
       'Yes, Maple Mono is completely free and open source. You can use it in both personal and commercial projects without any restrictions.',
   },
 ]
+
+const disscussionText = 'Let\'s disscusion'
 ---
 
-<Section
-  id="faq"
-  title="FAQ"
-  subTitle="Everything you need to know about Maple Mono."
->
+<Section {...data} class="relative">
   <FaqItems client:visible faqs={faqs} />
-  <div class="mt-12 text-lg">
-    If you have more questions or suggestions, let's talk in
-    <Button
-      class="my-2"
-      variant="secondary"
-      as="a"
-      href="https://github.com/subframe7536/maple-font/discussions/categories/q-a"
-      target="_blank"
-    >
-      GitHub Discussions
-    </Button>
-  </div>
+  <Button
+    class="absolute bottom--24 right-6 my-2 mt-12 text-lg"
+    variant="secondary"
+    as="a"
+    href="https://github.com/subframe7536/maple-font/discussions/categories/q-a"
+    target="_blank"
+  >
+    <div class="i-lucide-message-circle-more mr-2" />
+    {disscussionText}
+  </Button>
 </Section>

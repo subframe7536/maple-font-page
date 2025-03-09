@@ -1,13 +1,15 @@
 ---
 import Section from '../../components/section.astro'
 import ComparsionTabs from './comparison-tabs'
+
+const data = {
+  id: 'comparison',
+  title: 'Comparison',
+  subTitle: 'See how Maple Mono compares to other popular programming fonts.',
+}
 ---
 
-<Section
-  id="comparison"
-  title="Comparison"
-  subTitle="See how Maple Mono compares to other popular programming fonts."
->
+<Section {...data}>
   <div class="mx-auto max-w-5xl">
     <ComparsionTabs client:visible />
   </div>

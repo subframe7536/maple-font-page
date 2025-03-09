@@ -1,9 +1,14 @@
 ---
 import Section from '../../components/section.astro'
 import Reason from './reason.md'
+
+const data = {
+  id: 'why',
+  title: 'Why Another One',
+}
 ---
 
-<Section id="why" title="Why">
+<Section {...data}>
   <div class="text-xl leading-relaxed prose inview-2">
     <Reason />
   </div>

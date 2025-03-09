@@ -2,29 +2,31 @@
 import Section from '../../components/section.astro'
 import { Button } from '../../components/ui/button'
 import Title from './title'
+
+const slogan = 'Smooth your coding flow'
+const description = 'We use code to bring ideas to life as products, but the font we choose is the silent architect that shapes how we experience that journey. Crafted for programmers, Maple Mono boosts your productivity with a subtle elegance, making every line of code a joy to read and write.'
+const [beforeFont, afterFont] = description.split('Maple Mono')
+
+const learnMoreText = 'Learn More'
+const tryItText = 'Try it now'
+
 ---
 
 <Section
   id="hero"
   class="min-h-screen flex flex-col justify-center gap-2 xl:gap-4"
 >
-  <Title slogan="Smooth your coding flow" client:load />
+  <Title slogan={slogan} client:load />
   <p class="py-4 text-4 leading-relaxed md:text-5 xs:leading-[1.875]">
-    We use code to bring ideas to life as products, but the font we choose is
-    the silent architect that shapes how we experience that journey. Crafted for
-    programmers,
-    <b class="font-600"><i>Maple Mono</i></b>
-    {' '}
-    boosts your productivity with a subtle elegance, making every line of code a
-    joy to read and write.
+    {beforeFont}<b class="font-600"><i>Maple Mono</i></b>{afterFont}
   </p>
   <div class="flex flex-wrap items-center justify-start gap-6">
     <Button as="a" href="#why" size="lg">
-      Learn More
+      {learnMoreText}
       <div class="i-lucide-arrow-down ml-2" />
     </Button>
     <Button as="a" size="lg" href="/download#custom" variant="outline">
-      Try it now
+      {tryItText}
       <div class="i-lucide-arrow-right ml-2" />
     </Button>
   </div>

@@ -5,7 +5,7 @@ import { createMemo, createSignal, Show } from 'solid-js'
 
 import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '../../../components/ui/switch'
 
-interface Props {
+export interface FeatureCardProps {
   showText: string
   showText1?: string
   description: string
@@ -15,7 +15,10 @@ interface Props {
   sizeClass?: string
 }
 
-export default function CardWithFeatureSwitch(props: Props) {
+/**
+ * Card with feature switch
+ */
+export default function FeatureCard(props: FeatureCardProps) {
   const [fea, setFea] = createSignal(false)
 
   const styleObject = createMemo<JSX.CSSProperties>(() => {

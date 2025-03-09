@@ -1,5 +1,18 @@
 ---
 import { Button } from '../components/ui/button'
+
+const navigatorText = [
+  ['#intro', 'INTRO'],
+  ['#why', 'WHY'],
+  ['#features', 'FEATURES'],
+  ['#faq', 'FAQ'],
+  ['#credits', 'CREDITS'],
+] as const
+
+const pageText = {
+  usage: 'Usage',
+  download: 'Download',
+}
 ---
 
 <nav
@@ -8,11 +21,17 @@ import { Button } from '../components/ui/button'
   <img src="/favicon.svg" alt="Maple Mono Icon" class="h-6" />
   <div class="ml-2 w-full flex justify-end sm:justify-between">
     <div class="hidden items-center sm:flex">
-      <Button size="sm" variant="link" as="a" href="#hero">INTRO</Button>
-      <Button size="sm" variant="link" as="a" href="#why">WHY</Button>
-      <Button size="sm" variant="link" as="a" href="#features">FEATURES</Button>
-      <Button size="sm" variant="link" as="a" href="#faq">FAQ</Button>
-      <Button size="sm" variant="link" as="a" href="#credits">CREDITS</Button>
+      {navigatorText.map(([anchor, text]) => (
+        <Button
+          size="sm"
+          variant="link"
+          as="a"
+          href={anchor}
+          aria-label={text}
+        >
+          {text}
+        </Button>
+      ))}
     </div>
     <div class="flex items-center gap-4">
       <Button
@@ -28,8 +47,18 @@ import { Button } from '../components/ui/button'
         <div class="i-lucide-github mr-2 size-4" />
         GitHub
       </Button>
-      <Button size="sm" variant="link" as="a" href="/how">Usage</Button>
-      <Button size="sm" as="a" href="/download">Download</Button>
+      <Button
+        size="sm"
+        variant="link"
+        as="a"
+        href="/how"
+      >
+        {pageText.usage}
+      </Button>
+      <Button size="sm" as="a" href="/download">
+        {pageText.download}
+      </Button
+      >
     </div>
   </div>
 </nav>

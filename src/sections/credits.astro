@@ -1,8 +1,16 @@
 ---
-import Section from '../../components/section.astro'
-import CreditCard from './credit-card.astro'
+import type { Props as CreditCardProps } from '../components/credit-card.astro'
 
-const data: { title: string, links: [name: string, href: string][] }[] = [
+import CreditCard from '../components/credit-card.astro'
+import Section from '../components/section.astro'
+
+const data = {
+  id: 'credits',
+  title: 'Credits',
+  subTitle: 'Maple Mono standing on the shoulders of giants.',
+}
+
+const creaditData: CreditCardProps[] = [
   {
     title: 'Base font',
     links: [['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono']],
@@ -53,29 +61,25 @@ const data: { title: string, links: [name: string, href: string][] }[] = [
 ]
 ---
 
-<Section
-  id="credits"
-  title="Credits"
-  subTitle="Maple Mono standing on the shoulders of giants."
->
+<Section {...data}>
   <div class="grid grid-cols-1 w-full gap-4 md:grid-cols-3 sm:grid-cols-2 *:min-w-18">
     <div class="row-span-1 md:row-span-2">
-      <CreditCard data={data[0]} />
+      <CreditCard {...creaditData[0]} />
     </div>
     <div class="row-span-1 md:(row-span-2 col-start-1 row-start-3)">
-      <CreditCard data={data[1]} />
+      <CreditCard {...creaditData[1]} />
     </div>
     <div class="row-span-1 md:(row-span-2 col-start-1 row-start-5)">
-      <CreditCard data={data[2]} />
+      <CreditCard {...creaditData[2]} />
     </div>
     <div class="row-span-2 md:(row-span-6 col-start-2 row-start-1)">
-      <CreditCard data={data[3]} />
+      <CreditCard {...creaditData[3]} />
     </div>
     <div class="row-span-1 md:(row-span-3 col-start-3 row-start-1)">
-      <CreditCard data={data[4]} />
+      <CreditCard {...creaditData[4]} />
     </div>
     <div class="row-span-1 md:(row-span-3 col-start-3 row-start-4)">
-      <CreditCard data={data[5]} />
+      <CreditCard {...creaditData[5]} />
     </div>
   </div>
 </Section>

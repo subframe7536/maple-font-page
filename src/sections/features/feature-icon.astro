@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets'
 
 import Zsh from '../../assets/img/zsh.webp'
+import CreditCard from '../../components/credit-card.astro'
 import SubSection from './part/sub-section.astro'
 
 const data = {
@@ -9,8 +10,39 @@ const data = {
   description: 'First-Class Nerd-Font support to make your terminal more vivid',
   icon: 'i-lucide-terminal',
 }
+
+interface ReferenceData {
+  title: string
+  name: string
+  href: string
+}
+
+const references: ReferenceData[] = [
+  {
+    title: 'Pictured by',
+    name: 'CodeImg',
+    href: 'https://github.com/subframe7536/vscode-codeimg',
+  },
+  {
+    title: 'Theme',
+    name: 'Maple',
+    href: 'https://github.com/subframe7536/vscode-theme-maple',
+  },
+  {
+    title: 'Prompt',
+    name: 'Starship',
+    href: 'https://starship.rs',
+  },
+]
 ---
 
 <SubSection {...data}>
-  <Image src={Zsh} alt="image" class="rounded-2xl" />
+  <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full rounded-2xl inview-2" />
+  <div class="grid mt-8 gap-4 md:(grid-cols-3 justify-items-center) inview-3">
+    {
+      references.map(({ href, name, title }) => (
+        <CreditCard title={title} links={[[name, href]]} />
+      ))
+    }
+  </div>
 </SubSection>
