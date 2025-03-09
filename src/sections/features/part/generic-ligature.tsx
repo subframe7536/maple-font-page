@@ -1,8 +1,6 @@
 /* eslint-disable solid/prefer-for */
-import { cls } from 'cls-variant'
-import { createSignal, For } from 'solid-js'
+import { createSignal } from 'solid-js'
 
-import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '../../../components/ui/switch'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '../../../components/ui/tabs'
 
 const arr = [
@@ -17,14 +15,14 @@ export default function GenericLigature() {
       class="relative w-fit"
     >
       <Tabs value={calt()} onChange={setCalt}>
-        <TabsList class="max-w-sm w-full">
+        <TabsList class="max-w-80 w-full">
           <TabsTrigger value="1">Ligature ON</TabsTrigger>
           <TabsTrigger value="0">Ligature OFF</TabsTrigger>
           <TabsIndicator />
         </TabsList>
       </Tabs>
       <div
-        class="mt-8 text-3xl c-muted space-y-4 lg:text-7xl md:text-6xl sm:text-4xl [&_span]:c-secondary"
+        class="mt-8 text-4xl c-muted space-y-4 lg:text-7xl md:text-6xl sm:text-5xl [&_span]:c-secondary"
         style={{
           '--feat-calt': calt(),
         }}

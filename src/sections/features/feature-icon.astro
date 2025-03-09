@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets'
+
+import Zsh from '../../assets/img/zsh.webp'
 import SubSection from './part/sub-section.astro'
 
 const data = {
@@ -9,9 +12,5 @@ const data = {
 ---
 
 <SubSection {...data}>
-  <img
-    src="/img/zsh.webp"
-    class="w-full rounded-2xl"
-    alt="img"
-  />
+  <Image src={Zsh} alt="image" class="rounded-2xl" />
 </SubSection>

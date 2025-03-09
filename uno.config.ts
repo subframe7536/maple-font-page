@@ -227,7 +227,7 @@ export default defineConfig<PresetUnoTheme>({
     ['effect-dis', 'pointer-events-none opacity-50 cursor-not-allowed'],
     ['animated-underline', 'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
     ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)'],
-    [/^_inview-(\d+)$/, ([, index]) => `translate-y-8 op-0 transition-500 delay-${index}00 ease-in-out inview:(translate-y-0 op-300)`],
+    [/^inview-(\d+)$/, ([, index]) => `translate-y-8 op-0 transition-500 delay-${index}00 ease-in-out inview:(translate-y-0 op-300)`],
   ],
   theme: {
     colors: {
