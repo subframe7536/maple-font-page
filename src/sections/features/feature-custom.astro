@@ -35,18 +35,16 @@ const nextButtonData = {
       code={code}
       theme={mapleTheme as any}
       lang="jsonc"
-      class="rounded-2xl p-4 inview-1"
+      class="rounded-2xl p-4 text-3.5 inview-1 sm:text-4"
     />
-    <div class="flex flex-col gap-8">
-      <p class="text-lg inview-2 md:text-xl">
+    <div class="flex flex-col gap-8 *:w-fit inview-2">
+      <p class="text-4 leading-relaxed md:text-5">
         {data.description}
       </p>
-      <div class="inview-3">
-        <!-- todo)) -->
-        <Button as="a" href={nextButtonData.href} target="_blank">
-          {nextButtonData.name}
-        </Button>
-      </div>
+      <!-- todo)) -->
+      <Button as="a" href={nextButtonData.href} target="_blank">
+        {nextButtonData.name}
+      </Button>
     </div>
   </div>
 </SubSectionTitle>

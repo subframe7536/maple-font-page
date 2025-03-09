@@ -37,19 +37,8 @@ const faqs = [
   },
 ]
 
-const disscussionText = 'Let\'s disscusion'
 ---
 
-<Section {...data} class="relative">
+<Section {...data}>
   <FaqItems client:visible faqs={faqs} />
-  <Button
-    class="absolute bottom--24 right-6 my-2 mt-12 text-lg"
-    variant="secondary"
-    as="a"
-    href="https://github.com/subframe7536/maple-font/discussions/categories/q-a"
-    target="_blank"
-  >
-    <div class="i-lucide-message-circle-more mr-2" />
-    {disscussionText}
-  </Button>
 </Section>

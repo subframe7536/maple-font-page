@@ -66,7 +66,7 @@ export default function Title(props: { slogan: string }) {
         </div>
       </h1>
       <p
-        class="mt-2 w-fit text-5.5 c-accent font-(italic 550) lg:text-10 md:text-8 xs:text-6"
+        class="mt-2 w-fit text-5.5 c-accent font-(italic 600) lg:text-10 md:text-8 xs:text-6"
       >
         {props.slogan}
       </p>

@@ -79,7 +79,7 @@ function getIosevka(isItalic: boolean) {
     src.push(`local("Iosevka-Italic")`)
   }
   src.push(
-    `url('${cdnPrefix}/gh/iosevka-webfonts/iosevka@latest/WOFF2/Iosevka-${isItalic ? 'Italic' : 'Regular'}.woff2') format('woff2')`,
+    `url('${cdnPrefix}/gh/iosevka-webfonts/iosevka@main/WOFF2/Iosevka-${isItalic ? 'Italic' : 'Regular'}.woff2') format('woff2')`,
   )
   return generateBaseFontface('Iosevka', src.join(','), isItalic)
 }
