@@ -1,0 +1,17 @@
+---
+import SubSection from './part/sub-section.astro'
+
+const data = {
+  title: 'Beautiful Icons, Embrace Modern',
+  description: 'First-Class Nerd-Font support to make your terminal more vivid',
+  icon: 'i-lucide-terminal',
+}
+---
+
+<SubSection {...data}>
+  <img
+    src="/img/zsh.webp"
+    class="w-full rounded-2xl"
+    alt="img"
+  />
+</SubSection>

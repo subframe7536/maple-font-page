@@ -1,0 +1,33 @@
+---
+import { cls } from 'cls-variant'
+
+import SubSection from './part/sub-section.astro'
+
+const data = {
+  title: 'One Font, Infinity Weights',
+  description: 'Variable font support with hand-crafted italic glyphs',
+  icon: 'i-lucide-infinity',
+}
+const showcaseText = 'Variable'
+---
+<SubSection {...data}>
+  <div
+    class={cls(
+      'mt-4 flex text-6xl c-accent',
+      'text-12',
+      'xs:text-16',
+      'sm:text-24',
+      'md:text-28',
+      'lg:text-32',
+    )}
+  >
+    {showcaseText.split('').map((char, index) => (
+      <span
+        class="animate-wave-weight font-200"
+        style={{ 'animation-delay': `${index * 0.2}s` }}
+      >
+        {char}
+      </span>
+    ))}
+  </div>
+</SubSection>

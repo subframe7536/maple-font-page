@@ -1,8 +1,8 @@
 import { cls } from 'cls-variant'
 import { createSignal, For } from 'solid-js'
 
-import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from './ui/switch'
-import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from './ui/tabs'
+import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '../../components/ui/switch'
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '../../components/ui/tabs'
 
 interface Props {
   class?: string
@@ -50,10 +50,10 @@ export default function ComparisonTabs(props: Props) {
               isItalic() && 'font-italic',
             )}
           >
-            <div style={{ '--ff': item }}>
+            <div class="text-accent">
               Cloudflare
             </div>
-            <div class="text-accent">
+            <div style={{ '--ff': item }}>
               Cloudflare
             </div>
           </TabsContent>

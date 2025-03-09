@@ -21,7 +21,7 @@ function SwitchControl<T extends ValidComponent = 'input'>(props: PolymorphicPro
       <SwitchPrimitive.Input class="peer" />
       <SwitchPrimitive.Control
         class={cls(
-          'inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent bg-input transition-[color,background-color,box-shadow] data-[checked]:bg-primary data-[disabled]:effect-dis peer-focus-visible:effect-fv',
+          'inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full b-(2 #0000) bg-input transition data-[checked]:bg-primary data-[disabled]:effect-dis peer-focus-visible:effect-fv',
           local.class,
         )}
         {...others}

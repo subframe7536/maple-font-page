@@ -1,6 +1,6 @@
 ---
-import ComparsionTabs from '../components/comparison-tabs'
-import Section from '../components/section.astro'
+import Section from '../../components/section.astro'
+import ComparsionTabs from './comparison-tabs'
 ---
 
 <Section
@@ -9,6 +9,6 @@ import Section from '../components/section.astro'
   subTitle="See how Maple Mono compares to other popular programming fonts."
 >
   <div class="mx-auto max-w-5xl">
-    <ComparsionTabs client:load />
+    <ComparsionTabs client:visible />
   </div>
 </Section>

@@ -11,7 +11,7 @@ import { presetInView } from 'unocss-preset-inview'
 
 import { cdnPrefix } from './src/cdn'
 
-const features = [
+export const features = [
   'calt',
   'zero',
   'cv01',
@@ -38,7 +38,7 @@ const features = [
   'ss08',
 ] as const
 
-function fontface(name: string, src: string, isItalic?: boolean) {
+function generateBaseFontface(name: string, src: string, isItalic?: boolean) {
   return `
     @font-face {
       font-family: ${name};
@@ -57,7 +57,7 @@ function getJetBrainsMono(isItalic: boolean) {
     `local("JetBrainsMono-${suffix}")`,
     `url('${cdnPrefix}/jetbrains-mono@latest/fonts/webfonts/JetBrainsMono-${suffix}.woff2') format('woff2')`,
   ].join(',')
-  return fontface('JetBrains Mono', src, isItalic)
+  return generateBaseFontface('JetBrains Mono', src, isItalic)
 }
 
 function getFiraCode() {
@@ -68,7 +68,7 @@ function getFiraCode() {
     `local("FiraCode-Regular")`,
     `url('${cdnPrefix}/firacode@latest/distr/woff2/FiraCode-Regular.woff2') format('woff2')`,
   ].join(',')
-  return fontface('Fira Code', src)
+  return generateBaseFontface('Fira Code', src)
 }
 
 function getIosevka(isItalic: boolean) {
@@ -81,7 +81,7 @@ function getIosevka(isItalic: boolean) {
   src.push(
     `url('${cdnPrefix}/gh/iosevka-webfonts/iosevka@latest/WOFF2/Iosevka-${isItalic ? 'Italic' : 'Regular'}.woff2') format('woff2')`,
   )
-  return fontface('Iosevka', src.join(','), isItalic)
+  return generateBaseFontface('Iosevka', src.join(','), isItalic)
 }
 
 const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
@@ -92,9 +92,11 @@ const presetMaple: Preset<PresetUnoTheme> = {
     [
       'font-liga',
       {
-        'font-feature-settings': 'var(--liga)',
+        '-webkit-font-feature-settings': 'var(--feat)',
+        'font-feature-settings': 'var(--feat)',
         'font-variation-settings': '"wght" var(--fw)',
         'font-family': `var(--ff), ${fallbackFamily} !important`,
+        '--feat': features.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
       },
     ],
     ['font-bold', { '--fw': 700 }],
@@ -104,13 +106,13 @@ const presetMaple: Preset<PresetUnoTheme> = {
     animation: {
       keyframes: {
         'wave-weight': `{
-    from, to {
-        font-variation-settings: "wght" 200
-    }
-    50% {
-        font-variation-settings: "wght" 800
-    }
-}`,
+          from, to {
+            font-variation-settings: "wght" 200
+          }
+          50% {
+            font-variation-settings: "wght" 800
+          }
+        }`,
       },
       timingFns: {
         'wave-weight': 'ease-in-out',
@@ -128,11 +130,9 @@ const presetMaple: Preset<PresetUnoTheme> = {
       getCSS: () => {
         return `
           html {
-            --ff: MapleMono;
             font-family: ${fallbackFamily};
-          }
-          body {
-            --liga: ${features.map(fea => `"${fea}" var(--fea-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', ')};
+            --ff: MapleMono;
+            --feat: "calt";
           }
           ${getJetBrainsMono(false)}
           ${getJetBrainsMono(true)}
@@ -227,7 +227,7 @@ export default defineConfig<PresetUnoTheme>({
     ['effect-dis', 'pointer-events-none opacity-50 cursor-not-allowed'],
     ['animated-underline', 'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
     ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)'],
-    [/^x-(\w+)?[-:](.*)$/, ([, name, style]) => `[&_.x-${name ?? ''}]:${style}`],
+    [/^_inview-(\d+)$/, ([, index]) => `translate-y-8 op-0 transition-500 delay-${index}00 ease-in-out inview:(translate-y-0 op-300)`],
   ],
   theme: {
     colors: {
@@ -245,8 +245,8 @@ export default defineConfig<PresetUnoTheme>({
         foreground: 'hsl(140 40% 20%)',
       },
       muted: {
-        DEFAULT: 'hsl(202 33% 14%)',
-        foreground: 'hsl(202 20% 65%)',
+        DEFAULT: 'hsl(202 20% 35%)',
+        foreground: 'hsl(202 30% 88%)',
       },
       accent: {
         DEFAULT: 'hsl(32 90% 85%)',

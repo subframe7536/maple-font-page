@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from './ui/accordion'
+} from '../../components/ui/accordion'
 
 interface Props {
   faqs: {

@@ -1,6 +1,6 @@
 ---
-import Section from '../components/section.astro'
-import { TestimonialBanner } from '../components/testimonial-banner'
+import Section from '../../components/section.astro'
+import { TestimonialBanner } from './testimonial-banner'
 
 const testimonials = [
   {
@@ -36,6 +36,6 @@ const testimonials = [
   subTitle="Join thousands of developers who have already fallen in love with Maple Mono"
 >
   <div class="mx-auto">
-    <TestimonialBanner client:load items={testimonials} />
+    <TestimonialBanner client:visible items={testimonials} />
   </div>
 </Section>

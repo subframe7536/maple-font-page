@@ -1,0 +1,45 @@
+---
+import { Code } from 'astro:components'
+
+import mapleTheme from '../../assets/maple-dark-color-theme.json'
+import { Button } from '../../components/ui/button'
+import SubSectionTitle from './part/sub-section-title.astro'
+
+const data = {
+  title: 'Your favor, Your Font',
+  description: 'Configure or freeze OpenType features as you want, create your own perfect font',
+  icon: 'i-lucide-hammer',
+}
+
+const code = `{
+  "$schema": "./source/schema.json",
+  "family_name": "Maple Mono",
+  "use_hinted": true,
+  "pool_size": 4,
+  "ligature": true,
+  "feature_freeze": {
+    // ...
+  }
+}`
+---
+
+<SubSectionTitle icon={data.icon} title={data.title}>
+  <div class="grid gap-4 md:(grid-cols-2 items-center gap-8)">
+    <Code code={code} theme={mapleTheme as any} lang="jsonc" class="_inview-1 rounded-2xl p-4" />
+    <div class="flex flex-col gap-8">
+      <p class="_inview-2 text-lg md:text-xl">
+        {data.description}
+      </p>
+      <div class="_inview-3">
+        <!-- todo)) -->
+        <Button
+          as="a"
+          href="https://github.com/subframe7536/maple-font#custom-build"
+          target="_blank"
+        >
+          See Guide
+        </Button>
+      </div>
+    </div>
+  </div>
+</SubSectionTitle>

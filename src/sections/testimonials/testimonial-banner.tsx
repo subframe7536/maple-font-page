@@ -1,4 +1,4 @@
-import type { CarouselApi } from './ui/carousel'
+import type { CarouselApi } from '../../components/ui/carousel'
 
 import { cls } from 'cls-variant'
 import Autoplay from 'embla-carousel-autoplay'
@@ -8,7 +8,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from './ui/carousel'
+} from '../../components/ui/carousel'
 
 interface ItemData {
   content: string
@@ -71,7 +71,6 @@ export function TestimonialBanner(props: Props) {
         stopOnMouseEnter: true,
         stopOnInteraction: false,
       })]}
-      // opts={}
       setApi={setApi}
     >
       <CarouselContent>
@@ -88,7 +87,7 @@ export function TestimonialBanner(props: Props) {
           {(_, i) => (
             <div
               class={cls(
-                'm-1 size-2 cursor-pointer rounded-full transition-background-color-500 b-(1 secondary)',
+                'm-1 size-2 cursor-pointer rounded-full transition-background-color-500',
                 selectedIndex() === i ? 'bg-secondary' : 'bg-muted',
               )}
               onClick={() => api()?.scrollTo(i)}

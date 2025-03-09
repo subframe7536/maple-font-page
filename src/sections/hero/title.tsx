@@ -1,7 +1,8 @@
 import { cls } from 'cls-variant'
 import { createSignal, onMount } from 'solid-js'
 
-import { myGhCdnPrefix } from '../cdn'
+import { myGhCdnPrefix } from '../../cdn'
+import Placeholder from './placeholder'
 
 const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'development'
 const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
@@ -23,7 +24,7 @@ function loadFontFace(url: string, italic: boolean) {
   return fontFace.load()
 }
 
-export default function Title() {
+export default function Title(props: { slogan: string }) {
   let placeholder: HTMLImageElement | undefined
   const [isLoading, setIsLoading] = createSignal(true)
 
@@ -42,25 +43,33 @@ export default function Title() {
     })
   })
   return (
-    <h1
-      class="relative ml-6 w-fit whitespace-nowrap text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-14 hero-gradient"
-    >
-      <img
-        ref={placeholder}
-        src="/svg/title.svg"
-        class={cls(
-          'absolute left-0 right-0 top-0 bottom-0 transition',
-          isLoading() ? 'animate-flashing' : 'op-0',
-        )}
-      />
-      <div
-        class={cls(
-          'inline-block',
-          isLoading() ? 'invisible' : 'animate-typing',
-        )}
+    <>
+      <h1
+        class="relative w-fit whitespace-nowrap text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-14 hero-gradient"
       >
-        Maple Mono
-      </div>
-    </h1>
+        <div
+          ref={placeholder}
+          class={cls(
+            'absolute left-0 right-0 top-0 bottom-0 transition',
+            isLoading() ? 'animate-flashing' : 'op-0',
+          )}
+        >
+          <Placeholder />
+        </div>
+        <div
+          class={cls(
+            'inline-block',
+            isLoading() ? 'invisible' : 'animate-typing',
+          )}
+        >
+          Maple Mono
+        </div>
+      </h1>
+      <p
+        class="mt-2 w-fit text-5.5 c-accent font-(italic 550) lg:text-10 md:text-8 xs:text-6"
+      >
+        { props.slogan}
+      </p>
+    </>
   )
 }

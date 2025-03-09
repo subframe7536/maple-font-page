@@ -1,0 +1,19 @@
+---
+import SubSectionTitle from './sub-section-title.astro'
+
+interface Props {
+  title: string
+  description: string
+  icon: string
+}
+const props = Astro.props
+---
+
+<SubSectionTitle icon={props.icon} title={props.title}>
+  <p class="_inview-2 text-lg md:text-xl">
+    {props.description}
+  </p>
+  <div class="_inview-3">
+    <slot />
+  </div>
+</SubSectionTitle>

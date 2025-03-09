@@ -1,7 +1,7 @@
 ---
-import FaqItems from '../components/faq-items'
-import Section from '../components/section.astro'
-import { Button } from '../components/ui/button'
+import Section from '../../components/section.astro'
+import { Button } from '../../components/ui/button'
+import FaqItems from './faq-items'
 
 const faqs = [
   {
@@ -37,10 +37,8 @@ const faqs = [
   title="FAQ"
   subTitle="Everything you need to know about Maple Mono."
 >
-  <div class="px-6">
-    <FaqItems client:load faqs={faqs} />
-  </div>
-  <div class="px-6 text-lg">
+  <FaqItems client:visible faqs={faqs} />
+  <div class="mt-12 text-lg">
     If you have more questions or suggestions, let's talk in
     <Button
       class="my-2"

@@ -1,0 +1,53 @@
+---
+import CardWithFeatureSwitch from './part/card-with-feature-switch'
+import GenericLigature from './part/generic-ligature'
+import SubSection from './part/sub-section.astro'
+
+const data = {
+  title: 'Smart Ligatures, Large Amount',
+  description:
+    'Plain text tags, connected letters, brings the font ability to next level',
+  icon: 'i-lucide-sparkles',
+}
+---
+
+<SubSection {...data}>
+  <div class="grid gap-12 md:gap-16">
+    <GenericLigature client:visible />
+    <div>
+      <h3 class="py-8 text-2xl c-accent font-600">Special Ligature</h3>
+      <div class="grid gap-6">
+        <CardWithFeatureSwitch
+          showText="[DEBUG] [INFO] [WARN] [ERROR]"
+          showText1="[TODO] todo)) [FIXME] fIxMe))"
+          description="Plain text tags for log and tasks"
+          feature="calt"
+          activeFeatures={['calt']}
+          sizeClass="text-8 sm:text-10 !leading-loose"
+          client:visible
+        />
+        <div class="grid w-full gap-6 md:grid-cols-2">
+          <CardWithFeatureSwitch
+            showText="all class"
+            showText1="ultra suffix"
+            description="Connected stroke for italic style, use ss06 to disable xxxxxxxxxxx"
+            feature="calt"
+            activeFeatures={['calt']}
+            sizeClass="text-8 sm:text-10"
+            italic={true}
+            client:visible
+          />
+          <CardWithFeatureSwitch
+            showText="1>>4"
+            showText1="Vec<R<T>>"
+            description="Smart spacing for generic(or template) and bitwise operations"
+            feature="calt"
+            activeFeatures={['calt']}
+            sizeClass="text-8 sm:text-10"
+            client:visible
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</SubSection>
