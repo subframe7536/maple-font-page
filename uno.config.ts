@@ -24,6 +24,7 @@ export const features = [
   'cv34',
   'cv35',
   'cv36',
+  'cv37',
   'cv96',
   'cv97',
   'cv98',
@@ -215,7 +216,7 @@ export default defineConfig<PresetUnoTheme>({
           },
           'b, strong': {
             'font-style': 'normal !important',
-            '--fw': 700,
+            '--fw': 650,
           },
         }
       },

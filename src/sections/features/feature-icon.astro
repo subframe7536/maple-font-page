@@ -38,7 +38,7 @@ const references: ReferenceData[] = [
 
 <SubSection {...data}>
   <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full rounded-2xl inview-2" />
-  <div class="mt-8 flex flex-col gap-4 sm:(flex-row justify-evenly) inview-3">
+  <div class="mx-auto mt-8 flex flex-row justify-evenly inview-3 xs:gap-4">
     {
       references.map(({ href, name, title }) => (
         <CreditCard title={title} links={[[name, href]]} />
