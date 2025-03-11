@@ -44,6 +44,6 @@ const features: FeatureCardProps[] = [
 
 <SubSection {...data}>
   <div class="grid grid-cols-1 content-center gap-6 sm:grid-cols-2">
-    {features.map(feat => <FeatureCard {...feat} client:visible />)}
+    {features.map(feat => <FeatureCard {...feat} client:load />)}
   </div>
 </SubSection>

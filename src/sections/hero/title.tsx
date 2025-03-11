@@ -1,45 +1,26 @@
 import { cls } from 'cls-variant'
 import { createSignal, onMount } from 'solid-js'
 
-import { isDEV, myGhCdnPrefix } from '../../cdn'
+import { loadMapleMono } from '../../cdn'
 import Placeholder from './placeholder'
-
-const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff2/var`
-
-function getSrc(isItalic: boolean) {
-  return [
-    `url('${fontPrefix}/MapleMono${isItalic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2-variations')`,
-    'local("Maple Mono")',
-    'local("Maple Mono NF")',
-    'local("Maple Mono NF CN")',
-  ].join(',')
-}
-
-function loadFontFace(url: string, italic: boolean) {
-  const fontFace = new FontFace('MapleMono', url, {
-    display: 'swap',
-    style: italic ? 'italic' : 'normal',
-  })
-  return fontFace.load()
-}
 
 export default function Title(props: { slogan: string }) {
   let placeholder: HTMLImageElement | undefined
   const [isLoading, setIsLoading] = createSignal(true)
 
   onMount(() => {
-    Promise.all([
-      loadFontFace(getSrc(false), false),
-      loadFontFace(getSrc(true), true),
-    ]).then(async (fontFaces) => {
-      fontFaces.forEach(fontFace => document.fonts.add(fontFace))
-      placeholder!.addEventListener('animationiteration', () => {
+    loadMapleMono()
+      .then(() => {
+        placeholder!.addEventListener(
+          'animationiteration',
+          () => setIsLoading(false),
+          { once: true },
+        )
+      })
+      .catch((error) => {
+        console.error('Error loading font:', error)
         setIsLoading(false)
-      }, { once: true })
-    }).catch((error) => {
-      console.error('Error loading font:', error)
-      setIsLoading(false)
-    })
+      })
   })
   return (
     <>

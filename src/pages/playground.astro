@@ -1,10 +1,20 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import type { FontFeatureItem } from '../sections/playground'
 
+import Layout from '../layouts/Layout.astro'
+import PlaygroundArea from '../sections/playground'
+
+const features: FontFeatureItem[] = []
 ---
+
 <Layout>
   <!-- https://lilex.myrt.co/ -->
   <div class="h-screen w-full">
-    <textarea />
+    <PlaygroundArea
+      features={features}
+      sizeRange={[12, 200]}
+      weightRange={[200, 800]}
+      client:load
+    />
   </div>
 </Layout>

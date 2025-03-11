@@ -47,14 +47,14 @@ const features: FeatureCardProps[] = [
 
 <SubSection {...data}>
   <div class="mb-8 inview-2">
-    <GenericLigature client:visible />
+    <GenericLigature client:load />
   </div>
   <h3 class="py-12 text-2xl c-accent font-600 inview-3">{subTitle}</h3>
   <div class="grid gap-6 inview-4">
-    <FeatureCard {...features[0]} client:visible />
+    <FeatureCard {...features[0]} client:load />
     <div class="grid w-full gap-6 md:grid-cols-2">
-      <FeatureCard {...features[1]} client:visible />
-      <FeatureCard {...features[2]} client:visible />
+      <FeatureCard {...features[1]} client:load />
+      <FeatureCard {...features[2]} client:load />
     </div>
   </div>
 </SubSection>
