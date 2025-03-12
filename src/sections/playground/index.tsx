@@ -1,10 +1,15 @@
+import type { features } from '../../../uno.config'
+
 import { onMount } from 'solid-js'
 
 import { loadMapleMono } from '../../cdn'
 
 export interface FontFeatureItem {
   title: string
-  data: [text: string, feat: string][]
+  text: string
+  feat: typeof features[Extract<keyof typeof features, number>]
+  italic?: boolean
+  cn?: boolean
 }
 
 export interface PlaygroundProps {

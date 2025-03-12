@@ -4,7 +4,145 @@ import type { FontFeatureItem } from '../sections/playground'
 import Layout from '../layouts/Layout.astro'
 import PlaygroundArea from '../sections/playground'
 
-const features: FontFeatureItem[] = []
+const features: FontFeatureItem[] = [
+  {
+    title: 'Basic ligatures',
+    text: '==>',
+    feat: 'calt',
+  },
+  {
+    title: 'Alt zero',
+    text: '0',
+    feat: 'zero',
+  },
+  {
+    title: 'Remove gaps',
+    text: '@$%',
+    feat: 'cv01',
+  },
+  {
+    title: 'Alt a',
+    text: 'a',
+    feat: 'cv02',
+  },
+  {
+    title: 'Alt i',
+    text: 'i',
+    feat: 'cv03',
+  },
+  {
+    title: 'Alt l',
+    text: 'l',
+    feat: 'cv04',
+  },
+  {
+    title: '[Italic] Alt a',
+    text: 'a',
+    feat: 'cv31',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt f',
+    text: 'f',
+    feat: 'cv32',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt i & j',
+    text: 'ij',
+    feat: 'cv33',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt k',
+    text: 'k',
+    feat: 'cv34',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt l',
+    text: 'l',
+    feat: 'cv35',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt x',
+    text: 'x',
+    feat: 'cv36',
+    italic: true,
+  },
+  {
+    title: '[Italic] Alt y',
+    text: 'y',
+    feat: 'cv37',
+    italic: true,
+  },
+  {
+    title: '[CN] Full width quote',
+    text: '“”',
+    feat: 'cv96',
+    cn: true,
+  },
+  {
+    title: '[CN] Full width ellipsis',
+    text: '…',
+    feat: 'cv97',
+    cn: true,
+  },
+  {
+    title: '[CN] Full width emdash',
+    text: '—',
+    feat: 'cv98',
+    cn: true,
+  },
+  {
+    title: '[CN] Tranditional punctuations',
+    text: '，',
+    feat: 'cv99',
+    cn: true,
+  },
+  {
+    title: 'Break equals',
+    text: '==',
+    feat: 'ss01',
+  },
+  {
+    title: 'Break compile and equal',
+    text: '==',
+    feat: 'ss02',
+  },
+  {
+    title: 'Enable arbitrary tag',
+    text: '==',
+    feat: 'ss03',
+  },
+  {
+    title: 'Break multi underscore',
+    text: '==',
+    feat: 'ss04',
+  },
+  {
+    title: 'Thin backslash in escape letters',
+    text: '==',
+    feat: 'ss05',
+  },
+  {
+    title: '[Italic] Break connected strokes',
+    text: 'all',
+    feat: 'ss06',
+    italic: true,
+  },
+  {
+    title: 'Normal multiple greaters',
+    text: '>>>',
+    feat: 'ss07',
+  },
+  {
+    title: 'Enable head and back rows',
+    text: '=>>',
+    feat: 'ss08',
+  },
+]
 ---
 
 <Layout>
