@@ -55,7 +55,7 @@ export default function FeatureCard(props: FeatureCardProps) {
         </SwitchControl>
         <SwitchLabel class="pl-2">{props.feature}</SwitchLabel>
       </Switch>
-      <div class="mt-2 c-muted-foreground">{props.description}</div>
+      <div class="c-note mt-2">{props.description}</div>
     </div>
 
   )

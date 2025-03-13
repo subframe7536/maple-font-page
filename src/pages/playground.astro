@@ -2,73 +2,76 @@
 import type { FontFeatureItem } from '../sections/playground'
 
 import Layout from '../layouts/Layout.astro'
+import Nav from '../sections/nav.astro'
 import PlaygroundArea from '../sections/playground'
 
-const cvFeatures: FontFeatureItem[] = [
+const basicFeatures: FontFeatureItem[] = [
   {
-    title: 'Basic ligatures',
+    title: 'Enable ligatures',
     text: '==>',
     feat: 'calt',
   },
   {
-    title: 'Alt zero',
+    title: 'Alternative zero',
     text: '0',
     feat: 'zero',
   },
+]
+const cvFeatures: FontFeatureItem[] = [
   {
     title: 'Remove gaps',
     text: '@$%',
     feat: 'cv01',
   },
   {
-    title: 'Alt a',
+    title: 'Alternative a',
     text: 'a',
     feat: 'cv02',
   },
   {
-    title: 'Alt i',
+    title: 'Alternative i',
     text: 'i',
     feat: 'cv03',
   },
   {
-    title: 'Alt l',
+    title: 'Alternative l',
     text: 'l',
     feat: 'cv04',
   },
 ]
 const italicFeatures: FontFeatureItem[] = [
   {
-    title: 'Alt a',
+    title: 'Alternative a',
     text: 'a',
     feat: 'cv31',
   },
   {
-    title: 'Alt f',
+    title: 'Alternative f',
     text: 'f',
     feat: 'cv32',
   },
   {
-    title: 'Alt i & j',
+    title: 'Alternative i & j',
     text: 'ij',
     feat: 'cv33',
   },
   {
-    title: 'Alt k',
+    title: 'Alternative k',
     text: 'k',
     feat: 'cv34',
   },
   {
-    title: 'Alt l',
+    title: 'Alternative l',
     text: 'l',
     feat: 'cv35',
   },
   {
-    title: 'Alt x',
+    title: 'Alternative x',
     text: 'x',
     feat: 'cv36',
   },
   {
-    title: 'Alt y',
+    title: 'Alternative y',
     text: 'y',
     feat: 'cv37',
   },
@@ -102,27 +105,27 @@ const ssFeatures: FontFeatureItem[] = [
     feat: 'ss01',
   },
   {
-    title: 'Break compile and equal',
-    text: '==',
+    title: 'Break compare and equal',
+    text: '>=',
     feat: 'ss02',
   },
   {
     title: 'Enable arbitrary tag',
-    text: '==',
+    text: '[todo]',
     feat: 'ss03',
   },
   {
     title: 'Break multi underscore',
-    text: '==',
+    text: '__',
     feat: 'ss04',
   },
   {
-    title: 'Thin backslash in escape letters',
-    text: '==',
+    title: 'Thin escape backslash',
+    text: '\\n',
     feat: 'ss05',
   },
   {
-    title: 'Break italic connected strokes',
+    title: 'Break connected strokes',
     text: 'all',
     feat: 'ss06',
   },
@@ -132,7 +135,7 @@ const ssFeatures: FontFeatureItem[] = [
     feat: 'ss07',
   },
   {
-    title: 'Enable head and back rows',
+    title: 'Enable double / back rows',
     text: '=>>',
     feat: 'ss08',
   },
@@ -140,13 +143,17 @@ const ssFeatures: FontFeatureItem[] = [
 ---
 
 <Layout>
+  <Nav isMain={false} />
   <!-- https://lilex.myrt.co/ -->
   <div class="h-screen w-full">
     <PlaygroundArea
-      cv={cvFeatures}
-      italic={italicFeatures}
-      cn={cnFeatures}
-      ss={ssFeatures}
+      features={{
+        basic: basicFeatures,
+        cv: cvFeatures,
+        italic: italicFeatures,
+        cn: cnFeatures,
+        ss: ssFeatures,
+      }}
       sizeRange={[12, 200]}
       weightRange={[200, 800]}
       client:load

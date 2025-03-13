@@ -237,6 +237,7 @@ export default defineConfig<PresetUnoTheme>({
       background: 'hsl(212 30% 22%)',
       ring: 'hsl(212 27% 84%)',
       foreground: 'hsl(202 50% 90%)',
+      note: 'hsl(202 20% 64%)',
       primary: {
         DEFAULT: 'hsl(202 64% 80%)',
         foreground: 'hsl(202 47% 12%)',
