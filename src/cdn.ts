@@ -7,7 +7,6 @@ const fontPrefix = isDEV ? `/fonts` : `${myGhCdnPrefix}/maple-font@variable/woff
 function loadMapleMonoFontFace(italic: boolean) {
   const suffix = italic ? 'Italic' : 'Regular'
   const src = [
-    `url('${fontPrefix}/test.woff2') format('woff2-variations')`,
     `url('${fontPrefix}/MapleMono${italic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2-variations')`,
     `local("MapleMono-NF-CN-${suffix}")`,
     `local("Maple Mono NF CN ${suffix}")`,

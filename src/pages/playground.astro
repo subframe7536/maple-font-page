@@ -4,7 +4,7 @@ import type { FontFeatureItem } from '../sections/playground'
 import Layout from '../layouts/Layout.astro'
 import PlaygroundArea from '../sections/playground'
 
-const features: FontFeatureItem[] = [
+const cvFeatures: FontFeatureItem[] = [
   {
     title: 'Basic ligatures',
     text: '==>',
@@ -35,72 +35,67 @@ const features: FontFeatureItem[] = [
     text: 'l',
     feat: 'cv04',
   },
+]
+const italicFeatures: FontFeatureItem[] = [
   {
-    title: '[Italic] Alt a',
+    title: 'Alt a',
     text: 'a',
     feat: 'cv31',
-    italic: true,
   },
   {
-    title: '[Italic] Alt f',
+    title: 'Alt f',
     text: 'f',
     feat: 'cv32',
-    italic: true,
   },
   {
-    title: '[Italic] Alt i & j',
+    title: 'Alt i & j',
     text: 'ij',
     feat: 'cv33',
-    italic: true,
   },
   {
-    title: '[Italic] Alt k',
+    title: 'Alt k',
     text: 'k',
     feat: 'cv34',
-    italic: true,
   },
   {
-    title: '[Italic] Alt l',
+    title: 'Alt l',
     text: 'l',
     feat: 'cv35',
-    italic: true,
   },
   {
-    title: '[Italic] Alt x',
+    title: 'Alt x',
     text: 'x',
     feat: 'cv36',
-    italic: true,
   },
   {
-    title: '[Italic] Alt y',
+    title: 'Alt y',
     text: 'y',
     feat: 'cv37',
-    italic: true,
   },
+]
+const cnFeatures: FontFeatureItem[] = [
   {
-    title: '[CN] Full width quote',
+    title: 'Full width quote',
     text: '“”',
     feat: 'cv96',
-    cn: true,
   },
   {
-    title: '[CN] Full width ellipsis',
+    title: 'Full width ellipsis',
     text: '…',
     feat: 'cv97',
-    cn: true,
   },
   {
-    title: '[CN] Full width emdash',
+    title: 'Full width emdash',
     text: '—',
     feat: 'cv98',
-    cn: true,
   },
   {
-    title: '[CN] Tranditional punctuations',
+    title: 'Tranditional punctuations',
     text: '，',
     feat: 'cv99',
-    cn: true,
   },
+]
+const ssFeatures: FontFeatureItem[] = [
   {
     title: 'Break equals',
     text: '==',
@@ -127,10 +122,9 @@ const features: FontFeatureItem[] = [
     feat: 'ss05',
   },
   {
-    title: '[Italic] Break connected strokes',
+    title: 'Break italic connected strokes',
     text: 'all',
     feat: 'ss06',
-    italic: true,
   },
   {
     title: 'Normal multiple greaters',
@@ -149,7 +143,10 @@ const features: FontFeatureItem[] = [
   <!-- https://lilex.myrt.co/ -->
   <div class="h-screen w-full">
     <PlaygroundArea
-      features={features}
+      cv={cvFeatures}
+      italic={italicFeatures}
+      cn={cnFeatures}
+      ss={ssFeatures}
       sizeRange={[12, 200]}
       weightRange={[200, 800]}
       client:load
