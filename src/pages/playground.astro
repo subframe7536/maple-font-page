@@ -92,25 +92,25 @@ const italicFeatures: FontFeatureItem[] = [
 const cnFeatures: FontFeatureItem[] = [
   {
     desc: 'Full width quotes',
-    text: '“”',
+    text: '“‘’”',
     feat: 'cv96',
     version: '7.0',
   },
   {
     desc: 'Full width ellipsis',
-    text: '…',
+    text: '……',
     feat: 'cv97',
     version: '7.0',
   },
   {
     desc: 'Full width emdash',
-    text: '—',
+    text: '——',
     feat: 'cv98',
     version: '7.0',
   },
   {
     desc: 'Tranditional punctuations',
-    text: '，',
+    text: '，。',
     feat: 'cv99',
     version: '7.0',
   },
@@ -165,6 +165,15 @@ const ssFeatures: FontFeatureItem[] = [
     version: '7.0',
   },
 ]
+
+const defaultText = [
+  'Maple Mono, smooth your coding flow',
+  'abcdefghijklmnopqrstuvwxyz',
+  '~!@#$%^&* I1l oO0 {} [] ()',
+  '!= !== <= #{ -> ~@ |>',
+  '[INFO] todo)) fixme))',
+  'Input your text here.',
+].join('\n\n')
 ---
 
 <Layout>
@@ -181,6 +190,7 @@ const ssFeatures: FontFeatureItem[] = [
       }}
       sizeRange={[12, 96]}
       weightRange={[200, 800]}
+      defaultText={defaultText}
       client:load
     />
   </div>

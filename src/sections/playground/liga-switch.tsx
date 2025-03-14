@@ -16,6 +16,7 @@ interface Props {
   version: string
   desc: string
   italic?: boolean
+  cn?: boolean
 }
 
 export default function LigaSwitch(props: Emits & Props) {
@@ -33,11 +34,17 @@ export default function LigaSwitch(props: Emits & Props) {
         </span>
       </div>
       <div class="c-note mb-2 text-sm font-italic">{props.desc}</div>
-      <Tabs onChange={state => emits('change', props.feat, state)} defaultValue={props.feat === 'calt' ? '1' : '0'}>
+      <Tabs
+        onChange={state => emits('change', props.feat, state)}
+        defaultValue={props.feat === 'calt' ? '1' : '0'}
+      >
         <TabsList>
           <TabsTrigger
             value="0"
-            class={cls(props.italic && '!font-italic')}
+            class={cls(
+              props.italic && '!font-italic',
+              props.cn && 'font-cn',
+            )}
             style={{ [`--feat-${props.feat}`]: '0' }}
             title={`turn off "${props.feat}"`}
           >
@@ -45,7 +52,10 @@ export default function LigaSwitch(props: Emits & Props) {
           </TabsTrigger>
           <TabsTrigger
             value="1"
-            class={cls(props.italic && '!font-italic')}
+            class={cls(
+              props.italic && '!font-italic',
+              props.cn && 'font-cn',
+            )}
             style={{ [`--feat-${props.feat}`]: '1' }}
             title={`turn on "${props.feat}"`}
           >
