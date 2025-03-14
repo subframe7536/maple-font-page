@@ -9,7 +9,7 @@ import {
 } from 'unocss'
 import { presetInView } from 'unocss-preset-inview'
 
-import { cdnPrefix } from './src/cdn'
+import { cdnPrefix } from './src/utils/cdn'
 
 export const features = [
   'calt',
@@ -233,7 +233,7 @@ export default defineConfig<PresetUnoTheme>({
   theme: {
     colors: {
       border: 'hsl(212 64% 80%)',
-      input: 'hsl(212 36% 55%)',
+      input: 'hsl(212 36% 50%)',
       background: 'hsl(212 30% 22%)',
       ring: 'hsl(212 27% 84%)',
       foreground: 'hsl(202 50% 90%)',
@@ -309,6 +309,52 @@ export default defineConfig<PresetUnoTheme>({
           ::selection {
             background-color: ${theme.colors.foreground};
             color: ${theme.colors.background};
+          }
+          :root {
+            --scrollbar-width: max(0.85vw, 10px);
+          }
+
+          @media (prefers-color-scheme: light) {
+            :root {
+              --scrollbar-color-rgb: 0, 0, 0;
+            }
+          }
+
+          @media (prefers-color-scheme: dark) {
+            :root {
+              --scrollbar-color-rgb: 255, 255, 255;
+            }
+          }
+
+          *::-webkit-scrollbar {
+            width: var(--scrollbar-width) !important;
+            height: var(--scrollbar-width) !important;
+          }
+
+          *::-webkit-scrollbar-track {
+            background-color: transparent !important;
+            border-radius: var(--scrollbar-width) !important;
+            box-shadow: none !important;
+          }
+
+          *::-webkit-scrollbar-thumb {
+            box-shadow: inset 0 0 0 var(--scrollbar-width) !important;
+            border-radius: var(--scrollbar-width) !important;
+            border: calc(var(--scrollbar-width) * 2 / 9) solid transparent !important;
+            background-clip: content-box;
+            background-color: transparent !important;
+            color: ${theme.colors.input} !important;
+          }
+
+          *::-webkit-scrollbar-thumb:active {
+            color: ${theme.colors.border} !important;
+          }
+
+          @supports not selector(::-webkit-scrollbar) {
+            html {
+              scrollbar-color: ${theme.colors.input};
+              scrollbar-width: thin;
+            }
           }
         `
       },

@@ -7,137 +7,162 @@ import PlaygroundArea from '../sections/playground'
 
 const basicFeatures: FontFeatureItem[] = [
   {
-    title: 'Enable ligatures',
+    desc: 'Enable ligatures',
     text: '==>',
     feat: 'calt',
+    version: '7.0',
   },
   {
-    title: 'Alternative zero',
+    desc: 'Alternative zero',
     text: '0',
     feat: 'zero',
+    version: '7.0',
   },
 ]
 const cvFeatures: FontFeatureItem[] = [
   {
-    title: 'Remove gaps',
+    desc: 'Remove gaps',
     text: '@$%',
     feat: 'cv01',
+    version: '7.0',
   },
   {
-    title: 'Alternative a',
+    desc: 'Alternative a',
     text: 'a',
     feat: 'cv02',
+    version: '7.0',
   },
   {
-    title: 'Alternative i',
+    desc: 'Alternative i',
     text: 'i',
     feat: 'cv03',
+    version: '7.0',
   },
   {
-    title: 'Alternative l',
+    desc: 'Alternative l',
     text: 'l',
     feat: 'cv04',
+    version: '7.0',
   },
 ]
 const italicFeatures: FontFeatureItem[] = [
   {
-    title: 'Alternative a',
+    desc: 'Alternative a',
     text: 'a',
     feat: 'cv31',
+    version: '7.0',
   },
   {
-    title: 'Alternative f',
+    desc: 'Alternative f',
     text: 'f',
     feat: 'cv32',
+    version: '7.0',
   },
   {
-    title: 'Alternative i & j',
+    desc: 'Alternative i and j',
     text: 'ij',
     feat: 'cv33',
+    version: '7.0',
   },
   {
-    title: 'Alternative k',
+    desc: 'Alternative k',
     text: 'k',
     feat: 'cv34',
+    version: '7.0',
   },
   {
-    title: 'Alternative l',
+    desc: 'Alternative l',
     text: 'l',
     feat: 'cv35',
+    version: '7.0',
   },
   {
-    title: 'Alternative x',
+    desc: 'Alternative x',
     text: 'x',
     feat: 'cv36',
+    version: '7.0',
   },
   {
-    title: 'Alternative y',
+    desc: 'Alternative y',
     text: 'y',
     feat: 'cv37',
+    version: '7.0',
   },
 ]
 const cnFeatures: FontFeatureItem[] = [
   {
-    title: 'Full width quote',
+    desc: 'Full width quotes',
     text: '“”',
     feat: 'cv96',
+    version: '7.0',
   },
   {
-    title: 'Full width ellipsis',
+    desc: 'Full width ellipsis',
     text: '…',
     feat: 'cv97',
+    version: '7.0',
   },
   {
-    title: 'Full width emdash',
+    desc: 'Full width emdash',
     text: '—',
     feat: 'cv98',
+    version: '7.0',
   },
   {
-    title: 'Tranditional punctuations',
+    desc: 'Tranditional punctuations',
     text: '，',
     feat: 'cv99',
+    version: '7.0',
   },
 ]
 const ssFeatures: FontFeatureItem[] = [
   {
-    title: 'Break equals',
+    desc: 'Break equals',
     text: '==',
     feat: 'ss01',
+    version: '7.0',
   },
   {
-    title: 'Break compare and equal',
+    desc: 'Break compare and equal',
     text: '>=',
     feat: 'ss02',
+    version: '7.0',
   },
   {
-    title: 'Enable arbitrary tag',
+    desc: 'Enable arbitrary tag',
     text: '[todo]',
     feat: 'ss03',
+    version: '7.0',
   },
   {
-    title: 'Break multi underscore',
+    desc: 'Break multi underscore',
     text: '__',
     feat: 'ss04',
+    version: '7.0',
   },
   {
-    title: 'Thin escape backslash',
+    desc: 'Thin escape backslash',
     text: '\\n',
     feat: 'ss05',
+    version: '7.0',
   },
   {
-    title: 'Break connected strokes',
+    desc: 'Break connected strokes',
     text: 'all',
     feat: 'ss06',
+    version: '7.0',
   },
   {
-    title: 'Normal multiple greaters',
+    desc: 'Normal multiple greaters',
     text: '>>>',
     feat: 'ss07',
+    version: '7.0',
   },
   {
-    title: 'Enable double / back rows',
+    desc: 'Enable double / back rows',
     text: '=>>',
     feat: 'ss08',
+    version: '7.0',
   },
 ]
 ---
@@ -145,7 +170,7 @@ const ssFeatures: FontFeatureItem[] = [
 <Layout>
   <Nav isMain={false} />
   <!-- https://lilex.myrt.co/ -->
-  <div class="h-screen w-full">
+  <div class="h-screen w-full pt-8">
     <PlaygroundArea
       features={{
         basic: basicFeatures,
@@ -154,7 +179,7 @@ const ssFeatures: FontFeatureItem[] = [
         cn: cnFeatures,
         ss: ssFeatures,
       }}
-      sizeRange={[12, 200]}
+      sizeRange={[12, 96]}
       weightRange={[200, 800]}
       client:load
     />
