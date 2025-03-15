@@ -25,7 +25,7 @@ type API = Exclude<ReturnType<CarouselApi>, undefined>
 
 function TestimonialItem(props: ItemData) {
   return (
-    <div class="flex flex-col items-center justify-center gap-8 text-center md:(flex-row justify-between gap-12 text-left)">
+    <div class="flex flex-col select-none items-center justify-center gap-8 text-center md:(flex-row justify-between gap-12 text-left)">
       <div class="flex flex-row items-center gap-4">
         <div
           class="size-16 rounded-full bg-primary text-(center 10) c-background leading-[4rem]"

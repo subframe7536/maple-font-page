@@ -29,7 +29,7 @@ export default function GenericLigature() {
       >
         {
           arr.map((row, i) => (
-            <div>
+            <div class="whitespace-nowrap">
               {row.map((item, j) => {
                 const char = j ? String.fromCharCode(97 + i * 4 + j - 1) : ''
                 return (

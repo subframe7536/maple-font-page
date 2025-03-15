@@ -33,7 +33,7 @@ export default function LigaSwitch(props: Emits & Props) {
           {ver()}
         </span>
       </div>
-      <div class="c-note mb-2 text-sm font-italic">{props.desc}</div>
+      <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
         onChange={state => emits('change', props.feat, state)}
         defaultValue={props.feat === 'calt' ? '1' : '0'}

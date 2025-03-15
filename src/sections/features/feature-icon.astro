@@ -19,7 +19,7 @@ interface ReferenceData {
 
 const references: ReferenceData[] = [
   {
-    title: 'Pictured by',
+    title: 'Art by',
     name: 'CodeImg',
     href: 'https://github.com/subframe7536/vscode-codeimg',
   },
@@ -37,7 +37,7 @@ const references: ReferenceData[] = [
 ---
 
 <SubSection {...data}>
-  <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full rounded-2xl inview-2" />
+  <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full rounded-lg inview-2 sm:rounded-2xl" />
   <div class="mx-auto mt-8 flex flex-row justify-evenly inview-3 xs:gap-4">
     {
       references.map(({ href, name, title }) => (

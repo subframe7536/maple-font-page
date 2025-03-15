@@ -1,5 +1,8 @@
+---
+import { ClientRouter } from 'astro:transitions'
+---
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -9,6 +12,7 @@
     <!-- https://liruifengv.com/posts/astro-auto-gen-og-image/ -->
     <meta name="generator" content={Astro.generator} />
     <title>Maple Mono</title>
+    <ClientRouter />
   </head>
   <body class="bg-background c-foreground transition-colors all-font-liga">
     <slot />

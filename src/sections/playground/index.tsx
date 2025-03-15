@@ -1,6 +1,6 @@
 import type { features } from '../../../uno.config'
 
-import { createRef } from '@solid-hooks/core'
+import { createRef, useCallback, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createSignal, For, onMount, Show } from 'solid-js'
 
@@ -14,7 +14,7 @@ import {
   SliderValueLabel,
 } from '../../components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '../../components/ui/tabs'
-import { loadMapleMono, loadMapleMonoCN } from '../../utils/loadFont'
+import { loadMapleMono } from '../../utils/loadFont'
 import LigaSwitch from './liga-switch'
 
 export interface FontFeatureItem {
@@ -40,13 +40,22 @@ export interface PlaygroundProps {
   defaultText: string
 }
 
+function getCNFromRemote(italic: boolean) {
+  const suffix = italic ? 'Italic' : 'Regular'
+  const el = document.createElement('link')
+  el.rel = 'stylesheet'
+  el.href = `https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-${suffix}/result.css`
+  document.head.append(el)
+  return el
+}
+
 export default function Playground(props: PlaygroundProps) {
   const textareaRef = createRef<HTMLTextAreaElement>()
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
 
-  const [cnLoadState, setCNLoadState] = createSignal<'empty' | 'loading' | 'loaded'>('empty')
+  const [cnLoadState, setCNLoadState] = createSignal(-1)
 
   onMount(() => {
     loadMapleMono()
@@ -56,27 +65,28 @@ export default function Playground(props: PlaygroundProps) {
   })
 
   const handleChange = (feat: string, stat: string): void => {
-    console.log(feat, stat)
     textareaRef()?.style.setProperty(`--feat-${feat}`, stat)
   }
 
-  const loadCN = async () => {
-    if (cnLoadState() !== 'empty') {
+  const loadCN = useCallback(async () => {
+    if (cnLoadState() !== -1) {
       return
     }
-    const textarea = textareaRef()
-    if (!textarea) {
-      return
+    setCNLoadState(0)
+    const el1 = getCNFromRemote(false)
+    const el2 = getCNFromRemote(true)
+    el1.onload = el2.onload = () => setCNLoadState(state => ++state)
+    el1.onerror = el2.onerror = () => setCNLoadState(-1)
+  })
+
+  watch(() => cnLoadState(), (state) => {
+    if (state === 2) {
+      const textarea = textareaRef()
+      if (textarea) {
+        textarea.value = `中文测试：“‘’” …… —— ，。\n\n${textarea.value || ''}`
+      }
     }
-    setCNLoadState('loading')
-    try {
-      await loadMapleMonoCN()
-      setCNLoadState('loaded')
-      textarea.value = `${textarea.value || ''}\n\n中文测试：“‘’”……——，。`
-    } catch {
-      setCNLoadState('empty')
-    }
-  }
+  })
 
   return (
     <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
@@ -140,7 +150,7 @@ export default function Playground(props: PlaygroundProps) {
             ref={textareaRef}
             class={cls(
               'size-full resize-none b-0 bg-#0000 p-2 !focus:outline-0',
-              cnLoadState() === 'loaded' && 'font-cn',
+              cnLoadState() === 2 && 'font-cn',
             )}
             style={{
               '--fw': weight(),
@@ -150,7 +160,7 @@ export default function Playground(props: PlaygroundProps) {
           />
         </div>
       </div>
-      <div class="h-45% w-full overflow-y-scroll px-2 py-4 md:(h-full w-50% p-8)">
+      <div class="h-45% w-full overflow-(x-hidden y-scroll) px-2 py-4 md:(h-full w-50% p-8)">
         <h2 class="whitespace-nowrap pb-4 text-5 c-primary font-bold md:text-8">
           Basic Features
         </h2>
@@ -178,17 +188,27 @@ export default function Playground(props: PlaygroundProps) {
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          Chinese Font Only
+          <span>CN Only</span>
+          <Button
+            as="a"
+            href="https://github.com/subframe7536/maple-font/issues/358"
+            variant="link"
+            target="_blank"
+            class="parent"
+          >
+            <span class="c-foreground">Known Issue</span>
+            <span class="i-lucide-external-link ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)" />
+          </Button>
         </h3>
         <Show
-          when={cnLoadState() === 'loaded'}
+          when={cnLoadState() === 2}
           fallback={(
             <Button
-              disabled={cnLoadState() === 'loading'}
+              disabled={cnLoadState() === 0}
               onClick={loadCN}
               class="w-full"
             >
-              {cnLoadState() === 'loading' ? 'Loading...' : 'Load Chinese Font'}
+              {cnLoadState() === 0 ? 'Loading...' : 'Load Chinese Font'}
             </Button>
           )}
         >

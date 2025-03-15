@@ -100,7 +100,7 @@ const presetMaple: Preset<PresetUnoTheme> = {
         '--feat': features.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
       },
     ],
-    ['font-cn', { 'font-family': 'Maple Mono NF CN, Maple Mono CN !important' }],
+    ['font-cn', { 'font-family': 'Maple Mono CN, Maple Mono NF CN !important' }],
     ['font-bold', { '--fw': 700 }],
     [/font-(\d+)/, ([, weight]) => ({ '--fw': weight })],
   ],
