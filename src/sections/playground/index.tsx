@@ -68,7 +68,7 @@ export default function Playground(props: PlaygroundProps) {
     textareaRef()?.style.setProperty(`--feat-${feat}`, stat)
   }
 
-  const loadCN = useCallback(async () => {
+  const loadCN = () => {
     if (cnLoadState() !== -1) {
       return
     }
@@ -77,20 +77,24 @@ export default function Playground(props: PlaygroundProps) {
     const el2 = getCNFromRemote(true)
     el1.onload = el2.onload = () => setCNLoadState(state => ++state)
     el1.onerror = el2.onerror = () => setCNLoadState(-1)
-  })
+  }
 
   watch(() => cnLoadState(), (state) => {
     if (state === 2) {
       const textarea = textareaRef()
       if (textarea) {
-        textarea.value = `中文测试：“‘’” …… —— ，。\n\n${textarea.value || ''}`
+        const oldText = textarea.value
+        textarea.focus()
+        textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
+        textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
+        textarea.scroll({ top: 99999 })
       }
     }
   })
 
   return (
     <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
-      <div class="size-full flex flex-col gap-4 pt-2 md:(w-50% gap-8 pt-8)">
+      <div class="size-full flex flex-col gap-4 pt-2 md:(w-50% gap-8 pt-6)">
         <div class="flex flex-col items-start lg:flex-row sm:flex-row md:flex-col md:gap-4">
           <div class="w-full p-2 lg:w-40% md:w-full sm:w-40% space-y-2">
             <div class="text-sm leading-none font-500">Font Style</div>
@@ -145,11 +149,11 @@ export default function Playground(props: PlaygroundProps) {
             </Slider>
           </div>
         </div>
-        <div class="relative size-full max-h-45vh sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
+        <div class="relative size-full max-h-45vh px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
           <textarea
             ref={textareaRef}
             class={cls(
-              'size-full resize-none b-0 bg-#0000 p-2 !focus:outline-0',
+              'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg',
               cnLoadState() === 2 && 'font-cn',
             )}
             style={{
@@ -160,7 +164,7 @@ export default function Playground(props: PlaygroundProps) {
           />
         </div>
       </div>
-      <div class="h-45% w-full overflow-(x-hidden y-scroll) px-2 py-4 md:(h-full w-50% p-8)">
+      <div class="h-45% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6)">
         <h2 class="whitespace-nowrap pb-4 text-5 c-primary font-bold md:text-8">
           Basic Features
         </h2>
