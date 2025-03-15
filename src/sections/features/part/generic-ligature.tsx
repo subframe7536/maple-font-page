@@ -1,7 +1,6 @@
 /* eslint-disable solid/prefer-for */
+import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { createSignal } from 'solid-js'
-
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '../../../components/ui/tabs'
 
 const arr = [
   ['<>', '??', '!==', '...', '|->'],

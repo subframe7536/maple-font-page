@@ -1,14 +1,13 @@
-import type { CarouselApi } from '../../components/ui/carousel'
-
-import { cls } from 'cls-variant'
-import Autoplay from 'embla-carousel-autoplay'
-import { createEffect, createSignal, Index } from 'solid-js'
+import type { CarouselApi } from '@/components/ui/carousel'
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from '../../components/ui/carousel'
+} from '@/components/ui/carousel'
+import { cls } from 'cls-variant'
+import Autoplay from 'embla-carousel-autoplay'
+import { createEffect, createSignal, Index } from 'solid-js'
 
 interface ItemData {
   content: string

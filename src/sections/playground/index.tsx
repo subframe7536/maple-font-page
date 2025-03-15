@@ -1,10 +1,6 @@
 import type { features } from '../../../uno.config'
 
-import { createRef, useCallback, watch } from '@solid-hooks/core'
-import { cls } from 'cls-variant'
-import { createSignal, For, onMount, Show } from 'solid-js'
-
-import { Button } from '../../components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Slider,
   SliderFill,
@@ -12,9 +8,13 @@ import {
   SliderThumb,
   SliderTrack,
   SliderValueLabel,
-} from '../../components/ui/slider'
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '../../components/ui/tabs'
-import { loadMapleMono } from '../../utils/loadFont'
+} from '@/components/ui/slider'
+import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { loadMapleMono } from '@/utils/loadFont'
+import { createRef, watch } from '@solid-hooks/core'
+import { cls } from 'cls-variant'
+import { createSignal, For, onMount, Show } from 'solid-js'
+
 import LigaSwitch from './liga-switch'
 
 export interface FontFeatureItem {

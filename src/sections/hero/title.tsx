@@ -1,7 +1,7 @@
+import { loadMapleMono } from '@/utils/loadFont'
 import { cls } from 'cls-variant'
 import { createSignal, onMount } from 'solid-js'
 
-import { loadMapleMono } from '../../utils/loadFont'
 import Placeholder from './placeholder'
 
 export default function Title(props: { slogan: string }) {
