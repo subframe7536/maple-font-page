@@ -36,7 +36,7 @@ function TestimonialItem(props: ItemData) {
           <div class="text-sm c-primary/50">{props.platform}</div>
         </div>
       </div>
-      <blockquote class="relative max-w-xl p-4 text-lg font-light leading-relaxed md:(mb-0 mr-8)">
+      <blockquote class="relative max-w-xl p-4 text-lg font-light leading-relaxed md:(mb-0 mr-8 w-60%)">
         <span class="absolute left--2 top--4 text-4xl c-primary/50 md:left--6">&#x250F</span>
         <span class="inline-block font-italic">
           {props.content}
