@@ -7,7 +7,8 @@ import { Code } from 'astro:components'
 import SubSectionTitle from './part/sub-section-title.astro'
 
 const {
-  button,
+  buttonText,
+  link,
   description,
   title,
 } = await useFeatureTranslation(Astro.currentLocale, 'custom')
@@ -28,11 +29,6 @@ const code = `{
     // ...
   }
 }`
-
-const nextButtonData = {
-  name: button,
-  href: 'https://github.com/subframe7536/maple-font#custom-build',
-}
 ---
 
 <SubSectionTitle icon={data.icon} title={data.title}>
@@ -51,10 +47,10 @@ const nextButtonData = {
       <Button
         as="a"
         variant="secondary"
-        href={nextButtonData.href}
+        href={link}
         target="_blank"
       >
-        {nextButtonData.name}
+        {buttonText}
       </Button>
     </div>
   </div>

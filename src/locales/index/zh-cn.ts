@@ -59,7 +59,8 @@ const zh: IndexTranslation = {
     custom: {
       title: '你的喜好，你的字体',
       description: '随心配置或强制开关 OpenType 功能，创建你完美的字体。',
-      button: '查看指南',
+      buttonText: '查看指南',
+      link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
     },
   },
   comparison: {

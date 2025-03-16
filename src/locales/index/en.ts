@@ -57,7 +57,8 @@ const en = {
     custom: {
       title: 'Your favor, Your Font',
       description: 'Configure or freeze OpenType features as you want, create your own perfect font.',
-      button: 'See Guide',
+      buttonText: 'See Guide',
+      link: 'https://github.com/subframe7536/maple-font#custom-build',
     },
   },
   comparison: {
