@@ -1,6 +1,7 @@
 const en = {
   why: 'WHY',
   features: 'FEATURES',
+  preview: 'PREVIEW',
   credits: 'CREDITS',
   usage: 'Usage',
   download: 'Download',

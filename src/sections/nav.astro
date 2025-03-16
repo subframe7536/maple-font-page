@@ -15,13 +15,15 @@ const {
   download,
   features,
   usage,
-  why,
+  preview,
   playground,
+  why,
 } = await useNavTranslation(Astro.currentLocale)
 
 const navigatorText = [
   ['#why', why],
   ['#features', features],
+  ['#preview', preview],
   ['#credits', credits],
 ] as const
 
