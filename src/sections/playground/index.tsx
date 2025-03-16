@@ -59,13 +59,26 @@ export interface PlaygroundProps {
   }
 }
 
-function getCNFromRemote(italic: boolean) {
-  const suffix = italic ? 'Italic' : 'Regular'
-  const el = document.createElement('link')
-  el.rel = 'stylesheet'
-  el.href = `https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-${suffix}/result.css`
-  document.head.append(el)
-  return el
+function getCNFromRemote(italic: boolean): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const suffix = italic ? 'Italic' : 'Regular'
+    const href = `https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-${suffix}/result.css`
+
+    const existingEl = document.querySelector(`link[href="${href}"]`) as HTMLLinkElement | null
+
+    if (existingEl) {
+      existingEl.remove()
+    }
+
+    const el = document.createElement('link')
+    el.rel = 'stylesheet'
+    el.href = href
+
+    el.onload = () => resolve()
+    el.onerror = () => reject(new Error(`Failed to load ${href}`))
+
+    document.head.append(el)
+  })
 }
 
 export default function Playground(props: PlaygroundProps) {
@@ -92,10 +105,9 @@ export default function Playground(props: PlaygroundProps) {
       return
     }
     setCNLoadState(0)
-    const el1 = getCNFromRemote(false)
-    const el2 = getCNFromRemote(true)
-    el1.onload = el2.onload = () => setCNLoadState(state => ++state)
-    el1.onerror = el2.onerror = () => setCNLoadState(-1)
+    Promise.all([getCNFromRemote(false), getCNFromRemote(true)])
+      .then(() => setCNLoadState(1))
+      .catch(() => setCNLoadState(-1))
   }
 
   watch(() => cnLoadState(), (state) => {
@@ -224,7 +236,7 @@ export default function Playground(props: PlaygroundProps) {
           </Button>
         </h3>
         <Show
-          when={cnLoadState() === 2}
+          when={cnLoadState() === 1}
           fallback={(
             <Button
               disabled={cnLoadState() === 0}

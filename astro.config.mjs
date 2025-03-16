@@ -8,7 +8,6 @@ import { DEFAULT_LOCALE, LOCALES_SETTING } from './src/utils/constant'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://font.subf.dev',
   // adapter: netlifyIntegration(),
   integrations: [
     unocss({ injectReset: true }),

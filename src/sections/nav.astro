@@ -32,6 +32,7 @@ const pageText = {
 
 const locale = Astro.currentLocale
 const playgroundLink = `${baseUrl}/${locale}/playground`
+const downloadLink = `https://github.com/subframe7536/maple-font/releases`
 ---
 
 <nav
@@ -79,11 +80,11 @@ const playgroundLink = `${baseUrl}/${locale}/playground`
         size="sm"
         variant="link"
         as="a"
-        href="/how"
+        href={playgroundLink}
       >
         {pageText.usage}
       </Button>
-      <Button size="sm" as="a" href={playgroundLink}>
+      <Button size="sm" as="a" href={downloadLink}>
         {pageText.download}
       </Button
       >

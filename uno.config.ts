@@ -86,7 +86,37 @@ function getIosevka(isItalic: boolean) {
   return generateBaseFontface('Iosevka', src.join(','), isItalic)
 }
 
-const fallbackFamily = 'ui-monospace, Monaco, "DejaVu Sans Mono", "Lucida Console", Consolas, monospace'
+const fallbackFamily = [
+  'ui-monospace',
+  'Monaco',
+  'DejaVu Sans Mono',
+  'Lucida Console',
+  'Consolas',
+  'monospace',
+  'Noto Sans CJK SC', /* Google Noto Sans - Excellent Simplified Chinese coverage */
+  'Noto Sans CJK TC', /* Google Noto Sans - Excellent Traditional Chinese coverage */
+
+  /* 2. Mobile System Fonts (Prioritized for mobile OS defaults) */
+  'PingFang SC', /* iOS - Simplified Chinese (Modern, very common on iOS in China) */
+  'PingFang TC', /* iOS - Traditional Chinese (Modern, very common on iOS in Taiwan/HK) */
+  'Heiti SC', /* iOS/macOS - Simplified Chinese (System default & good on mobile) */
+  'STHeiti', /* iOS/macOS - Simplified Chinese (older but still present) */
+  'Heiti TC', /* iOS/macOS - Traditional Chinese (System default & good on mobile) */
+  'STHeitiTC', /* iOS/macOS - Traditional Chinese (older but still present) */
+  'Source Han Sans SC', /* Android/Cross-platform - Excellent open-source, good mobile rendering */
+  'Source Han Sans TC', /* Android/Cross-platform - Excellent open-source, good mobile rendering */
+  'Droid Sans Fallback', /* Android - Older Android default, still decent fallback */
+  'sans-serif-cjk', /* Android - Generic CJK sans-serif (may work as a broad fallback) */
+
+  /* 3. Desktop System Fonts (Fallback for desktop environments - Windows primarily) */
+  'Microsoft YaHei', /* Windows - Simplified Chinese (Common desktop font) */
+  '微软雅黑', /* Windows - Simplified Chinese (Localized name) */
+  'Microsoft JhengHei', /* Windows - Traditional Chinese (Good desktop choice) */
+  '微軟正黑體', /* Windows - Traditional Chinese (Localized name) */
+
+  /* 4. Generic Fallback (Always include at the very end) */
+  'sans-serif',
+].join(',')
 
 const presetMaple: Preset<PresetUnoTheme> = {
   name: 'maple',
