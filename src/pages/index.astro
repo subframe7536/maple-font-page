@@ -4,12 +4,18 @@ import { getLocalePaths, LOCALES } from '@/utils/i18n'
 
 const baseUrl = import.meta.env.PROD ? Astro.site : '/'
 const defaultLocale = DEFAULT_LOCALE
+
+const meta = {
+  site_name: 'Maple Mono',
+  title: 'Maple Mono: Open source monospace font with round corner, ligatures and Nerd-Font for IDE and terminal, fine-grained customization options.',
+  image: 'https://repository-images.githubusercontent.com/479451389/00c67e39-1c75-43d6-8e0e-b0b831c0cb85',
+}
 ---
 
 <html lang={DEFAULT_LOCALE}>
   <head>
     <meta charset="UTF-8" />
-    <title>redirect...</title>
+    <title>{meta.title}</title>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
     {
@@ -23,21 +29,22 @@ const defaultLocale = DEFAULT_LOCALE
     }
 
     <!-- icon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" sizes="192x192" href="/android-chrome.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+    <meta name="color-scheme" content="dark" />
 
     <!-- OGP -->
-    <!-- <meta property="og:type" content="website" />
-    <meta property="og:title" content={t(SITE_TITLE)} />
-    <meta property="og:site_name" content={t(SITE_TITLE)} />
-    <meta property="og:description" content={t(SITE_DESCRIPTION)} />
-    <meta property="og:image" content={`${Astro.site}ogp.png`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:site_name" content={meta.site_name} />
+    <meta property="og:description" content={meta.title} />
+    <meta property="og:image" content={meta.image} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:locale" content={DEFAULT_LOCALE} />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content={t(X_ACCOUNT)} /> -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={meta.site_name} />
+    <meta name="twitter:image" content={meta.image} />
+    <meta name="twitter:title" content={meta.title} />
 
     <noscript>
       <meta
