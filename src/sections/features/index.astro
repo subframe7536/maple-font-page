@@ -1,14 +1,17 @@
 ---
 import Section from '@/components/section.astro'
+import { useIndexTranslation } from '@/utils/i18n'
+
 import FeatureCustom from './feature-custom.astro'
 import FeatureDesign from './feature-design.astro'
 import FeatureIcon from './feature-icon.astro'
 import FeatureLigature from './feature-ligature.astro'
 import FeatureVariable from './feature-variable.astro'
 
+const { title } = await useIndexTranslation(Astro.currentLocale, 'features')
 ---
 
-<Section id="features" title="Features">
+<Section id="features" title={title}>
   <FeatureVariable />
   <FeatureDesign />
   <FeatureLigature />

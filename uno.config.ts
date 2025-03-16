@@ -7,9 +7,10 @@ import {
   presetUno,
   transformerVariantGroup,
 } from 'unocss'
+import { presetAnimations } from 'unocss-preset-animations'
 import { presetInView } from 'unocss-preset-inview'
 
-import { cdnPrefix } from './src/utils/cdn'
+import { cdnPrefix } from './src/utils/constant'
 
 export const features = [
   'calt',
@@ -204,6 +205,7 @@ export default defineConfig<PresetUnoTheme>({
     presetUno({
       preflight: 'on-demand',
     }),
+    presetAnimations(),
     presetMaple,
     presetIcons({
       scale: 1.2,
@@ -244,7 +246,7 @@ export default defineConfig<PresetUnoTheme>({
         foreground: 'hsl(202 47% 12%)',
       },
       secondary: {
-        DEFAULT: 'hsl(140 32% 80%)',
+        DEFAULT: 'hsl(140 28% 72%)',
         foreground: 'hsl(140 40% 20%)',
       },
       muted: {

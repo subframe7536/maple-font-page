@@ -20,5 +20,8 @@
     "json",
     "jsonc",
     "yaml"
+  ],
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@kobalte/**/*.*"
   ]
 }

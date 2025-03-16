@@ -1,15 +1,20 @@
 ---
 import Section from '@/components/section.astro'
 import { Button } from '@/components/ui/button'
+import { useIndexTranslation } from '@/utils/i18n'
+
 import Title from './title'
 
-const slogan = 'Smooth your coding flow'
-const description = 'We use code to bring ideas to life as products, but the font we choose is the silent architect that shapes how we experience that journey. Crafted for programmers, Maple Mono boosts your productivity with a subtle elegance, making every line of code a joy to read and write.'
+const {
+  description,
+  learnMoreText,
+  slogan,
+  tryItText,
+} = await useIndexTranslation(Astro.currentLocale, 'hero')
 const [beforeFont, afterFont] = description.split('Maple Mono')
 
-const learnMoreText = 'Learn More'
-const tryItText = 'Try it now'
-
+const locale = Astro.currentLocale
+const playgroundLink = `/${locale}/playground`
 ---
 
 <Section
@@ -17,15 +22,15 @@ const tryItText = 'Try it now'
   class="min-h-screen flex flex-col justify-center gap-2 xl:gap-4"
 >
   <Title slogan={slogan} client:load />
-  <p class="py-4 text-4 leading-relaxed text-shadow-(sm color-input) md:text-5 xs:leading-[1.875]">
+  <p class="mt-4 py-4 text-4 leading-relaxed text-shadow-(sm color-input) md:text-5 xs:leading-[1.875]">
     {beforeFont}<span class="font-(italic 500)">Maple Mono</span>{afterFont}
   </p>
-  <div class="flex flex-wrap items-center justify-start gap-6">
+  <div class="mt-6 flex flex-wrap items-center justify-start gap-6">
     <Button as="a" href="#why" size="lg">
       {learnMoreText}
       <div class="i-lucide-arrow-down ml-2" />
     </Button>
-    <Button as="a" size="lg" href="/playground#custom" variant="outline">
+    <Button as="a" size="lg" href={playgroundLink} variant="outline">
       {tryItText}
       <div class="i-lucide-arrow-right ml-2" />
     </Button>

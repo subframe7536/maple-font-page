@@ -1,11 +1,14 @@
 ---
 import Section from '@/components/section.astro'
+import { useIndexTranslation } from '@/utils/i18n'
+
 import ComparsionTabs from './comparison-tabs'
 
+const { subTitle, title } = await useIndexTranslation(Astro.currentLocale, 'comparison')
 const data = {
   id: 'comparison',
-  title: 'Comparison',
-  subTitle: 'See how Maple Mono compares to other popular programming fonts.',
+  title,
+  subTitle,
 }
 ---
 

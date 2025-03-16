@@ -1,14 +1,21 @@
 ---
 import type { FeatureCardProps } from './part/feature-card'
 
+import { useFeatureTranslation } from '@/utils/i18n'
+
 import FeatureCard from './part/feature-card'
 import GenericLigature from './part/generic-ligature'
 import SubSection from './part/sub-section.astro'
 
+const {
+  description,
+  items,
+  title,
+} = await useFeatureTranslation(Astro.currentLocale, 'ligature')
+
 const data = {
-  title: 'Smart Ligatures, Large Amount',
-  description:
-    'Plain text tags, connected letters, brings the font ability to next level',
+  title,
+  description,
   icon: 'i-lucide-sparkles',
 }
 
@@ -18,7 +25,7 @@ const features: FeatureCardProps[] = [
   {
     showText: '[DEBUG] [INFO] [WARN] [ERROR]',
     showText1: '[TODO] todo)) [FIXME] fIxMe))',
-    description: 'Plain text tags for log and tasks',
+    description: items.tag,
     feature: 'calt',
     activeFeatures: ['calt'],
     sizeClass: 'text-8 sm:text-10 !leading-loose',
@@ -26,8 +33,7 @@ const features: FeatureCardProps[] = [
   {
     showText: 'all class',
     showText1: 'ultra suffix',
-    description:
-      'Connected stroke for italic style, use ss06 to disable xxxxxxxxxxx',
+    description: items.conn,
     feature: 'calt',
     activeFeatures: ['calt'],
     sizeClass: 'text-8 sm:text-10',
@@ -36,8 +42,7 @@ const features: FeatureCardProps[] = [
   {
     showText: '1>>4',
     showText1: 'Vec<R<T>>',
-    description:
-      'Smart spacing for generic(or template) and bitwise operations',
+    description: items.gts,
     feature: 'calt',
     activeFeatures: ['calt'],
     sizeClass: 'text-8 sm:text-10',
@@ -51,10 +56,10 @@ const features: FeatureCardProps[] = [
   </div>
   <h3 class="py-12 text-2xl c-accent font-600 inview-3">{subTitle}</h3>
   <div class="grid gap-6 inview-4">
-    <FeatureCard {...features[0]} client:load />
+    <FeatureCard {...features[0]} enable client:load />
     <div class="grid w-full gap-6 md:grid-cols-2">
-      <FeatureCard {...features[1]} client:load />
-      <FeatureCard {...features[2]} client:load />
+      <FeatureCard {...features[1]} enable client:load />
+      <FeatureCard {...features[2]} enable client:load />
     </div>
   </div>
 </SubSection>

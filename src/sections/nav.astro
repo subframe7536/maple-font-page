@@ -1,23 +1,37 @@
 ---
 import { Button } from '@/components/ui/button'
+import { isDEV } from '@/utils/constant'
+import { useNavTranslation } from '@/utils/i18n'
 
 interface Props {
-  isMain: boolean
+  isMain?: boolean
 }
 
 const props = Astro.props
+const baseUrl = isDEV ? '/' : Astro.site
+
+const {
+  credits,
+  download,
+  features,
+  usage,
+  why,
+  playground,
+} = await useNavTranslation(Astro.currentLocale)
 
 const navigatorText = [
-  ['#why', 'WHY'],
-  ['#features', 'FEATURES'],
-  ['#faq', 'FAQ'],
-  ['#credits', 'CREDITS'],
+  ['#why', why],
+  ['#features', features],
+  ['#credits', credits],
 ] as const
 
 const pageText = {
-  usage: 'Usage',
-  download: 'Download',
+  usage,
+  download,
 }
+
+const locale = Astro.currentLocale
+const playgroundLink = `${baseUrl}/${locale}/playground`
 ---
 
 <nav
@@ -27,11 +41,11 @@ const pageText = {
     src="/favicon.svg"
     alt="Maple Mono Icon"
     class="h-6 cursor-pointer hover:scale-110"
-    onclick="window.location='/'"
+    onclick={`window.location='${baseUrl}'`}
   />
   <div class="ml-2 w-full flex justify-end sm:justify-between">
     <div
-      class="hidden items-center sm:flex"
+      class="hidden select-none items-center sm:flex"
     >
       {props.isMain
         ? navigatorText.map(([anchor, text]) => (
@@ -45,7 +59,7 @@ const pageText = {
               {text}
             </Button>
           ))
-        : <div class="ml-2 c-accent font-bold">Playground</div>}
+        : <div class="ml-2 c-accent font-bold">{playground}</div>}
     </div>
     <div class="flex items-center gap-4">
       <Button
@@ -69,7 +83,7 @@ const pageText = {
       >
         {pageText.usage}
       </Button>
-      <Button size="sm" as="a" href="/playground">
+      <Button size="sm" as="a" href={playgroundLink}>
         {pageText.download}
       </Button
       >

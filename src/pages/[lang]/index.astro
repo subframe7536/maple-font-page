@@ -1,0 +1,33 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Comparison from '@/sections/comparison/index.astro'
+import Credits from '@/sections/credits.astro'
+import Features from '@/sections/features/index.astro'
+import Hero from '@/sections/hero/index.astro'
+import Nav from '@/sections/nav.astro'
+import Preview from '@/sections/preview/index.astro'
+import Testimonials from '@/sections/testimonials/index.astro'
+import Why from '@/sections/why/index.astro'
+
+export { getStaticPaths } from '@/utils/i18n'
+
+---
+
+<Layout>
+  <Nav isMain />
+  <main class="h-screen w-full overflow-(x-hidden y-scroll) scroll-smooth">
+    <Hero />
+    <Why />
+    <Features />
+    <Comparison />
+    <Preview />
+    <Testimonials />
+    <Credits />
+  </main>
+</Layout>
+<script>
+import { useInView } from 'unocss-preset-inview/runtime'
+
+const [start] = useInView()
+start()
+</script>

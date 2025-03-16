@@ -1,44 +1,20 @@
 ---
 import Section from '@/components/section.astro'
+import { useIndexTranslation } from '@/utils/i18n'
+
 import { TestimonialBanner } from './testimonial-banner'
 
+const { items, subTitle, title } = await useIndexTranslation(Astro.currentLocale, 'testimonial')
 const data = {
   id: 'testimonials',
-  title: 'What people says',
-  subTitle:
-    'Join thousands of developers who have already fallen in love with Maple Mono',
+  title,
+  subTitle,
 }
 
-const testimonials = [
-  {
-    content:
-      'Finally found my perfect coding font! The ligatures and rounded corners make my code look beautiful while maintaining excellent readability. The variable font weight is a game changer.',
-    author: '@devCoder',
-    platform: 'twitter',
-  },
-  {
-    content:
-      'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
-    author: 'TechEnthusiast',
-    platform: 'discord',
-  },
-  {
-    content:
-      'The italic style is so unique and pleasant to look at. Perfect balance between aesthetics and functionality. Highly recommend for anyone looking for a fresh coding font.',
-    author: 'CodeArtist',
-    platform: 'v2ex',
-  },
-  {
-    content:
-      'Love how the font handles special characters and ligatures. The attention to detail in each glyph is impressive. This has become my daily driver for coding.',
-    author: 'SyntaxMaster',
-    platform: 'github',
-  },
-]
 ---
 
 <Section {...data}>
   <div class="mx-auto">
-    <TestimonialBanner items={testimonials} client:load />
+    <TestimonialBanner items={items} client:load />
   </div>
 </Section>

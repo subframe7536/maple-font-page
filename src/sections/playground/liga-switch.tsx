@@ -22,20 +22,21 @@ export default function LigaSwitch(props: Emits & Props) {
   const ver = createMemo(() => `v${props.version}00`)
   const emits = useEmits(props)
   return (
-    <div class="select-none">
+    <div>
       <div class="flex items-center gap-2">
-        <span class="text-4 md:text-5">{props.feat}</span>
-        <span
-          class="cursor-default rounded-sm bg-muted px-1 text-3 c-muted-foreground"
+        <div class="text-4 md:text-5">{props.feat}</div>
+        <div
+          class="cursor-default select-none rounded-sm bg-muted px-1 text-3 c-muted-foreground"
           title={`Available from ${ver()}`}
         >
           {ver()}
-        </span>
+        </div>
       </div>
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
         onChange={state => emits('change', props.feat, state)}
         defaultValue={props.feat === 'calt' ? '1' : '0'}
+        class="select-none"
       >
         <TabsList>
           <TabsTrigger

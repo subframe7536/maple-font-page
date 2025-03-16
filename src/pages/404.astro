@@ -1,0 +1,28 @@
+---
+import { DEFAULT_LOCALE, isDEV } from '@/utils/constant'
+
+const baseUrl = isDEV ? '/' : Astro.site
+---
+
+<html lang={DEFAULT_LOCALE}>
+  <head>
+    <meta charset="UTF-8" />
+    <title>404 PAGE NOT FOUND</title>
+    <link rel="canonical" href={Astro.site} />
+
+    <noscript>
+      <meta
+        http-equiv="refresh"
+        content={`0;url=${baseUrl}`}
+      />
+    </noscript>
+
+    <script is:inline define:vars={{ baseUrl }}>
+      location.href = baseUrl
+    </script>
+  </head>
+  <body>
+    <h1>404 PAGE NOT FOUND</h1>
+    <a href={baseUrl}>TOP PAGE</a>
+  </body>
+</html>

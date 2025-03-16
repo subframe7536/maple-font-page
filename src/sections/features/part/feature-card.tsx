@@ -12,13 +12,15 @@ export interface FeatureCardProps {
   activeFeatures: string[]
   italic?: boolean
   sizeClass?: string
+  enable?: boolean
 }
 
 /**
  * Card with feature switch
  */
 export default function FeatureCard(props: FeatureCardProps) {
-  const [fea, setFea] = createSignal(false)
+  // eslint-disable-next-line solid/reactivity
+  const [fea, setFea] = createSignal(props.enable || false)
 
   const styleObject = createMemo<JSX.CSSProperties>(() => {
     const val = fea() ? 1 : 0
@@ -28,6 +30,18 @@ export default function FeatureCard(props: FeatureCardProps) {
       'font-style': props.italic ? 'italic' : 'normal',
     }
   })
+
+  /**
+   * Handle special case: add highlight for multiple greater
+   */
+  function parseMultipleGreaters(text: string) {
+    if (!text.includes('>>')) {
+      return text
+    }
+    const [start, end] = text.split('>>')
+    return <span>{start}<span class="c-secondary">{'>>'}</span>{end}</span>
+  }
+
   return (
     <div class="mx-auto mt--8 w-full py-4 space-y-4">
       <div
@@ -37,10 +51,10 @@ export default function FeatureCard(props: FeatureCardProps) {
         )}
         style={styleObject()}
       >
-        {props.showText}
+        {parseMultipleGreaters(props.showText)}
         <Show when={props.showText1}>
           <br />
-          {props.showText1}
+          {parseMultipleGreaters(props.showText1!)}
         </Show>
       </div>
       <Switch

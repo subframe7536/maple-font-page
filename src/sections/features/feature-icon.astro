@@ -1,13 +1,20 @@
 ---
 import Zsh from '@/assets/img/zsh.webp'
 import CreditCard from '@/components/credit-card.astro'
+import { useFeatureTranslation } from '@/utils/i18n'
 import { Image } from 'astro:assets'
 
 import SubSection from './part/sub-section.astro'
 
+const {
+  description,
+  ref,
+  title,
+} = await useFeatureTranslation(Astro.currentLocale, 'icon')
+
 const data = {
-  title: 'Beautiful Icons, Embrace Modern',
-  description: 'First-Class Nerd-Font support to make your terminal more vivid',
+  title,
+  description,
   icon: 'i-lucide-terminal',
 }
 
@@ -19,17 +26,17 @@ interface ReferenceData {
 
 const references: ReferenceData[] = [
   {
-    title: 'Art by',
+    title: ref.artBy,
     name: 'CodeImg',
     href: 'https://github.com/subframe7536/vscode-codeimg',
   },
   {
-    title: 'Theme',
+    title: ref.theme,
     name: 'Maple',
     href: 'https://github.com/subframe7536/vscode-theme-maple',
   },
   {
-    title: 'Prompt',
+    title: ref.prompt,
     name: 'Starship',
     href: 'https://starship.rs',
   },

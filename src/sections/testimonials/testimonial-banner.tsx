@@ -9,7 +9,7 @@ import { cls } from 'cls-variant'
 import Autoplay from 'embla-carousel-autoplay'
 import { createEffect, createSignal, Index } from 'solid-js'
 
-interface ItemData {
+export interface ItemData {
   content: string
   author: string
   platform: string

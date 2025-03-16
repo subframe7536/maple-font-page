@@ -1,15 +1,21 @@
 ---
 import Section from '@/components/section.astro'
+import { useIndexTranslation } from '@/utils/i18n'
+
 import Reason from './reason.md'
+import ReasonCN from './reason_cn.md'
+
+const locale = Astro.currentLocale
+const { title } = await useIndexTranslation(locale, 'why')
 
 const data = {
   id: 'why',
-  title: 'Why Another One',
+  title,
 }
 ---
 
 <Section {...data}>
   <div class="text-xl leading-relaxed prose inview-2">
-    <Reason />
+    {locale!.startsWith('zh') ? <ReasonCN /> : <Reason /> }
   </div>
 </Section>

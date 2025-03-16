@@ -1,8 +1,7 @@
-import { cls } from 'cls-variant'
-import { createSignal, For } from 'solid-js'
-
 import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '@/components/ui/switch'
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { cls } from 'cls-variant'
+import { createSignal, For } from 'solid-js'
 
 interface Props {
   class?: string

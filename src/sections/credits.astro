@@ -3,24 +3,31 @@ import type { Props as CreditCardProps } from '@/components/credit-card.astro'
 
 import CreditCard from '@/components/credit-card.astro'
 import Section from '@/components/section.astro'
+import { useIndexTranslation } from '@/utils/i18n'
+
+const { subTitle, title, items } = await useIndexTranslation(Astro.currentLocale, 'credits')
 
 const data = {
   id: 'credits',
-  title: 'Credits',
-  subTitle: 'Maple Mono standing on the shoulders of giants.',
+  title,
+  subTitle,
 }
 
 const creaditData: CreditCardProps[] = [
   {
-    title: 'Base font',
-    links: [['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono']],
+    title: items.base,
+    links: [
+      ['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono'],
+    ],
   },
   {
-    title: 'Icon integration',
-    links: [['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts']],
+    title: items.icon,
+    links: [
+      ['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts'],
+    ],
   },
   {
-    title: 'Part of CN glyphs',
+    title: items.cn,
     links: [
       [
         'Resource Han Rounded',
@@ -29,7 +36,7 @@ const creaditData: CreditCardProps[] = [
     ],
   },
   {
-    title: 'Glyphs inspiration',
+    title: items.inspiration,
     links: [
       ['Commit Mono', 'https://github.com/eigilnikolajsen/commit-mono'],
       ['Fira Code', 'https://github.com/tonsky/FiraCode'],
@@ -42,15 +49,15 @@ const creaditData: CreditCardProps[] = [
     ],
   },
   {
-    title: 'Font builders',
+    title: items.font,
     links: [
       ['Fonttools', 'https://github.com/fonttools/fonttools'],
       ['FoundryTools-CLI', 'https://github.com/ftCLI/FoundryTools-CLI'],
-      ['Pyodide', 'https://pyodide.org/en/stable/index.html'],
+      // ['Pyodide', 'https://pyodide.org/en/stable/index.html'],
     ],
   },
   {
-    title: 'Website tools',
+    title: items.web,
     links: [
       ['Astro', 'https://astro.build'],
       ['SolidJS', 'https://solidjs.com'],

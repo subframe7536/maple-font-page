@@ -1,4 +1,4 @@
-import { fontPrefix } from './cdn'
+import { fontPrefix } from './constant'
 
 function getMapleMonoFontFace(italic: boolean) {
   const suffix = italic ? 'Italic' : 'Regular'

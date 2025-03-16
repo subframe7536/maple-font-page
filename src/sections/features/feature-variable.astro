@@ -1,11 +1,13 @@
 ---
+import { useFeatureTranslation } from '@/utils/i18n'
 import { cls } from 'cls-variant'
 
 import SubSection from './part/sub-section.astro'
 
+const { description, title } = await useFeatureTranslation(Astro.currentLocale, 'variable')
 const data = {
-  title: 'One Font, Infinity Weights',
-  description: 'Variable font support with hand-crafted italic glyphs',
+  title,
+  description,
   icon: 'i-lucide-infinity',
 }
 const showcaseText = 'Variable'

@@ -1,14 +1,20 @@
 ---
 import mapleTheme from '@/assets/maple-dark-color-theme.json'
 import { Button } from '@/components/ui/button'
+import { useFeatureTranslation } from '@/utils/i18n'
 import { Code } from 'astro:components'
 
 import SubSectionTitle from './part/sub-section-title.astro'
 
+const {
+  button,
+  description,
+  title,
+} = await useFeatureTranslation(Astro.currentLocale, 'custom')
+
 const data = {
-  title: 'Your favor, Your Font',
-  description:
-    'Configure or freeze OpenType features as you want, create your own perfect font',
+  title,
+  description,
   icon: 'i-lucide-hammer',
 }
 
@@ -24,7 +30,7 @@ const code = `{
 }`
 
 const nextButtonData = {
-  name: 'See Guide',
+  name: button,
   href: 'https://github.com/subframe7536/maple-font#custom-build',
 }
 ---

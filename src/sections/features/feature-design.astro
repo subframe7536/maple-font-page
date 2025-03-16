@@ -1,13 +1,20 @@
 ---
 import type { FeatureCardProps } from './part/feature-card'
 
+import { useFeatureTranslation } from '@/utils/i18n'
+
 import FeatureCard from './part/feature-card'
 import SubSection from './part/sub-section.astro'
 
+const {
+  description,
+  title,
+  items,
+} = await useFeatureTranslation(Astro.currentLocale, 'design')
+
 const data = {
-  title: 'Distinct Glyphs, Smooth Design',
-  description:
-    'Round corner, brand-new glyph designs with cursive style in italics',
+  title,
+  description,
   icon: 'i-lucide-pencil',
 }
 
@@ -15,29 +22,29 @@ const features: FeatureCardProps[] = [
   {
     showText: '@ $ &',
     showText1: '% ->',
-    feature: 'cv01',
+    feature: items.cv01.name,
     activeFeatures: ['cv01'],
-    description: 'Special glyphs',
+    description: items.cv01.desc,
   },
   {
     showText: 'f i l',
     showText1: 'k x y',
-    feature: 'normal style',
+    feature: items.plain.name,
     activeFeatures: ['cv32', 'cv33', 'cv34', 'cv35', 'cv36', 'cv37'],
-    description: 'Special glyphs',
+    description: items.plain.desc,
     italic: true,
   },
   {
     showText: 'I 1 l',
-    feature: 'cv04',
+    feature: items.cv04.name,
     activeFeatures: ['cv04'],
-    description: 'Special glyphs',
+    description: items.cv04.desc,
   },
   {
     showText: 'O 0 o',
-    feature: 'zero',
+    feature: items.zero.name,
     activeFeatures: ['zero'],
-    description: 'Special glyphs',
+    description: items.zero.desc,
   },
 ]
 ---
