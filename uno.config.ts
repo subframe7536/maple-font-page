@@ -5,6 +5,7 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
+  transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
 import { presetAnimations } from 'unocss-preset-animations'
@@ -334,6 +335,7 @@ export default defineConfig<PresetUnoTheme>({
   },
   transformers: [
     transformerVariantGroup(),
+    transformerDirectives(),
   ],
   preflights: [
     {
