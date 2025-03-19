@@ -6,8 +6,10 @@ const baseUrl = import.meta.env.PROD ? Astro.site : '/'
 const defaultLocale = DEFAULT_LOCALE
 
 const meta = {
+  author: 'subframe7536',
   site_name: 'Maple Mono',
-  title: 'Maple Mono: Open source monospace font with round corner, ligatures and Nerd-Font for IDE and terminal, fine-grained customization options.',
+  title: 'Maple Mono: Open source monospace font',
+  description: 'Open source monospace font with round corner, ligatures and Nerd-Font for IDE and terminal, fine-grained customization options.',
   image: 'https://repository-images.githubusercontent.com/479451389/00c67e39-1c75-43d6-8e0e-b0b831c0cb85',
 }
 ---
@@ -15,7 +17,13 @@ const meta = {
 <html lang={DEFAULT_LOCALE}>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={Astro.site?.origin + Astro.url.pathname} />
+    <meta name="author" content={meta.author} />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="monospace font, programming font, coding font, ligatures, nerd font, IDE font, terminal font, open source font" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
     {
@@ -37,7 +45,7 @@ const meta = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={meta.title} />
     <meta property="og:site_name" content={meta.site_name} />
-    <meta property="og:description" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
     <meta property="og:image" content={meta.image} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:locale" content={DEFAULT_LOCALE} />
@@ -45,6 +53,7 @@ const meta = {
     <meta name="twitter:site" content={meta.site_name} />
     <meta name="twitter:image" content={meta.image} />
     <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
 
     <noscript>
       <meta
