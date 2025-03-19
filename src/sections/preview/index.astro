@@ -85,8 +85,8 @@ if __main__ == "main":
 
 const cppCode = `void quicksort(auto begin, auto end) {
     if (begin != end) {
-        Comparable auto pivot = *std::next(begin, n:std::distance(begin, end) / 2);
-        const auto [lt, gt] = ::partition(begin, end, pivot, pred:std::less<>());
+        Comparable auto pivot = *std::next(begin, std::distance(begin, end) / 2);
+        const auto [lt, gt] = ::partition(begin, end, pivot, std::less<>());
         quicksort(begin, lt);
         quicksort(gt, end);
     }
@@ -98,7 +98,7 @@ int main() {
     std::for_each(
         Vec.begin(),
         Vec.end(),
-        f:[](const int Elem) {std::cout << Elem << " "; }
+        [](const int Elem) {std::cout << Elem << " "; }
     );
 }`
 
