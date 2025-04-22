@@ -8,12 +8,12 @@ on:
   # Runs on pushes targeting the default branch
   push:
     # for dev stage
-    branches:
-      - main
-    paths-ignore:
-      - '*.md'
-      - '.github/**/*.*'
-      - LICENSE
+    # branches:
+    #   - main
+    # paths-ignore:
+    #   - '*.md'
+    #   - '.github/**/*.*'
+    #   - LICENSE
     tags:
       - 'v*'
 
