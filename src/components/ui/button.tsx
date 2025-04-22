@@ -20,7 +20,8 @@ export const buttonVariants = clsvDefault(
       size: {
         default: 'h-9 px-4 py-2 text-sm',
         sm: 'h-8 rounded-md px-3 text-xs',
-        lg: 'h-10 rounded-md px-8',
+        md: 'h-8 rounded-md px-4 text-xs md:text-sm',
+        lg: 'h-12 rounded-md px-8 text-lg',
         icon: 'size-9',
       },
     },

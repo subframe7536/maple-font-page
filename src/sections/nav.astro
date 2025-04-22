@@ -54,7 +54,7 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
       {props.isMain
         ? navigatorText.map(([anchor, text]) => (
             <Button
-              size="sm"
+              size="md"
               variant="link"
               as="a"
               href={anchor}
@@ -67,7 +67,7 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
     </div>
     <div class="flex items-center gap-4">
       <Button
-        size="sm"
+        size="md"
         as="a"
         class="m-r--2"
         variant="link"
@@ -79,18 +79,12 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
         <Icon name="lucide:github" class="mr-2 size-4" />
         GitHub
       </Button>
-      <Button
-        size="sm"
-        variant="link"
-        as="a"
-        href={playgroundLink}
-      >
+      <Button size="md" variant="link" as="a" href={playgroundLink}>
         {pageText.usage}
       </Button>
-      <Button size="sm" as="a" href={downloadLink}>
+      <Button size="md" as="a" href={downloadLink}>
         {pageText.download}
-      </Button
-      >
+      </Button>
     </div>
   </div>
 </nav>
