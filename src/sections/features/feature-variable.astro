@@ -8,8 +8,9 @@ const { description, title } = await useFeatureTranslation(Astro.currentLocale, 
 const data = {
   title,
   description,
-  icon: 'i-lucide-infinity',
-}
+  icon: 'lucide:infinity',
+} as const
+
 const showcaseText = 'Variable'
 ---
 

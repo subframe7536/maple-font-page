@@ -10,6 +10,8 @@ import { Dialog as DialogPrimitive } from '@kobalte/core/dialog'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
+import Icon from '../icon'
+
 export const Dialog = DialogPrimitive
 export const DialogTrigger = DialogPrimitive.Trigger
 
@@ -42,7 +44,7 @@ export function DialogContent<T extends ValidComponent = 'div'>(props: Polymorph
       >
         {local.children}
         <DialogPrimitive.CloseButton class="disabled:effect-dis absolute right-4 top-4 rounded-sm bg-inherit opacity-70 focus:effect-fv ring-offset-background transition transition-opacity hover:opacity-100">
-          <div class="i-lucide-x" />
+          <Icon name="lucide:x" />
           <div class="sr-only">Close</div>
         </DialogPrimitive.CloseButton>
       </DialogPrimitive.Content>

@@ -1,5 +1,6 @@
 import type { features } from '../../../uno.config'
 
+import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
   Slider,
@@ -232,7 +233,10 @@ export default function Playground(props: PlaygroundProps) {
             class="parent"
           >
             <span class="c-foreground">{props.uiString.title.issue}</span>
-            <span class="i-lucide-external-link ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)" />
+            <Icon
+              name="lucide:external-link"
+              class="ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)"
+            />
           </Button>
         </h3>
         <Show

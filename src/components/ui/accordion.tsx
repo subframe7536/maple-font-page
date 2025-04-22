@@ -10,6 +10,8 @@ import { Accordion as AccordionPrimitive } from '@kobalte/core/accordion'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
+import Icon from '../icon'
+
 export const Accordion = AccordionPrimitive
 
 type accordionItemProps<T extends ValidComponent = 'div'> =
@@ -47,7 +49,7 @@ export function AccordionTrigger<T extends ValidComponent = 'button'>(props: Pol
         {...rest}
       >
         {local.children}
-        <div class="i-lucide-chevron-left transition [[data-expanded]_&]-rotate--90" />
+        <Icon name="lucide:chevron-left" class="transition [[data-expanded]_&]-rotate--90" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

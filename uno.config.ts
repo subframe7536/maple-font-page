@@ -319,6 +319,21 @@ export default defineConfig<PresetUnoTheme>({
       },
     },
   },
+  extractors: [
+    {
+      name: 'extract-icons',
+      extract({ extracted }) {
+        const arr = []
+        for (const item of extracted) {
+          if (item.startsWith('lucide')) {
+            extracted.delete(item)
+            arr.push(`i-${item}`)
+          }
+        }
+        return arr.length ? arr : undefined
+      },
+    },
+  ],
   extendTheme: (theme) => {
     theme.breakpoints!.xs = '425px'
     for (const [key, val] of Object.entries(theme.colors!)) {

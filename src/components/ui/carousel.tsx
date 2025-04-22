@@ -14,6 +14,7 @@ import {
   useContext,
 } from 'solid-js'
 
+import Icon from '../icon'
 import { Button } from './button'
 
 export type CarouselApi = CreateEmblaCarouselType[1]
@@ -204,7 +205,7 @@ const CarouselPrevious: Component<CarouselButtonProps> = (rawProps) => {
       onClick={scrollPrev}
       {...others}
     >
-      <div class="i-lucide-arrow-left" />
+      <Icon name="lucide:arrow-left" />
       <span class="sr-only">Previous slide</span>
     </Button>
   )
@@ -230,7 +231,7 @@ const CarouselNext: Component<CarouselButtonProps> = (rawProps) => {
       onClick={scrollNext}
       {...others}
     >
-      <div class="i-lucide-arrow-right" />
+      <Icon name="lucide:arrow-right" />
       <span class="sr-only">Next slide</span>
     </Button>
   )

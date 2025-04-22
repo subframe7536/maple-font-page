@@ -1,4 +1,5 @@
 ---
+import Icon from '@/components/icon'
 import Section from '@/components/section.astro'
 import { Button } from '@/components/ui/button'
 import { useIndexTranslation } from '@/utils/i18n'
@@ -28,11 +29,11 @@ const playgroundLink = `/${locale}/playground`
   <div class="mt-6 flex flex-wrap items-center justify-start gap-6">
     <Button as="a" href="#why" size="lg">
       {learnMoreText}
-      <div class="i-lucide-arrow-down ml-2" />
+      <Icon name="lucide:arrow-down" class="ml-2" />
     </Button>
     <Button as="a" size="lg" href={playgroundLink} variant="outline">
       {tryItText}
-      <div class="i-lucide-arrow-right ml-2" />
+      <Icon name="lucide:arrow-right" class="ml-2" />
     </Button>
   </div>
 </Section>

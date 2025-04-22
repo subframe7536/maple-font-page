@@ -1,7 +1,11 @@
 ---
+import type { Props as IProps } from '@/components/icon'
+
+import Icon from '@/components/icon'
+
 interface Props {
   title: string
-  icon: string
+  icon: IProps['name']
 }
 const props = Astro.props
 ---
@@ -9,7 +13,7 @@ const props = Astro.props
 <div class="mb-8 py-8 space-y-8 md:space-y-12">
   <h2 class="flex flex-col items-start gap-4 text-2xl c-primary font-600 xs:(flex-row items-center) inview-1">
     <div class="flex items-center justify-center rounded-2 bg-primary p-1">
-      <div class={`${props.icon} c-background`} />
+      <Icon name={props.icon} class="c-background" />
     </div>
     {props.title}
   </h2>
