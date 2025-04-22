@@ -1,5 +1,3 @@
-import type { features } from '../../../uno.config'
-
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
@@ -21,7 +19,7 @@ import LigaSwitch from './liga-switch'
 export interface FontFeatureItem {
   desc: string
   text: string
-  feat: typeof features[Extract<keyof typeof features, number>]
+  feat: string
   version: string
 }
 

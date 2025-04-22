@@ -11,35 +11,8 @@ import {
 import { presetAnimations } from 'unocss-preset-animations'
 import { presetInView } from 'unocss-preset-inview'
 
+import { featureArray } from './data/features/features'
 import { cdnPrefix } from './src/utils/constant'
-
-export const features = [
-  'calt',
-  'zero',
-  'cv01',
-  'cv02',
-  'cv03',
-  'cv04',
-  'cv31',
-  'cv32',
-  'cv33',
-  'cv34',
-  'cv35',
-  'cv36',
-  'cv37',
-  'cv96',
-  'cv97',
-  'cv98',
-  'cv99',
-  'ss01',
-  'ss02',
-  'ss03',
-  'ss04',
-  'ss05',
-  'ss06',
-  'ss07',
-  'ss08',
-] as const
 
 function generateBaseFontface(name: string, src: string, isItalic?: boolean) {
   return `
@@ -129,7 +102,7 @@ const presetMaple: Preset<PresetUnoTheme> = {
         'font-feature-settings': 'var(--feat)',
         'font-variation-settings': '"wght" var(--fw)',
         'font-family': `var(--ff), ${fallbackFamily} !important`,
-        '--feat': features.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
+        '--feat': featureArray.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
       },
     ],
     ['font-cn', { 'font-family': 'Maple Mono CN, Maple Mono NF CN !important' }],

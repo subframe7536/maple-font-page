@@ -5,171 +5,30 @@ import Layout from '@/layouts/Layout.astro'
 import Nav from '@/sections/nav.astro'
 import PlaygroundArea from '@/sections/playground'
 import { usePlaygroundTranslation } from '@/utils/i18n'
+import featBasic from '@data/features/basic.json'
+import featCN from '@data/features/cn.json'
+import featCV from '@data/features/cv.json'
+import featItalic from '@data/features/italic.json'
+import featSS from '@data/features/ss.json'
 
 export { getStaticPaths } from '@/utils/i18n'
 
 const { description, uiString } = await usePlaygroundTranslation(Astro.currentLocale)
 
-const basicFeatures: FontFeatureItem[] = [
-  {
-    desc: description.calt,
-    text: '==>',
-    feat: 'calt',
-    version: '7.0',
-  },
-  {
-    desc: description.zero,
-    text: '0',
-    feat: 'zero',
-    version: '7.0',
-  },
-]
-const cvFeatures: FontFeatureItem[] = [
-  {
-    desc: description.cv01,
-    text: '@$%',
-    feat: 'cv01',
-    version: '7.0',
-  },
-  {
-    desc: description.cv02,
-    text: 'a',
-    feat: 'cv02',
-    version: '7.0',
-  },
-  {
-    desc: description.cv03,
-    text: 'i',
-    feat: 'cv03',
-    version: '7.0',
-  },
-  {
-    desc: description.cv04,
-    text: 'l',
-    feat: 'cv04',
-    version: '7.0',
-  },
-]
-const italicFeatures: FontFeatureItem[] = [
-  {
-    desc: description.cv31,
-    text: 'a',
-    feat: 'cv31',
-    version: '7.0',
-  },
-  {
-    desc: description.cv32,
-    text: 'f',
-    feat: 'cv32',
-    version: '7.0',
-  },
-  {
-    desc: description.cv33,
-    text: 'ij',
-    feat: 'cv33',
-    version: '7.0',
-  },
-  {
-    desc: description.cv34,
-    text: 'k',
-    feat: 'cv34',
-    version: '7.0',
-  },
-  {
-    desc: description.cv35,
-    text: 'l',
-    feat: 'cv35',
-    version: '7.0',
-  },
-  {
-    desc: description.cv36,
-    text: 'x',
-    feat: 'cv36',
-    version: '7.0',
-  },
-  {
-    desc: description.cv37,
-    text: 'y',
-    feat: 'cv37',
-    version: '7.0',
-  },
-]
-const cnFeatures: FontFeatureItem[] = [
-  {
-    desc: description.cv96,
-    text: '“‘’”',
-    feat: 'cv96',
-    version: '7.0',
-  },
-  {
-    desc: description.cv97,
-    text: '……',
-    feat: 'cv97',
-    version: '7.0',
-  },
-  {
-    desc: description.cv98,
-    text: '——',
-    feat: 'cv98',
-    version: '7.0',
-  },
-  {
-    desc: description.cv99,
-    text: '，。',
-    feat: 'cv99',
-    version: '7.0',
-  },
-]
-const ssFeatures: FontFeatureItem[] = [
-  {
-    desc: description.ss01,
-    text: '==',
-    feat: 'ss01',
-    version: '7.0',
-  },
-  {
-    desc: description.ss02,
-    text: '>=',
-    feat: 'ss02',
-    version: '7.0',
-  },
-  {
-    desc: description.ss03,
-    text: '[todo]',
-    feat: 'ss03',
-    version: '7.0',
-  },
-  {
-    desc: description.ss04,
-    text: '__',
-    feat: 'ss04',
-    version: '7.0',
-  },
-  {
-    desc: description.ss05,
-    text: '\\n',
-    feat: 'ss05',
-    version: '7.0',
-  },
-  {
-    desc: description.ss06,
-    text: 'all',
-    feat: 'ss06',
-    version: '7.0',
-  },
-  {
-    desc: description.ss07,
-    text: '>>>',
-    feat: 'ss07',
-    version: '7.0',
-  },
-  {
-    desc: description.ss08,
-    text: '=>>',
-    feat: 'ss08',
-    version: '7.0',
-  },
-]
+function parseFeature(config: Record<string, Record<string, string>>): FontFeatureItem[] {
+  const result: FontFeatureItem[] = []
+  for (const [version, record] of Object.entries(config)) {
+    for (const [feat, text] of Object.entries(record)) {
+      result.push({
+        feat,
+        text,
+        desc: description[feat as keyof typeof description] || 'Undocumented',
+        version,
+      })
+    }
+  }
+  return result
+}
 
 const defaultText = [
   'Maple Mono, smooth your coding flow',
@@ -188,11 +47,11 @@ const defaultText = [
   <div class="h-screen w-full pt-8">
     <PlaygroundArea
       features={{
-        basic: basicFeatures,
-        cv: cvFeatures,
-        italic: italicFeatures,
-        cn: cnFeatures,
-        ss: ssFeatures,
+        basic: parseFeature(featBasic),
+        cv: parseFeature(featCV),
+        italic: parseFeature(featItalic),
+        cn: parseFeature(featCN),
+        ss: parseFeature(featSS),
       }}
       sizeRange={[12, 96]}
       weightRange={[100, 800]}
