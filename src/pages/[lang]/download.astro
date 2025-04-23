@@ -1,10 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import { useNavTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
 
 export { getStaticPaths } from '@/locales/i18n'
+
+const { titles } = await useNavTranslation(Astro.currentLocale)
+
 ---
-<Layout title="Download | Maple Mono">
+<Layout title={`${titles.download} | Maple Mono`}>
   <Nav title="download" />
   <script>
     import { loadMapleMono } from '@/utils/loadFont'

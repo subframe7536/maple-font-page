@@ -2,7 +2,7 @@
 import type { FontFeatureItem } from '@/sections/playground'
 
 import Layout from '@/layouts/Layout.astro'
-import { usePlaygroundTranslation } from '@/locales/i18n'
+import { useNavTranslation, usePlaygroundTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
 import PlaygroundArea from '@/sections/playground'
 import featBasic from '@data/features/basic.json'
@@ -14,6 +14,7 @@ import featSS from '@data/features/ss.json'
 export { getStaticPaths } from '@/locales/i18n'
 
 const { description, uiString } = await usePlaygroundTranslation(Astro.currentLocale)
+const { titles } = await useNavTranslation(Astro.currentLocale)
 
 function parseFeature(config: Record<string, Record<string, string>>): FontFeatureItem[] {
   const result: FontFeatureItem[] = []
@@ -42,7 +43,7 @@ const defaultText = [
 // reference from https://lilex.myrt.co/
 ---
 
-<Layout title="Playground | Maple Mono">
+<Layout title={`${titles.playground} | Maple Mono`}>
   <Nav title="playground" />
   <div class="h-screen w-full pt-8">
     <PlaygroundArea

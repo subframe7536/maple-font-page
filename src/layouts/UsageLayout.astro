@@ -1,7 +1,9 @@
 ---
+import { useNavTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
 import { ClientRouter } from 'astro:transitions'
 
+const { titles } = await useNavTranslation(Astro.currentLocale)
 ---
 <!doctype html>
 <html lang={Astro.currentLocale}>
@@ -11,7 +13,7 @@ import { ClientRouter } from 'astro:transitions'
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>Usage | Maple Mono</title>
+    <title>{`${titles.usage} | Maple Mono`}</title>
     <ClientRouter />
   </head>
   <body class="bg-background c-foreground transition-colors all-font-liga">
