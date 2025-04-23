@@ -1,0 +1,14 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Nav from '@/sections/nav.astro'
+
+export { getStaticPaths } from '@/locales/i18n'
+---
+<Layout title="Download | Maple Mono">
+  <Nav title="download" />
+  <script>
+    import { loadMapleMono } from '@/utils/loadFont'
+
+    loadMapleMono()
+  </script>
+</Layout>

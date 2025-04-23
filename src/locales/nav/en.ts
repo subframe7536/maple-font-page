@@ -7,6 +7,7 @@ const en = {
   titles: {
     usage: 'Usage',
     playground: 'Playground',
+    download: 'Download',
   },
 }
 

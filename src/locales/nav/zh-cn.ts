@@ -9,6 +9,7 @@ const zh: NavTranslation = {
   titles: {
     usage: '使用方法',
     playground: '字体测试',
+    download: '字体下载',
   },
 }
 
