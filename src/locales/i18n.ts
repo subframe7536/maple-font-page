@@ -1,16 +1,17 @@
-import type { IndexTranslation } from '@/locales/index/en'
-import type { NavTranslation } from '@/locales/nav/en'
-import type { PlaygroundTranslation } from '@/locales/playground/en'
+import type { DownloadTranslation } from './download/en'
+import type { IndexTranslation } from './index/en'
+import type { NavTranslation } from './nav/en'
+import type { PlaygroundTranslation } from './playground/en'
 
 // reference from https://github.com/psephopaiktes/astro-i18n-starter/blob/main/src/i18n.ts
 import { getRelativeLocaleUrl } from 'astro:i18n'
 
-import { DEFAULT_LOCALE, LOCALES_SETTING } from './constant'
+import { DEFAULT_LOCALE, LOCALES_SETTING } from '../utils/constant'
 
 export const LOCALES = Object.keys(LOCALES_SETTING) as unknown as (keyof typeof LOCALES_SETTING)[]
 
 async function useTranslation(
-  namespace: 'index' | 'playground' | 'nav',
+  namespace: 'index' | 'playground' | 'nav' | 'download',
   locale = DEFAULT_LOCALE,
 ): Promise<any> {
   return (await import(`../locales/${namespace}/${locale}.ts`)).default
@@ -41,6 +42,13 @@ export async function useNavTranslation(
 ): Promise<NavTranslation> {
   return (await useTranslation('nav', locale))
 }
+
+export async function useDownloadTranslation(
+  locale: string | undefined,
+): Promise<DownloadTranslation> {
+  return (await useTranslation('download', locale))
+}
+
 /**
  * Helper to get corresponding path list for all locales
  * @param url - The current URL object

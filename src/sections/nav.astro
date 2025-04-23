@@ -1,15 +1,15 @@
 ---
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
+import { useNavTranslation } from '@/locales/i18n'
 import { isDEV } from '@/utils/constant'
-import { useNavTranslation } from '@/utils/i18n'
 
 interface Props {
   isMain?: boolean
   /**
    * Must setup if `isMain` is false
    */
-  title?: 'usage' | 'playground'
+  title?: 'usage' | 'playground' | 'download'
 }
 
 const props = Astro.props
@@ -51,7 +51,7 @@ const pageContent = {
   <img
     src="/favicon.svg"
     alt="Maple Mono Icon"
-    class="h-6 cursor-pointer rounded-none hover:scale-110"
+    class="h-6 cursor-pointer hover:scale-110"
     onclick={`window.location='${baseUrl}'`}
   />
   <div class="ml-2 w-full flex justify-end sm:justify-between">

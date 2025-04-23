@@ -1,9 +1,9 @@
 ---
-import type { Props as CreditCardProps } from '@/components/credit-card.astro'
+import type { Props as ExternalLinkProps } from '@/components/external-link.astro'
 
-import CreditCard from '@/components/credit-card.astro'
+import ExternalLink from '@/components/external-link.astro'
 import Section from '@/components/section.astro'
-import { useIndexTranslation } from '@/utils/i18n'
+import { useIndexTranslation } from '@/locales/i18n'
 
 const { subTitle, title, items } = await useIndexTranslation(Astro.currentLocale, 'credits')
 
@@ -13,7 +13,7 @@ const data = {
   subTitle,
 }
 
-const creaditData: CreditCardProps[] = [
+const creaditData: ExternalLinkProps[] = [
   {
     title: items.base,
     links: [
@@ -71,22 +71,22 @@ const creaditData: CreditCardProps[] = [
 <Section {...data}>
   <div class="grid grid-cols-1 w-full gap-4 md:grid-cols-3 sm:grid-cols-2 *:min-w-18">
     <div class="row-span-1 c-accent md:row-span-2">
-      <CreditCard {...creaditData[0]} />
+      <ExternalLink {...creaditData[0]} />
     </div>
     <div class="row-span-1 md:(row-span-2 col-start-1 row-start-3)">
-      <CreditCard {...creaditData[1]} />
+      <ExternalLink {...creaditData[1]} />
     </div>
     <div class="row-span-1 md:(row-span-2 col-start-1 row-start-5)">
-      <CreditCard {...creaditData[2]} />
+      <ExternalLink {...creaditData[2]} />
     </div>
     <div class="row-span-2 md:(row-span-6 col-start-2 row-start-1)">
-      <CreditCard {...creaditData[3]} />
+      <ExternalLink {...creaditData[3]} />
     </div>
     <div class="row-span-1 md:(row-span-3 col-start-3 row-start-1)">
-      <CreditCard {...creaditData[4]} />
+      <ExternalLink {...creaditData[4]} />
     </div>
     <div class="row-span-1 md:(row-span-3 col-start-3 row-start-4)">
-      <CreditCard {...creaditData[5]} />
+      <ExternalLink {...creaditData[5]} />
     </div>
   </div>
 </Section>

@@ -1,7 +1,7 @@
 ---
 import Zsh from '@/assets/img/zsh.webp'
-import CreditCard from '@/components/credit-card.astro'
-import { useFeatureTranslation } from '@/utils/i18n'
+import ExternalLink from '@/components/external-link.astro'
+import { useFeatureTranslation } from '@/locales/i18n'
 import { Image } from 'astro:assets'
 
 import SubSection from './part/sub-section.astro'
@@ -48,7 +48,7 @@ const references: ReferenceData[] = [
   <div class="mx-auto mt-8 flex flex-row justify-evenly inview-3 xs:gap-4">
     {
       references.map(({ href, name, title }) => (
-        <CreditCard title={title} links={[[name, href]]} />
+        <ExternalLink title={title} links={[[name, href]]} />
       ))
     }
   </div>
