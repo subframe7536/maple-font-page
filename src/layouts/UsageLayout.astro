@@ -1,10 +1,7 @@
 ---
+import Nav from '@/sections/nav.astro'
 import { ClientRouter } from 'astro:transitions'
 
-interface Props {
-  title: string
-}
-const props = Astro.props
 ---
 <!doctype html>
 <html lang={Astro.currentLocale}>
@@ -14,10 +11,20 @@ const props = Astro.props
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>{props.title}</title>
+    <title>Usage | Maple Mono</title>
     <ClientRouter />
   </head>
   <body class="bg-background c-foreground transition-colors all-font-liga">
-    <slot />
+    <Nav title="usage" />
+    <div class="overflow-(x-hidden y-scroll) scroll-smooth">
+      <div class="mx-auto h-screen max-w-4xl w-96% px-6 pt-10 text-left prose xs:w-90%">
+        <slot />
+      </div>
+    </div>
   </body>
+  <script>
+  import { loadMapleMono } from '@/utils/loadFont'
+
+  loadMapleMono()
+  </script>
 </html>

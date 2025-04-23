@@ -5,9 +5,11 @@ const zh: NavTranslation = {
   features: '特性',
   preview: '预览',
   credits: '鸣谢',
-  usage: '使用方法',
   download: '获取字体',
-  playground: '字体测试',
+  titles: {
+    usage: '使用方法',
+    playground: '字体测试',
+  },
 }
 
 export default zh

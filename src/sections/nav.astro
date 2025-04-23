@@ -6,19 +6,26 @@ import { useNavTranslation } from '@/utils/i18n'
 
 interface Props {
   isMain?: boolean
+  /**
+   * Must setup if `isMain` is false
+   */
+  title?: 'usage' | 'playground'
 }
 
 const props = Astro.props
-const baseUrl = isDEV ? '/' : Astro.site
+const locale = Astro.currentLocale
+const baseUrl = isDEV ? `/${locale}` : `${Astro.site}/${locale}`
+const playgroundLink = `${baseUrl}/playground`
+const usageLink = `${baseUrl}/usage`
+const downloadLink = `${baseUrl}/download`
 
 const {
   credits,
   download,
   features,
-  usage,
   preview,
-  playground,
   why,
+  titles,
 } = await useNavTranslation(Astro.currentLocale)
 
 const navigatorText = [
@@ -28,14 +35,14 @@ const navigatorText = [
   ['#credits', credits],
 ] as const
 
-const pageText = {
-  usage,
+const pageContent = {
+  target: {
+    text: props.title === 'usage' ? titles.playground : titles.usage,
+    link: props.title === 'usage' ? playgroundLink : usageLink,
+  },
   download,
 }
 
-const locale = Astro.currentLocale
-const playgroundLink = `${baseUrl}/${locale}/playground`
-const downloadLink = `https://github.com/subframe7536/maple-font/releases`
 ---
 
 <nav
@@ -44,7 +51,7 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
   <img
     src="/favicon.svg"
     alt="Maple Mono Icon"
-    class="h-6 cursor-pointer hover:scale-110"
+    class="h-6 cursor-pointer rounded-none hover:scale-110"
     onclick={`window.location='${baseUrl}'`}
   />
   <div class="ml-2 w-full flex justify-end sm:justify-between">
@@ -63,7 +70,7 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
               {text}
             </Button>
           ))
-        : <div class="ml-2 c-accent font-bold">{playground}</div>}
+        : <div class="ml-2 c-accent font-bold">{titles[props.title!] || ''}</div>}
     </div>
     <div class="flex items-center gap-4">
       <Button
@@ -79,11 +86,11 @@ const downloadLink = `https://github.com/subframe7536/maple-font/releases`
         <Icon name="lucide:github" class="mr-2 size-4" />
         GitHub
       </Button>
-      <Button size="md" variant="link" as="a" href={playgroundLink}>
-        {pageText.usage}
+      <Button size="md" variant="link" as="a" href={pageContent.target.link}>
+        {pageContent.target.text}
       </Button>
       <Button size="md" as="a" href={downloadLink}>
-        {pageText.download}
+        {pageContent.download}
       </Button>
     </div>
   </div>

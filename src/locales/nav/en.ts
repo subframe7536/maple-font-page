@@ -3,9 +3,11 @@ const en = {
   features: 'FEATURES',
   preview: 'PREVIEW',
   credits: 'CREDITS',
-  usage: 'Usage',
   download: 'Download',
-  playground: 'Playground',
+  titles: {
+    usage: 'Usage',
+    playground: 'Playground',
+  },
 }
 
 export default en

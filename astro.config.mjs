@@ -2,6 +2,9 @@ import sitemap from '@astrojs/sitemap'
 import solidJs from '@astrojs/solid-js'
 import unocss from '@unocss/astro'
 import { defineConfig } from 'astro/config'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeSlug from 'rehype-slug'
+import remarkToc from 'remark-toc'
 
 import mapleTheme from './src/assets/maple-dark-color-theme.json'
 import { DEFAULT_LOCALE, LOCALES_SETTING } from './src/utils/constant'
@@ -26,5 +29,7 @@ export default defineConfig({
     shikiConfig: {
       theme: mapleTheme,
     },
+    remarkPlugins: [[remarkToc, { heading: 'TOC' }]],
+    rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
   },
 })

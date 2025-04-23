@@ -216,14 +216,47 @@ export default defineConfig<PresetUnoTheme>({
     }),
     presetTypography({
       cssExtend: ({ colors }) => {
-        const { primary } = colors || {}
+        const { primary, secondary, note, accent } = colors || {}
         return {
+          'h1, h2, h3, h4, h5, h6': {
+            color: accessDefault(secondary),
+            position: 'relative',
+          },
           'strong, em': {
             color: accessDefault(primary),
           },
           'b, strong': {
             'font-style': 'normal !important',
             '--fw': 650,
+          },
+          'a': {
+            color: accessDefault(accent),
+          },
+          'h1 a, h2 a, h3 a, h4 a, h5 a, h6 a': {
+            'width': '100%',
+            'display': 'inline-block',
+            'color': 'unset',
+            'text-decoration': 'unset',
+          },
+          'h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover': {
+            'text-decoration': 'underline',
+          },
+          'code': {
+            'color': '#edabab',
+            'border': `2px solid ${note}`,
+            'border-radius': '6px',
+            'padding': '2px 4px',
+          },
+          'code::after, code::before': {
+            content: 'none',
+          },
+          'pre': {
+            'border-radius': '.5rem',
+            'line-height': 1.5,
+          },
+          'pre>code': {
+            border: '0',
+            padding: '0',
           },
         }
       },
