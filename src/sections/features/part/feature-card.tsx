@@ -43,7 +43,7 @@ export default function FeatureCard(props: FeatureCardProps) {
   }
 
   return (
-    <div class="mx-auto mt--8 w-full py-4 space-y-4">
+    <div class="mx-auto mt--8 w-full py-4">
       <div
         class={cls(
           'leading-normal',
@@ -58,7 +58,7 @@ export default function FeatureCard(props: FeatureCardProps) {
         </Show>
       </div>
       <Switch
-        class="flex items-center sm:mx-auto"
+        class="mt-4 flex items-center sm:mx-auto"
         checked={fea()}
         onChange={setFea}
         title={`Click to toggle the feature: ${props.activeFeatures}`}
@@ -68,7 +68,7 @@ export default function FeatureCard(props: FeatureCardProps) {
         </SwitchControl>
         <SwitchLabel class="pl-2">{props.feature}</SwitchLabel>
       </Switch>
-      <div class="mt-2 c-note">{props.description}</div>
+      <div class="mt-6 c-note">{props.description}</div>
     </div>
 
   )

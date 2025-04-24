@@ -284,6 +284,7 @@ export default defineConfig<PresetUnoTheme>({
       },
       secondary: {
         DEFAULT: 'hsl(140 28% 72%)',
+        alt: 'hsl(140 16% 64%)',
         foreground: 'hsl(140 40% 20%)',
       },
       muted: {

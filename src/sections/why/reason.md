@@ -5,6 +5,6 @@ With so many excellent monospace fonts on the market, designed by professional d
 - _Victor Mono_ features a cursive-style italic, but its slightly exaggerated style isn't quite to my taste.
 - _Sarasa Gothic_ offers a 2:1 monospace ratio for Chinese and English, but the English portion feels too narrow, impacting readability.
 - Very few monospace fonts have rounded corners.
-- Very few monospace fonts prioritize support for Nerd-Font and Chinese characters.
+- Very few monospace fonts prioritize support for `Nerd-Font` and **Chinese characters**.
 
-Therefore, I created this font with clean glyphs, a cursive-style italic, fine-grained configuration, built-in Nerd-Font, and a 2:1 monospace ratio for Chinese and English. I create it to enhance my working experience, and hope that it can be useful to others.
+Therefore, I created this font with clean glyphs, a cursive-style italic, fine-grained configuration, built-in `Nerd-Font`, and a 2:1 monospace ratio for Chinese and English. I create it to enhance my working experience, and hope that it can be useful to others.

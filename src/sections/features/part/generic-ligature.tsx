@@ -1,5 +1,6 @@
 /* eslint-disable solid/prefer-for */
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { cls } from 'cls-variant'
 import { createSignal } from 'solid-js'
 
 const arr = [
@@ -21,7 +22,10 @@ export default function GenericLigature() {
         </TabsList>
       </Tabs>
       <div
-        class="mt-8 text-3xl c-muted space-y-4 lg:text-7xl md:text-6xl sm:text-5xl xs:text-4xl [&_span]:c-secondary"
+        class={cls(
+          'mt-8 flex flex-col gap-6 text-3xl c-muted lg:text-7xl md:text-6xl sm:text-5xl xs:text-4xl',
+          calt() === '1' ? '[&_span]:c-secondary' : '[&_span]:c-secondary-alt',
+        )}
         style={{
           '--feat-calt': calt(),
         }}

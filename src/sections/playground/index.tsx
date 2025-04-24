@@ -124,9 +124,9 @@ export default function Playground(props: PlaygroundProps) {
 
   return (
     <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
-      <div class="size-full flex flex-col gap-4 pt-2 md:(w-50% gap-8 pt-6)">
+      <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-6) sm:pt-2">
         <div class="flex flex-col items-start lg:flex-row sm:flex-row md:flex-col md:gap-4">
-          <div class="w-full select-none p-2 lg:w-40% md:w-full sm:w-40% space-y-2">
+          <div class="w-full flex flex-col select-none gap-2 p-2 lg:w-40% md:w-full sm:w-40%">
             <div class="text-sm leading-none font-500">{props.uiString.fontStyle.title}</div>
             <Tabs onChange={setItalic}>
               <TabsList>
@@ -147,7 +147,7 @@ export default function Playground(props: PlaygroundProps) {
               defaultValue={[size()]}
               onChange={([s]) => setSize(s)}
               getValueLabel={params => `${params.values[0]}`}
-              class="p-2 space-y-3 md:space-y-5"
+              class="gap-4 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
                 <SliderLabel>{props.uiString.fontSize}</SliderLabel>
@@ -166,7 +166,7 @@ export default function Playground(props: PlaygroundProps) {
               defaultValue={[weight()]}
               onChange={([w]) => setWeight(w)}
               getValueLabel={params => `${params.values[0]}`}
-              class="p-2 space-y-3 md:space-y-5"
+              class="gap-4 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
                 <SliderLabel>{props.uiString.fontWeight}</SliderLabel>
@@ -195,7 +195,7 @@ export default function Playground(props: PlaygroundProps) {
         </div>
       </div>
       <div class="h-45% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6)">
-        <h2 class="whitespace-nowrap pb-4 text-5 c-primary font-bold md:text-8">
+        <h2 class="whitespace-nowrap pb-4 text-5 c-primary font-bold md:text-7">
           {props.uiString.title.basic}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
@@ -203,7 +203,7 @@ export default function Playground(props: PlaygroundProps) {
             {feature => <LigaSwitch {...feature} $change={handleChange} />}
           </For>
         </div>
-        <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-8">
+        <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-7">
           {props.uiString.title.cv}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
@@ -256,7 +256,7 @@ export default function Playground(props: PlaygroundProps) {
           </div>
         </Show>
 
-        <h2 class="py-4 text-5 c-primary font-bold md:text-8">
+        <h2 class="py-4 text-5 c-primary font-bold md:text-7">
           {props.uiString.title.ss}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
