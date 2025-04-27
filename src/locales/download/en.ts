@@ -1,5 +1,9 @@
 const en = {
-  title: 'Download',
+  description: 'WIP: In-Browser Custom Build',
+  github: {
+    downloadFrom: 'Please download it in',
+    release: 'GitHub Release',
+  },
 }
 
 export default en

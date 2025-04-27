@@ -1,15 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { useNavTranslation } from '@/locales/i18n'
+import { useDownloadTranslation, useNavTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
+import { version } from '@pkg'
 
 export { getStaticPaths } from '@/locales/i18n'
 
 const { titles } = await useNavTranslation(Astro.currentLocale)
-
+const { description, github } = await useDownloadTranslation(Astro.currentLocale)
+const tag = `v${version.slice(0, -2)}`
+const dlUrl = `https://github.com/subframe7536/maple-font/releases/${tag}`
 ---
 <Layout title={`${titles.download} | Maple Mono`}>
   <Nav title="download" />
+  <main class="mx-auto h-screen max-w-4xl w-96% px-6 pt-20 text-left prose xs:w-90%">
+    <h1>
+      {description}
+    </h1>
+    <br />
+    <p class="text-5">
+      <span>{github.downloadFrom}</span>
+      <a href={dlUrl}>{github.release}</a>
+    </p>
+  </main>
   <script>
     import { loadMapleMono } from '@/utils/loadFont'
 

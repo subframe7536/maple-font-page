@@ -2,25 +2,10 @@
 layout: ../../layouts/UsageLayout.astro
 ---
 
-# Hi there!
+# WIP
 
-This Markdown file creates a page at `your-domain.com/page-1/`
+## Documents in GitHub
 
-It probably isn't styled much, but Markdown does support:
-- **bold** and _italics._
-- lists
-- [links](https://astro.build)
-- <p>HTML elements</p>
-- and more!
-
-```ts
-interface Data {
-  name: string
-}
-```
-
-## TOC
-
-## Second
-
-### Third
+- [Custom Build Guide](https://github.com/subframe7536/maple-font#custom-build).
+- [Usage & Feature List](https://github.com/subframe7536/maple-font/tree/variable/source/features): example config for VSCode and JetBrains' IDE, ligature checklist, description of `cvXX` / `ssXX`.
+- [Custom Feature](https://github.com/subframe7536/maple-font/tree/variable/source/py/feature): Python module that allows you **FULLY** control the OpenType features, like custom plain text tags.
