@@ -1,13 +1,11 @@
-import type { defineEmits } from '@solid-hooks/core'
-
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useEmits } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createMemo } from 'solid-js'
 
-type Emits = defineEmits<{
-  change: [feat: string, state: string]
-}>
+interface Emits {
+  $change: (feat: string, state: string) => void
+}
 
 interface Props {
   feat: string

@@ -2,6 +2,7 @@
 import mapleTheme from '@/assets/maple-dark-color-theme.json'
 import { Button } from '@/components/ui/button'
 import { useFeatureTranslation } from '@/locales/i18n'
+import { normalFeatureArray } from '@data/features/features'
 import { Code } from 'astro:components'
 
 import SubSectionTitle from './part/sub-section-title.astro'
@@ -54,4 +55,7 @@ const code = `{
       </Button>
     </div>
   </div>
+  <h1>Normal Preset</h1>
+  <div>Provide less "Opinioned" style</div>
+  <code>a</code>
 </SubSectionTitle>
