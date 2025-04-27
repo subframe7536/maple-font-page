@@ -3,7 +3,7 @@ const en = {
   features: 'FEATURES',
   preview: 'PREVIEW',
   credits: 'CREDITS',
-  download: 'Download',
+  get: 'Get Font',
   titles: {
     usage: 'Usage',
     playground: 'Playground',

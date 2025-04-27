@@ -3,13 +3,16 @@ import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { useNavTranslation } from '@/locales/i18n'
 import { isDEV } from '@/utils/constant'
+import { cls } from 'cls-variant'
+
+type Title = 'usage' | 'playground' | 'download'
 
 interface Props {
   isMain?: boolean
   /**
    * Must setup if `isMain` is false
    */
-  title?: 'usage' | 'playground' | 'download'
+  title?: Title
 }
 
 const props = Astro.props
@@ -21,7 +24,7 @@ const downloadLink = `${baseUrl}/download`
 
 const {
   credits,
-  download,
+  get,
   features,
   preview,
   why,
@@ -35,62 +38,92 @@ const navigatorText = [
   ['#credits', credits],
 ] as const
 
-const pageContent = {
-  target: {
-    text: props.title === 'usage' ? titles.playground : titles.usage,
-    link: props.title === 'usage' ? playgroundLink : usageLink,
-  },
-  download,
+function is(url: Title) {
+  return Astro.url.pathname === `/${locale}/${url}`
 }
-
 ---
 
 <nav
   class="fixed z-999 w-full flex items-center bg-background/50 p-2 backdrop-blur-lg"
 >
-  <img
-    src="/favicon.svg"
-    alt="Maple Mono Icon"
-    class="h-6 cursor-pointer hover:scale-110"
-    onclick={`window.location='${baseUrl}'`}
-  />
-  <div class="ml-2 w-full flex justify-end sm:justify-between">
-    <div
-      class="hidden select-none items-center sm:flex"
-    >
-      {props.isMain
-        ? navigatorText.map(([anchor, text]) => (
-            <Button
-              size="md"
-              variant="link"
-              as="a"
-              href={anchor}
-              aria-label={text}
-            >
-              {text}
-            </Button>
-          ))
-        : <div class="ml-2 c-accent font-bold">{titles[props.title!] || ''}</div>}
+  <a href={baseUrl} title="Home Page">
+    <img
+      src="/favicon.svg"
+      alt="Maple Mono Icon"
+      class="h-6 cursor-pointer hover:scale-110"
+    />
+  </a>
+  <div class="ml-2 w-full flex justify-between">
+    <div class="flex select-none items-center">
+      {
+        props.isMain
+          ? (
+              <div class="hidden whitespace-nowrap sm:block">
+                {navigatorText.map(([anchor, text]) => (
+                  <Button
+                    size="md"
+                    variant="link"
+                    as="a"
+                    href={anchor}
+                    aria-label={text}
+                  >
+                    {text}
+                  </Button>
+                ))}
+              </div>
+            )
+          : (
+              <a href={baseUrl} class="ml--2 hidden pl-4 text-5.5 c-accent font-bold xs:block">
+                Maple Mono
+              </a>
+            )
+      }
     </div>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center">
+      <Button
+        size="md"
+        variant="link"
+        class={cls(is('playground') && 'c-secondary')}
+        as="a"
+        href={playgroundLink}
+      >
+        <Icon name="lucide:bug-play" class="sm:mr-1" />
+        <span class="hidden sm:block">
+          {titles.playground}
+        </span>
+      </Button>
+      <Button
+        size="md"
+        variant="link"
+        as="a"
+        class={cls(is('usage') && 'c-secondary')}
+        href={usageLink}
+      >
+        <Icon name="lucide:book" class="sm:mr-1" />
+        <span class="hidden sm:block">
+          {titles.usage}
+        </span>
+      </Button>
       <Button
         size="md"
         as="a"
-        class="m-r--2"
+        class="mr-2"
         variant="link"
         href="https://github.com/subframe7536/maple-font"
         target="_blank"
         title="GitHub"
         aria-label="GitHub"
       >
-        <Icon name="lucide:github" class="mr-2 size-4" />
-        GitHub
+        <Icon name="lucide:github" class="sm:mr-2" />
+        <span class="hidden sm:block"> GitHub </span>
       </Button>
-      <Button size="md" variant="link" as="a" href={pageContent.target.link}>
-        {pageContent.target.text}
-      </Button>
-      <Button size="md" as="a" href={downloadLink}>
-        {pageContent.download}
+      <Button
+        size="md"
+        as="a"
+        class={cls(is('download') && 'bg-secondary')}
+        href={downloadLink}
+      >
+        {get}
       </Button>
     </div>
   </div>
