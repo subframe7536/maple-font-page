@@ -38,8 +38,8 @@ const navigatorText = [
   ['#credits', credits],
 ] as const
 
-function is(url: Title) {
-  return Astro.url.pathname === `/${locale}/${url}`
+function isCurrent(url: Title) {
+  return Astro.url.pathname.endsWith(`/${url}/`)
 }
 ---
 
@@ -96,7 +96,7 @@ function is(url: Title) {
       <Button
         size="md"
         variant="link"
-        class={cls(is('playground') && 'c-secondary')}
+        class={cls(isCurrent('playground') && 'c-secondary')}
         as="a"
         href={playgroundLink}
       >
@@ -109,7 +109,7 @@ function is(url: Title) {
         size="md"
         variant="link"
         as="a"
-        class={cls(is('usage') && 'c-secondary')}
+        class={cls(isCurrent('usage') && 'c-secondary')}
         href={usageLink}
       >
         <Icon name="lucide:book-open-text" class="sm:mr-1" />
@@ -120,7 +120,7 @@ function is(url: Title) {
       <Button
         size="md"
         as="a"
-        class={cls('ml-2', is('download') && 'bg-secondary')}
+        class={cls('ml-2', isCurrent('download') && 'bg-secondary')}
         href={downloadLink}
       >
         {get}
