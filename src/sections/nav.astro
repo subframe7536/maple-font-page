@@ -17,7 +17,7 @@ interface Props {
 
 const props = Astro.props
 const locale = Astro.currentLocale
-const baseUrl = isDEV ? `/${locale}` : `${Astro.site}/${locale}`
+const baseUrl = isDEV ? `/${locale}` : `${Astro.site}${locale}`
 const playgroundLink = `${baseUrl}/playground`
 const usageLink = `${baseUrl}/usage`
 const downloadLink = `${baseUrl}/download`
