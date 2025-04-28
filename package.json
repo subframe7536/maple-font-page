@@ -1,14 +1,15 @@
 {
   "name": "maple-font-page",
   "type": "module",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "packageManager": "pnpm@10.6.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview --host",
     "astro": "astro",
-    "format": "eslint --fix --cache"
+    "format": "eslint --fix --cache",
+    "release": "bumpp --all"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.0",
