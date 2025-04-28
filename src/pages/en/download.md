@@ -6,7 +6,7 @@ layout: ../../layouts/DownloadLayout.astro
 
 ### Download From GitHub
 
-See details in [Release](https://github.com/subframe7536/maple-font/releases/latest)
+See details in [Latest Release](https://github.com/subframe7536/maple-font/releases/latest)
 
 <!-- PM -->
 ### Scoop (Windows)

@@ -46,10 +46,10 @@ const {
           {buttons.map(({ name, fontName, description }) => (
             <a
               href={`https://github.com/subframe7536/maple-font/releases/download/${tag}/${fontName}-unhinted.zip`}
-              class="whitespace-nowrap b-(2 primary solid) rounded-md p-(x-4 y-2) decoration-none hover:(bg-muted c-muted-foreground)"
+              class="whitespace-nowrap b-(2 primary solid) rounded-md p-(x-3 y-2) decoration-none hover:(bg-muted c-muted-foreground)"
             >
               <div class="text-5">{name}</div>
-              <div class="c-note">{description}</div>
+              <div class="text-sm c-note">{description}</div>
             </a>
           ))}
         </div>

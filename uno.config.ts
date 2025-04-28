@@ -409,6 +409,10 @@ export default defineConfig<PresetUnoTheme>({
             color: ${theme.colors.border} !important;
           }
 
+          ::-webkit-scrollbar-corner {
+            background: transparent;
+          }
+
           @supports not selector(::-webkit-scrollbar) {
             html {
               scrollbar-color: ${theme.colors.input};

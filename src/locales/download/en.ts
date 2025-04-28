@@ -19,12 +19,12 @@ const en = {
     {
       name: 'Maple Mono NF',
       fontName: 'MapleMono-NF',
-      description: 'For Terminal Use',
+      description: 'For Terminal Use, With Icons',
     },
     {
       name: 'Maple Mono NF CN',
       fontName: 'MapleMono-NF-CN',
-      description: 'Add CN/JP Glyphs support',
+      description: 'With Icons and CN & JP Glyphs',
     },
   ],
 }

@@ -21,12 +21,12 @@ const zh: DownloadTranslation = {
     {
       name: 'Maple Mono NF',
       fontName: 'MapleMono-NF',
-      description: '控制台中使用',
+      description: '控制台中使用，附带图标',
     },
     {
       name: 'Maple Mono NF CN',
       fontName: 'MapleMono-NF-CN',
-      description: '增加中文/日文字符支持',
+      description: '图标、中文/日文字符支持',
     },
   ],
 }
