@@ -59,6 +59,12 @@ const en = {
       description: 'Configure or freeze OpenType features as you want, create your own perfect font.',
       buttonText: 'See Guide',
       link: 'https://github.com/subframe7536/maple-font#custom-build',
+      normal: {
+        title: '😡: "Why these glyphs are SOOOOO WEIRD ???"',
+        description: '🤗: "No worry, you can try the prebuilt @: a preset that reset all strange glyphs, make the glyph style just similar to JetBrains Mono with slashed \'0\'".',
+        enable: 'Enabled font features',
+        preview: 'Preview',
+      },
     },
   },
   comparison: {

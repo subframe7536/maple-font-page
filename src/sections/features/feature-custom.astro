@@ -12,7 +12,10 @@ const {
   link,
   description,
   title,
+  normal,
 } = await useFeatureTranslation(Astro.currentLocale, 'custom')
+
+const [first, second] = normal.description.split('@')
 
 const data = {
   title,
@@ -29,6 +32,16 @@ const code = `{
   "feature_freeze": {
     // ...
   }
+}`
+
+const normalCode = `class Example {
+    private name: string;
+
+    @Log
+    public query(value: string): void {
+        const localVariable = \`Hello, \${this.name}! Query -> \${value}\`;
+        console.log(localVariable, 0x2312);
+    }
 }`
 ---
 
@@ -55,7 +68,25 @@ const code = `{
       </Button>
     </div>
   </div>
-  <h1>Normal Preset</h1>
-  <div>Provide less "Opinioned" style</div>
-  <code>a</code>
+  <blockquote class="text-xl c-accent">{normal.title}</blockquote>
+  <div class="flex flex-col gap-6">
+    <div>
+      {first}
+      <span class="text-primary underline font-bold">Maple Mono Normal</span>
+      {second}
+    </div>
+    <div>{normal.enable}:</div>
+    <Code
+      code={`"${normalFeatureArray.join('", "')}"`}
+      class="rounded-lg p-4 pb-2 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
+    />
+    <div>{normal.preview}: </div>
+    <Code
+      code={normalCode}
+      theme={mapleTheme as any}
+      style={normalFeatureArray.map(f => `--feat-${f}:1`).join(';')}
+      lang="typescript"
+      class="rounded-lg p-4 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
+    />
+  </div>
 </SubSectionTitle>
