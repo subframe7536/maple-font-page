@@ -82,6 +82,20 @@ function is(url: Title) {
     <div class="flex items-center">
       <Button
         size="md"
+        as="a"
+        class="mr-2"
+        variant="link"
+        href="https://github.com/subframe7536/maple-font"
+        target="_blank"
+        rel="noopener"
+        title="GitHub"
+        aria-label="GitHub"
+      >
+        <Icon name="lucide:github" class="sm:mr-1" />
+        <span class="hidden sm:block"> GitHub </span>
+      </Button>
+      <Button
+        size="md"
         variant="link"
         class={cls(is('playground') && 'c-secondary')}
         as="a"
@@ -107,24 +121,18 @@ function is(url: Title) {
       <Button
         size="md"
         as="a"
-        class="mr-2"
-        variant="link"
-        href="https://github.com/subframe7536/maple-font"
-        target="_blank"
-        title="GitHub"
-        aria-label="GitHub"
-      >
-        <Icon name="lucide:github" class="sm:mr-1" />
-        <span class="hidden sm:block"> GitHub </span>
-      </Button>
-      <Button
-        size="md"
-        as="a"
-        class={cls(is('download') && 'bg-secondary')}
+        class={cls('ml-4', is('download') && 'bg-secondary')}
         href={downloadLink}
       >
         {get}
       </Button>
     </div>
   </div>
+  {!props.isMain && (
+    <script>
+      import { loadMapleMono } from '@/utils/loadFont'
+
+      loadMapleMono()
+    </script>
+  )}
 </nav>

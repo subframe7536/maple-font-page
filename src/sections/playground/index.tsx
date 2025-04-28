@@ -89,7 +89,6 @@ export default function Playground(props: PlaygroundProps) {
   const [cnLoadState, setCNLoadState] = createSignal(-1)
 
   onMount(() => {
-    loadMapleMono()
     const ref = textareaRef()!
     ref.value = props.defaultText
     ref.focus()

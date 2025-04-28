@@ -1,32 +1,16 @@
 ---
 import { useNavTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
-import { ClientRouter } from 'astro:transitions'
+
+import Layout from './Layout.astro'
 
 const { titles } = await useNavTranslation(Astro.currentLocale)
 ---
-<!doctype html>
-<html lang={Astro.currentLocale}>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{`${titles.usage} | Maple Mono`}</title>
-    <ClientRouter />
-  </head>
-  <body class="bg-background c-foreground transition-colors all-font-liga">
-    <Nav title="usage" />
-    <div class="overflow-(x-hidden y-scroll) scroll-smooth">
-      <div class="mx-auto h-screen max-w-4xl w-96% px-6 pt-20 text-left prose xs:w-90%">
-        <slot />
-      </div>
+<Layout title={`${titles.usage} | Maple Mono`}>
+  <Nav title="usage" />
+  <div class="overflow-(x-hidden y-scroll) scroll-smooth">
+    <div class="mx-auto h-screen max-w-4xl w-96% px-6 pt-20 text-left prose xs:w-90%">
+      <slot />
     </div>
-  </body>
-  <script>
-  import { loadMapleMono } from '@/utils/loadFont'
-
-  loadMapleMono()
-  </script>
-</html>
+  </div>
+</Layout>

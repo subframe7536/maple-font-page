@@ -2,10 +2,11 @@
 layout: ../../layouts/UsageLayout.astro
 ---
 
-# 施工中
+🚧 更多文档施工中 🚧
 
-## GitHub 文档
+## GitHub 中的文档
 
-- [自定义构建指南](https://github.com/subframe7536/maple-font#custom-build)
+- [命名说明](https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E5%91%BD%E5%90%8D%E8%AF%B4%E6%98%8E)
+- [自定义构建指南](https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA)
 - [使用说明和功能列表](https://github.com/subframe7536/maple-font/tree/variable/source/features): VSCode 和 JetBrains IDE 的示例配置、连字列表、`cvXX` / `ssXX` 的说明
-- [自定义功能](https://github.com/subframe7536/maple-font/tree/variable/source/py/feature): Python 模块，允许你**完全**控制 OpenType 功能，如自定义纯文本标签
+- [自定义连字](https://github.com/subframe7536/maple-font/tree/variable/source/py/feature): Python 模块，允许你**完全**控制 OpenType Feature，例如增加自定义纯文本标签

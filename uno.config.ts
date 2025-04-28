@@ -253,6 +253,8 @@ export default defineConfig<PresetUnoTheme>({
           'pre': {
             'border-radius': '.5rem',
             'line-height': 1.5,
+            'max-height': '490px',
+            'overflow-y': 'scroll',
           },
           'pre>code': {
             border: '0',
@@ -288,7 +290,7 @@ export default defineConfig<PresetUnoTheme>({
         foreground: 'hsl(140 40% 20%)',
       },
       muted: {
-        DEFAULT: 'hsl(202 20% 35%)',
+        DEFAULT: 'hsl(202 20% 30%)',
         foreground: 'hsl(202 30% 88%)',
       },
       accent: {

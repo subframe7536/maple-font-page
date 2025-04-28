@@ -7,7 +7,7 @@ const zh: NavTranslation = {
   credits: '鸣谢',
   get: '获取字体',
   titles: {
-    usage: '使用方法',
+    usage: '使用文档',
     playground: '特性测试',
     download: '字体下载',
   },
