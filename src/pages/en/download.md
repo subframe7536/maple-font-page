@@ -11,13 +11,13 @@ See details in [Release](https://github.com/subframe7536/maple-font/releases/lat
 <!-- PM -->
 ### Scoop (Windows)
 
-#### Add bucket
+**Add bucket**
 
 ```sh
 scoop bucket add nerd-fonts
 ```
 
-#### Install
+**Install**
 
 ```sh
 # Maple Mono (ttf format)

@@ -11,13 +11,13 @@ layout: ../../layouts/DownloadLayout.astro
 <!-- PM -->
 ### Scoop (Windows)
 
-#### 添加 bucket
+**添加 bucket**
 
 ```sh
 scoop bucket add nerd-fonts
 ```
 
-#### 安装
+**安装**
 
 ```sh
 # Maple Mono (ttf 格式)

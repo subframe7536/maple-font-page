@@ -63,7 +63,7 @@ const zh: IndexTranslation = {
       link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
       normal: {
         title: '😡：“为什么有些字符看起来这么奇怪？？？”',
-        description: '🤗：“别担心，你可以试试使用预购建的 @: 一个重置所有奇怪字符的预设, 让整体风格和 JetBrains Mono（除了“0”的中间保留为斜线）类似。”',
+        description: '🤗：“这我懂，所以我专门制作了 @: 一个重置所有奇怪字符的预设, 让整体风格和 JetBrains Mono 类似（除了 0 的中间保留为斜线）。直接下载，无需构建。”',
         enable: '启用的字体特性',
         preview: '预览',
       },

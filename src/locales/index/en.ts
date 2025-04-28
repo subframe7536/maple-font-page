@@ -61,7 +61,7 @@ const en = {
       link: 'https://github.com/subframe7536/maple-font#custom-build',
       normal: {
         title: '😡: "Why these glyphs are SOOOOO WEIRD ???"',
-        description: '🤗: "No worry, you can try the prebuilt @: a preset that reset all strange glyphs, make the glyph style just similar to JetBrains Mono with slashed \'0\'".',
+        description: '🤗: "Yeah I get that, so this one is for you: @, a preset that reset all strange glyphs, make the glyph style similar to JetBrains Mono (with slashed 0). Direct download, no build required.',
         enable: 'Enabled font features',
         preview: 'Preview',
       },

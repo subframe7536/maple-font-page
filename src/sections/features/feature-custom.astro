@@ -57,7 +57,6 @@ const normalCode = `class Example {
       <p class="text-4 leading-relaxed md:text-5">
         {data.description}
       </p>
-      <!-- todo)) -->
       <Button
         as="a"
         variant="secondary"
@@ -68,19 +67,19 @@ const normalCode = `class Example {
       </Button>
     </div>
   </div>
-  <blockquote class="text-xl c-accent">{normal.title}</blockquote>
   <div class="flex flex-col gap-6">
+    <div class="c-accent">{normal.title}</div>
     <div>
       {first}
-      <span class="text-primary underline font-bold">Maple Mono Normal</span>
+      <span class="text-primary underline decoration-dashed font-bold">Maple Mono Normal</span>
       {second}
     </div>
-    <div>{normal.enable}:</div>
+    <div class="c-note">{normal.enable}:</div>
     <Code
       code={`"${normalFeatureArray.join('", "')}"`}
       class="rounded-lg p-4 pb-2 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
     />
-    <div>{normal.preview}: </div>
+    <div class="c-note">{normal.preview}: </div>
     <Code
       code={normalCode}
       theme={mapleTheme as any}
