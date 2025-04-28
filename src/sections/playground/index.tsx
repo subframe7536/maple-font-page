@@ -9,7 +9,6 @@ import {
   SliderValueLabel,
 } from '@/components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { loadMapleMono } from '@/utils/loadFont'
 import { createRef, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createSignal, For, onMount, Show } from 'solid-js'
@@ -47,6 +46,7 @@ export interface PlaygroundProps {
     fontWeight: string
     loading: string
     loadCN: string
+    loadCNError: string
     title: {
       basic: string
       cv: string
@@ -60,8 +60,8 @@ export interface PlaygroundProps {
 
 function getCNFromRemote(italic: boolean): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    const suffix = italic ? 'Italic' : 'Regular'
-    const href = `https://chinese-fonts-cdn.deno.dev/packages/maple-mono-cn/dist/MapleMono-CN-${suffix}/result.css`
+    const entry = italic ? 'italic' : 'main'
+    const href = `https://fontsapi.zeoseven.com/442/${entry}/result.css`
 
     const existingEl = document.querySelector(`link[href="${href}"]`) as HTMLLinkElement | null
 
@@ -86,6 +86,7 @@ export default function Playground(props: PlaygroundProps) {
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
 
+  // -1: no load; 0: loading; 1: loaded
   const [cnLoadState, setCNLoadState] = createSignal(-1)
 
   onMount(() => {
@@ -109,7 +110,7 @@ export default function Playground(props: PlaygroundProps) {
   }
 
   watch(() => cnLoadState(), (state) => {
-    if (state === 2) {
+    if (state === 1) {
       const textarea = textareaRef()
       if (textarea) {
         const oldText = textarea.value
