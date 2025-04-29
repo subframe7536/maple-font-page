@@ -2,7 +2,7 @@
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { useNavTranslation } from '@/locales/i18n'
-import { isDEV } from '@/utils/constant'
+import { isDEV, tag } from '@/utils/constant'
 import { cls } from 'cls-variant'
 
 type Title = 'usage' | 'playground' | 'download'
@@ -73,8 +73,9 @@ function isCurrent(url: Title) {
               </div>
             )
           : (
-              <a href={baseUrl} class="ml--2 hidden pl-4 text-5.5 c-accent font-bold xs:block">
+              <a href={baseUrl} class="ml--2 hidden gap-2 pl-4 text-5.4 c-accent font-bold xs:block">
                 Maple Mono
+                <span class="hidden text-sm c-note sm:inline">{tag}</span>
               </a>
             )
       }
