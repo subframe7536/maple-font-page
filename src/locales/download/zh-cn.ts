@@ -26,7 +26,7 @@ const zh: DownloadTranslation = {
     {
       name: 'Maple Mono NF CN',
       fontName: 'MapleMono-NF-CN',
-      description: '图标、中文/日文字符支持',
+      description: '附带图标、中文字符和日文字符',
     },
   ],
 }
