@@ -1044,8 +1044,7 @@
         "entity.name.type.class.java"
       ],
       "settings": {
-        "foreground": "#f0c0a8",
-        "fontStyle": "bold"
+        "foreground": "#f0c0a8"
       }
     },
     {
