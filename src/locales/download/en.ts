@@ -13,17 +13,17 @@ const en = {
   buttons: [
     {
       name: 'Maple Mono',
-      fontName: 'MapleMono',
+      fileName: 'MapleMono-TTF.zip',
       description: 'For Editor Use',
     },
     {
       name: 'Maple Mono NF',
-      fontName: 'MapleMono-NF',
+      fileName: 'MapleMono-NF-unhinted.zip',
       description: 'For Terminal Use, With Icons',
     },
     {
       name: 'Maple Mono NF CN',
-      fontName: 'MapleMono-NF-CN',
+      fileName: 'MapleMono-NF-CN-unhinted.zip',
       description: 'With Icons and CN & JP Glyphs',
     },
   ],

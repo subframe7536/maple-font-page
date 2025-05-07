@@ -41,9 +41,9 @@ const {
       <div class="my-12">
         <h2>{choice}</h2>
         <div class="flex flex-wrap select-none gap-4">
-          {buttons.map(({ name, fontName, description }) => (
+          {buttons.map(({ name, fileName, description }) => (
             <a
-              href={`https://github.com/subframe7536/maple-font/releases/download/${tag}/${fontName}-unhinted.zip`}
+              href={`https://github.com/subframe7536/maple-font/releases/download/${tag}/${fileName}`}
               class="whitespace-nowrap b-(2 primary solid) rounded-md p-(x-3 y-2) decoration-none hover:(bg-muted c-muted-foreground)"
             >
               <div class="text-5">{name}</div>

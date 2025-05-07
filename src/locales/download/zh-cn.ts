@@ -15,17 +15,17 @@ const zh: DownloadTranslation = {
   buttons: [
     {
       name: 'Maple Mono',
-      fontName: 'MapleMono',
+      fileName: 'MapleMono-TTF.zip',
       description: '编辑器中使用',
     },
     {
       name: 'Maple Mono NF',
-      fontName: 'MapleMono-NF',
+      fileName: 'MapleMono-NF-unhinted.zip',
       description: '控制台中使用，附带图标',
     },
     {
       name: 'Maple Mono NF CN',
-      fontName: 'MapleMono-NF-CN',
+      fileName: 'MapleMono-NF-CN-unhinted.zip',
       description: '附带图标、中文字符和日文字符',
     },
   ],
