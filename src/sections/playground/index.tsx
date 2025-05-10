@@ -9,6 +9,7 @@ import {
   SliderValueLabel,
 } from '@/components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { loadMapleMono } from '@/utils/loadFont'
 import { createRef, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createSignal, For, onMount, Show } from 'solid-js'
@@ -46,7 +47,6 @@ export interface PlaygroundProps {
     fontWeight: string
     loading: string
     loadCN: string
-    loadCNError: string
     title: {
       basic: string
       cv: string
@@ -91,8 +91,13 @@ export default function Playground(props: PlaygroundProps) {
 
   onMount(() => {
     const ref = textareaRef()!
-    ref.value = props.defaultText
-    ref.focus()
+    ref.value = 'Loading...'
+    loadMapleMono()
+      .then(() => {
+        ref.value = props.defaultText
+        ref.focus()
+      })
+      .catch(() => ref.value = 'Fail to load Maple Mono.')
   })
 
   const handleChange = (feat: string, stat: string): void => {

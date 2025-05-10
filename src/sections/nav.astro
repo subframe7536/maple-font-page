@@ -128,7 +128,7 @@ function isCurrent(url: Title) {
       </Button>
     </div>
   </div>
-  {!props.isMain && (
+  {(!props.isMain && props.title !== 'playground') && (
     <script>
       import { loadMapleMono } from '@/utils/loadFont'
 
