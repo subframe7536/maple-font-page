@@ -152,7 +152,7 @@ export default function Playground(props: PlaygroundProps) {
               defaultValue={[size()]}
               onChange={([s]) => setSize(s)}
               getValueLabel={params => `${params.values[0]}`}
-              class="gap-4 p-2 sm:gap-5.5"
+              class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
                 <SliderLabel>{props.uiString.fontSize}</SliderLabel>
@@ -171,7 +171,7 @@ export default function Playground(props: PlaygroundProps) {
               defaultValue={[weight()]}
               onChange={([w]) => setWeight(w)}
               getValueLabel={params => `${params.values[0]}`}
-              class="gap-4 p-2 sm:gap-5.5"
+              class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
                 <SliderLabel>{props.uiString.fontWeight}</SliderLabel>
@@ -184,9 +184,10 @@ export default function Playground(props: PlaygroundProps) {
             </Slider>
           </div>
         </div>
-        <div class="relative size-full max-h-45vh px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
+        <div class="relative size-full max-h-45vh flex flex-col gap-2 px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
           <textarea
             ref={textareaRef}
+            title="Playground for Maple Mono"
             class={cls(
               'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg',
               cnLoadState() === 2 && 'font-cn',
@@ -197,10 +198,18 @@ export default function Playground(props: PlaygroundProps) {
               'font-style': italic(),
             }}
           />
+          <div class="w-full flex gap-4">
+            <Button class="w-full cursor-not-allowed">
+              🚧 Generate Config
+            </Button>
+            <Button class="w-full cursor-not-allowed" variant="secondary">
+              🚧 Freeze Feature
+            </Button>
+          </div>
         </div>
       </div>
-      <div class="h-45% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6)">
-        <h2 class="whitespace-nowrap pb-4 text-5 c-primary font-bold md:text-7">
+      <div class="h-40% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6)">
+        <h2 class="whitespace-nowrap pb-3 text-5 c-primary font-bold md:(pb-4 text-7)">
           {props.uiString.title.basic}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">

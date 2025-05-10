@@ -2,7 +2,7 @@
   "name": "maple-font-page",
   "type": "module",
   "version": "7.2.0",
-  "packageManager": "pnpm@10.6.0",
+  "packageManager": "pnpm@10.10.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,24 +12,25 @@
     "release": "bumpp --all"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.3.0",
-    "@astrojs/solid-js": "^5.0.8",
+    "@astrojs/sitemap": "^3.3.1",
+    "@astrojs/solid-js": "^5.0.10",
     "@unocss/astro": "^65.5.0",
-    "astro": "^5.7.4",
+    "astro": "^5.7.12",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-solid": "^8.6.0",
-    "solid-js": "^1.9.5"
+    "solid-js": "^1.9.6"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.38",
+    "@iconify-json/lucide": "^1.2.41",
     "@kobalte/core": "^0.13.9",
-    "@solid-hooks/core": "^0.4.4",
+    "@solid-hooks/core": "^0.6.0",
     "@subframe7536/eslint-config": "^1.2.4",
+    "@subframe7536/type-utils": "^0.2.0",
     "@unocss/eslint-plugin": "^65.5.0",
     "@unocss/reset": "^65.5.0",
     "bumpp": "^10.1.0",
     "cls-variant": "^0.2.1",
-    "eslint": "^9.25.1",
+    "eslint": "^9.26.0",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-solid": "^0.14.5",
     "rehype-autolink-headings": "^7.1.0",

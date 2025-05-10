@@ -18,7 +18,7 @@ interface Props {
 
 export default function LigaSwitch(props: Emits & Props) {
   const ver = createMemo(() => `v${props.version}00`)
-  const emits = useEmits(props)
+  const emit = useEmits(props)
   return (
     <div>
       <div class="flex items-center gap-2">
@@ -32,7 +32,7 @@ export default function LigaSwitch(props: Emits & Props) {
       </div>
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
-        onChange={state => emits('change', props.feat, state)}
+        onChange={state => emit('change', props.feat, state)}
         defaultValue={props.feat === 'calt' ? '1' : '0'}
         class="select-none"
       >

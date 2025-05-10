@@ -39,7 +39,7 @@ const navigatorText = [
 ] as const
 
 function isCurrent(url: Title) {
-  return Astro.url.pathname.endsWith(`/${url}/`)
+  return Astro.url.pathname.includes(`/${url}`)
 }
 ---
 
