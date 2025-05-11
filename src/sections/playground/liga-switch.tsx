@@ -1,10 +1,9 @@
 import type { FeatureValue } from './utils'
 
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { normalFeatureArray } from '@data/features/features'
-import { useEmits, watch, watchOnce } from '@solid-hooks/core'
+import { useEmits, watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
-import { createEffect, createMemo, createSignal } from 'solid-js'
+import { createMemo, createSignal } from 'solid-js'
 
 import { getDefaultLigaSwitchValue as getLigaSwitchValue } from './utils'
 
@@ -25,7 +24,8 @@ interface Props {
 export default function LigaSwitch(props: Emits & Props) {
   const ver = createMemo(() => `v${props.version}00`)
   const emit = useEmits(props)
-  const [value, setValue] = createSignal<FeatureValue>('0')
+  // eslint-disable-next-line solid/reactivity
+  const [value, setValue] = createSignal<FeatureValue>(props.feat === 'calt' ? '1' : '0')
   watchOnce(() => props.normal, (normal) => {
     emit('change', props.feat, setValue(getLigaSwitchValue(props.feat, normal)))
   })

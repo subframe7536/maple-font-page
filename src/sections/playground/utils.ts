@@ -23,39 +23,22 @@ export function toStyleObject(features: FeatureState, normal?: boolean) {
 }
 
 export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
-  let hasChanged = false
-  const result = defaultConfig
+  const result = { ...defaultConfig }
   for (const [k, v] of Object.entries(features)) {
     if (k === 'calt' && v === '0') {
       result.ligature = false
-      hasChanged = true
-    } else if (k !== 'calt' && v === '1') {
+    } else if ((k !== 'calt' && v === '1') || (extra.normal && normalFeatureArray.includes(k))) {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'enable'
-      hasChanged = true
+    } else {
+      result.feature_freeze[k as keyof typeof result.feature_freeze] = 'ignore'
     }
   }
 
-  if (!extra.nf) {
-    result.nerd_font.enable = false
-    hasChanged = true
-  }
-  if (extra.cn) {
-    result.cn.enable = hasChanged = true
-  }
-  if (!extra.hinted) {
-    result.use_hinted = false
-    hasChanged = true
-  }
-  if (extra.normal) {
-    for (const key of normalFeatureArray) {
-      result.feature_freeze[key as keyof typeof result.feature_freeze] = 'enable'
-    }
-    hasChanged = true
-  }
+  result.nerd_font.enable = extra.nf
+  result.cn.enable = extra.cn
+  result.use_hinted = extra.hinted
 
-  return hasChanged
-    ? JSON.stringify(result, null, 2)
-    : undefined
+  return JSON.stringify(result, null, 2)
 }
 export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
   let result = []
