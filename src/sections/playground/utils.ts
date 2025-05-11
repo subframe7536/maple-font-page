@@ -8,10 +8,16 @@ export type FeatureState = Record<string, FeatureValue>
 export type ExtraConfigKey = 'nf' | 'cn' | 'hinted' | 'normal'
 export type ExtraConfig = Record<ExtraConfigKey, boolean>
 
-export function toStyleObject(features: FeatureState) {
+export function getDefaultLigaSwitchValue(feat: string, normal?: boolean) {
+  return (feat === 'calt' || (normal && normalFeatureArray.includes(feat))) ? '1' : '0'
+}
+
+export function toStyleObject(features: FeatureState, normal?: boolean) {
   return Object.fromEntries(
-    Object.entries(features)
-      .filter(([, v]) => v === '1')
+    Object.entries({
+      ...features,
+      ...normal ? Object.fromEntries(normalFeatureArray.map(k => [k, '1'])) : {},
+    })
       .map(([k, v]) => [`--feat-${k}`, v]),
   )
 }
@@ -52,16 +58,9 @@ export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
     : undefined
 }
 export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
-  const feat = Object.entries(features)
-    .filter(([k, v]) => v === '1' && !k.includes('calt'))
-    .map(([k]) => k)
-
   let result = []
   if (features.calt === '0') {
     result.push('--no-liga')
-  }
-  if (feat.length) {
-    result.push(`--feat ${feat}`)
   }
   if (!extra.nf) {
     result.push('--no-nerd-font')
@@ -74,6 +73,18 @@ export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
   }
   if (extra.normal) {
     result.push('--normal')
+  }
+
+  const feat = Object.entries(features)
+    .filter(
+      ([k, v]) => (v === '1'
+        && !k.includes('calt')
+        && (extra.normal ? !normalFeatureArray.includes(k) : true)),
+    )
+    .map(([k]) => k)
+
+  if (feat.length) {
+    result.push(`--feat ${feat}`)
   }
 
   return result.length ? result.join(' ') : undefined

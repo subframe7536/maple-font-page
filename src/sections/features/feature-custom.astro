@@ -2,6 +2,7 @@
 import mapleTheme from '@/assets/maple-dark-color-theme.json'
 import { Button } from '@/components/ui/button'
 import { useFeatureTranslation } from '@/locales/i18n'
+import { isDEV } from '@/utils/constant'
 import { normalFeatureArray } from '@data/features/features'
 import { Code } from 'astro:components'
 
@@ -43,6 +44,10 @@ const normalCode = `class Example {
         console.log(localVariable, 0x2312);
     }
 }`
+
+const locale = Astro.currentLocale
+const baseUrl = isDEV ? `/${locale}` : `${Astro.site}${locale}`
+const playgroundLink = `${baseUrl}/playground?normal`
 ---
 
 <SubSectionTitle icon={data.icon} title={data.title}>
@@ -79,7 +84,17 @@ const normalCode = `class Example {
       code={`"${normalFeatureArray.join('", "')}"`}
       class="rounded-lg p-4 pb-2 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
     />
-    <div class="c-note">{normal.preview}: </div>
+    <div class="c-note">
+      {normal.preview}
+      or
+      <Button
+        as="a"
+        href={playgroundLink}
+        variant="outline"
+      >
+        {normal.testInPlayground}
+      </Button>
+    </div>
     <Code
       code={normalCode}
       theme={mapleTheme as any}

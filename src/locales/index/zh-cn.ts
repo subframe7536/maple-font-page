@@ -66,6 +66,7 @@ const zh: IndexTranslation = {
         description: '🤗：“这我懂，所以我专门制作了 @: 一个重置所有奇怪字符的预设, 让整体风格和 JetBrains Mono 类似（除了 0 的中间保留为斜线）。直接下载，无需构建。”',
         enable: '启用的字体特性',
         preview: '预览',
+        testInPlayground: '在 特性测试页面 尝试',
       },
     },
   },

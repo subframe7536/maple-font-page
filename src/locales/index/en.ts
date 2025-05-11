@@ -64,6 +64,7 @@ const en = {
         description: '🤗: "Yeah I get that, so this one is for you: @, a preset that reset all strange glyphs, make the glyph style similar to JetBrains Mono (with slashed 0). Direct download, no build required.',
         enable: 'Enabled font features',
         preview: 'Preview',
+        testInPlayground: 'Test In Playground Page',
       },
     },
   },

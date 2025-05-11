@@ -1,4 +1,4 @@
-import type { FeatureState, FeatureValue } from './converter'
+import type { FeatureState, FeatureValue } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 import Icon from '@/components/icon'
@@ -19,9 +19,9 @@ import { cls } from 'cls-variant'
 import { createSignal, For, onMount, Show } from 'solid-js'
 
 import ConfigAction from './config'
-import { toStyleObject } from './converter'
 import FreezeAction from './freeze'
 import LigaSwitch from './liga-switch'
+import { toStyleObject } from './utils'
 
 export interface FontFeatureItem {
   desc: string
@@ -38,13 +38,14 @@ export interface PlaygroundProps {
     cn: FontFeatureItem[]
     ss: FontFeatureItem[]
   }
+  normal?: boolean
   /**
    * Unit: px
    */
   sizeRange: [start: number, end: number]
   weightRange: [start: number, end: number]
   defaultText: string
-  translate: Omit<PlaygroundTranslation, 'description'>
+  translation: Omit<PlaygroundTranslation, 'description'>
 }
 
 export default function Playground(props: PlaygroundProps) {
@@ -55,6 +56,7 @@ export default function Playground(props: PlaygroundProps) {
   const [feat, setFeat] = createSignal<FeatureState>(
     Object.fromEntries(featureArray.map(k => [k, k === 'calt' ? '1' : '0'])),
   )
+  const [normal, setNormal] = createSignal(false)
 
   // -1: no load; 0: loading; 1: loaded
   const [cnLoadState, setCNLoadState] = createSignal(-1)
@@ -62,6 +64,9 @@ export default function Playground(props: PlaygroundProps) {
   onMount(() => {
     const ref = textareaRef()!
     ref.value = 'Loading...'
+    if (location.search.includes('normal')) {
+      setNormal(true)
+    }
     loadMapleMono()
       .then(() => {
         ref.value = props.defaultText
@@ -102,14 +107,14 @@ export default function Playground(props: PlaygroundProps) {
       <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
         <div class="flex flex-col items-start lg:flex-row sm:flex-row md:flex-col md:gap-4">
           <div class="w-full flex flex-col select-none gap-2 p-2 lg:w-40% md:w-full sm:w-40%">
-            <div class="text-sm leading-none font-500">{props.translate.fontStyle.title}</div>
+            <div class="text-sm leading-none font-500">{props.translation.fontStyle.title}</div>
             <Tabs onChange={setItalic}>
               <TabsList>
                 <TabsTrigger value="normal">
-                  {props.translate.fontStyle.regular}
+                  {props.translation.fontStyle.regular}
                 </TabsTrigger>
                 <TabsTrigger value="italic" class="font-italic">
-                  {props.translate.fontStyle.italic}
+                  {props.translation.fontStyle.italic}
                 </TabsTrigger>
                 <TabsIndicator />
               </TabsList>
@@ -125,7 +130,7 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.translate.fontSize}</SliderLabel>
+                <SliderLabel>{props.translation.fontSize}</SliderLabel>
                 <SliderValueLabel />
               </div>
               <SliderTrack>
@@ -144,7 +149,7 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.translate.fontWeight}</SliderLabel>
+                <SliderLabel>{props.translation.fontWeight}</SliderLabel>
                 <SliderValueLabel />
               </div>
               <SliderTrack>
@@ -171,44 +176,44 @@ export default function Playground(props: PlaygroundProps) {
           />
           <div class="w-full flex gap-2 xs:gap-4">
             <ConfigAction
-              translate={props.translate.action.config}
+              translate={props.translation.action.config}
               features={feat()}
             />
             <FreezeAction
-              translate={props.translate.action.build}
+              translate={props.translation.action.build}
             />
           </div>
         </div>
       </div>
       <div class="h-40% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6 pt-4)">
         <h2 class="whitespace-nowrap pb-3 text-5 c-primary font-bold md:(pb-4 text-7)">
-          {props.translate.sectionTitle.basic}
+          {props.translation.sectionTitle.basic}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.basic}>
-            {feature => <LigaSwitch {...feature} $change={handleChange} />}
+            {feature => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
           </For>
         </div>
         <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-7">
-          {props.translate.sectionTitle.cv}
+          {props.translation.sectionTitle.cv}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.cv}>
-            {feature => <LigaSwitch {...feature} $change={handleChange} />}
+            {feature => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
           </For>
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          {props.translate.sectionTitle.italic}
+          {props.translation.sectionTitle.italic}
         </h3>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.italic}>
-            {feature => <LigaSwitch {...feature} italic={true} $change={handleChange} />}
+            {feature => <LigaSwitch {...feature} normal={normal()} italic={true} $change={handleChange} />}
           </For>
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          <span>{props.translate.sectionTitle.cn}</span>
+          <span>{props.translation.sectionTitle.cn}</span>
           <Button
             as="a"
             href="https://github.com/subframe7536/maple-font/issues/358"
@@ -216,7 +221,7 @@ export default function Playground(props: PlaygroundProps) {
             target="_blank"
             class="parent"
           >
-            <span class="c-foreground">{props.translate.sectionTitle.issue}</span>
+            <span class="c-foreground">{props.translation.sectionTitle.issue}</span>
             <Icon
               name="lucide:external-link"
               class="ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)"
@@ -231,23 +236,23 @@ export default function Playground(props: PlaygroundProps) {
               onClick={loadCN}
               class="w-full"
             >
-              {cnLoadState() === 0 ? props.translate.loading : props.translate.loadCN}
+              {cnLoadState() === 0 ? props.translation.loading : props.translation.loadCN}
             </Button>
           )}
         >
           <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
             <For each={props.features.cn}>
-              {feature => <LigaSwitch {...feature} cn={true} $change={handleChange} />}
+              {feature => <LigaSwitch {...feature} normal={normal()} cn={true} $change={handleChange} />}
             </For>
           </div>
         </Show>
 
         <h2 class="py-4 text-5 c-primary font-bold md:text-7">
-          {props.translate.sectionTitle.ss}
+          {props.translation.sectionTitle.ss}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.ss}>
-            {feature => <LigaSwitch {...feature} italic={feature.text === 'all'} $change={handleChange} />}
+            {feature => <LigaSwitch {...feature} normal={normal()} italic={feature.text === 'all'} $change={handleChange} />}
           </For>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import type { ExtraConfig, ExtraConfigKey } from './converter'
+import type { ExtraConfig, ExtraConfigKey } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
@@ -18,7 +18,7 @@ import { useCopy } from '@solid-hooks/core/web'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal, For, Show } from 'solid-js'
 
-import { toCliFlag, toConfigJson } from './converter'
+import { toCliFlag, toConfigJson } from './utils'
 
 export interface Props {
   translate: PlaygroundTranslation['action']['config']
@@ -116,7 +116,7 @@ export default function ConfigAction(props: Props) {
             <a
               href={props.translate.guideLink}
               target="_blank"
-              class="w-full text-secondary xs:w-fit hover:underline"
+              class="w-full text-secondary font-bold xs:w-fit hover:underline"
               title={props.translate.guide}
             >
               {props.translate.guide}

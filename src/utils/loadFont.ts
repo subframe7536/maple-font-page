@@ -6,12 +6,16 @@ function getMapleMonoFontFace(italic: boolean) {
     `url('${fontPrefix}/MapleMono${italic ? '-Italic' : ''}[wght]-VF.woff2') format('woff2-variations')`,
     `local("MapleMono-${suffix}")`,
     `local("Maple Mono ${suffix}")`,
-    `local("MapleMono-NF-${suffix}")`,
-    `local("Maple Mono CN ${suffix}")`,
+    `local("Maple Mono")`,
     `local("MapleMono-CN-${suffix}")`,
+    `local("Maple Mono CN ${suffix}")`,
+    `local("Maple Mono CN")`,
+    `local("MapleMono-NF-${suffix}")`,
     `local("Maple Mono NF ${suffix}")`,
+    `local("Maple Mono NF")`,
     `local("MapleMono-NF-CN-${suffix}")`,
     `local("Maple Mono NF CN ${suffix}")`,
+    `local("Maple Mono NF CN")`,
   ].join(',')
   return new FontFace('MapleMono', src, {
     display: 'swap',

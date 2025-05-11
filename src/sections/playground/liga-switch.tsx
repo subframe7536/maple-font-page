@@ -1,9 +1,12 @@
-import type { FeatureValue } from './converter'
+import type { FeatureValue } from './utils'
 
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useEmits } from '@solid-hooks/core'
+import { normalFeatureArray } from '@data/features/features'
+import { useEmits, watch, watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
-import { createMemo } from 'solid-js'
+import { createEffect, createMemo, createSignal } from 'solid-js'
+
+import { getDefaultLigaSwitchValue as getLigaSwitchValue } from './utils'
 
 interface Emits {
   $change: (feat: string, state: FeatureValue) => void
@@ -16,11 +19,16 @@ interface Props {
   desc: string
   italic?: boolean
   cn?: boolean
+  normal?: boolean
 }
 
 export default function LigaSwitch(props: Emits & Props) {
   const ver = createMemo(() => `v${props.version}00`)
   const emit = useEmits(props)
+  const [value, setValue] = createSignal<FeatureValue>('0')
+  watchOnce(() => props.normal, (normal) => {
+    emit('change', props.feat, setValue(getLigaSwitchValue(props.feat, normal)))
+  })
   return (
     <div>
       <div class="flex items-center gap-2">
@@ -34,8 +42,8 @@ export default function LigaSwitch(props: Emits & Props) {
       </div>
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
-        onChange={state => emit('change', props.feat, state as FeatureValue)}
-        defaultValue={props.feat === 'calt' ? '1' : '0'}
+        value={value()}
+        onChange={state => emit('change', props.feat, setValue(state as FeatureValue))}
         class="select-none"
       >
         <TabsList>
