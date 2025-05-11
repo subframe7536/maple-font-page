@@ -57,14 +57,14 @@ function ConfigSection(
         <Button
           size="icon"
           variant="outline"
-          disabled={isCopied()}
-          class={cls('!b-0', isCopied() && 'cursor-not-allowed')}
+          disabled={!parsedText() || isCopied()}
+          class={cls('!b-0', (!parsedText() || isCopied()) && 'cursor-not-allowed')}
           onClick={copyTextArea}
         >
           <Icon name={isCopied() ? 'lucide:copy-check' : 'lucide:copy'} title="copy" />
         </Button>
       </h2>
-      <Show when={parsedText()} fallback={<div class="mb-6">{props.fallback}</div>}>
+      <Show when={parsedText()} fallback={<div class="my-1.6 h-10">{props.fallback}</div>}>
         <textarea
           ref={textareaRef}
           name={props.type}
