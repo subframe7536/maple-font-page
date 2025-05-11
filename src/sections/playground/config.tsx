@@ -1,8 +1,10 @@
+import type { ExtraConfig, ExtraConfigKey } from './converter'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
+import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogContent,
@@ -10,10 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { normalFeatureArray } from '@data/features/features'
 import { createRef } from '@solid-hooks/core'
 import { useCopy } from '@solid-hooks/core/web'
 import { cls } from 'cls-variant'
-import { createMemo, onMount, Show } from 'solid-js'
+import { createMemo, createSignal, For, Show } from 'solid-js'
 
 import { toCliFlag, toConfigJson } from './converter'
 
@@ -28,6 +31,7 @@ function ConfigSection(
     title: string
     data: Props['features']
     fallback: string
+    extra: ExtraConfig
   },
 ) {
   const { copy, isCopied } = useCopy()
@@ -42,14 +46,14 @@ function ConfigSection(
 
   const parsedText = createMemo(
     () => props.type === 'cli'
-      ? toCliFlag(props.data)
-      : toConfigJson(props.data),
+      ? toCliFlag(props.data, props.extra)
+      : toConfigJson(props.data, props.extra),
   )
 
   return (
     <>
       <h2 class="mb-2 flex select-none items-center gap-2">
-        <div class="text-5 text-accent">{props.title}</div>
+        <div class="text-accent sm:text-5">{props.title}</div>
         <Button
           size="icon"
           variant="outline"
@@ -79,6 +83,13 @@ function ConfigSection(
 }
 
 export default function ConfigAction(props: Props) {
+  const [extraConfig, setExtraConfig] = createSignal<ExtraConfig>({
+    nf: true,
+    cn: false,
+    hinted: true,
+    normal: false,
+  })
+
   return (
     <Dialog>
       <DialogTrigger
@@ -102,31 +113,44 @@ export default function ConfigAction(props: Props) {
         <div>
           <p class="text-sm">
             {props.translate.description}
-          </p>
-          <div class="my-4 xs:text-right">
-            <Button
-              variant="secondary"
-              as="a"
+            <a
               href={props.translate.guideLink}
               target="_blank"
-              size="md"
-              class="w-full xs:w-fit"
+              class="w-full text-secondary xs:w-fit hover:underline"
               title={props.translate.guide}
             >
               {props.translate.guide}
-            </Button>
+            </a>
+          </p>
+          <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
+            <For each={Object.entries(props.translate.extra)}>
+              {([key, str]) => (
+                <Checkbox
+                  checked={extraConfig()[key as ExtraConfigKey]}
+                  onChange={v => setExtraConfig(old => ({ ...old, ...{ [key]: v } }))}
+                  class="flex items-center space-x-2"
+                >
+                  <CheckboxControl />
+                  <CheckboxLabel class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    {str}
+                  </CheckboxLabel>
+                </Checkbox>
+              )}
+            </For>
           </div>
           <ConfigSection
             type="cli"
             title={props.translate.cliFlags}
             data={props.features}
             fallback={props.translate.noNeed}
+            extra={extraConfig()}
           />
           <ConfigSection
             type="json"
             title="config.json"
             data={props.features}
             fallback={props.translate.noNeed}
+            extra={extraConfig()}
           />
         </div>
       </DialogContent>

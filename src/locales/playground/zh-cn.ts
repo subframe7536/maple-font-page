@@ -66,11 +66,17 @@ const zh: PlaygroundTranslation = {
     config: {
       btnText: '生成配置',
       title: '自定义构建配置',
-      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
+      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。详情请见：',
       guide: '教程',
       guideLink: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
       noNeed: '配置无修改，无需设置',
       cliFlags: '命令行参数',
+      extra: {
+        nf: '附带 Nerd-Font 图标',
+        cn: '附带 中文 / 日文 字形',
+        hinted: '使用 Hinted 基字',
+        normal: '使用 Normal 预设',
+      },
     },
     build: {
       btnText: '浏览器内构建',

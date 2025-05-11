@@ -1,8 +1,12 @@
 import defaultConfig from '@data/features/config.json'
+import { normalFeatureArray } from '@data/features/features'
 
 export type FeatureValue = '0' | '1'
 
 export type FeatureState = Record<string, FeatureValue>
+
+export type ExtraConfigKey = 'nf' | 'cn' | 'hinted' | 'normal'
+export type ExtraConfig = Record<ExtraConfigKey, boolean>
 
 export function toStyleObject(features: FeatureState) {
   return Object.fromEntries(
@@ -12,7 +16,7 @@ export function toStyleObject(features: FeatureState) {
   )
 }
 
-export function toConfigJson(features: FeatureState) {
+export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
   let hasChanged = false
   const result = defaultConfig
   for (const [k, v] of Object.entries(features)) {
@@ -25,11 +29,29 @@ export function toConfigJson(features: FeatureState) {
     }
   }
 
+  if (!extra.nf) {
+    result.nerd_font.enable = false
+    hasChanged = true
+  }
+  if (extra.cn) {
+    result.cn.enable = hasChanged = true
+  }
+  if (!extra.hinted) {
+    result.use_hinted = false
+    hasChanged = true
+  }
+  if (extra.normal) {
+    for (const key of normalFeatureArray) {
+      result.feature_freeze[key as keyof typeof result.feature_freeze] = 'enable'
+    }
+    hasChanged = true
+  }
+
   return hasChanged
     ? JSON.stringify(result, null, 2)
     : undefined
 }
-export function toCliFlag(features: FeatureState) {
+export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
   const feat = Object.entries(features)
     .filter(([k, v]) => v === '1' && !k.includes('calt'))
     .map(([k]) => k)
@@ -41,5 +63,18 @@ export function toCliFlag(features: FeatureState) {
   if (feat.length) {
     result.push(`--feat ${feat}`)
   }
+  if (!extra.nf) {
+    result.push('--no-nerd-font')
+  }
+  if (extra.cn) {
+    result.push('--cn')
+  }
+  if (!extra.hinted) {
+    result.push('--no-hinted')
+  }
+  if (extra.normal) {
+    result.push('--normal')
+  }
+
   return result.length ? result.join(' ') : undefined
 }
