@@ -100,6 +100,7 @@ function isCurrent(url: Title) {
         class={cls(isCurrent('playground') && 'c-secondary')}
         as="a"
         href={playgroundLink}
+        title={titles.playground}
       >
         <Icon name="lucide:bug-play" class="sm:mr-1" />
         <span class="hidden sm:block">
@@ -112,6 +113,7 @@ function isCurrent(url: Title) {
         as="a"
         class={cls(isCurrent('usage') && 'c-secondary')}
         href={usageLink}
+        title={titles.usage}
       >
         <Icon name="lucide:book-open-text" class="sm:mr-1" />
         <span class="hidden sm:block">
@@ -123,6 +125,7 @@ function isCurrent(url: Title) {
         as="a"
         class={cls('ml-2', isCurrent('download') && 'bg-secondary')}
         href={downloadLink}
+        title={titles.download}
       >
         {get}
       </Button>

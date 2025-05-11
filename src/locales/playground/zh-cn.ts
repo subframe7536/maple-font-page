@@ -45,23 +45,37 @@ const description: FeatureDescription = {
 
 const zh: PlaygroundTranslation = {
   description,
-  uiString: {
-    fontStyle: {
-      title: '字体样式',
-      regular: '常规',
-      italic: '斜体',
+  fontStyle: {
+    title: '字体样式',
+    regular: '常规',
+    italic: '斜体',
+  },
+  fontSize: '字体大小',
+  fontWeight: '字体粗细',
+  loading: '加载中...',
+  loadCN: '加载中文字体',
+  sectionTitle: {
+    basic: '基本连字',
+    cv: '字符变体',
+    italic: '仅斜体',
+    cn: '仅中文',
+    issue: '已知问题',
+    ss: '样式集',
+  },
+  action: {
+    config: {
+      btnText: '生成配置',
+      title: '自定义构建配置',
+      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
+      guide: '教程',
+      guideLink: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
+      noNeed: '配置无修改，无需设置',
+      cliFlags: '命令行参数',
     },
-    fontSize: '字体大小',
-    fontWeight: '字体粗细',
-    loading: '加载中...',
-    loadCN: '加载中文字体',
-    title: {
-      basic: '基本连字',
-      cv: '字符变体',
-      italic: '仅斜体',
-      cn: '仅中文',
-      issue: '已知问题',
-      ss: '样式集',
+    build: {
+      btnText: '浏览器内构建',
+      title: '在浏览器内自定义构建字体',
+      download: '构建并下载',
     },
   },
 }

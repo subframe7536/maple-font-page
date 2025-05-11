@@ -1,3 +1,6 @@
+import type { FeatureState, FeatureValue } from './converter'
+import type { PlaygroundTranslation } from '@/locales/playground/en'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,11 +12,15 @@ import {
   SliderValueLabel,
 } from '@/components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { loadMapleMono } from '@/utils/loadFont'
+import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
+import { featureArray } from '@data/features/features'
 import { createRef, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createSignal, For, onMount, Show } from 'solid-js'
 
+import ConfigAction from './config'
+import { toStyleObject } from './converter'
+import FreezeAction from './freeze'
 import LigaSwitch from './liga-switch'
 
 export interface FontFeatureItem {
@@ -37,47 +44,7 @@ export interface PlaygroundProps {
   sizeRange: [start: number, end: number]
   weightRange: [start: number, end: number]
   defaultText: string
-  uiString: {
-    fontStyle: {
-      title: string
-      regular: string
-      italic: string
-    }
-    fontSize: string
-    fontWeight: string
-    loading: string
-    loadCN: string
-    title: {
-      basic: string
-      cv: string
-      italic: string
-      cn: string
-      ss: string
-      issue: string
-    }
-  }
-}
-
-function getCNFromRemote(italic: boolean): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    const entry = italic ? 'italic' : 'main'
-    const href = `https://fontsapi.zeoseven.com/442/${entry}/result.css`
-
-    const existingEl = document.querySelector(`link[href="${href}"]`) as HTMLLinkElement | null
-
-    if (existingEl) {
-      existingEl.remove()
-    }
-
-    const el = document.createElement('link')
-    el.rel = 'stylesheet'
-    el.href = href
-
-    el.onload = () => resolve()
-    el.onerror = () => reject(new Error(`Failed to load ${href}`))
-
-    document.head.append(el)
-  })
+  translate: Omit<PlaygroundTranslation, 'description'>
 }
 
 export default function Playground(props: PlaygroundProps) {
@@ -85,6 +52,9 @@ export default function Playground(props: PlaygroundProps) {
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
+  const [feat, setFeat] = createSignal<FeatureState>(
+    Object.fromEntries(featureArray.map(k => [k, k === 'calt' ? '1' : '0'])),
+  )
 
   // -1: no load; 0: loading; 1: loaded
   const [cnLoadState, setCNLoadState] = createSignal(-1)
@@ -100,8 +70,8 @@ export default function Playground(props: PlaygroundProps) {
       .catch(() => ref.value = 'Fail to load Maple Mono.')
   })
 
-  const handleChange = (feat: string, stat: string): void => {
-    textareaRef()?.style.setProperty(`--feat-${feat}`, stat)
+  const handleChange = (feat: string, stat: FeatureValue): void => {
+    setFeat(val => ({ ...val, ...{ [feat]: stat } }))
   }
 
   const loadCN = () => {
@@ -129,17 +99,17 @@ export default function Playground(props: PlaygroundProps) {
 
   return (
     <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
-      <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-6) sm:pt-2">
+      <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
         <div class="flex flex-col items-start lg:flex-row sm:flex-row md:flex-col md:gap-4">
           <div class="w-full flex flex-col select-none gap-2 p-2 lg:w-40% md:w-full sm:w-40%">
-            <div class="text-sm leading-none font-500">{props.uiString.fontStyle.title}</div>
+            <div class="text-sm leading-none font-500">{props.translate.fontStyle.title}</div>
             <Tabs onChange={setItalic}>
               <TabsList>
                 <TabsTrigger value="normal">
-                  {props.uiString.fontStyle.regular}
+                  {props.translate.fontStyle.regular}
                 </TabsTrigger>
                 <TabsTrigger value="italic" class="font-italic">
-                  {props.uiString.fontStyle.italic}
+                  {props.translate.fontStyle.italic}
                 </TabsTrigger>
                 <TabsIndicator />
               </TabsList>
@@ -155,7 +125,7 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.uiString.fontSize}</SliderLabel>
+                <SliderLabel>{props.translate.fontSize}</SliderLabel>
                 <SliderValueLabel />
               </div>
               <SliderTrack>
@@ -174,7 +144,7 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.uiString.fontWeight}</SliderLabel>
+                <SliderLabel>{props.translate.fontWeight}</SliderLabel>
                 <SliderValueLabel />
               </div>
               <SliderTrack>
@@ -196,21 +166,23 @@ export default function Playground(props: PlaygroundProps) {
               '--fw': weight(),
               'font-size': `${size()}px`,
               'font-style': italic(),
+              ...toStyleObject(feat()),
             }}
           />
-          <div class="w-full flex gap-4">
-            <Button class="w-full cursor-not-allowed">
-              🚧 Generate Config
-            </Button>
-            <Button class="w-full cursor-not-allowed" variant="secondary">
-              🚧 Freeze Feature
-            </Button>
+          <div class="w-full flex gap-2 xs:gap-4">
+            <ConfigAction
+              translate={props.translate.action.config}
+              features={feat()}
+            />
+            <FreezeAction
+              translate={props.translate.action.build}
+            />
           </div>
         </div>
       </div>
-      <div class="h-40% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6)">
+      <div class="h-40% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6 pt-4)">
         <h2 class="whitespace-nowrap pb-3 text-5 c-primary font-bold md:(pb-4 text-7)">
-          {props.uiString.title.basic}
+          {props.translate.sectionTitle.basic}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.basic}>
@@ -218,7 +190,7 @@ export default function Playground(props: PlaygroundProps) {
           </For>
         </div>
         <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-7">
-          {props.uiString.title.cv}
+          {props.translate.sectionTitle.cv}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.cv}>
@@ -227,7 +199,7 @@ export default function Playground(props: PlaygroundProps) {
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          {props.uiString.title.italic}
+          {props.translate.sectionTitle.italic}
         </h3>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.italic}>
@@ -236,7 +208,7 @@ export default function Playground(props: PlaygroundProps) {
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          <span>{props.uiString.title.cn}</span>
+          <span>{props.translate.sectionTitle.cn}</span>
           <Button
             as="a"
             href="https://github.com/subframe7536/maple-font/issues/358"
@@ -244,7 +216,7 @@ export default function Playground(props: PlaygroundProps) {
             target="_blank"
             class="parent"
           >
-            <span class="c-foreground">{props.uiString.title.issue}</span>
+            <span class="c-foreground">{props.translate.sectionTitle.issue}</span>
             <Icon
               name="lucide:external-link"
               class="ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)"
@@ -259,7 +231,7 @@ export default function Playground(props: PlaygroundProps) {
               onClick={loadCN}
               class="w-full"
             >
-              {cnLoadState() === 0 ? props.uiString.loading : props.uiString.loadCN}
+              {cnLoadState() === 0 ? props.translate.loading : props.translate.loadCN}
             </Button>
           )}
         >
@@ -271,7 +243,7 @@ export default function Playground(props: PlaygroundProps) {
         </Show>
 
         <h2 class="py-4 text-5 c-primary font-bold md:text-7">
-          {props.uiString.title.ss}
+          {props.translate.sectionTitle.ss}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.ss}>

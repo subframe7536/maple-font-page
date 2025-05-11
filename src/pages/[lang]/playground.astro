@@ -13,7 +13,7 @@ import featSS from '@data/features/ss.json'
 
 export { getStaticPaths } from '@/locales/i18n'
 
-const { description, uiString } = await usePlaygroundTranslation(Astro.currentLocale)
+const { description, ...rest } = await usePlaygroundTranslation(Astro.currentLocale)
 const { titles } = await useNavTranslation(Astro.currentLocale)
 
 function parseFeature(config: Record<string, Record<string, string>>): FontFeatureItem[] {
@@ -57,7 +57,7 @@ const defaultText = [
       sizeRange={[12, 96]}
       weightRange={[100, 800]}
       defaultText={defaultText}
-      uiString={uiString}
+      translate={rest}
       client:load
     />
   </div>

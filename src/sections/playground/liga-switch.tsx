@@ -1,10 +1,12 @@
+import type { FeatureValue } from './converter'
+
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useEmits } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createMemo } from 'solid-js'
 
 interface Emits {
-  $change: (feat: string, state: string) => void
+  $change: (feat: string, state: FeatureValue) => void
 }
 
 interface Props {
@@ -32,7 +34,7 @@ export default function LigaSwitch(props: Emits & Props) {
       </div>
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
-        onChange={state => emit('change', props.feat, state)}
+        onChange={state => emit('change', props.feat, state as FeatureValue)}
         defaultValue={props.feat === 'calt' ? '1' : '0'}
         class="select-none"
       >

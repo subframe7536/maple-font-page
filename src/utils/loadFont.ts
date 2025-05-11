@@ -25,3 +25,25 @@ export async function loadMapleMono() {
   ])
   face.forEach(f => document.fonts.add(f))
 }
+
+export function getCNFromRemote(italic: boolean): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const entry = italic ? 'italic' : 'main'
+    const href = `https://fontsapi.zeoseven.com/442/${entry}/result.css`
+
+    const existingEl = document.querySelector(`link[href="${href}"]`) as HTMLLinkElement | null
+
+    if (existingEl) {
+      existingEl.remove()
+    }
+
+    const el = document.createElement('link')
+    el.rel = 'stylesheet'
+    el.href = href
+
+    el.onload = () => resolve()
+    el.onerror = () => reject(new Error(`Failed to load ${href}`))
+
+    document.head.append(el)
+  })
+}

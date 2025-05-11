@@ -1,7 +1,7 @@
 import type { FeatureDescription } from '@data/features/features'
 
 const description: FeatureDescription = {
-  calt: 'Enable ligatures',
+  calt: 'Default ligatures',
   zero: 'Alternative zero',
   cv01: 'Remove gaps',
   cv02: 'Alternative a',
@@ -44,23 +44,37 @@ const description: FeatureDescription = {
 
 const en = {
   description,
-  uiString: {
-    fontStyle: {
-      title: 'Font Style',
-      regular: 'Regular',
-      italic: 'Italic',
+  fontStyle: {
+    title: 'Font Style',
+    regular: 'Regular',
+    italic: 'Italic',
+  },
+  fontSize: 'Font Size',
+  fontWeight: 'Font Weight',
+  loading: 'Loading...',
+  loadCN: 'Load Chinese Font',
+  sectionTitle: {
+    basic: 'Basic Ligatures',
+    cv: 'Character Variants',
+    italic: 'Italic Only',
+    cn: 'CN Only',
+    issue: 'Known Issue',
+    ss: 'Stylistic sets',
+  },
+  action: {
+    config: {
+      btnText: 'Generate Config',
+      title: 'Configuration of Custom Build',
+      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time.',
+      guide: 'Guide',
+      guideLink: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#custom-build',
+      noNeed: 'Nothing changed, no need to setup',
+      cliFlags: 'CLI Flags',
     },
-    fontSize: 'Font Size',
-    fontWeight: 'Font Weight',
-    loading: 'Loading...',
-    loadCN: 'Load Chinese Font',
-    title: {
-      basic: 'Basic Ligatures',
-      cv: 'Character Variants',
-      italic: 'Italic Only',
-      cn: 'CN Only',
-      issue: 'Known Issue',
-      ss: 'Stylistic sets',
+    build: {
+      btnText: 'Build In Browser',
+      title: 'Custom Build Font In Browser',
+      download: 'Build and Download',
     },
   },
 }
