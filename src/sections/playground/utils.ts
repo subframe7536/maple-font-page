@@ -29,7 +29,7 @@ export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
       result.ligature = false
     } else if ((k !== 'calt' && v === '1') || (extra.normal && normalFeatureArray.includes(k))) {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'enable'
-    } else {
+    } else if (k !== 'calt') {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'ignore'
     }
   }
