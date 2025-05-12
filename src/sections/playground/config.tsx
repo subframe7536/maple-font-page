@@ -72,7 +72,7 @@ function ConfigSection(
         disabled={!parsedText()}
         class={cls(
           'w-full resize-none bg-#0000 !b-0 !outline-none',
-          props.type === 'json' && 'h-60',
+          props.type === 'json' && 'h-40 sm:h-60',
           props.type === 'cli' && 'h-10 whitespace-nowrap',
         )}
         value={parsedText() || props.fallback}
