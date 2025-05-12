@@ -64,20 +64,19 @@ function ConfigSection(
           <Icon name={isCopied() ? 'lucide:copy-check' : 'lucide:copy'} title="copy" />
         </Button>
       </h2>
-      <Show when={parsedText()} fallback={<div class="my-1.6 h-10">{props.fallback}</div>}>
-        <textarea
-          ref={textareaRef}
-          name={props.type}
-          id={`conf-${props.type}`}
-          title={props.title}
-          class={cls(
-            'w-full resize-none bg-#0000 !b-0 !outline-none',
-            props.type === 'json' && 'h-60',
-            props.type === 'cli' && 'h-10 whitespace-nowrap',
-          )}
-          value={parsedText()}
-        />
-      </Show>
+      <textarea
+        ref={textareaRef}
+        name={props.type}
+        id={`conf-${props.type}`}
+        title={props.title}
+        disabled={!parsedText()}
+        class={cls(
+          'w-full resize-none bg-#0000 !b-0 !outline-none',
+          props.type === 'json' && 'h-60',
+          props.type === 'cli' && 'h-10 whitespace-nowrap',
+        )}
+        value={parsedText() || props.fallback}
+      />
     </>
   )
 }
