@@ -2,6 +2,11 @@ import type { ExtraConfig, ExtraConfigKey } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
+import { createRef } from '@solid-hooks/core'
+import { useCopy } from '@solid-hooks/core/web'
+import { cls } from 'cls-variant'
+import { createMemo, createSignal, For } from 'solid-js'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
@@ -12,10 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { createRef } from '@solid-hooks/core'
-import { useCopy } from '@solid-hooks/core/web'
-import { cls } from 'cls-variant'
-import { createMemo, createSignal, For, Show } from 'solid-js'
 
 import GuideButton from './guide-button'
 import { toCliFlag, toConfigJson } from './utils'
@@ -106,7 +107,8 @@ export default function ConfigAction(props: Props) {
       />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle class="text-primary">
+          <DialogTitle class="flex items-center text-primary">
+            <Icon name="lucide:braces" class="mr-2 size-6" />
             {props.translate.title}
           </DialogTitle>
         </DialogHeader>

@@ -82,7 +82,7 @@ const zh: PlaygroundTranslation = {
     },
     build: {
       btnText: '浏览器内构建',
-      title: '在浏览器内自定义构建字体',
+      title: '浏览器内自定义构建',
       download: '构建并下载',
       unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
     },

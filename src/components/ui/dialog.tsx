@@ -89,7 +89,7 @@ export function DialogHeader(props: ComponentProps<'div'>) {
   return (
     <div
       class={cls(
-        'flex flex-col gap-2 text-center sm:text-left',
+        'flex flex-col gap-2',
         local.class,
       )}
       {...rest}

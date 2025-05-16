@@ -1,6 +1,8 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
+import { createSignal, Show } from 'solid-js'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,7 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { createSignal, Show } from 'solid-js'
 
 import GuideButton from './guide-button'
 import { checkModuleWorkerSupport } from './utils'
@@ -54,7 +55,13 @@ export default function FreezeAction(props: Props) {
       />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle class="text-secondary">
+          <DialogTitle class="flex items-center text-primary">
+            <Show
+              when={!isSupportWorker()}
+              fallback={<Icon name="lucide:hammer" class="mr-2 size-6" />}
+            >
+              <Icon name="lucide:circle-x" class="mr-2 size-6 c-red" />
+            </Show>
             {props.translate.title}
           </DialogTitle>
         </DialogHeader>
@@ -74,7 +81,11 @@ export default function FreezeAction(props: Props) {
           </Show>
         </div>
         <DialogFooter>
-          <Button class="cursor-not-allowed">{props.translate.download}</Button>
+          <Button
+            disabled={!isSupportWorker()}
+          >
+            {props.translate.download}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
