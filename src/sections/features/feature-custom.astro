@@ -73,18 +73,18 @@ const playgroundLink = `${baseUrl}/playground?normal`
     </div>
   </div>
   <div class="flex flex-col gap-6">
-    <div class="c-accent">{normal.title}</div>
-    <div>
+    <div class="c-accent inview-1">{normal.title}</div>
+    <div class="inview-1">
       {first}
       <span class="text-primary underline decoration-dashed font-bold">Maple Mono Normal</span>
       {second}
     </div>
-    <div class="c-note">{normal.enable}:</div>
+    <div class="c-note inview-1">{normal.enable}:</div>
     <Code
       code={`"${normalFeatureArray.join('", "')}"`}
-      class="rounded-lg p-4 pb-2 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
+      class="rounded-lg p-4 pb-2 text-3.5 inview-2 sm:rounded-2xl sm:text-4"
     />
-    <div class="c-note">
+    <div class="c-note inview-3">
       {normal.preview}
       or
       <Button
@@ -100,7 +100,7 @@ const playgroundLink = `${baseUrl}/playground?normal`
       theme={mapleTheme as any}
       style={normalFeatureArray.map(f => `--feat-${f}:1`).join(';')}
       lang="typescript"
-      class="rounded-lg p-4 text-3.5 inview-1 sm:rounded-2xl sm:text-4"
+      class="rounded-lg p-4 text-3.5 inview-4 sm:rounded-2xl sm:text-4"
     />
   </div>
 </SubSectionTitle>
