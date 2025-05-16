@@ -72,3 +72,23 @@ export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
 
   return result.length ? result.join(' ') : undefined
 }
+
+/**
+ * check `new Worker(url, { type: 'module' })` support
+ *
+ * {@link https://stackoverflow.com/questions/62954570/javascript-feature-detect-module-support-for-web-workers Reference}
+ */
+export function checkModuleWorkerSupport(): boolean {
+  let supports = false
+  try {
+    new Worker('data:,', {
+      // @ts-expect-error check assign
+      get type() {
+        supports = true
+      },
+    }).terminate()
+  } finally {
+    // eslint-disable-next-line no-unsafe-finally
+    return supports
+  }
+}

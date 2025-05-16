@@ -32,4 +32,12 @@ export default defineConfig({
     // remarkPlugins: [[remarkToc, { heading: 'TOC' }]],
     // rehypePlugins: [rehypeSlug, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
   },
+  vite: {
+    plugins: process.env.NODE_ENV === 'development'
+      ? [(await import('@subframe7536/fonttools/vite')).fonttools]
+      : [],
+    optimizeDeps: {
+      exclude: ['@subframe7536/fonttools'],
+    },
+  },
 })
