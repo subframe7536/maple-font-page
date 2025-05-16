@@ -63,12 +63,14 @@ const zh: PlaygroundTranslation = {
     ss: '样式集',
   },
   action: {
+    guide: {
+      text: '自定义构建教程',
+      link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
+    },
     config: {
       btnText: '生成配置',
       title: '自定义构建配置',
-      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。详情请见：',
-      guide: '教程',
-      guideLink: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
+      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
       noNeed: '配置无修改，无需设置',
       cliFlags: '命令行参数',
       extra: {
@@ -82,6 +84,7 @@ const zh: PlaygroundTranslation = {
       btnText: '浏览器内构建',
       title: '在浏览器内自定义构建字体',
       download: '构建并下载',
+      unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
     },
   },
 }

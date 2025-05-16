@@ -177,10 +177,12 @@ export default function Playground(props: PlaygroundProps) {
           <div class="w-full flex gap-2 xs:gap-4">
             <ConfigAction
               translate={props.translation.action.config}
+              guide={props.translation.action.guide}
               features={feat()}
             />
             <FreezeAction
               translate={props.translation.action.build}
+              guide={props.translation.action.guide}
             />
           </div>
         </div>

@@ -12,16 +12,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { normalFeatureArray } from '@data/features/features'
 import { createRef } from '@solid-hooks/core'
 import { useCopy } from '@solid-hooks/core/web'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal, For, Show } from 'solid-js'
 
+import GuideButton from './guide-button'
 import { toCliFlag, toConfigJson } from './utils'
 
 export interface Props {
   translate: PlaygroundTranslation['action']['config']
+  guide: PlaygroundTranslation['action']['guide']
   features: Record<string, '0' | '1'>
 }
 
@@ -112,14 +113,7 @@ export default function ConfigAction(props: Props) {
         <div>
           <p class="text-sm">
             {props.translate.description}
-            <a
-              href={props.translate.guideLink}
-              target="_blank"
-              class="w-full text-secondary font-bold xs:w-fit hover:underline"
-              title={props.translate.guide}
-            >
-              {props.translate.guide}
-            </a>
+            <GuideButton {...props.guide} />
           </p>
           <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
             <For each={Object.entries(props.translate.extra)}>

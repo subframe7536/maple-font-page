@@ -1,11 +1,11 @@
-import type { loadInBrowser as load } from '@subframe7536/fonttools/web'
+import type { PyodideInterface } from '@subframe7536/fonttools'
 
 import { cdnPrefix, isDEV } from '@/utils/constant'
 
-const libVer = '0.3.1'
+const libVer = '0.3.2'
 const base = `${cdnPrefix}/@subframe7536/fonttools@${libVer}`
 
-async function loadInBrowser(): ReturnType<typeof load> {
+async function loadInBrowser(): Promise<PyodideInterface> {
   const whlURL = `https://unpkg.com/@subframe7536/fonttools@${libVer}/dist`
   const stdLibURL = `${whlURL}/python_stdlib.zip`
 
@@ -34,12 +34,11 @@ async function loadUtils(): Promise<typeof import('@subframe7536/fonttools/utils
 async function loadPyodide() {
   const py = await loadInBrowser()
   const { handleFontBuffer, generateBasicScript } = await loadUtils()
-  console.log(py.loadedPackages)
   const buf = await fetch('/fonts/MapleMono[wght]-VF.woff2').then(r => r.arrayBuffer())
   return handleFontBuffer(
     py,
     new Uint8Array(buf),
-    generateBasicScript(`print(font)`),
+    generateBasicScript(``),
   )
 }
 

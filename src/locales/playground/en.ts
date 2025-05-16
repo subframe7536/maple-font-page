@@ -62,12 +62,14 @@ const en = {
     ss: 'Stylistic sets',
   },
   action: {
+    guide: {
+      text: 'Guide to custom build',
+      link: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#custom-build',
+    },
     config: {
       btnText: 'Generate Config',
       title: 'Configuration of Custom Build',
-      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. See more details in: ',
-      guide: 'Guide',
-      guideLink: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#custom-build',
+      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. ',
       noNeed: 'Nothing changed, no need to setup',
       cliFlags: 'CLI Flags',
       extra: {
@@ -81,6 +83,7 @@ const en = {
       btnText: 'Build In Browser',
       title: 'Custom Build Font In Browser',
       download: 'Build and Download',
+      unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser or choose another way. ',
     },
   },
 }

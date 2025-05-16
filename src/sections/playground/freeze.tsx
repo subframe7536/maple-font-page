@@ -13,10 +13,12 @@ import {
 } from '@/components/ui/dialog'
 import { createSignal, Show } from 'solid-js'
 
+import GuideButton from './guide-button'
 import { checkModuleWorkerSupport } from './utils'
 
 interface Props {
   translate: PlaygroundTranslation['action']['build']
+  guide: PlaygroundTranslation['action']['guide']
 }
 
 let worker: Worker | null
@@ -56,11 +58,21 @@ export default function FreezeAction(props: Props) {
             {props.translate.title}
           </DialogTitle>
         </DialogHeader>
-        <Show when={isSupportWorker()} fallback={<div>Please upgrade your browser</div>}>
-          <div>
-            🚧 WIP
-          </div>
-        </Show>
+        <div class="py-4">
+          <Show
+            when={isSupportWorker()}
+            fallback={(
+              <>
+                {props.translate.unsupported}
+                <GuideButton {...props.guide} />
+              </>
+            )}
+          >
+            <div>
+              🚧 WIP
+            </div>
+          </Show>
+        </div>
         <DialogFooter>
           <Button class="cursor-not-allowed">{props.translate.download}</Button>
         </DialogFooter>

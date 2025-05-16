@@ -43,8 +43,8 @@ importers:
         specifier: ^1.2.4
         version: 1.2.4(@unocss/eslint-plugin@66.1.2(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3))(astro-eslint-parser@1.2.2)(eslint-plugin-astro@1.3.1(eslint@9.26.0(jiti@2.4.2)))(eslint-plugin-solid@0.14.5(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
       '@subframe7536/fonttools':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.3.2
+        version: 0.3.2
       '@subframe7536/type-utils':
         specifier: ^0.2.0
         version: 0.2.0
@@ -1055,8 +1055,8 @@ packages:
       vue-eslint-parser:
         optional: true
 
-  '@subframe7536/fonttools@0.3.1':
-    resolution: {integrity: sha512-7C+7cs7CobRH60RKxvoh71d23KLH6d89FMANIGaBKRUdjjsSDJQyc9BS2CZZLMVZsWlF4XB2WNlNV0K1K9wX5w==}
+  '@subframe7536/fonttools@0.3.2':
+    resolution: {integrity: sha512-aFfBLHjtIzNeIDGJPZWe3GupMQ7GZ8S290FRdRaFNLJwqvwFN2SRW0QMv/OcY/G98pPZfGTVTofiIIOXQMAylg==}
 
   '@subframe7536/type-utils@0.2.0':
     resolution: {integrity: sha512-5OmY4NfRPBVcsVReZLU1sh7bZppZUWFnnN2ybjOQS7i2suOR1ds3qsFJmZNLpWV5gLmL0RVAmHgMQU0salMJOw==}
@@ -4588,7 +4588,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@subframe7536/fonttools@0.3.1': {}
+  '@subframe7536/fonttools@0.3.2': {}
 
   '@subframe7536/type-utils@0.2.0': {}
 
