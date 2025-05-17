@@ -41,6 +41,7 @@ const zh: IndexTranslation = {
     ligature: {
       title: '智能连字，数量丰富',
       description: '大量智能连字，纯文本标签，连接字母，将字体能力提升到新的水平。',
+      subTitle: '特殊连字',
       items: {
         tag: '从纯文本创建标签，可用于日志显示和任务提醒。',
         conn: '斜体风格中的笔画连接，让你的代码更生动。',

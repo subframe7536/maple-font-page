@@ -39,6 +39,7 @@ const en = {
     ligature: {
       title: 'Smart Ligatures, Large Amount',
       description: 'Plain text tags, connected letters, brings the font ability to next level.',
+      subTitle: 'Special Ligatures',
       items: {
         tag: 'Create tags from plain text, benifit for logs and tasks.',
         conn: 'Connected stroke in italic style, vivid your code.',

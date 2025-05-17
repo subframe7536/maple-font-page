@@ -1,6 +1,8 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
+import { createSignal } from 'solid-js'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,7 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { createSignal } from 'solid-js'
 
 interface Props {
   translate: PlaygroundTranslation['action']['build']
