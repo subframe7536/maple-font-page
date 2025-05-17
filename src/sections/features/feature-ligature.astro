@@ -11,6 +11,7 @@ const {
   description,
   items,
   title,
+  subTitle,
 } = await useFeatureTranslation(Astro.currentLocale, 'ligature')
 
 const data = {
@@ -18,8 +19,6 @@ const data = {
   description,
   icon: 'lucide:sparkles',
 } as const
-
-const subTitle = 'Special Ligatures'
 
 const features: FeatureCardProps[] = [
   {
