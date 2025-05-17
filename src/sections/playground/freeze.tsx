@@ -29,7 +29,7 @@ export default function FreezeAction(props: Props) {
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
   function listenOpenChange(isOpen: boolean) {
     setOpen(isOpen)
-    if (!worker) {
+    if (!worker && isOpen) {
       if (isSupportWorker() === undefined) {
         setIsSupportWorker(checkModuleWorkerSupport())
       }
@@ -55,7 +55,7 @@ export default function FreezeAction(props: Props) {
       />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle class="flex items-center text-primary">
+          <DialogTitle class="flex items-center c-primary">
             <Show
               when={!isSupportWorker()}
               fallback={<Icon name="lucide:hammer" class="mr-2 size-6" />}

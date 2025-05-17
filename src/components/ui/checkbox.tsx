@@ -2,14 +2,14 @@ import type { CheckboxControlProps } from '@kobalte/core/checkbox'
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ValidComponent, VoidProps } from 'solid-js'
 
-import { Checkbox as CheckboxPrimitive } from '@kobalte/core/checkbox'
+import * as CheckboxPrimitive from '@kobalte/core/checkbox'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
 import Icon from '../icon'
 
 export const CheckboxLabel = CheckboxPrimitive.Label
-export const Checkbox = CheckboxPrimitive
+export const Checkbox = CheckboxPrimitive.Root
 export const CheckboxErrorMessage = CheckboxPrimitive.ErrorMessage
 export const CheckboxDescription = CheckboxPrimitive.Description
 

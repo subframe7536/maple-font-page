@@ -8,7 +8,7 @@ import type {
 } from '@kobalte/core/tabs'
 import type { ValidComponent, VoidProps } from 'solid-js'
 
-import { Tabs as TabsPrimitive } from '@kobalte/core/tabs'
+import * as TabsPrimitive from '@kobalte/core/tabs'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
@@ -20,7 +20,7 @@ export function Tabs<T extends ValidComponent = 'div'>(props: PolymorphicProps<T
   const [local, rest] = splitProps(props as tabsProps, ['class'])
 
   return (
-    <TabsPrimitive
+    <TabsPrimitive.Root
       class={cls('w-full data-[orientation=vertical]:flex', local.class)}
       {...rest}
     />

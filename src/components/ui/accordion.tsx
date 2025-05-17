@@ -6,13 +6,13 @@ import type {
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ParentProps, ValidComponent } from 'solid-js'
 
-import { Accordion as AccordionPrimitive } from '@kobalte/core/accordion'
+import * as AccordionPrimitive from '@kobalte/core/accordion'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
 import Icon from '../icon'
 
-export const Accordion = AccordionPrimitive
+export const Accordion = AccordionPrimitive.Root
 
 type accordionItemProps<T extends ValidComponent = 'div'> =
   AccordionItemProps<T> & {

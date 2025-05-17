@@ -6,13 +6,13 @@ import type {
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ComponentProps, ParentProps, ValidComponent } from 'solid-js'
 
-import { Dialog as DialogPrimitive } from '@kobalte/core/dialog'
+import * as DialogPrimitive from '@kobalte/core/dialog'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
 import Icon from '../icon'
 
-export const Dialog = DialogPrimitive
+export const Dialog = DialogPrimitive.Root
 export const DialogTrigger = DialogPrimitive.Trigger
 
 type dialogContentProps<T extends ValidComponent = 'div'> = ParentProps<
