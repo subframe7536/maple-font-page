@@ -1,6 +1,6 @@
 import type { PyodideInterface } from '@subframe7536/fonttools'
 
-import { cdnPrefix, isDEV } from '../../utils/constant'
+import { cdnPrefix, isDEV } from '../../../utils/constant'
 
 const libVer = '0.3.2'
 const base = `${cdnPrefix}/@subframe7536/fonttools@${libVer}`

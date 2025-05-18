@@ -1,6 +1,8 @@
 import defaultConfig from '@data/features/config.json'
 import { normalFeatureArray } from '@data/features/features'
 
+import { tag } from '@/utils/constant'
+
 export type FeatureValue = '0' | '1'
 
 export type FeatureState = Record<string, FeatureValue>
@@ -93,30 +95,35 @@ export function checkModuleWorkerSupport(): boolean {
   }
 }
 
-export function download(buffer: any, name: string) {
-  const url = URL.createObjectURL(new Blob([buffer]))
-  const a = document.createElement('a')
-  a.href = url
-  a.download = name
-  a.click()
-  URL.revokeObjectURL(url)
+export const FILE_FORMAT = ['TTF', 'OTF', 'NF', 'CN', 'NF-CN'] as const
+
+export type FileFormat = typeof FILE_FORMAT[number]
+
+// Utility: parse features to string
+export function parseIdString(features: Record<string, '0' | '1'>) {
+  return Object.entries(features)
+    .map(([k, v]) => v === '1' ? `+${k}` : (v === '0' && k === 'calt') ? '-calt' : null)
+    .filter(Boolean)
+    .join('; ')
 }
 
-export async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
-  try {
-    const fetchOption: RequestInit = {
-      headers: {
-        Accept: 'application/octet-stream',
-      },
+export function buildTargetURL({
+  userInputURL,
+  useHinted,
+  fileFormat,
+}: {
+  userInputURL: string
+  useHinted: boolean
+  fileFormat: FileFormat
+}) {
+  let suffix = ''
+  if (useHinted) {
+    if (fileFormat === 'TTF') {
+      suffix = '-AutoHint'
     }
-    const bufResp = await fetch(url, fetchOption)
-
-    if (!bufResp.ok) {
-      return undefined
-    }
-
-    return await bufResp.arrayBuffer()
-  } catch {
-    return undefined
+  } else if (!fileFormat.endsWith('TF')) {
+    suffix = '-unhinted'
   }
+  const fileName = `MapleMono-${fileFormat}${suffix}.zip`
+  return `${userInputURL || 'https://github.com'}/subframe7536/maple-font/releases/download/${tag}/${fileName}`
 }
