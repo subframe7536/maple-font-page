@@ -82,22 +82,17 @@ function HintedCheckbox(props: {
 
 // UI: Proxy input
 function ProxyInput(props: {
-  userInputURL: string
-  setUserInputURL: (v: string) => void
+  proxyURL: RefSignal<string>
   translate: PlaygroundTranslation['action']['build']['options']
-  targetURL: string
   guide: PlaygroundTranslation['action']['guide']
 }) {
   return (
-    <TextField value={props.userInputURL} onChange={props.setUserInputURL} class="gap-3">
+    <TextField value={props.proxyURL()} onChange={props.proxyURL} class="gap-3">
       <TextFieldLabel class="c-secondary font-bold">
         {props.translate.proxyURL}
         <GuideButton class="ml-2 !c-note" text="(GitHub:netnr/proxy)" link="https://github.com/netnr/proxy" />
       </TextFieldLabel>
       <TextFieldInput placeholder={props.translate.proxyURLPlaceholder} class="overflow-x-auto" />
-      <TextFieldDescription class="break-all">
-        {props.translate.finalURL}: {props.targetURL}
-      </TextFieldDescription>
     </TextField>
   )
 }
@@ -111,13 +106,13 @@ interface Props {
 export default function FreezeAction(props: Props) {
   const [open, setOpen] = createSignal(false)
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
-  const [userInputURL, setUserInputURL] = createSignal('https://seep.eu.org/https://github.com')
+  const proxyURL = createRef('https://seep.eu.org/https://github.com')
   const useHinted = createRef(false)
   const fileFormat = createRef<FileFormat>(FILE_FORMAT[0])
   const logPanelRef = createRef<HTMLDivElement>()
 
   const targetURL = createMemo(() => buildTargetURL({
-    userInputURL: userInputURL(),
+    userInputURL: proxyURL(),
     useHinted: useHinted(),
     fileFormat: fileFormat(),
   }))
@@ -176,7 +171,7 @@ export default function FreezeAction(props: Props) {
           )}
         >
           <div class="flex flex-col gap-2">
-            <div class="mb-2 text-sm">{parseIdString(props.features)}</div>
+            <div class="mb-2 text-xs">{parseIdString(props.features)}</div>
             <div class="mb-3 flex flex-col gap-4 sm:(mb-2 flex-row)">
               <FormatSelector
                 fileFormat={fileFormat}
@@ -187,7 +182,19 @@ export default function FreezeAction(props: Props) {
                 translate={props.translate.options}
               />
             </div>
-            <ProxyInput userInputURL={userInputURL()} setUserInputURL={setUserInputURL} translate={props.translate.options} targetURL={targetURL()} guide={props.guide} />
+            <ProxyInput
+              proxyURL={proxyURL}
+              translate={props.translate.options}
+              guide={props.guide}
+            />
+          </div>
+          <div>
+            <div class="mb-2 text-sm text-primary">
+              {props.translate.options.finalURL}
+            </div>
+            <div class="break-all text-xs">
+              {targetURL()}
+            </div>
           </div>
           <h3 class="text-lg c-accent font-bold">{props.translate.log}</h3>
           <div ref={logPanelRef} class="h-25 overflow-scroll text-sm sm:h-50">
@@ -198,7 +205,7 @@ export default function FreezeAction(props: Props) {
             </For>
           </div>
         </Show>
-        <DialogFooter class="flex gap-4 sm:(flex-row gap-2)">
+        <DialogFooter class="flex gap-4 xs:(flex-row gap-2)">
           <Button
             as="a"
             href={props.translate.chooseGuide.link}

@@ -103,7 +103,7 @@ export function DialogFooter(props: ComponentProps<'div'>) {
   return (
     <div
       class={cls(
-        'flex flex-col-reverse sm:(flex-row justify-end space-x-2)',
+        'flex flex-col-reverse xs:(flex-row justify-end space-x-2)',
         local.class,
       )}
       {...rest}

@@ -89,7 +89,7 @@ const zh: PlaygroundTranslation = {
         formatTitle: '格式和字符集',
         hintTitle: '字体微调',
         useHinted: '使用 Hinted 字体作为基字',
-        proxyURL: 'GitHub 代理地址',
+        proxyURL: 'CORS 代理地址',
         proxyURLPlaceholder: '输入 GitHub 代理地址以修复 CORS 报错',
         finalURL: '最终下载地址',
       },

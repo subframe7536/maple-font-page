@@ -88,7 +88,7 @@ const en = {
         formatTitle: 'Font Format and Glyph set',
         hintTitle: 'Font Hint',
         useHinted: 'Use Hinted Font as Base Font',
-        proxyURL: 'GitHub Proxy URL',
+        proxyURL: 'CORS Proxy URL',
         proxyURLPlaceholder: 'Enter GitHub Proxy URL to Fix CORS Error',
         finalURL: 'Final Download URL',
       },
