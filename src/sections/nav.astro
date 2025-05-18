@@ -1,9 +1,10 @@
 ---
+import { cls } from 'cls-variant'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { useNavTranslation } from '@/locales/i18n'
 import { isDEV, tag } from '@/utils/constant'
-import { cls } from 'cls-variant'
 
 type Title = 'usage' | 'playground' | 'download'
 
@@ -101,6 +102,7 @@ function isCurrent(url: Title) {
         as="a"
         href={playgroundLink}
         title={titles.playground}
+        aria-label={titles.playground}
       >
         <Icon name="lucide:bug-play" class="sm:mr-1" />
         <span class="hidden sm:block">
@@ -114,6 +116,7 @@ function isCurrent(url: Title) {
         class={cls(isCurrent('usage') && 'c-secondary')}
         href={usageLink}
         title={titles.usage}
+        aria-label={titles.usage}
       >
         <Icon name="lucide:book-open-text" class="sm:mr-1" />
         <span class="hidden sm:block">
@@ -126,6 +129,7 @@ function isCurrent(url: Title) {
         class={cls('ml-2', isCurrent('download') && 'bg-secondary')}
         href={downloadLink}
         title={titles.download}
+        aria-label={titles.download}
       >
         {get}
       </Button>

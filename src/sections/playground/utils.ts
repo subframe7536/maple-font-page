@@ -92,3 +92,31 @@ export function checkModuleWorkerSupport(): boolean {
     return supports
   }
 }
+
+export function download(buffer: any, name: string) {
+  const url = URL.createObjectURL(new Blob([buffer]))
+  const a = document.createElement('a')
+  a.href = url
+  a.download = name
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+export async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
+  try {
+    const fetchOption: RequestInit = {
+      headers: {
+        Accept: 'application/octet-stream',
+      },
+    }
+    const bufResp = await fetch(url, fetchOption)
+
+    if (!bufResp.ok) {
+      return undefined
+    }
+
+    return await bufResp.arrayBuffer()
+  } catch {
+    return undefined
+  }
+}

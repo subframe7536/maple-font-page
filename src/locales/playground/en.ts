@@ -84,6 +84,19 @@ const en = {
       title: 'Custom Build Font In Browser',
       download: 'Build and Download',
       unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser or choose another way. ',
+      options: {
+        formatTitle: 'Font Format and Glyph set',
+        hintTitle: 'Font Hint',
+        useHinted: 'Use Hinted Font as Base Font',
+        proxyURL: 'GitHub Proxy URL',
+        proxyURLPlaceholder: 'Enter GitHub Proxy URL to Fix CORS Error',
+        finalURL: 'Final Download URL',
+      },
+      chooseGuide: {
+        text: 'Options Explain',
+        link: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#naming-faq',
+      },
+      log: 'Log Output',
     },
   },
 }

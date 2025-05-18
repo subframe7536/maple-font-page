@@ -69,7 +69,6 @@ function ConfigSection(
       <textarea
         ref={textareaRef}
         name={props.type}
-        id={`conf-${props.type}`}
         title={props.title}
         disabled={!parsedText()}
         class={cls(
@@ -126,9 +125,7 @@ export default function ConfigAction(props: Props) {
                   class="flex items-center space-x-2"
                 >
                   <CheckboxControl />
-                  <CheckboxLabel class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    {str}
-                  </CheckboxLabel>
+                  <CheckboxLabel>{str}</CheckboxLabel>
                 </Checkbox>
               )}
             </For>

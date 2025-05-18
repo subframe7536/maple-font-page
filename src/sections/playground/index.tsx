@@ -1,6 +1,11 @@
 import type { FeatureState, FeatureValue } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 
+import { featureArray } from '@data/features/features'
+import { createRef, watch } from '@solid-hooks/core'
+import { cls } from 'cls-variant'
+import { createSignal, For, onMount, Show } from 'solid-js'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,10 +18,6 @@ import {
 } from '@/components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
-import { featureArray } from '@data/features/features'
-import { createRef, watch } from '@solid-hooks/core'
-import { cls } from 'cls-variant'
-import { createSignal, For, onMount, Show } from 'solid-js'
 
 import ConfigAction from './config'
 import FreezeAction from './freeze'
@@ -130,10 +131,10 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.translation.fontSize}</SliderLabel>
-                <SliderValueLabel />
+                <SliderLabel for="font-size-slider">{props.translation.fontSize}</SliderLabel>
+                <SliderValueLabel for="font-size-slider" />
               </div>
-              <SliderTrack>
+              <SliderTrack id="font-size-slider">
                 <SliderFill />
                 <SliderThumb />
               </SliderTrack>
@@ -149,10 +150,10 @@ export default function Playground(props: PlaygroundProps) {
               class="gap-3 p-2 sm:gap-5.5"
             >
               <div class="w-full flex justify-between">
-                <SliderLabel>{props.translation.fontWeight}</SliderLabel>
-                <SliderValueLabel />
+                <SliderLabel for="font-weight-slider">{props.translation.fontWeight}</SliderLabel>
+                <SliderValueLabel for="font-weight-slider" />
               </div>
-              <SliderTrack>
+              <SliderTrack id="font-weight-slider">
                 <SliderFill />
                 <SliderThumb />
               </SliderTrack>
@@ -183,6 +184,7 @@ export default function Playground(props: PlaygroundProps) {
             <FreezeAction
               translate={props.translation.action.build}
               guide={props.translation.action.guide}
+              features={feat()}
             />
           </div>
         </div>

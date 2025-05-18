@@ -85,6 +85,19 @@ const zh: PlaygroundTranslation = {
       title: '浏览器内自定义构建',
       download: '构建并下载',
       unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
+      options: {
+        formatTitle: '格式和字符集',
+        hintTitle: '字体微调',
+        useHinted: '使用 Hinted 字体作为基字',
+        proxyURL: 'GitHub 代理地址',
+        proxyURLPlaceholder: '输入 GitHub 代理地址以修复 CORS 报错',
+        finalURL: '最终下载地址',
+      },
+      chooseGuide: {
+        text: '选项说明',
+        link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E5%91%BD%E5%90%8D%E8%AF%B4%E6%98%8E',
+      },
+      log: '日志输出',
     },
   },
 }

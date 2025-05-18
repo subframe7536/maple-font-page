@@ -1,11 +1,15 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 
-export default function GuideButton(props: PlaygroundTranslation['action']['guide']) {
+import { cls } from 'cls-variant'
+
+export default function GuideButton(
+  props: PlaygroundTranslation['action']['guide'] & { class?: string },
+) {
   return (
     <a
       href={props.link}
       target="_blank"
-      class="w-full text-secondary font-bold xs:w-fit hover:underline"
+      class={cls('w-full text-secondary font-bold xs:w-fit hover:underline', props.class)}
       title={props.text}
     >
       {props.text}

@@ -7,5 +7,5 @@ export interface Props {
 }
 
 export default function Icon(props: Props) {
-  return <div class={`i-${props.name} ${props.class}`} title={props.title} />
+  return <div class={`i-${props.name} ${props.class}`} title={props.title || props.name} />
 }
