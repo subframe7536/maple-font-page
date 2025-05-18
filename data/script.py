@@ -30,12 +30,13 @@ def freeze_feature(font,moving_rules,config):
 def set_font_name(font,name,id):font['name'].setName(name,nameID=id,platformID=3,platEncID=1,langID=1033)
 def get_font_name(font,id):return font['name'].getName(nameID=id,platformID=3,platEncID=1,langID=1033).__str__()
 def main(zip_path,target_path,config):
-	C=config
-	with ZipFile(zip_path,'r')as D,ZipFile(target_path,'w')as E:
-		for A in D.infolist():
-			if A.filename.lower().endswith('.ttf'):
-				print(f"Processing {A.filename}")
-				with D.open(A)as G:H=G.read();I=io.BytesIO(H);B=TTFont(I);J=get_freeze_config_str(C);freeze_feature(B,MOVING_RULES,C);set_font_name(B,get_font_name(B,3)+J,3);F=io.BytesIO();B.save(F);E.writestr(A,F.getvalue());B.close()
-			else:E.writestr(A,D.read(A))
-		E.writestr('patch-in-browser.json',json.dumps({A:'freeze'if B=='1'else'ignore'for(A,B)in C.items()},indent=4))
-	print('Font processing completed.')
+	D=config
+	with ZipFile(zip_path,'r')as E,ZipFile(target_path,'w')as F:
+		for A in E.infolist():
+			C=A.filename
+			if C.lower().endswith('.ttf')or C.lower().endswith('.otf'):
+				print(f"Patch: {C}")
+				with E.open(A)as H:I=H.read();J=io.BytesIO(I);B=TTFont(J);K=get_freeze_config_str(D);freeze_feature(B,MOVING_RULES,D);set_font_name(B,get_font_name(B,3)+K,3);G=io.BytesIO();B.save(G);F.writestr(A,G.getvalue());B.close()
+			else:print(f"Skip:  {C}");F.writestr(A,E.read(A))
+		F.writestr('patch-in-browser.json',json.dumps({A:'freeze'if B=='1'else'ignore'for(A,B)in D.items()},indent=4));print('Write: patch-in-browser.json')
+	print('Repack zip')

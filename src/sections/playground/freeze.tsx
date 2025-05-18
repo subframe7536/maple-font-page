@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/dialog'
 import {
   TextField,
-  TextFieldDescription,
   TextFieldInput,
   TextFieldLabel,
 } from '@/components/ui/text-field'
@@ -117,7 +116,7 @@ export default function FreezeAction(props: Props) {
     fileFormat: fileFormat(),
   }))
 
-  const { status, logArr, initWorker, startPatching } = useFontPatcher(
+  const { status, logArr, init, patch } = useFontPatcher(
     logPanelRef,
     () => props.features,
   )
@@ -128,9 +127,7 @@ export default function FreezeAction(props: Props) {
       if (isSupportWorker() === undefined) {
         setIsSupportWorker(checkModuleWorkerSupport())
       }
-      initWorker(isSupportWorker() ?? false)
-      // If worker is ready, re-init
-      // (optional: can be removed if not needed)
+      init(isSupportWorker())
     }
   }
 
@@ -215,7 +212,7 @@ export default function FreezeAction(props: Props) {
           </Button>
           <Button
             disabled={!isSupportWorker() || status() !== 'ready'}
-            onClick={() => startPatching(targetURL())}
+            onClick={() => patch(targetURL())}
           >
             {props.translate.download}
           </Button>

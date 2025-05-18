@@ -163,6 +163,7 @@ export default function Playground(props: PlaygroundProps) {
         <div class="relative size-full max-h-45vh flex flex-col gap-2 px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
           <textarea
             ref={textareaRef}
+            spellcheck="false"
             title="Playground for Maple Mono"
             class={cls(
               'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg',

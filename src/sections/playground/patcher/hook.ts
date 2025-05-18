@@ -67,13 +67,17 @@ export function useFontPatcher(
     }
   }
 
-  async function patch(targetURL: string) {
+  async function patch(target: string | ArrayBuffer) {
     if (!worker) {
       return
     }
     setStatus('running')
     setArr(arr => arr.push(['Processing...']))
-    const buf = await fetchFromURL(targetURL)
+
+    const buf = target instanceof ArrayBuffer
+      ? target
+      : await fetchFromURL(target)
+
     if (!buf) {
       setArr(arr => arr.push([
         'Fail to fetch zip file',
@@ -89,5 +93,5 @@ export function useFontPatcher(
     } satisfies WorkerMessage)
   }
 
-  return { status, logArr, initWorker: init, startPatching: patch }
+  return { status, logArr, init, patch }
 }
