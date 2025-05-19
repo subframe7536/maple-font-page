@@ -38,7 +38,11 @@ export function useFontPatcher(
 ) {
   let worker: Worker | null = null
   const [status, setStatus] = createSignal<'loading' | 'ready' | 'running'>()
-  const [logArr, setArr] = createArray<[msg: string, isError?: boolean][]>()
+  const [logList, setLogList] = createArray<[msg: string, isError?: boolean][]>()
+
+  function log(msg: string, isError?: boolean) {
+    setLogList(arr => arr.push([msg, isError]))
+  }
 
   function init(isSupportWorker: boolean = false) {
     const ref = logPanelRef()
@@ -54,7 +58,7 @@ export function useFontPatcher(
             download(data.buffer, 'patch.zip')
             break
           case 'log':
-            setArr(arr => arr.push([data.msg, data.isError] as const))
+            log(data.msg, data.isError)
             if (data.isError) {
               setStatus('ready')
             }
@@ -62,7 +66,7 @@ export function useFontPatcher(
             break
         }
       }
-      worker.postMessage({ type: 'init' })
+      worker.postMessage({ type: 'init' } satisfies WorkerMessage)
       setStatus('loading')
     }
   }
@@ -72,17 +76,14 @@ export function useFontPatcher(
       return
     }
     setStatus('running')
-    setArr(arr => arr.push(['Processing...']))
+    log('Processing...')
 
     const buf = target instanceof ArrayBuffer
       ? target
       : await fetchFromURL(target)
 
     if (!buf) {
-      setArr(arr => arr.push([
-        'Fail to fetch zip file',
-        true,
-      ]))
+      log('Fail to fetch zip file', true)
       setStatus('ready')
       return
     }
@@ -93,5 +94,5 @@ export function useFontPatcher(
     } satisfies WorkerMessage)
   }
 
-  return { status, logArr, init, patch }
+  return { status, logList, init, patch, log }
 }

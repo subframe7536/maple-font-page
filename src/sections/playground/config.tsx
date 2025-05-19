@@ -18,7 +18,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-import GuideButton from './guide-button'
+import GuideLink from './guide-link'
 import { toCliFlag, toConfigJson } from './utils'
 
 export interface Props {
@@ -114,7 +114,7 @@ export default function ConfigAction(props: Props) {
         <div>
           <p class="text-sm">
             {props.translate.description}
-            <GuideButton {...props.guide} />
+            <GuideLink {...props.guide} />
           </p>
           <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
             <For each={Object.entries(props.translate.extra)}>

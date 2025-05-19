@@ -2,7 +2,7 @@ import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 import { cls } from 'cls-variant'
 
-export default function GuideButton(
+export default function GuideLink(
   props: PlaygroundTranslation['action']['guide'] & { class?: string },
 ) {
   return (

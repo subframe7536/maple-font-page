@@ -23,7 +23,7 @@ import {
   TextFieldLabel,
 } from '@/components/ui/text-field'
 
-import GuideButton from './guide-button'
+import GuideLink from './guide-link'
 import { useFontPatcher } from './patcher/hook'
 import {
   buildTargetURL,
@@ -89,7 +89,7 @@ function ProxyInput(props: {
     <TextField value={props.proxyURL()} onChange={props.proxyURL} class="gap-3">
       <TextFieldLabel class="c-secondary font-bold">
         {props.translate.proxyURL}
-        <GuideButton class="ml-2 !c-note" text="(GitHub:netnr/proxy)" link="https://github.com/netnr/proxy" />
+        <GuideLink class="ml-2 !c-note" text="(GitHub:netnr/proxy)" link="https://github.com/netnr/proxy" />
       </TextFieldLabel>
       <TextFieldInput placeholder={props.translate.proxyURLPlaceholder} class="overflow-x-auto" />
     </TextField>
@@ -116,11 +116,12 @@ export default function FreezeAction(props: Props) {
     fileFormat: fileFormat(),
   }))
 
-  const { status, logArr, init, patch } = useFontPatcher(
+  const { status, logList, init, patch, log } = useFontPatcher(
     logPanelRef,
     () => props.features,
   )
 
+  let id = ''
   function listenOpenChange(isOpen: boolean) {
     setOpen(isOpen)
     if (isOpen) {
@@ -128,6 +129,11 @@ export default function FreezeAction(props: Props) {
         setIsSupportWorker(checkModuleWorkerSupport())
       }
       init(isSupportWorker())
+      const parsedId = parseIdString(props.features)
+      if (id !== parsedId) {
+        id = parsedId
+        log(`Freezed features: ${parsedId}`)
+      }
     }
   }
 
@@ -163,12 +169,11 @@ export default function FreezeAction(props: Props) {
           fallback={(
             <div class="py-4">
               {props.translate.unsupported}
-              <GuideButton {...props.guide} />
+              <GuideLink {...props.guide} />
             </div>
           )}
         >
           <div class="flex flex-col gap-2">
-            <div class="mb-2 text-xs">{parseIdString(props.features)}</div>
             <div class="mb-3 flex flex-col gap-4 sm:(mb-2 flex-row)">
               <FormatSelector
                 fileFormat={fileFormat}
@@ -195,9 +200,9 @@ export default function FreezeAction(props: Props) {
           </div>
           <h3 class="text-lg c-accent font-bold">{props.translate.log}</h3>
           <div ref={logPanelRef} class="h-25 overflow-scroll text-sm sm:h-50">
-            <For each={logArr()}>
+            <For each={logList()}>
               {([msg, isError]) => (
-                <div class={isError ? 'c-red' : 'c-note'}>{msg}</div>
+                <div class={isError ? 'c-red' : 'c-note'}>{isError ? '[ERROR]' : '[INFO]'} {msg}</div>
               )}
             </For>
           </div>
@@ -206,6 +211,7 @@ export default function FreezeAction(props: Props) {
           <Button
             as="a"
             href={props.translate.chooseGuide.link}
+            target="_blank"
             variant="secondary"
           >
             {props.translate.chooseGuide.text}

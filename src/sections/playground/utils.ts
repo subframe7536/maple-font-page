@@ -99,7 +99,6 @@ export const FILE_FORMAT = ['TTF', 'OTF', 'NF', 'CN', 'NF-CN'] as const
 
 export type FileFormat = typeof FILE_FORMAT[number]
 
-// Utility: parse features to string
 export function parseIdString(features: Record<string, '0' | '1'>) {
   return Object.entries(features)
     .map(([k, v]) => v === '1' ? `+${k}` : (v === '0' && k === 'calt') ? '-calt' : null)
