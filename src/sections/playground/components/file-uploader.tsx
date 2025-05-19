@@ -1,7 +1,6 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFieldTriggerProps } from '@kobalte/core/file-field'
 import type { RefSignal } from '@solid-hooks/core'
-import type { Accessor } from 'solid-js'
 
 import { FileField } from '@kobalte/core/file-field'
 import { Show } from 'solid-js'
@@ -34,9 +33,9 @@ export default function FileUploader(props: Props) {
             {file => (
               <>
                 <Alert />
-                <FileField.Item class="h-9 flex items-center justify-center gap-2 text-(lg primary)">
+                <FileField.Item class="h-9 flex items-center justify-center gap-2 text-primary sm:text-lg">
                   <Icon name="lucide:file-archive" />
-                  <span>{file.name}</span>
+                  <span class="max-w-40 truncate sm:max-w-unset xs:max-w-70">{file.name}</span>
                   <FileField.ItemDeleteTrigger class="h-full" onClick={() => props.zipFile(undefined)}>
                     <Icon name="lucide:x" />
                   </FileField.ItemDeleteTrigger>
@@ -54,7 +53,8 @@ export default function FileUploader(props: Props) {
             as={(triggerProps: FileFieldTriggerProps) => (
               <Button {...triggerProps} class="w-80% flex items-center gap-2 text-sm sm:w-unset">
                 <Icon name="lucide:upload" />
-                <span class="hidden xs:block">{props.t.upload.btn}</span>
+                <span class="hidden xs:block">{props.t.upload.btnStart}</span>
+                <span>{props.t.upload.btnEnd}</span>
               </Button>
             )}
           />

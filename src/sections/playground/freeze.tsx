@@ -64,6 +64,13 @@ export default function FreezeActionDialog(props: Props) {
     }
   })
 
+  const shouldDisabled = createMemo(() => {
+    if (!isSupportWorker()) {
+      return true
+    }
+    return useUpload() === '1' ? !zipFile() : status() !== 'ready'
+  })
+
   let id = ''
   function listenOpenChange(isOpen: boolean) {
     setOpen(isOpen)
@@ -118,13 +125,13 @@ export default function FreezeActionDialog(props: Props) {
         >
           <Tabs value={useUpload()} onChange={setUseUpload}>
             <TabsList>
-              <TabsTrigger value="0" class="flex items-center justify-center gap-2">
+              <TabsTrigger value="0" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:link" />
-                <span class="hidden xs:block">{props.t.tab.download}</span>
+                <span>{props.t.tab.download}</span>
               </TabsTrigger>
-              <TabsTrigger value="1" class="flex items-center justify-center gap-2">
-                <Icon name="lucide:file-archive" />
-                <span class="hidden xs:block">{props.t.tab.upload}</span>
+              <TabsTrigger value="1" class="w-full flex items-center justify-center gap-2">
+                <Icon name="lucide:upload" />
+                <span>{props.t.tab.upload}</span>
               </TabsTrigger>
               <TabsIndicator />
             </TabsList>
@@ -151,11 +158,13 @@ export default function FreezeActionDialog(props: Props) {
               </div>
               <div class="my-3 text-sm">
                 {props.t.file.get.descStart}
+                {' '}
                 <GuideLink
                   link={props.downloadURL}
                   class="!c-primary"
                   text={props.t.file.get.text}
                 />
+                {' '}
                 {props.t.file.get.descEnd}
               </div>
               <FileUploader
@@ -165,10 +174,11 @@ export default function FreezeActionDialog(props: Props) {
             </TabsContent>
           </Tabs>
           <h3 class="text-lg c-accent font-bold">{props.t.log}</h3>
+          <div class="text-xs c-note">{props.t.memoryAlert}</div>
           <div ref={logPanelRef} class="h-25 overflow-scroll text-sm sm:h-50">
             <For each={logList()}>
               {([msg, isError]) => (
-                <div class={isError ? 'c-red' : 'c-note'}>{isError ? '[ERROR]' : '[INFO]'} {msg}</div>
+                <div class={isError ? 'c-red' : ''}>{isError ? '[ERROR]' : '[INFO]'} {msg}</div>
               )}
             </For>
           </div>
@@ -183,7 +193,7 @@ export default function FreezeActionDialog(props: Props) {
             {props.t.chooseGuide.text}
           </Button>
           <Button
-            disabled={!isSupportWorker() || status() !== 'ready' || (useUpload() && !zipFile())}
+            disabled={shouldDisabled()}
             onClick={() => patch(useUpload() ? zipFile()! : targetURL())}
           >
             {props.t.download}

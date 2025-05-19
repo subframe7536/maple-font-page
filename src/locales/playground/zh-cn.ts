@@ -81,13 +81,13 @@ const zh: PlaygroundTranslation = {
       },
     },
     build: {
-      btnText: '浏览器内构建',
-      title: '浏览器内自定义构建',
+      btnText: '自定义构建',
+      title: '浏览器内构建字体',
       download: '构建并下载',
       unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
       tab: {
-        download: '从 GitHub 下载',
-        upload: '上传 Zip 文件',
+        download: '自动下载',
+        upload: '上传文件',
       },
       options: {
         formatTitle: '格式和字符集',
@@ -101,13 +101,14 @@ const zh: PlaygroundTranslation = {
         get: {
           title: '获取 ZIP 文件',
           descStart: '从',
-          descEnd: '下载字体 ZIP 文件',
+          descEnd: '下载字体 ZIP 文件，或自行打包下载好的字体文件。',
           text: '获取字体页面',
         },
         upload: {
           title: '上传 ZIP 文件',
-          btn: '拖拽 或 选择 ZIP 文件',
-          alert: '请在上传前自行验证 ZIP 文件的完整性！',
+          btnStart: '拖拽 或',
+          btnEnd: '选择 ZIP 文件',
+          alert: '请在构建前自行验证 ZIP 文件的完整性！',
         },
       },
       chooseGuide: {
@@ -115,6 +116,7 @@ const zh: PlaygroundTranslation = {
         link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E5%91%BD%E5%90%8D%E8%AF%B4%E6%98%8E',
       },
       log: '日志输出',
+      memoryAlert: '构建字体消耗的内存最高可达 1.2 GB (NF-CN)',
     },
   },
 }
