@@ -85,6 +85,10 @@ const zh: PlaygroundTranslation = {
       title: '浏览器内自定义构建',
       download: '构建并下载',
       unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
+      tab: {
+        download: '从 GitHub 下载',
+        upload: '上传 Zip 文件',
+      },
       options: {
         formatTitle: '格式和字符集',
         hintTitle: '字体微调',
@@ -92,6 +96,19 @@ const zh: PlaygroundTranslation = {
         proxyURL: 'CORS 代理地址',
         proxyURLPlaceholder: '输入 GitHub 代理地址以修复 CORS 报错',
         finalURL: '最终下载地址',
+      },
+      file: {
+        download: {
+          title: '下载字体 ZIP 文件',
+          descStart: '从',
+          descEnd: '下载字体 ZIP 文件',
+          text: '获取字体页面',
+        },
+        upload: {
+          title: '上传 ZIP 文件',
+          btn: '拖拽 或 选择 ZIP 文件',
+          alert: '请在上传前自行验证 ZIP 文件的完整性！',
+        },
       },
       chooseGuide: {
         text: '选项说明',

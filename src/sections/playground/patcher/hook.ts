@@ -37,6 +37,7 @@ export function useFontPatcher(
   features: Accessor<Record<string, '0' | '1'>>,
 ) {
   let worker: Worker | null = null
+  let startTime: number | null = null
   const [status, setStatus] = createSignal<'loading' | 'ready' | 'running'>()
   const [logList, setLogList] = createArray<[msg: string, isError?: boolean][]>()
 
@@ -55,7 +56,9 @@ export function useFontPatcher(
             setStatus('ready')
             break
           case 'result':
+            log(`Total time: ${(Date.now() - startTime!) / 1000}s`)
             download(data.buffer, 'patch.zip')
+            setStatus('ready')
             break
           case 'log':
             log(data.msg, data.isError)
@@ -71,15 +74,16 @@ export function useFontPatcher(
     }
   }
 
-  async function patch(target: string | ArrayBuffer) {
+  async function patch(target: string | File) {
     if (!worker) {
       return
     }
-    setStatus('running')
-    log('Processing...')
 
-    const buf = target instanceof ArrayBuffer
-      ? target
+    setStatus('running')
+    log('Fetching ZIP file...')
+
+    const buf = target instanceof File
+      ? await target.arrayBuffer()
       : await fetchFromURL(target)
 
     if (!buf) {
@@ -87,6 +91,9 @@ export function useFontPatcher(
       setStatus('ready')
       return
     }
+
+    startTime = Date.now()
+    log('Start patching...')
     worker!.postMessage({
       type: 'patch',
       buf,

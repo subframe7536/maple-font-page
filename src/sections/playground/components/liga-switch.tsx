@@ -1,4 +1,4 @@
-import type { FeatureValue } from './utils'
+import type { FeatureValue } from '../utils'
 
 import { useEmits, watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
@@ -6,11 +6,7 @@ import { createMemo, createSignal } from 'solid-js'
 
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import { getDefaultLigaSwitchValue as getLigaSwitchValue } from './utils'
-
-interface Emits {
-  $change: (feat: string, state: FeatureValue) => void
-}
+import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '../utils'
 
 interface Props {
   feat: string
@@ -20,15 +16,15 @@ interface Props {
   italic?: boolean
   cn?: boolean
   normal?: boolean
+  $change: (feat: string, state: FeatureValue) => void
 }
 
-export default function LigaSwitch(props: Emits & Props) {
+export default function LigaSwitch(props: Props) {
   const ver = createMemo(() => `v${props.version}00`)
-  const emit = useEmits(props)
   // eslint-disable-next-line solid/reactivity
   const [value, setValue] = createSignal<FeatureValue>(props.feat === 'calt' ? '1' : '0')
   watchOnce(() => props.normal, (normal) => {
-    emit('change', props.feat, setValue(getLigaSwitchValue(props.feat, normal)))
+    props.$change(props.feat, setValue(getLigaSwitchValue(props.feat, normal)))
   })
   return (
     <div>
@@ -44,7 +40,7 @@ export default function LigaSwitch(props: Emits & Props) {
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
         value={value()}
-        onChange={state => emit('change', props.feat, setValue(state as FeatureValue))}
+        onChange={state => props.$change(props.feat, setValue(state as FeatureValue))}
         class="select-none"
       >
         <TabsList>

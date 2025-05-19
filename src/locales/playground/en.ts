@@ -84,6 +84,10 @@ const en = {
       title: 'Custom Build Font In Browser',
       download: 'Build and Download',
       unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser or choose another way. ',
+      tab: {
+        download: 'Download From GitHub',
+        upload: 'Upload Zip File',
+      },
       options: {
         formatTitle: 'Font Format and Glyph set',
         hintTitle: 'Font Hint',
@@ -91,6 +95,19 @@ const en = {
         proxyURL: 'CORS Proxy URL',
         proxyURLPlaceholder: 'Enter GitHub Proxy URL to Fix CORS Error',
         finalURL: 'Final Download URL',
+      },
+      file: {
+        download: {
+          title: 'Download Font ZIP',
+          descStart: 'Download font ZIP in',
+          descEnd: '',
+          text: 'Get Font Page',
+        },
+        upload: {
+          title: 'Upload ZIP File',
+          btn: 'Drop or select ZIP file',
+          alert: 'Please validate the ZIP file yourself before upload!',
+        },
       },
       chooseGuide: {
         text: 'Options Explain',

@@ -1,5 +1,7 @@
 import type json from '@iconify-json/lucide/icons.json'
 
+import { cls } from 'cls-variant'
+
 export interface Props {
   name: `lucide:${keyof typeof json['icons']}`
   class?: string
@@ -7,5 +9,5 @@ export interface Props {
 }
 
 export default function Icon(props: Props) {
-  return <div class={`i-${props.name} ${props.class}`} title={props.title || props.name} />
+  return <div class={cls(`i-${props.name}`, props.class)} title={props.title || props.name} />
 }

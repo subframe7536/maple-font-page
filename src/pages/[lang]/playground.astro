@@ -11,6 +11,7 @@ import Layout from '@/layouts/Layout.astro'
 import { useNavTranslation, usePlaygroundTranslation } from '@/locales/i18n'
 import Nav from '@/sections/nav.astro'
 import PlaygroundArea from '@/sections/playground'
+import { isDEV } from '@/utils/constant'
 
 export { getStaticPaths } from '@/locales/i18n'
 
@@ -31,6 +32,10 @@ function parseFeature(config: Record<string, Record<string, string>>): FontFeatu
   }
   return result
 }
+
+const locale = Astro.currentLocale
+const baseUrl = isDEV ? `/${locale}` : `${Astro.site}${locale}`
+const downloadLink = `${baseUrl}/download`
 
 const defaultText = [
   'Maple Mono, smooth your coding flow',
@@ -58,7 +63,8 @@ const defaultText = [
       sizeRange={[12, 96]}
       weightRange={[100, 800]}
       defaultText={defaultText}
-      translation={rest}
+      t={rest}
+      downloadURL={downloadLink}
       client:load
     />
   </div>

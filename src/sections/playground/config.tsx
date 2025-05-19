@@ -18,12 +18,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 
-import GuideLink from './guide-link'
+import GuideLink from './components/guide-link'
 import { toCliFlag, toConfigJson } from './utils'
 
 export interface Props {
-  translate: PlaygroundTranslation['action']['config']
-  guide: PlaygroundTranslation['action']['guide']
+  t: PlaygroundTranslation['action']['config']
+  tGuide: PlaygroundTranslation['action']['guide']
   features: Record<string, '0' | '1'>
 }
 
@@ -82,7 +82,7 @@ function ConfigSection(
   )
 }
 
-export default function ConfigAction(props: Props) {
+export default function ConfigActionDialog(props: Props) {
   const [extraConfig, setExtraConfig] = createSignal<ExtraConfig>({
     nf: true,
     cn: false,
@@ -100,7 +100,7 @@ export default function ConfigAction(props: Props) {
             {...triggerProps}
           >
             <Icon name="lucide:braces" class="mr-2" />
-            {props.translate.btnText}
+            {props.t.btnText}
           </Button>
         )}
       />
@@ -108,16 +108,16 @@ export default function ConfigAction(props: Props) {
         <DialogHeader>
           <DialogTitle class="flex items-center text-primary">
             <Icon name="lucide:braces" class="mr-2 size-6" />
-            {props.translate.title}
+            {props.t.title}
           </DialogTitle>
         </DialogHeader>
         <div>
           <p class="text-sm">
-            {props.translate.description}
-            <GuideLink {...props.guide} />
+            {props.t.description}
+            <GuideLink {...props.tGuide} />
           </p>
           <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
-            <For each={Object.entries(props.translate.extra)}>
+            <For each={Object.entries(props.t.extra)}>
               {([key, str]) => (
                 <Checkbox
                   checked={extraConfig()[key as ExtraConfigKey]}
@@ -132,16 +132,16 @@ export default function ConfigAction(props: Props) {
           </div>
           <ConfigSection
             type="cli"
-            title={props.translate.cliFlags}
+            title={props.t.cliFlags}
             data={props.features}
-            fallback={props.translate.noNeed}
+            fallback={props.t.noNeed}
             extra={extraConfig()}
           />
           <ConfigSection
             type="json"
             title="config.json"
             data={props.features}
-            fallback={props.translate.noNeed}
+            fallback={props.t.noNeed}
             extra={extraConfig()}
           />
         </div>
