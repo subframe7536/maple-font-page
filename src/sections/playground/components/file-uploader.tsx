@@ -35,7 +35,7 @@ export default function FileUploader(props: Props) {
                 <Alert />
                 <FileField.Item class="h-9 flex items-center justify-center gap-2 text-primary sm:text-lg">
                   <Icon name="lucide:file-archive" />
-                  <span class="max-w-40 truncate sm:max-w-unset xs:max-w-70">{file.name}</span>
+                  <span class="max-w-40 truncate sm:max-w-100 xs:max-w-70">{file.name}</span>
                   <FileField.ItemDeleteTrigger class="h-full" onClick={() => props.zipFile(undefined)}>
                     <Icon name="lucide:x" />
                   </FileField.ItemDeleteTrigger>
