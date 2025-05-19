@@ -1,9 +1,10 @@
 import type { FeatureValue } from './utils'
 
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useEmits, watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal } from 'solid-js'
+
+import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { getDefaultLigaSwitchValue as getLigaSwitchValue } from './utils'
 
