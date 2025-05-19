@@ -97,8 +97,8 @@ const en = {
         finalURL: 'Final Download URL',
       },
       file: {
-        download: {
-          title: 'Download Font ZIP',
+        get: {
+          title: 'Get ZIP File',
           descStart: 'Download font ZIP in',
           descEnd: '',
           text: 'Get Font Page',
@@ -106,7 +106,7 @@ const en = {
         upload: {
           title: 'Upload ZIP File',
           btn: 'Drop or select ZIP file',
-          alert: 'Please validate the ZIP file yourself before upload!',
+          alert: 'Please validate the ZIP file yourself before uploading!',
         },
       },
       chooseGuide: {

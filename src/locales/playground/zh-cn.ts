@@ -98,8 +98,8 @@ const zh: PlaygroundTranslation = {
         finalURL: '最终下载地址',
       },
       file: {
-        download: {
-          title: '下载字体 ZIP 文件',
+        get: {
+          title: '获取 ZIP 文件',
           descStart: '从',
           descEnd: '下载字体 ZIP 文件',
           text: '获取字体页面',

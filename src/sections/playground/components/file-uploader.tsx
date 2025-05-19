@@ -15,38 +15,46 @@ interface Props {
 }
 
 export default function FileUploader(props: Props) {
+  const Alert = () => (
+    <div class="px-4 text-center text-xs c-note xs:text-sm">
+      {props.t.upload.alert}
+    </div>
+  )
   return (
     <FileField
-      class="flex flex-col gap-2"
+      class="relative flex flex-col gap-2"
       accept=".zip"
       onFileAccept={data => props.zipFile(data[0])}
     >
-      <FileField.Label class="text-sm c-secondary">{props.t.upload.title}</FileField.Label>
+      <FileField.Label class="break-words text-sm c-secondary">{props.t.upload.title}</FileField.Label>
       <Show
         when={!props.zipFile()}
         fallback={(
-          <FileField.ItemList class="h-40 flex items-center justify-center b-(2 input) rounded-md">
+          <FileField.ItemList class="h-40 flex flex-col items-center justify-center gap-4 b-(2 primary) rounded-md text-center">
             {file => (
-              <FileField.Item class="flex items-center justify-center gap-2 text-lg">
-                <Icon name="lucide:file-archive" />
-                <span>{file.name}</span>
-                <FileField.ItemDeleteTrigger class="h-full" onClick={() => props.zipFile(undefined)}>
-                  <Icon name="lucide:x" />
-                </FileField.ItemDeleteTrigger>
-              </FileField.Item>
+              <>
+                <Alert />
+                <FileField.Item class="h-9 flex items-center justify-center gap-2 text-(lg primary)">
+                  <Icon name="lucide:file-archive" />
+                  <span>{file.name}</span>
+                  <FileField.ItemDeleteTrigger class="h-full" onClick={() => props.zipFile(undefined)}>
+                    <Icon name="lucide:x" />
+                  </FileField.ItemDeleteTrigger>
+                </FileField.Item>
+              </>
             )}
           </FileField.ItemList>
         )}
       >
         <FileField.Dropzone
-          class="h-40 b-(2 input dashed) rounded-md p-8 text-center transition-all data-[dragging=true]:(bg-muted)"
+          class="h-40 flex flex-col items-center justify-center gap-4 b-(2 input dashed) rounded-md text-center transition-all data-[dragging=true]:(bg-muted)"
         >
-          <div class="mb-4 text-sm c-note">{props.t.upload.alert}</div>
+          <Alert />
           <FileField.Trigger
             as={(triggerProps: FileFieldTriggerProps) => (
-              <Button {...triggerProps} class="text-sm">
-                <Icon name="lucide:upload" class="mr-2" />
-                {props.t.upload.btn}
+              <Button {...triggerProps} class="w-80% flex items-center gap-2 text-sm sm:w-unset">
+                <Icon name="lucide:upload" />
+                <span class="hidden xs:block">{props.t.upload.btn}</span>
               </Button>
             )}
           />

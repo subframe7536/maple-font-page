@@ -43,11 +43,11 @@ export function useFontPatcher(
 
   function log(msg: string, isError?: boolean) {
     setLogList(arr => arr.push([msg, isError]))
+    logPanelRef()?.scrollTo({ behavior: 'smooth', top: logPanelRef()!.scrollHeight })
   }
 
   function init(isSupportWorker: boolean = false) {
-    const ref = logPanelRef()
-    if (!worker && isSupportWorker && ref) {
+    if (!worker && isSupportWorker) {
       worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' })
       worker.onmessage = (e: MessageEvent<WorkerResult>) => {
         const data = e.data
@@ -65,8 +65,6 @@ export function useFontPatcher(
             if (data.isError) {
               setStatus('ready')
             }
-            ref.scrollTo({ behavior: 'smooth', top: ref.scrollHeight })
-            break
         }
       }
       worker.postMessage({ type: 'init' } satisfies WorkerMessage)

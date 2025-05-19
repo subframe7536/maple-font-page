@@ -79,15 +79,17 @@ function ProxyInput(props: {
   )
 }
 
-export function UrlForm(props: {
+interface Props {
   t: PlaygroundTranslation['action']['build']
   guide: PlaygroundTranslation['action']['guide']
   fileFormat: RefSignal<FileFormat>
   useHinted: RefSignal<boolean>
   proxyURL: RefSignal<string>
-}) {
+}
+
+export function UrlForm(props: Props) {
   return (
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-4">
       <div class="mb-3 flex flex-col gap-4 sm:(mb-2 flex-row)">
         <FormatSelector
           fileFormat={props.fileFormat}

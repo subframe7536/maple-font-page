@@ -117,12 +117,18 @@ export default function FreezeActionDialog(props: Props) {
           )}
         >
           <Tabs value={useUpload()} onChange={setUseUpload}>
-            <TabsList class="mb-4">
-              <TabsTrigger value="0">{props.t.tab.download}</TabsTrigger>
-              <TabsTrigger value="1">{props.t.tab.upload}</TabsTrigger>
+            <TabsList>
+              <TabsTrigger value="0" class="flex items-center justify-center gap-2">
+                <Icon name="lucide:link" />
+                <span class="hidden xs:block">{props.t.tab.download}</span>
+              </TabsTrigger>
+              <TabsTrigger value="1" class="flex items-center justify-center gap-2">
+                <Icon name="lucide:file-archive" />
+                <span class="hidden xs:block">{props.t.tab.upload}</span>
+              </TabsTrigger>
               <TabsIndicator />
             </TabsList>
-            <TabsContent value="0">
+            <TabsContent value="0" class="pt-4">
               <UrlForm
                 t={props.t}
                 guide={props.tGuide}
@@ -139,18 +145,18 @@ export default function FreezeActionDialog(props: Props) {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="1">
+            <TabsContent value="1" class="pt-4">
               <div class="mb-2 text-sm text-secondary">
-                {props.t.file.download.title}
+                {props.t.file.get.title}
               </div>
               <div class="my-3 text-sm">
-                {props.t.file.download.descStart}
+                {props.t.file.get.descStart}
                 <GuideLink
                   link={props.downloadURL}
                   class="!c-primary"
-                  text={props.t.file.download.text}
+                  text={props.t.file.get.text}
                 />
-                {props.t.file.download.descEnd}
+                {props.t.file.get.descEnd}
               </div>
               <FileUploader
                 t={props.t.file}
