@@ -4,7 +4,7 @@ Landing page for [Maple Mono](https://github.com/subframe7536/maple-font)
 
 ### TODO
 
-- [ ] Add `--normal` preset button or switch
+- [x] Add `--normal` preset button or switch (Through URL search param)
 - [ ] Detailed configuration guide
 - [ ] Font choose guide
-- [ ] In-browser OpenType feature freeze
+- [x] In-browser OpenType feature freeze

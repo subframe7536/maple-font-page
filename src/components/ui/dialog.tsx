@@ -6,13 +6,13 @@ import type {
 import type { PolymorphicProps } from '@kobalte/core/polymorphic'
 import type { ComponentProps, ParentProps, ValidComponent } from 'solid-js'
 
-import { Dialog as DialogPrimitive } from '@kobalte/core/dialog'
+import * as DialogPrimitive from '@kobalte/core/dialog'
 import { cls } from 'cls-variant'
 import { splitProps } from 'solid-js'
 
 import Icon from '../icon'
 
-export const Dialog = DialogPrimitive
+export const Dialog = DialogPrimitive.Root
 export const DialogTrigger = DialogPrimitive.Trigger
 
 type dialogContentProps<T extends ValidComponent = 'div'> = ParentProps<
@@ -37,7 +37,7 @@ export function DialogContent<T extends ValidComponent = 'div'>(props: Polymorph
       />
       <DialogPrimitive.Content
         class={cls(
-          'fixed left-50% top-50% z-50 grid w-90% max-w-xl translate--50% gap-4 border bg-background p-4 shadow-lg duration-200 data-[expanded]:(animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-48% duration-200) data-[closed]:(animate-out fade-out-0 zoom-out-95 slide-out-to-left-1/2 slide-out-to-top-48% duration-200) md:w-full rounded-lg',
+          'fixed left-50% top-50% z-50 grid w-90% max-w-xl translate--50% gap-4 border bg-background p-4 shadow-lg duration-200 data-[expanded]:(animate-in fade-in-0 zoom-in-95 slide-in-from-(left-1/2 top-48%) duration-200) data-[closed]:(animate-out fade-out-0 zoom-out-95 slide-out-to-(left-1/2 top-48%) duration-200) md:w-full rounded-lg',
           local.class,
         )}
         {...rest}
@@ -89,7 +89,7 @@ export function DialogHeader(props: ComponentProps<'div'>) {
   return (
     <div
       class={cls(
-        'flex flex-col gap-2 text-center sm:text-left',
+        'flex flex-col gap-2',
         local.class,
       )}
       {...rest}
@@ -103,7 +103,7 @@ export function DialogFooter(props: ComponentProps<'div'>) {
   return (
     <div
       class={cls(
-        'flex flex-col-reverse sm:(flex-row justify-end space-x-2)',
+        'flex flex-col-reverse xs:(flex-row justify-end space-x-2)',
         local.class,
       )}
       {...rest}

@@ -15,7 +15,7 @@ type SwitchControlProps = SwitchPrimitive.SwitchControlProps & {
 }
 
 function SwitchControl<T extends ValidComponent = 'input'>(props: PolymorphicProps<T, SwitchControlProps>) {
-  const [local, others] = splitProps(props as SwitchControlProps, ['class', 'children'])
+  const [local, others] = splitProps(props as SwitchControlProps, ['class'])
   return (
     <>
       <SwitchPrimitive.Input class="peer" />
@@ -25,9 +25,7 @@ function SwitchControl<T extends ValidComponent = 'input'>(props: PolymorphicPro
           local.class,
         )}
         {...others}
-      >
-        {local.children}
-      </SwitchPrimitive.Control>
+      />
     </>
   )
 }

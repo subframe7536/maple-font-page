@@ -2,6 +2,11 @@ import type { ExtraConfig, ExtraConfigKey } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
+import { createRef } from '@solid-hooks/core'
+import { useCopy } from '@solid-hooks/core/web'
+import { cls } from 'cls-variant'
+import { createMemo, createSignal, For } from 'solid-js'
+
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
@@ -12,16 +17,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { normalFeatureArray } from '@data/features/features'
-import { createRef } from '@solid-hooks/core'
-import { useCopy } from '@solid-hooks/core/web'
-import { cls } from 'cls-variant'
-import { createMemo, createSignal, For, Show } from 'solid-js'
 
+import GuideLink from './components/guide-link'
 import { toCliFlag, toConfigJson } from './utils'
 
 export interface Props {
-  translate: PlaygroundTranslation['action']['config']
+  t: PlaygroundTranslation['action']['config']
+  tGuide: PlaygroundTranslation['action']['guide']
   features: Record<string, '0' | '1'>
 }
 
@@ -67,7 +69,6 @@ function ConfigSection(
       <textarea
         ref={textareaRef}
         name={props.type}
-        id={`conf-${props.type}`}
         title={props.title}
         disabled={!parsedText()}
         class={cls(
@@ -81,7 +82,7 @@ function ConfigSection(
   )
 }
 
-export default function ConfigAction(props: Props) {
+export default function ConfigActionDialog(props: Props) {
   const [extraConfig, setExtraConfig] = createSignal<ExtraConfig>({
     nf: true,
     cn: false,
@@ -99,30 +100,24 @@ export default function ConfigAction(props: Props) {
             {...triggerProps}
           >
             <Icon name="lucide:braces" class="mr-2" />
-            {props.translate.btnText}
+            {props.t.btnText}
           </Button>
         )}
       />
       <DialogContent>
         <DialogHeader>
-          <DialogTitle class="text-primary">
-            {props.translate.title}
+          <DialogTitle class="flex items-center text-primary">
+            <Icon name="lucide:braces" class="mr-2 size-6" />
+            {props.t.title}
           </DialogTitle>
         </DialogHeader>
         <div>
           <p class="text-sm">
-            {props.translate.description}
-            <a
-              href={props.translate.guideLink}
-              target="_blank"
-              class="w-full text-secondary font-bold xs:w-fit hover:underline"
-              title={props.translate.guide}
-            >
-              {props.translate.guide}
-            </a>
+            {props.t.description}
+            <GuideLink {...props.tGuide} />
           </p>
           <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
-            <For each={Object.entries(props.translate.extra)}>
+            <For each={Object.entries(props.t.extra)}>
               {([key, str]) => (
                 <Checkbox
                   checked={extraConfig()[key as ExtraConfigKey]}
@@ -130,25 +125,23 @@ export default function ConfigAction(props: Props) {
                   class="flex items-center space-x-2"
                 >
                   <CheckboxControl />
-                  <CheckboxLabel class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                    {str}
-                  </CheckboxLabel>
+                  <CheckboxLabel>{str}</CheckboxLabel>
                 </Checkbox>
               )}
             </For>
           </div>
           <ConfigSection
             type="cli"
-            title={props.translate.cliFlags}
+            title={props.t.cliFlags}
             data={props.features}
-            fallback={props.translate.noNeed}
+            fallback={props.t.noNeed}
             extra={extraConfig()}
           />
           <ConfigSection
             type="json"
             title="config.json"
             data={props.features}
-            fallback={props.translate.noNeed}
+            fallback={props.t.noNeed}
             extra={extraConfig()}
           />
         </div>

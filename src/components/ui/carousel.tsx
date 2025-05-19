@@ -65,7 +65,6 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
     'setApi',
     'plugins',
     'class',
-    'children',
   ])
 
   const [carouselRef, api] = createEmblaCarousel(
@@ -144,9 +143,7 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
         role="region"
         aria-roledescription="carousel"
         {...others}
-      >
-        {local.children}
-      </div>
+      />
     </CarouselContext.Provider>
   )
 }

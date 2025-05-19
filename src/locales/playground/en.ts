@@ -62,12 +62,14 @@ const en = {
     ss: 'Stylistic sets',
   },
   action: {
+    guide: {
+      text: 'Guide to custom build',
+      link: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#custom-build',
+    },
     config: {
       btnText: 'Generate Config',
       title: 'Configuration of Custom Build',
-      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. See more details in: ',
-      guide: 'Guide',
-      guideLink: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#custom-build',
+      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. ',
       noNeed: 'Nothing changed, no need to setup',
       cliFlags: 'CLI Flags',
       extra: {
@@ -78,9 +80,42 @@ const en = {
       },
     },
     build: {
-      btnText: 'Build In Browser',
-      title: 'Custom Build Font In Browser',
+      btnText: 'Custom Build',
+      title: 'Build Font In Browser',
       download: 'Build and Download',
+      unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser or choose another way. ',
+      tab: {
+        download: 'Auto Download',
+        upload: 'Upload File',
+      },
+      options: {
+        formatTitle: 'Font Format and Glyph set',
+        hintTitle: 'Font Hint',
+        useHinted: 'Use Hinted Font as Base Font',
+        proxyURL: 'CORS Proxy URL',
+        proxyURLPlaceholder: 'Enter GitHub Proxy URL to Fix CORS Error',
+        finalURL: 'Final Download URL',
+      },
+      file: {
+        get: {
+          title: 'Get ZIP File',
+          descStart: 'Download font ZIP in',
+          descEnd: 'or archive downloaded font files yourself.',
+          text: 'Get Font Page',
+        },
+        upload: {
+          title: 'Upload ZIP File',
+          btnStart: 'Drop or ',
+          btnEnd: 'Select ZIP file',
+          alert: 'Please validate the ZIP file yourself before building!',
+        },
+      },
+      chooseGuide: {
+        text: 'Options Explain',
+        link: 'https://github.com/subframe7536/maple-font?tab=readme-ov-file#naming-faq',
+      },
+      log: 'Log Output',
+      memoryAlert: 'Build process will consume at most 1.2 GB memory (NF-CN)',
     },
   },
 }

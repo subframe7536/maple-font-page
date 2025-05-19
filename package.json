@@ -4,7 +4,7 @@
   "version": "7.2.0",
   "packageManager": "pnpm@10.11.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --open",
     "build": "astro build",
     "preview": "astro preview --host",
     "astro": "astro",
@@ -25,6 +25,7 @@
     "@kobalte/core": "^0.13.9",
     "@solid-hooks/core": "^0.6.0",
     "@subframe7536/eslint-config": "^1.2.4",
+    "@subframe7536/fonttools": "^0.3.2",
     "@subframe7536/type-utils": "^0.2.0",
     "@unocss/eslint-plugin": "^66.1.2",
     "@unocss/reset": "^66.1.2",

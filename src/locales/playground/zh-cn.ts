@@ -63,12 +63,14 @@ const zh: PlaygroundTranslation = {
     ss: '样式集',
   },
   action: {
+    guide: {
+      text: '自定义构建教程',
+      link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
+    },
     config: {
       btnText: '生成配置',
       title: '自定义构建配置',
-      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。详情请见：',
-      guide: '教程',
-      guideLink: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
+      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
       noNeed: '配置无修改，无需设置',
       cliFlags: '命令行参数',
       extra: {
@@ -79,9 +81,42 @@ const zh: PlaygroundTranslation = {
       },
     },
     build: {
-      btnText: '浏览器内构建',
-      title: '在浏览器内自定义构建字体',
+      btnText: '自定义构建',
+      title: '浏览器内构建字体',
       download: '构建并下载',
+      unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
+      tab: {
+        download: '自动下载',
+        upload: '上传文件',
+      },
+      options: {
+        formatTitle: '格式和字符集',
+        hintTitle: '字体微调',
+        useHinted: '使用 Hinted 字体作为基字',
+        proxyURL: 'CORS 代理地址',
+        proxyURLPlaceholder: '输入 GitHub 代理地址以修复 CORS 报错',
+        finalURL: '最终下载地址',
+      },
+      file: {
+        get: {
+          title: '获取 ZIP 文件',
+          descStart: '从',
+          descEnd: '下载字体 ZIP 文件，或自行打包下载好的字体文件。',
+          text: '获取字体页面',
+        },
+        upload: {
+          title: '上传 ZIP 文件',
+          btnStart: '拖拽 或',
+          btnEnd: '选择 ZIP 文件',
+          alert: '请在构建前自行验证 ZIP 文件的完整性！',
+        },
+      },
+      chooseGuide: {
+        text: '选项说明',
+        link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E5%91%BD%E5%90%8D%E8%AF%B4%E6%98%8E',
+      },
+      log: '日志输出',
+      memoryAlert: '构建字体消耗的内存最高可达 1.2 GB (NF-CN)',
     },
   },
 }

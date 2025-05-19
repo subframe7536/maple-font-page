@@ -1,6 +1,8 @@
 import defaultConfig from '@data/features/config.json'
 import { normalFeatureArray } from '@data/features/features'
 
+import { tag } from '@/utils/constant'
+
 export type FeatureValue = '0' | '1'
 
 export type FeatureState = Record<string, FeatureValue>
@@ -71,4 +73,56 @@ export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
   }
 
   return result.length ? result.join(' ') : undefined
+}
+
+/**
+ * check `new Worker(url, { type: 'module' })` support
+ *
+ * {@link https://stackoverflow.com/questions/62954570/javascript-feature-detect-module-support-for-web-workers Reference}
+ */
+export function checkModuleWorkerSupport(): boolean {
+  let supports = false
+  try {
+    new Worker('data:,', {
+      // @ts-expect-error check assign
+      get type() {
+        supports = true
+      },
+    }).terminate()
+  } finally {
+    // eslint-disable-next-line no-unsafe-finally
+    return supports
+  }
+}
+
+export const FILE_FORMAT = ['TTF', 'OTF', 'NF', 'CN', 'NF-CN'] as const
+
+export type FileFormat = typeof FILE_FORMAT[number]
+
+export function parseIdString(features: Record<string, '0' | '1'>) {
+  return Object.entries(features)
+    .map(([k, v]) => v === '1' ? `+${k}` : (v === '0' && k === 'calt') ? '-calt' : null)
+    .filter(Boolean)
+    .join('; ')
+}
+
+export function buildTargetURL({
+  userInputURL,
+  useHinted,
+  fileFormat,
+}: {
+  userInputURL: string
+  useHinted: boolean
+  fileFormat: FileFormat
+}) {
+  let suffix = ''
+  if (useHinted) {
+    if (fileFormat === 'TTF') {
+      suffix = '-AutoHint'
+    }
+  } else if (!fileFormat.endsWith('TF')) {
+    suffix = '-unhinted'
+  }
+  const fileName = `MapleMono-${fileFormat}${suffix}.zip`
+  return `${userInputURL || 'https://github.com'}/subframe7536/maple-font/releases/download/${tag}/${fileName}`
 }

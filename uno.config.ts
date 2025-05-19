@@ -1,10 +1,10 @@
-import type { Preset, PresetUnoTheme } from 'unocss'
+import type { Preset, PresetWind3Theme } from 'unocss'
 
 import {
   defineConfig,
   presetIcons,
   presetTypography,
-  presetUno,
+  presetWind3,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
@@ -92,7 +92,7 @@ const fallbackFamily = [
   'sans-serif',
 ].join(',')
 
-const presetMaple: Preset<PresetUnoTheme> = {
+const presetMaple: Preset<PresetWind3Theme> = {
   name: 'maple',
   rules: [
     [
@@ -204,9 +204,9 @@ function accessDefault(themeColor: string | { DEFAULT?: string }): string {
   return themeColor.DEFAULT || 'none'
 }
 
-export default defineConfig<PresetUnoTheme>({
+export default defineConfig<PresetWind3Theme>({
   presets: [
-    presetUno({
+    presetWind3({
       preflight: 'on-demand',
     }),
     presetAnimations(),

@@ -1,8 +1,9 @@
 import type { JSX } from 'solid-js'
 
-import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '@/components/ui/switch'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal, Show } from 'solid-js'
+
+import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '@/components/ui/switch'
 
 export interface FeatureCardProps {
   showText: string
