@@ -127,11 +127,11 @@ export default function FreezeActionDialog(props: Props) {
             <TabsList>
               <TabsTrigger value="dl" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:link" />
-                <span>{props.t.tab.download}</span>
+                <span class="hidden xs:block">{props.t.tab.download}</span>
               </TabsTrigger>
               <TabsTrigger value="up" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:upload" />
-                <span>{props.t.tab.upload}</span>
+                <span class="hidden xs:block">{props.t.tab.upload}</span>
               </TabsTrigger>
               <TabsIndicator />
             </TabsList>
