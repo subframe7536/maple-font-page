@@ -38,7 +38,7 @@ interface Props {
 export default function FreezeActionDialog(props: Props) {
   const [open, setOpen] = createSignal(false)
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
-  const [useUpload, setUseUpload] = createSignal<'0' | '1'>('0')
+  const [curTab, setCurTab] = createSignal<'dl' | 'up'>('dl')
   const zipFile = createRef<File>()
   const proxyURL = createRef('https://seep.eu.org/https://github.com')
   const useHinted = createRef(false)
@@ -68,7 +68,7 @@ export default function FreezeActionDialog(props: Props) {
     if (!isSupportWorker()) {
       return true
     }
-    return useUpload() === '1' ? !zipFile() : status() !== 'ready'
+    return curTab() === 'up' ? !zipFile() : status() !== 'ready'
   })
 
   let id = ''
@@ -123,19 +123,19 @@ export default function FreezeActionDialog(props: Props) {
             </div>
           )}
         >
-          <Tabs value={useUpload()} onChange={setUseUpload}>
+          <Tabs value={curTab()} onChange={setCurTab}>
             <TabsList>
-              <TabsTrigger value="0" class="w-full flex items-center justify-center gap-2">
+              <TabsTrigger value="dl" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:link" />
                 <span>{props.t.tab.download}</span>
               </TabsTrigger>
-              <TabsTrigger value="1" class="w-full flex items-center justify-center gap-2">
+              <TabsTrigger value="up" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:upload" />
                 <span>{props.t.tab.upload}</span>
               </TabsTrigger>
               <TabsIndicator />
             </TabsList>
-            <TabsContent value="0" class="pt-4">
+            <TabsContent value="dl" class="pt-4">
               <UrlForm
                 t={props.t}
                 guide={props.tGuide}
@@ -152,7 +152,7 @@ export default function FreezeActionDialog(props: Props) {
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="1" class="pt-4">
+            <TabsContent value="up" class="pt-4">
               <div class="mb-2 text-sm text-secondary">
                 {props.t.file.get.title}
               </div>
@@ -194,7 +194,7 @@ export default function FreezeActionDialog(props: Props) {
           </Button>
           <Button
             disabled={shouldDisabled()}
-            onClick={() => patch(useUpload() ? zipFile()! : targetURL())}
+            onClick={() => patch(curTab() ? zipFile()! : targetURL())}
           >
             {props.t.download}
           </Button>

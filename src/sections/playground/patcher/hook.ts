@@ -5,6 +5,32 @@ import type { Accessor } from 'solid-js'
 import { createArray } from '@solid-hooks/core'
 import { createSignal } from 'solid-js'
 
+const DEFAULT_ZIP_NAME = 'MapleMono-patch.zip'
+
+function parseNameWithPatch(input: File | string): string {
+  let fileName: string
+
+  if (input instanceof File) {
+    fileName = input.name
+  } else {
+    try {
+      const path = new URL(input).pathname
+      fileName = path.substring(path.lastIndexOf('/') + 1)
+    } catch {
+      return DEFAULT_ZIP_NAME
+    }
+  }
+
+  const lastDotIndex = fileName.lastIndexOf('.')
+  if (lastDotIndex === -1) {
+    return `${fileName}-patch.zip`
+  }
+
+  const name = fileName.substring(0, lastDotIndex)
+  const extension = fileName.substring(lastDotIndex)
+  return `${name}-patch${extension}`
+}
+
 export async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
   try {
     const bufResp = await fetch(url, {
@@ -38,6 +64,7 @@ export function useFontPatcher(
 ) {
   let worker: Worker | null = null
   let startTime: number | null = null
+  let fileName = DEFAULT_ZIP_NAME
   const [status, setStatus] = createSignal<'loading' | 'ready' | 'running'>()
   const [logList, setLogList] = createArray<[msg: string, isError?: boolean][]>()
 
@@ -57,7 +84,8 @@ export function useFontPatcher(
             break
           case 'result':
             log(`Total time: ${(Date.now() - startTime!) / 1000}s`)
-            download(data.buffer, 'patch.zip')
+            log(`Download as ${fileName}`)
+            download(data.buffer, fileName)
             setStatus('ready')
             break
           case 'log':
@@ -89,7 +117,7 @@ export function useFontPatcher(
       setStatus('ready')
       return
     }
-
+    fileName = parseNameWithPatch(target)
     startTime = Date.now()
     log('Start patching...')
     worker!.postMessage({

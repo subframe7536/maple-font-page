@@ -1,6 +1,6 @@
 import type { FeatureValue } from '../utils'
 
-import { useEmits, watchOnce } from '@solid-hooks/core'
+import { watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal } from 'solid-js'
 
