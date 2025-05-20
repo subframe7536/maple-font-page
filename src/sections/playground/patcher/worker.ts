@@ -24,6 +24,7 @@ function err(msg: string) {
 }
 
 async function loadInBrowser(): Promise<PyodideInterface> {
+  // esm.sh seems cannot load .whl and .zip file
   const whlURL = `https://unpkg.com/@subframe7536/fonttools@${libVer}/dist`
   const stdLibURL = `${whlURL}/python_stdlib.zip`
 
@@ -31,7 +32,7 @@ async function loadInBrowser(): Promise<PyodideInterface> {
     ? await import('@subframe7536/fonttools/web')
     : await import(/* @vite-ignore */ `${base}/dist/web.js`)
 
-  const devConfig = isDEV
+  const prodConfig = isDEV
     ? {}
     : {
         indexURL: `${cdnPrefix}/@subframe7536/fonttools@${libVer}/dist`,
@@ -39,8 +40,8 @@ async function loadInBrowser(): Promise<PyodideInterface> {
         whlURL,
       }
   return m.loadInBrowser({
-    ...devConfig,
-    woff2: true,
+    ...prodConfig,
+    // woff2: true,
     stdout: log,
     stderr: err,
   })
