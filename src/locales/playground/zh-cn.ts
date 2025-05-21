@@ -84,7 +84,7 @@ const zh: PlaygroundTranslation = {
       btnText: '自定义构建',
       title: '浏览器内构建字体',
       download: '构建并下载',
-      unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版或者使用其他方式构建。',
+      unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版，或者本地构建。',
       tab: {
         download: '自动下载',
         upload: '上传文件',

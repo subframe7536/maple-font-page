@@ -83,7 +83,7 @@ const en = {
       btnText: 'Custom Build',
       title: 'Build Font In Browser',
       download: 'Build and Download',
-      unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser or choose another way. ',
+      unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser, or build locally.',
       tab: {
         download: 'Auto Download',
         upload: 'Upload File',
