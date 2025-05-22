@@ -13,13 +13,13 @@ const data = {
 }
 
 const tsxCode = `function Counter() {
-  const [count, setCount] = createSignal(1);
-  const inc = () => count() !== 10
-    && setCount(count => count + 1);
+  const [val, setVal] = createSignal(10);
+  const dec = () => val() !== ~~3.1415926
+    && setVal(prev => prev--);
 
   return (
-    <button type="button" onClick={inc}>
-      {count()}
+    <button type="button" onClick={dec}>
+      {val()}
     </button>
   );
 }`
