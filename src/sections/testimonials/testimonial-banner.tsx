@@ -62,15 +62,14 @@ export function TestimonialBanner(props: Props) {
     updateIndex(inner)
     inner.on('reInit', updateIndex).on('select', updateIndex)
   })
+  const autoplay = Autoplay({
+    delay: 5000,
+    stopOnMouseEnter: true,
+  })
   return (
     <Carousel
       class={props.class}
-      plugins={[Autoplay({
-        delay: 5000,
-        playOnInit: true,
-        stopOnMouseEnter: true,
-        stopOnInteraction: false,
-      })]}
+      plugins={[autoplay]}
       setApi={setApi}
     >
       <CarouselContent>
@@ -90,7 +89,10 @@ export function TestimonialBanner(props: Props) {
                 'm-1 size-2 cursor-pointer rounded-full transition-background-color-500',
                 selectedIndex() === i ? 'bg-secondary' : 'bg-muted',
               )}
-              onClick={() => api()?.scrollTo(i)}
+              onClick={() => {
+                api()?.scrollTo(i)
+                autoplay.reset()
+              }}
             />
           )}
         </Index>
