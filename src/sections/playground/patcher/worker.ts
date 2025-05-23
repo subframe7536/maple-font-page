@@ -2,9 +2,6 @@ import type { PyodideInterface } from '@subframe7536/fonttools'
 
 import { cdnPrefix, isDEV } from '../../../utils/constant'
 
-const libVer = '0.3.2'
-const base = `${cdnPrefix}/@subframe7536/fonttools@${libVer}`
-
 export type WorkerMessage =
   | { type: 'init' }
   | { type: 'patch', buf: ArrayBuffer, config: Record<string, '0' | '1'> }
@@ -24,9 +21,18 @@ function err(msg: string) {
 }
 
 async function loadInBrowser(): Promise<PyodideInterface> {
+  const libVer = '0.3.2'
+  const pkg = '@subframe7536/fonttools'
+  const base = `${cdnPrefix}/${pkg}@${libVer}`
+
   // esm.sh seems cannot load .whl and .zip file
-  const whlURL = `https://unpkg.com/@subframe7536/fonttools@${libVer}/dist`
+  const cdnPrefix1 = 'https://unpkg.com'
+  const whlURL = `${cdnPrefix1}/${pkg}@${libVer}/dist`
   const stdLibURL = `${whlURL}/python_stdlib.zip`
+
+  log(`${pkg} version: ${libVer}`)
+  log(`> Base CDN: ${cdnPrefix}`)
+  log(`> Python stdlib & whl CDN: ${cdnPrefix1}`)
 
   const m: typeof import('@subframe7536/fonttools/web') = isDEV
     ? await import('@subframe7536/fonttools/web')
