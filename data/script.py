@@ -2,7 +2,7 @@ _A='calt'
 import io,json
 from zipfile import ZipFile
 from fontTools.ttLib import TTFont
-MOVING_RULES=['ss10','ss03','ss08','ss09','ss07','ss11']
+MOVING_RULES=['ss03','ss07','ss08','ss09','ss10','ss11']
 def get_freeze_config_str(config):
 	A=''
 	for(B,C)in config.items():

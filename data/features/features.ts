@@ -49,6 +49,10 @@ export interface FeatureDescription {
   cv62: string
   /** Alternative `<=` in arrow style */
   cv63: string
+  /** Alternative `<=` and `>=` with horizen bottom bar */
+  cv64: string
+  /** Alternative `&` in handwriting style */
+  cv65: string
   /** Full width quotes (`“` / `”` / `‘` / `’`) */
   cv96: string
   /** Full width ellipsis (`…`) */
@@ -71,7 +75,7 @@ export interface FeatureDescription {
   ss06: string
   /** Relax the conditions for multiple greaters ligatures (`>>` or `>>>`) */
   ss07: string
-  /** Double headed arrows and reverse arrows ligatures (`>>=`, `-<<`, `->>`, `>-` ...) */
+  /** Double headed arrows and reverse arrows ligatures (`>>=`, `-<<`, `->>`, `>>-` ...) */
   ss08: string
   /** Asciitilde equal as not equal to ligature (`~=`) */
   ss09: string
@@ -107,6 +111,8 @@ export const featureArray = [
   "cv61",
   "cv62",
   "cv63",
+  "cv64",
+  "cv65",
   "cv96",
   "cv97",
   "cv98",
