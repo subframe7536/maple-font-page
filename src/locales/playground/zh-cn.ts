@@ -38,6 +38,8 @@ const description: FeatureDescription = {
   cv61: '替换逗号分号',
   cv62: '替换问号',
   cv63: '替换左箭头',
+  cv64: '替换左右箭头',
+  cv65: '替换并符号',
   ss09: '另一种不等于号',
   ss10: '约等于和约不等于',
   ss11: '额外的等号连字',

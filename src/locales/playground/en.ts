@@ -37,6 +37,8 @@ const description: FeatureDescription = {
   cv61: 'Alternative comma',
   cv62: 'Alternative question',
   cv63: 'Alternative left arrow',
+  cv64: 'Alternative left and right arrow',
+  cv65: 'Alternative ampersand',
   ss09: 'Alternative not equal',
   ss10: 'Approximately equal',
   ss11: 'Extra equal ligatures',
