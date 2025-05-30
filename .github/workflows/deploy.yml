@@ -7,14 +7,6 @@ name: Deploy Astro site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    # for dev stage
-    branches:
-      - main
-    paths-ignore:
-      - '*.md'
-      - '.github/**/*.*'
-      - LICENSE
-    if: "!contains(github.event.head_commit.message, '[skip-ci]')"
     tags:
       - 'v*'
 
