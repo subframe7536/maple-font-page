@@ -49,7 +49,7 @@ function ConfigSection(
   const parsedText = createMemo(
     () => props.type === 'cli'
       ? toCliFlag(props.data, props.extra)
-      : toConfigJson(props.data, props.extra),
+      : toConfigJson(props.data, props.extra).replace('"scale_factor": 1', '"scale_factor": 1.0'),
   )
 
   return (
