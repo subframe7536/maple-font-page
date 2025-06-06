@@ -6,29 +6,29 @@ const en = {
     tryItText: 'Try it now',
   },
   why: {
-    title: 'Why Another One ?',
+    title: 'Why Another One?',
   },
   features: {
     title: 'Features',
     variable: {
-      title: 'One Font, Infinity Weights',
-      description: 'Variable font support, get whatever weight as you want.',
+      title: 'One Font, Infinite Weights',
+      description: 'Variable font support, get whatever weight you like.',
     },
     design: {
       title: 'Distinct Glyphs, Smooth Design',
-      description: 'Round corner, brand-new glyph designs with cursive style in italic style.',
+      description: 'Round corners, brand-new glyph designs with cursive style in italic style.',
       items: {
         cv01: {
           name: 'cv01',
-          desc: 'Brand new glyphs with small gaps, disable it if you don\'t like.',
+          desc: 'Brand new glyphs with small gaps, disable it if you don\'t like it.',
         },
         plain: {
           name: 'plain style',
-          desc: 'Cursive style of italic glyphs, allow fine-grain customization.',
+          desc: 'Cursive style of italic glyphs, allows fine-grain customization.',
         },
         cv04: {
           name: 'cv04',
-          desc: 'Distinct shape for characters that are easy to confuse.',
+          desc: 'Distinct shapes for characters that are easy to confuse.',
         },
         zero: {
           name: 'zero',
@@ -37,18 +37,18 @@ const en = {
       },
     },
     ligature: {
-      title: 'Smart Ligatures, Large Amount',
-      description: 'Plain text tags, connected letters, brings the font ability to next level.',
+      title: 'Smart Ligatures, Large Variety',
+      description: 'Plain text tags, connected letters, brings the font capability to the next level.',
       subTitle: 'Special Ligatures',
       items: {
-        tag: 'Create tags from plain text, benifit for logs and tasks.',
-        conn: 'Connected stroke in italic style, vivid your code.',
-        gts: 'Smart spacing for generic(or template) and bitwise operations.',
+        tag: 'Create tags from plain text, beautify your logs and tasks.',
+        conn: 'Connected strokes in italic style, vivify your code.',
+        gts: 'Smart spacing for generic (or template) and bitwise operations.',
       },
     },
     icon: {
-      title: 'Beautiful Icons, Embrace Modern',
-      description: 'First-Class Nerd-Font support, iconic your mordern terminal.',
+      title: 'Beautiful Icons, Embrace Modernity',
+      description: 'First-class Nerd-Font support, iconize your modern terminal.',
       ref: {
         artBy: 'Art By',
         theme: 'Theme',
@@ -78,7 +78,7 @@ const en = {
     subTitle: 'See what the font looks like in real code snippets.',
   },
   testimonial: {
-    title: 'What people says',
+    title: 'What people say',
     subTitle: 'Join thousands of developers who have already fallen in love with Maple Mono.',
     items: [
       {
@@ -110,14 +110,14 @@ const en = {
   },
   credits: {
     title: 'Credits',
-    subTitle: 'Maple Mono standing on the shoulders of giants.',
+    subTitle: 'Maple Mono is standing on the shoulders of giants.',
     items: {
       base: 'Base Font',
       icon: 'Icon Integration',
       cn: 'Port of CN glyphs',
-      inspiration: 'Glyphs Inspiration',
+      inspiration: 'Glyph Inspiration',
       font: 'Font Builder',
-      web: 'Website tool',
+      web: 'Website Tools',
     },
   },
 }
