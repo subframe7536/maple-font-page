@@ -194,7 +194,7 @@ export default function FreezeActionDialog(props: Props) {
           </Button>
           <Button
             disabled={shouldDisabled()}
-            onClick={() => patch(curTab() ? zipFile()! : targetURL())}
+            onClick={() => patch(curTab() === 'up' ? zipFile()! : targetURL())}
           >
             {props.t.download}
           </Button>

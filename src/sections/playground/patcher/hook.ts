@@ -31,33 +31,6 @@ function parseNameWithPatch(input: File | string): string {
   return `${name}-patch${extension}`
 }
 
-export async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
-  try {
-    const bufResp = await fetch(url, {
-      headers: {
-        Accept: 'application/octet-stream',
-      },
-    })
-
-    if (!bufResp.ok) {
-      return undefined
-    }
-
-    return await bufResp.arrayBuffer()
-  } catch {
-    return undefined
-  }
-}
-
-export function download(buffer: any, name: string) {
-  const url = URL.createObjectURL(new Blob([buffer]))
-  const a = document.createElement('a')
-  a.href = url
-  a.download = name
-  a.click()
-  URL.revokeObjectURL(url)
-}
-
 export function useFontPatcher(
   logPanelRef: RefSignal<HTMLDivElement | undefined>,
   features: Accessor<Record<string, '0' | '1'>>,
@@ -71,6 +44,34 @@ export function useFontPatcher(
   function log(msg: string, isError?: boolean) {
     setLogList(arr => arr.push([msg, isError]))
     logPanelRef()?.scrollTo({ behavior: 'smooth', top: logPanelRef()!.scrollHeight })
+  }
+
+  async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
+    try {
+      const bufResp = await fetch(url, {
+        headers: {
+          Accept: 'application/octet-stream',
+        },
+      })
+
+      if (!bufResp.ok) {
+        return undefined
+      }
+
+      return await bufResp.arrayBuffer()
+    } catch (error) {
+      log(error instanceof Error ? String(error) : `Unkown Error: ${error}`, true)
+      return undefined
+    }
+  }
+
+  function download(buffer: any, name: string) {
+    const url = URL.createObjectURL(new Blob([buffer]))
+    const a = document.createElement('a')
+    a.href = url
+    a.download = name
+    a.click()
+    URL.revokeObjectURL(url)
   }
 
   function init(isSupportWorker: boolean = false) {
@@ -106,17 +107,20 @@ export function useFontPatcher(
     }
 
     setStatus('running')
-    log('Fetching ZIP file...')
+    if (typeof target === 'string') {
+      log('Downloading font ZIP file...')
+    }
 
     const buf = target instanceof File
       ? await target.arrayBuffer()
       : await fetchFromURL(target)
 
     if (!buf) {
-      log('Fail to fetch zip file', true)
+      log('Cannot get zip file', true)
       setStatus('ready')
       return
     }
+
     fileName = parseNameWithPatch(target)
     startTime = Date.now()
     log('Start patching...')
