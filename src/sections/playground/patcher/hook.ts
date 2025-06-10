@@ -55,6 +55,7 @@ export function useFontPatcher(
       })
 
       if (!bufResp.ok) {
+        log(`code=${bufResp.status}, text=${bufResp.statusText}`, true)
         return undefined
       }
 
