@@ -38,7 +38,7 @@ interface Props {
 export default function FreezeActionDialog(props: Props) {
   const [open, setOpen] = createSignal(false)
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
-  const [curTab, setCurTab] = createSignal<'dl' | 'up'>('dl')
+  const [curTab, setCurTab] = createSignal<'dl' | 'up'>('up')
   const zipFile = createRef<File>()
   const proxyURL = createRef('https://gh-proxy.com/https://github.com')
   const useHinted = createRef(false)
@@ -125,13 +125,13 @@ export default function FreezeActionDialog(props: Props) {
         >
           <Tabs value={curTab()} onChange={setCurTab}>
             <TabsList>
-              <TabsTrigger value="dl" class="w-full flex items-center justify-center gap-2">
-                <Icon name="lucide:link" />
-                <span class="hidden xs:block">{props.t.tab.download}</span>
-              </TabsTrigger>
               <TabsTrigger value="up" class="w-full flex items-center justify-center gap-2">
                 <Icon name="lucide:upload" />
                 <span class="hidden xs:block">{props.t.tab.upload}</span>
+              </TabsTrigger>
+              <TabsTrigger value="dl" class="w-full flex items-center justify-center gap-2">
+                <Icon name="lucide:link" />
+                <span class="hidden xs:block">{props.t.tab.download}</span>
               </TabsTrigger>
               <TabsIndicator />
             </TabsList>
