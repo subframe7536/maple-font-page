@@ -41,7 +41,7 @@ export default function LoadCnDialog(props: Props) {
           提供的 CDN 资源，
           <GuideLink
             link="https://zeoseven.com/donate/"
-            text="捐赠链接"
+            text="打赏"
           />
         </div>
         <DialogFooter>
