@@ -1,12 +1,11 @@
-import type { FeatureValue } from '../utils'
+import type { FeatureValue } from '@/utils/feature'
 
 import { watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
 import { createMemo, createSignal } from 'solid-js'
 
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
-
-import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '../utils'
+import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '@/utils/feature'
 
 interface Props {
   feat: string

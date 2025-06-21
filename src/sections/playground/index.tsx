@@ -1,4 +1,4 @@
-import type { FeatureState, FeatureValue } from './utils'
+import type { FeatureState, FeatureValue } from '../../utils/feature'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 import { featureArray } from '@data/features/features'
@@ -17,12 +17,12 @@ import {
   SliderValueLabel,
 } from '@/components/ui/slider'
 import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { toStyleObject } from '@/utils/feature'
 import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
 
 import LigaSwitch from './components/liga-switch'
-import ConfigActionDialog from './config'
-import FreezeActionDialog from './freeze'
-import { toStyleObject } from './utils'
+import ConfigActionDialog from './dialog/config'
+import FreezeActionDialog from './dialog/freeze'
 
 export interface FontFeatureItem {
   desc: string

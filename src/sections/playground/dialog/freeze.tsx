@@ -1,5 +1,5 @@
-import type { FileFormat } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
+import type { FileFormat } from '@/utils/feature'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
 import { createRef, watch } from '@solid-hooks/core'
@@ -17,16 +17,16 @@ import {
 } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import FileUploader from './components/file-uploader'
-import GuideLink from './components/guide-link'
-import { UrlForm } from './components/url-form'
-import { useFontPatcher } from './patcher/hook'
 import {
   buildTargetURL,
   checkModuleWorkerSupport,
   FILE_FORMAT,
   parseIdString,
-} from './utils'
+} from '../../../utils/feature'
+import FileUploader from '../components/file-uploader'
+import GuideLink from '../components/guide-link'
+import { UrlForm } from '../components/url-form'
+import { useFontPatcher } from '../patcher/hook'
 
 interface Props {
   t: PlaygroundTranslation['action']['build']

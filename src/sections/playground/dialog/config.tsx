@@ -1,5 +1,5 @@
-import type { ExtraConfig, ExtraConfigKey } from './utils'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
+import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
 import { createRef } from '@solid-hooks/core'
@@ -17,9 +17,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { toCliFlag, toConfigJson } from '@/utils/feature'
 
-import GuideLink from './components/guide-link'
-import { toCliFlag, toConfigJson } from './utils'
+import GuideLink from '../components/guide-link'
 
 export interface Props {
   t: PlaygroundTranslation['action']['config']

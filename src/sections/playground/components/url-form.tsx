@@ -1,5 +1,5 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
-import type { FileFormat } from '@/sections/playground/utils'
+import type { FileFormat } from '@/utils/feature'
 import type { RefSignal } from '@solid-hooks/core'
 
 import { For } from 'solid-js'
@@ -11,8 +11,8 @@ import {
   TextFieldInput,
   TextFieldLabel,
 } from '@/components/ui/text-field'
+import { FILE_FORMAT } from '@/utils/feature'
 
-import { FILE_FORMAT } from '../utils'
 import GuideLink from './guide-link'
 
 // UI: Format selector
