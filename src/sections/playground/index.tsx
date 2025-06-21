@@ -95,10 +95,6 @@ export default function Playground(props: PlaygroundProps) {
       })
   })
 
-  watch(monoLoadState, () => {
-    console.log(monoLoadState() === STATE.FAILED || cnLoadState() === STATE.FAILED)
-  })
-
   const handleChange = (feat: string, stat: FeatureValue): void => {
     setFeat(val => ({ ...val, ...{ [feat]: stat } }))
   }
