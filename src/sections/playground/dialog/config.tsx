@@ -13,7 +13,6 @@ import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkb
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
@@ -55,7 +54,7 @@ function ConfigSection(
   return (
     <>
       <h2 class="mb-2 flex select-none items-center gap-2">
-        <div class="text-accent sm:text-5">{props.title}</div>
+        <div class="c-accent sm:text-lg">{props.title}</div>
         <Button
           size="icon"
           variant="outline"
@@ -105,12 +104,10 @@ export default function ConfigActionDialog(props: Props) {
         )}
       />
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle class="flex items-center text-primary">
-            <Icon name="lucide:braces" class="mr-2 size-6" />
-            {props.t.title}
-          </DialogTitle>
-        </DialogHeader>
+        <DialogTitle class="flex items-center text-primary">
+          <Icon name="lucide:braces" class="mr-2 size-6 c-accent" />
+          {props.t.title}
+        </DialogTitle>
         <div>
           <p class="text-sm">
             {props.t.description}

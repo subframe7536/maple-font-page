@@ -23,6 +23,8 @@ import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
 import LigaSwitch from './components/liga-switch'
 import ConfigActionDialog from './dialog/config'
 import FreezeActionDialog from './dialog/freeze'
+import LoadCnDialog from './dialog/load-cn'
+import LoadErrorDialog from './dialog/load-error'
 
 export interface FontFeatureItem {
   desc: string
@@ -48,7 +50,17 @@ export interface PlaygroundProps {
   defaultText: string
   t: Omit<PlaygroundTranslation, 'description'>
   downloadURL: string
+  isCn: boolean | undefined
 }
+
+const STATE = {
+  INIT: -1,
+  LOADING: 0,
+  SUCCESS: 1,
+  FAILED: 2,
+} as const
+
+type LoadingStatus = typeof STATE[keyof typeof STATE]
 
 export default function Playground(props: PlaygroundProps) {
   const textareaRef = createRef<HTMLTextAreaElement>()
@@ -60,11 +72,13 @@ export default function Playground(props: PlaygroundProps) {
   )
   const [normal, setNormal] = createSignal(false)
 
-  // -1: no load; 0: loading; 1: loaded
-  const [cnLoadState, setCNLoadState] = createSignal(-1)
+  // -1: no load; 0: loading; 1: loaded; 2: load failed
+  const [monoLoadState, setMonoLoadState] = createSignal<LoadingStatus>(STATE.INIT)
+  const [cnLoadState, setCNLoadState] = createSignal<LoadingStatus>(STATE.INIT)
 
   onMount(() => {
     const ref = textareaRef()!
+    setMonoLoadState(STATE.LOADING)
     ref.value = 'Loading...'
     if (location.search.includes('normal')) {
       setNormal(true)
@@ -73,8 +87,16 @@ export default function Playground(props: PlaygroundProps) {
       .then(() => {
         ref.value = props.defaultText
         ref.focus()
+        setMonoLoadState(STATE.SUCCESS)
       })
-      .catch(() => ref.value = 'Fail to load Maple Mono.')
+      .catch(() => {
+        ref.value = 'Fail to load Maple Mono.'
+        setMonoLoadState(STATE.FAILED)
+      })
+  })
+
+  watch(monoLoadState, () => {
+    console.log(monoLoadState() === STATE.FAILED || cnLoadState() === STATE.FAILED)
   })
 
   const handleChange = (feat: string, stat: FeatureValue): void => {
@@ -82,25 +104,23 @@ export default function Playground(props: PlaygroundProps) {
   }
 
   const loadCN = () => {
-    if (cnLoadState() !== -1) {
+    if (cnLoadState() === STATE.LOADING || cnLoadState() === STATE.SUCCESS) {
       return
     }
     setCNLoadState(0)
     Promise.all([getCNFromRemote(false), getCNFromRemote(true)])
       .then(() => setCNLoadState(1))
-      .catch(() => setCNLoadState(-1))
+      .catch(() => setCNLoadState(2))
   }
 
   watch(() => cnLoadState(), (state) => {
-    if (state === 1) {
-      const textarea = textareaRef()
-      if (textarea) {
-        const oldText = textarea.value
-        textarea.focus()
-        textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
-        textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
-        textarea.scroll({ top: 99999 })
-      }
+    if (state === STATE.SUCCESS) {
+      const textarea = textareaRef()!
+      const oldText = textarea.value
+      textarea.focus()
+      textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
+      textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
+      textarea.scroll({ top: 99999 })
     }
   })
 
@@ -198,7 +218,13 @@ export default function Playground(props: PlaygroundProps) {
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.basic}>
-            {feature => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
+            {feature => (
+              <LigaSwitch
+                {...feature}
+                normal={normal()}
+                $change={handleChange}
+              />
+            )}
           </For>
         </div>
         <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-7">
@@ -206,7 +232,13 @@ export default function Playground(props: PlaygroundProps) {
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.cv}>
-            {feature => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
+            {feature => (
+              <LigaSwitch
+                {...feature}
+                normal={normal()}
+                $change={handleChange}
+              />
+            )}
           </For>
         </div>
 
@@ -215,7 +247,14 @@ export default function Playground(props: PlaygroundProps) {
         </h3>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.italic}>
-            {feature => <LigaSwitch {...feature} normal={normal()} italic={true} $change={handleChange} />}
+            {feature => (
+              <LigaSwitch
+                {...feature}
+                normal={normal()}
+                italic={true}
+                $change={handleChange}
+              />
+            )}
           </For>
         </div>
 
@@ -236,20 +275,27 @@ export default function Playground(props: PlaygroundProps) {
           </Button>
         </h3>
         <Show
-          when={cnLoadState() === 1}
+          when={cnLoadState() === STATE.SUCCESS}
           fallback={(
             <Button
-              disabled={cnLoadState() === 0}
+              disabled={cnLoadState() === STATE.LOADING || monoLoadState() !== STATE.SUCCESS}
               onClick={loadCN}
               class="w-full"
             >
-              {cnLoadState() === 0 ? props.t.loading : props.t.loadCN}
+              {cnLoadState() === STATE.LOADING ? props.t.loading : props.t.loadCN}
             </Button>
           )}
         >
           <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
             <For each={props.features.cn}>
-              {feature => <LigaSwitch {...feature} normal={normal()} cn={true} $change={handleChange} />}
+              {feature => (
+                <LigaSwitch
+                  {...feature}
+                  normal={normal()}
+                  cn={true}
+                  $change={handleChange}
+                />
+              )}
             </For>
           </div>
         </Show>
@@ -259,10 +305,27 @@ export default function Playground(props: PlaygroundProps) {
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.ss}>
-            {feature => <LigaSwitch {...feature} normal={normal()} italic={feature.text === 'all'} $change={handleChange} />}
+            {feature => (
+              <LigaSwitch
+                {...feature}
+                normal={normal()}
+                italic={feature.text === 'all'}
+                $change={handleChange}
+              />
+            )}
           </For>
         </div>
       </div>
+      <Show when={props.isCn && monoLoadState() === STATE.SUCCESS}>
+        <LoadCnDialog $shouldLoad={loadCN} />
+      </Show>
+      <Show when={monoLoadState() === STATE.FAILED || cnLoadState() === STATE.FAILED}>
+        <LoadErrorDialog
+          title={props.t.alert.title}
+          content={cnLoadState() === STATE.FAILED ? props.t.alert.cn : props.t.alert.mono}
+          reload={props.t.alert.reloadPage}
+        />
+      </Show>
     </div>
   )
 }

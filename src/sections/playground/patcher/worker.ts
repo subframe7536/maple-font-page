@@ -30,7 +30,7 @@ async function loadInBrowser(): Promise<PyodideInterface> {
   const whlURL = `${cdnPrefix1}/${pkg}@${libVer}/dist`
   const stdLibURL = `${whlURL}/python_stdlib.zip`
 
-  log(`${pkg} version: ${libVer}`)
+  log(`> ${pkg} version: ${libVer}`)
   log(`> Base CDN: ${cdnPrefix}`)
   log(`> Python stdlib & whl CDN: ${cdnPrefix1}`)
 

@@ -56,6 +56,12 @@ const zh: PlaygroundTranslation = {
   fontWeight: '字体粗细',
   loading: '加载中...',
   loadCN: '加载中文字体',
+  alert: {
+    title: '提示',
+    mono: '加载 Maple Mono 失败',
+    cn: '加载 Maple Mono CN 失败',
+    reloadPage: '刷新页面',
+  },
   sectionTitle: {
     basic: '基本连字',
     cv: '字符变体',

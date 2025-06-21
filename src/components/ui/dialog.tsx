@@ -61,7 +61,7 @@ export function DialogTitle<T extends ValidComponent = 'h2'>(props: PolymorphicP
 
   return (
     <DialogPrimitive.Title
-      class={cls('text-lg font-semibold text-foreground', local.class)}
+      class={cls('text-xl font-semibold text-foreground', local.class)}
       {...rest}
     />
   )
@@ -103,7 +103,7 @@ export function DialogFooter(props: ComponentProps<'div'>) {
   return (
     <div
       class={cls(
-        'flex flex-col-reverse xs:(flex-row justify-end space-x-2)',
+        'flex flex-col gap-4 xs:(flex-row justify-end gap-2)',
         local.class,
       )}
       {...rest}

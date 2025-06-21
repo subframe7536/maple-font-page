@@ -55,6 +55,12 @@ const en = {
   fontWeight: 'Font Weight',
   loading: 'Loading...',
   loadCN: 'Load Chinese Font',
+  alert: {
+    title: 'Alert',
+    mono: 'Failed to load Maple Mono.',
+    cn: 'Failed to load Maple Mono CN.',
+    reloadPage: 'Reload Page',
+  },
   sectionTitle: {
     basic: 'Basic Ligatures',
     cv: 'Character Variants',

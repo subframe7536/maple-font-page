@@ -11,7 +11,6 @@ import {
   Dialog,
   DialogContent,
   DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
@@ -103,17 +102,15 @@ export default function FreezeActionDialog(props: Props) {
         )}
       />
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle class="flex items-center c-primary">
-            <Show
-              when={!isSupportWorker()}
-              fallback={<Icon name="lucide:hammer" class="mr-2 size-6" />}
-            >
-              <Icon name="lucide:circle-x" class="mr-2 size-6 c-red" />
-            </Show>
-            {props.t.title}
-          </DialogTitle>
-        </DialogHeader>
+        <DialogTitle class="flex items-center c-primary">
+          <Show
+            when={!isSupportWorker()}
+            fallback={<Icon name="lucide:hammer" class="mr-2 size-6 c-accent" />}
+          >
+            <Icon name="lucide:circle-x" class="mr-2 size-6 c-red" />
+          </Show>
+          {props.t.title}
+        </DialogTitle>
         <Show
           when={isSupportWorker()}
           fallback={(
@@ -183,7 +180,13 @@ export default function FreezeActionDialog(props: Props) {
             </For>
           </div>
         </Show>
-        <DialogFooter class="flex gap-4 xs:(flex-row gap-2)">
+        <DialogFooter>
+          <Button
+            disabled={shouldDisabled()}
+            onClick={() => patch(curTab() === 'up' ? zipFile()! : targetURL())}
+          >
+            {props.t.download}
+          </Button>
           <Button
             as="a"
             href={props.t.chooseGuide.link}
@@ -191,12 +194,6 @@ export default function FreezeActionDialog(props: Props) {
             variant="secondary"
           >
             {props.t.chooseGuide.text}
-          </Button>
-          <Button
-            disabled={shouldDisabled()}
-            onClick={() => patch(curTab() === 'up' ? zipFile()! : targetURL())}
-          >
-            {props.t.download}
           </Button>
         </DialogFooter>
       </DialogContent>
