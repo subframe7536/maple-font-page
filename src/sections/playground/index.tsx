@@ -103,10 +103,10 @@ export default function Playground(props: PlaygroundProps) {
     if (cnLoadState() === STATE.LOADING || cnLoadState() === STATE.SUCCESS) {
       return
     }
-    setCNLoadState(0)
+    setCNLoadState(STATE.LOADING)
     Promise.all([getCNFromRemote(false), getCNFromRemote(true)])
-      .then(() => setCNLoadState(1))
-      .catch(() => setCNLoadState(2))
+      .then(() => setCNLoadState(STATE.SUCCESS))
+      .catch(() => setCNLoadState(STATE.FAILED))
   }
 
   watch(() => cnLoadState(), (state) => {
@@ -184,7 +184,7 @@ export default function Playground(props: PlaygroundProps) {
             title="Playground for Maple Mono"
             class={cls(
               'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg',
-              cnLoadState() === 2 && 'font-cn',
+              cnLoadState() === STATE.SUCCESS && 'font-cn',
             )}
             style={{
               '--fw': weight(),
