@@ -7,7 +7,7 @@ export const isDEV = import.meta.env.DEV ?? process?.env.NODE_ENV === 'developme
 export const tag = `v${version.split('.', 2).join('.')}`
 export const fontPrefix = isDEV
   ? `/fonts`
-  : `${myGhCdnPrefix}/maple-font@${tag}/woff2/var`
+  : `${myGhCdnPrefix}/maple-font@${tag}.0/woff2/var`
 
 export const DEFAULT_LOCALE: string = 'en'
 
