@@ -105,7 +105,7 @@ const presetMaple: Preset<PresetWind3Theme> = {
         '--feat': featureArray.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
       },
     ],
-    ['font-cn', { 'font-family': 'Maple Mono CN, Maple Mono NF CN !important' }],
+    ['font-cn', { 'font-family': 'MapleMono, Maple Mono CN, Maple Mono NF CN !important' }],
     ['font-bold', { '--fw': 700 }],
     [/font-(\d+)/, ([, weight]) => ({ '--fw': weight })],
   ],
