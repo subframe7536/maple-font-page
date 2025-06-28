@@ -1,4 +1,4 @@
-import defaultConfig from '@data/features/config.json'
+import defaultConfig from '@data/config.json'
 import { normalFeatureArray } from '@data/features/features'
 
 import { tag } from '@/utils/constant'
@@ -28,8 +28,11 @@ export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
   const result = { ...defaultConfig }
   for (const [k, v] of Object.entries(features)) {
     if (k === 'calt' && v === '0') {
-      result.ligature = false
-    } else if ((k !== 'calt' && v === '1') || (extra.normal && normalFeatureArray.includes(k))) {
+      result.enable_ligature = false
+    } else if (
+      (k !== 'calt' && v === '1')
+      || (extra.normal && normalFeatureArray.includes(k))
+    ) {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'enable'
     } else if (k !== 'calt') {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'ignore'
