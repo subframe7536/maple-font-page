@@ -20,14 +20,14 @@ const props = Astro.props
 >
   {
     props.title && (
-      <h1 class="text-4xl c-secondary font-bold inview-1">
+      <h1 class="inview-1 text-4xl c-secondary font-bold">
         {props.title}
       </h1>
     )
   }
   {
     props.subTitle && (
-      <p class="text-xl c-note inview-2 md:text-2xl">
+      <p class="inview-2 text-xl c-note md:text-2xl">
         {props.subTitle}
       </p>
     )

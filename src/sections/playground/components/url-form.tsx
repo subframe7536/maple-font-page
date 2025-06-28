@@ -27,7 +27,7 @@ function FormatSelector(props: {
       </div>
       <select
         id="select-format"
-        class="disabled:effect-dis size-full appearance-none b-(1 input) rounded-md bg-background p-(x-2 y-1) text-sm focus-visible:effect-fv"
+        class="size-full appearance-none b-(1 input) rounded-md bg-background p-(x-2 y-1) text-sm disabled:effect-dis focus-visible:effect-fv"
         value={props.fileFormat()}
         onChange={e => props.fileFormat(e.target.value as FileFormat)}
       >

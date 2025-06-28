@@ -26,7 +26,7 @@ export default function Title(props: { slogan: string }) {
   return (
     <>
       <h1
-        class="relative w-fit whitespace-nowrap text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-14 hero-gradient"
+        class="relative w-fit whitespace-nowrap hero-gradient text-12 c-primary font-700 md:(mt-0 text-16) lg:text-20 sm:text-14"
         aria-label="Maple Mono"
       >
         <div

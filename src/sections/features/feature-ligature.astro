@@ -53,8 +53,8 @@ const features: FeatureCardProps[] = [
   <div class="mb-8 inview-2">
     <GenericLigature client:load />
   </div>
-  <h3 class="py-12 text-2xl c-accent font-600 inview-3">{subTitle}</h3>
-  <div class="grid gap-6 inview-4">
+  <h3 class="inview-3 py-12 text-2xl c-accent font-600">{subTitle}</h3>
+  <div class="grid inview-4 gap-6">
     <FeatureCard {...features[0]} enable client:load />
     <div class="grid w-full gap-6 md:grid-cols-2">
       <FeatureCard {...features[1]} enable client:load />

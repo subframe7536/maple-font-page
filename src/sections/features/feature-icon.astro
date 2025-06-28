@@ -45,8 +45,8 @@ const references: ReferenceData[] = [
 ---
 
 <SubSection {...data}>
-  <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full rounded-lg inview-2 sm:rounded-2xl" />
-  <div class="mx-auto mt-8 flex flex-row justify-evenly inview-3 xs:gap-4">
+  <Image src={Zsh} alt="Nerd-Font showcase image" class="w-full inview-2 rounded-lg sm:rounded-2xl" />
+  <div class="mx-auto mt-8 flex flex-row inview-3 justify-evenly xs:gap-4">
     {
       references.map(({ href, name, title }) => (
         <ExternalLink title={title} links={[[name, href]]} />

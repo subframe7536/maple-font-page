@@ -43,7 +43,7 @@ export function DialogContent<T extends ValidComponent = 'div'>(props: Polymorph
         {...rest}
       >
         {local.children}
-        <DialogPrimitive.CloseButton class="disabled:effect-dis absolute right-4 top-4 rounded-sm bg-inherit opacity-70 focus:effect-fv ring-offset-background transition transition-opacity hover:opacity-100">
+        <DialogPrimitive.CloseButton class="absolute right-4 top-4 rounded-sm bg-inherit opacity-70 ring-offset-background transition transition-opacity disabled:effect-dis hover:opacity-100 focus:effect-fv">
           <Icon name="lucide:x" />
           <div class="sr-only">Close</div>
         </DialogPrimitive.CloseButton>
