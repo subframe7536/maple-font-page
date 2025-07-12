@@ -70,7 +70,7 @@ export function AccordionContent<T extends ValidComponent = 'div'>(props: Polymo
   return (
     <AccordionPrimitive.Content
       class={cls(
-        'animate-accordion-up overflow-hidden data-[expanded]:animate-accordion-down',
+        'animate-accordion-up of-hidden data-[expanded]:animate-accordion-down',
         local.class,
       )}
       {...rest}

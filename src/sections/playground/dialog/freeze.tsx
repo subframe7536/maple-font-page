@@ -172,7 +172,7 @@ export default function FreezeActionDialog(props: Props) {
           </Tabs>
           <h3 class="text-lg c-accent font-bold">{props.t.log}</h3>
           <div class="text-xs c-note">{props.t.memoryAlert}</div>
-          <div ref={logPanelRef} class="h-25 overflow-scroll text-sm sm:h-50">
+          <div ref={logPanelRef} class="h-25 of-scroll text-sm sm:h-50">
             <For each={logList()}>
               {([msg, isError]) => (
                 <div class={isError ? 'c-red' : ''}>{isError ? '[ERROR]' : '[INFO]'} {msg}</div>

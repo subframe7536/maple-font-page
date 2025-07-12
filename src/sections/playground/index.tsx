@@ -208,7 +208,7 @@ export default function Playground(props: PlaygroundProps) {
           </div>
         </div>
       </div>
-      <div class="h-40% w-full overflow-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6 pt-4)">
+      <div class="h-40% w-full of-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6 pt-4)">
         <h2 class="whitespace-nowrap pb-3 text-5 c-primary font-bold md:(pb-4 text-7)">
           {props.t.sectionTitle.basic}
         </h2>

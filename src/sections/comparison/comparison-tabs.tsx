@@ -41,7 +41,7 @@ export default function ComparisonTabs(props: Props) {
           <TabsContent
             value={item}
             class={cls(
-              'pr-0 max-w-5xl overflow-(x-scroll y-hidden)',
+              'pr-0 max-w-5xl of-(x-scroll y-hidden)',
               'text-12 leading-16 h-32',
               'xs:(text-14 leading-20 h-42)',
               'sm:(text-21 leading-27 h-56)',

@@ -153,7 +153,7 @@ const CarouselContent: Component<ComponentProps<'div'>> = (props) => {
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} class="overflow-hidden">
+    <div ref={carouselRef} class="of-hidden">
       <div
         class={cls('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', local.class)}
         {...others}
