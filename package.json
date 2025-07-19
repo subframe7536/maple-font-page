@@ -2,14 +2,13 @@
   "name": "maple-font-page",
   "type": "module",
   "version": "7.4.3",
-  "packageManager": "pnpm@10.12.4",
   "scripts": {
-    "dev": "astro dev --open",
-    "build": "astro build",
-    "preview": "astro preview --host",
-    "astro": "astro",
-    "format": "eslint --fix --cache",
-    "release": "bumpp --all"
+    "dev": "bunx astro dev --open",
+    "build": "bunx astro build",
+    "preview": "bunx astro preview --host",
+    "astro": "bunx astro",
+    "format": "bunx eslint --fix --cache",
+    "release": "bunx bumpp --all"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.1",
@@ -41,11 +40,5 @@
     "unocss": "^66.3.2",
     "unocss-preset-animations": "^1.2.1",
     "unocss-preset-inview": "^0.1.3"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
   }
 }

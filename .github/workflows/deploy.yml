@@ -33,34 +33,33 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+
+      - uses: actions/cache@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: pnpm
+          path: |
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Setup
-        run: npm i -g @antfu/ni
 
       - name: Install dependencies
-        run: nci
+        run: bun ci
 
       - name: Build with Astro
         run: |
-          nr build \
+          bun run build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
