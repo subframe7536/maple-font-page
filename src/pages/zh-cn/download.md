@@ -2,11 +2,13 @@
 layout: ../../layouts/DownloadLayout.astro
 ---
 
-🚧 施工中: 浏览器内的自定义构建 🚧
-
 ### 从 Github 下载
 
 详见 [最新的发行版](https://github.com/subframe7536/maple-font/releases/latest)
+
+#### 自定义构建
+
+您可以使用多种方式自定义构建字体。如果您希望直接在浏览器内构建，请前往 [特性测试](/zh-cn/playground) 页面，挑选您所需的特性后，点击 **左下角的按钮** 开始构建。
 
 <!-- PM -->
 ### Scoop (Windows)
