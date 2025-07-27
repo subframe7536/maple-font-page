@@ -39,6 +39,7 @@
     "sharp": "^0.34.2",
     "unocss": "^66.3.2",
     "unocss-preset-animations": "^1.2.1",
+    "unocss-preset-completion": "^0.1.1",
     "unocss-preset-inview": "^0.1.3"
   }
 }

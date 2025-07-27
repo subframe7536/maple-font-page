@@ -9,6 +9,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import { presetAnimations } from 'unocss-preset-animations'
+import { presetCompletion } from 'unocss-preset-completion'
 import { presetInView } from 'unocss-preset-inview'
 
 import { featureArray } from './data/features/features'
@@ -105,7 +106,7 @@ const presetMaple: Preset<PresetWind3Theme> = {
         '--feat': featureArray.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
       },
     ],
-    ['font-cn', { 'font-family': 'MapleMono, Maple Mono CN, Maple Mono NF CN !important' }],
+    ['font-cn', { 'font-family': 'Maple Mono CN, Maple Mono NF CN, MapleMono !important' }],
     ['font-bold', { '--fw': 700 }],
     [/font-(\d+)/, ([, weight]) => ({ '--fw': weight })],
   ],
@@ -214,6 +215,7 @@ export default defineConfig<PresetWind3Theme>({
     presetIcons({
       scale: 1.2,
     }),
+    presetCompletion(),
     presetTypography({
       cssExtend: ({ colors }) => {
         const { primary, secondary, note, accent } = colors || {}

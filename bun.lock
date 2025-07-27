@@ -32,6 +32,7 @@
         "sharp": "^0.34.2",
         "unocss": "^66.3.2",
         "unocss-preset-animations": "^1.2.1",
+        "unocss-preset-completion": "^0.1.1",
         "unocss-preset-inview": "^0.1.3",
       },
     },
@@ -1326,6 +1327,8 @@
     "unocss": ["unocss@66.3.3", "https://registry.npmmirror.com/unocss/-/unocss-66.3.3.tgz", { "dependencies": { "@unocss/astro": "66.3.3", "@unocss/cli": "66.3.3", "@unocss/core": "66.3.3", "@unocss/postcss": "66.3.3", "@unocss/preset-attributify": "66.3.3", "@unocss/preset-icons": "66.3.3", "@unocss/preset-mini": "66.3.3", "@unocss/preset-tagify": "66.3.3", "@unocss/preset-typography": "66.3.3", "@unocss/preset-uno": "66.3.3", "@unocss/preset-web-fonts": "66.3.3", "@unocss/preset-wind": "66.3.3", "@unocss/preset-wind3": "66.3.3", "@unocss/preset-wind4": "66.3.3", "@unocss/transformer-attributify-jsx": "66.3.3", "@unocss/transformer-compile-class": "66.3.3", "@unocss/transformer-directives": "66.3.3", "@unocss/transformer-variant-group": "66.3.3", "@unocss/vite": "66.3.3" }, "peerDependencies": { "@unocss/webpack": "66.3.3", "vite": "^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0 || ^6.0.0-0 || ^7.0.0-0" }, "optionalPeers": ["@unocss/webpack", "vite"] }, "sha512-HSB+K4/EbouwYmxpPU52cg0exua7PUr2IAJZBV3iai6tPdMcJ0c8jXaw7G+2L+ffruVFTcS0e2kE4OrR8BKDLg=="],
 
     "unocss-preset-animations": ["unocss-preset-animations@1.2.1", "https://registry.npmmirror.com/unocss-preset-animations/-/unocss-preset-animations-1.2.1.tgz", { "peerDependencies": { "@unocss/preset-wind3": ">=0.56.0 < 101", "unocss": ">=0.56.0 < 101" }, "optionalPeers": ["@unocss/preset-wind3"] }, "sha512-HFdYPSLZ8SaAgTLfTNoiV5+1xAdcttOtFSPsZyHbA0qSis7Sansf90pz7a2yhs9Yq6Nos9P4onDttfdO8dwKPA=="],
+
+    "unocss-preset-completion": ["unocss-preset-completion@0.1.1", "https://registry.npmmirror.com/unocss-preset-completion/-/unocss-preset-completion-0.1.1.tgz", {}, "sha512-30/nClL/4Yp1c7YnnMOnunnbJFQXA09fxEyuOVRoDkeRxUhPZrRSgK4w7qLAeKZdPI78SQAGtrMq9TpN8Ncqxw=="],
 
     "unocss-preset-inview": ["unocss-preset-inview@0.1.3", "https://registry.npmmirror.com/unocss-preset-inview/-/unocss-preset-inview-0.1.3.tgz", { "peerDependencies": { "@unocss/core": "*" } }, "sha512-iZGHEz0dY0j9gyUL/HEuzK94YtBmKlCsiJBwGXjXSZW69GYDqZNSw5NG3nu+oE0+0ewcd3gPr998kazhQYY6BA=="],
 
