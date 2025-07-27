@@ -1,7 +1,7 @@
 {
   "name": "maple-font-page",
   "type": "module",
-  "version": "7.4.4",
+  "version": "7.4.5",
   "scripts": {
     "dev": "bunx astro dev --open",
     "build": "bunx astro build",
