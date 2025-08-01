@@ -30,7 +30,7 @@ function parseFeature(config: Record<string, Record<string, string>>): FontFeatu
       })
     }
   }
-  return result
+  return result.sort((a, b) => a.feat > b.feat ? 1 : -1)
 }
 
 const locale = Astro.currentLocale
