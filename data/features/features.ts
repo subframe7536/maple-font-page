@@ -21,6 +21,10 @@ export interface FeatureDescription {
   cv07: string
   /** Alternative `r` with bottom bar, no effect in italic style */
   cv08: string
+  /** Alternative `7` with middle bar, no effect in italic style */
+  cv09: string
+  /** Alternative `Z` and `z` with middle bar, no effect in italic style */
+  cv10: string
   /** Alternative italic `a` with top arm */
   cv31: string
   /** Alternative Italic `f` without bottom tail */
@@ -43,6 +47,10 @@ export interface FeatureDescription {
   cv40: string
   /** Alternative italic `r` with bottom bar */
   cv41: string
+  /** Alternative italic `7` with middle bar */
+  cv42: string
+  /** Alternative italic `Z` and `z` with middle bar */
+  cv43: string
   /** Alternative `,` and `;` with straight tail */
   cv61: string
   /** Alternative `?` with larger openings */
@@ -97,6 +105,8 @@ export const featureArray = [
   "cv06",
   "cv07",
   "cv08",
+  "cv09",
+  "cv10",
   "cv31",
   "cv32",
   "cv33",
@@ -108,6 +118,8 @@ export const featureArray = [
   "cv39",
   "cv40",
   "cv41",
+  "cv42",
+  "cv43",
   "cv61",
   "cv62",
   "cv63",
