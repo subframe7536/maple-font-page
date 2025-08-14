@@ -36,11 +36,8 @@ export default defineConfig({
   },
   vite: {
     plugins: process.env.NODE_ENV === 'development'
-      ? [(await import('@subframe7536/fonttools/vite')).fonttools]
+      ? [import('@subframe7536/fonttools/vite').then(m => m.fonttools())]
       : [],
-    optimizeDeps: {
-      exclude: ['@subframe7536/fonttools'],
-    },
     define: {
       __PY_SCRIPT__: JSON.stringify(readFileSync('./data/script.py', 'utf-8')),
     },
