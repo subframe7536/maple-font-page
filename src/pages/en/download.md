@@ -8,7 +8,7 @@ See details in [Latest Release](https://github.com/subframe7536/maple-font/relea
 
 #### Custom Build
 
-There are servoral ways to custom build the font. If you want to directly build inside the browser, please go to [Playground](/en/playground) page. After choosing the features you want, click the **button on the bottom left** and start building.
+There are several ways to make a custom build of the font. If you want to directly build inside the browser, please go to [Playground](/en/playground) page. After choosing the features you want, click the **button on the bottom left** and start building.
 
 <!-- PM -->
 ### Scoop (Windows)
