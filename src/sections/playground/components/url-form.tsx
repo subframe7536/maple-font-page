@@ -72,7 +72,6 @@ function ProxyInput(props: {
     <TextField value={props.proxyURL()} onChange={props.proxyURL} class="gap-3">
       <TextFieldLabel class="c-secondary font-bold">
         {props.translate.proxyURL}
-        <GuideLink class="ml-2 text-xs !c-note" text="(gh-proxy)" link="https://gh-proxy.com/" />
       </TextFieldLabel>
       <TextFieldInput placeholder={props.translate.proxyURLPlaceholder} class="of-x-auto" />
     </TextField>
