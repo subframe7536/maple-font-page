@@ -125,10 +125,18 @@ export function useFontPatcher(
     fileName = parseNameWithPatch(target)
     startTime = Date.now()
     log('Start patching...')
+
+    const config = features()
+    for (const [k, v] of Object.entries(config)) {
+      if (v === '1') {
+        log(`> Enable ${k}`)
+      }
+    }
+
     worker!.postMessage({
       type: 'patch',
       buf,
-      config: features(),
+      config,
     } satisfies WorkerMessage)
   }
 
