@@ -39,7 +39,7 @@ export default function FreezeActionDialog(props: Props) {
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
   const [curTab, setCurTab] = createSignal<'dl' | 'up'>('up')
   const zipFile = createRef<File>()
-  const proxyURL = createRef('https://gh-proxy.com/https://github.com')
+  const proxyURL = createRef('https://cors.subf.workers.dev/https://github.com')
   const useHinted = createRef(false)
   const fileFormat = createRef<FileFormat>(FILE_FORMAT[0])
   const logPanelRef = createRef<HTMLDivElement>()
