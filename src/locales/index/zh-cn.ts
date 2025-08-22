@@ -50,7 +50,7 @@ const zh: IndexTranslation = {
     },
     icon: {
       title: '精美图标，拥抱现代',
-      description: '一流的 Nerd-Font 支持，用图标装饰你的现代化终端。',
+      description: '自带 Nerd-Font 支持，用图标装饰你的现代化终端。',
       ref: {
         artBy: '生成',
         theme: '主题',
@@ -59,7 +59,7 @@ const zh: IndexTranslation = {
     },
     custom: {
       title: '你的喜好，你的字体',
-      description: '随心配置或强制开关 OpenType 功能，创建你完美的字体。',
+      description: '随心配置或强制开关 OpenType 功能，创建属于你的字体。',
       buttonText: '查看指南',
       link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
       normal: {
