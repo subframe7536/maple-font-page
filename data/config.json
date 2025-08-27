@@ -4,6 +4,16 @@
   "pool_size": 4,
   "enable_ligature": true,
   "ttfautohint_param": {},
+  "weight_mapping": {
+    "thin": 100,
+    "extralight": 200,
+    "light": 300,
+    "regular": 400,
+    "semibold": 500,
+    "medium": 600,
+    "bold": 700,
+    "extrabold": 800
+  },
   "feature_freeze": {
     "cv01": "ignore",
     "cv02": "ignore",
