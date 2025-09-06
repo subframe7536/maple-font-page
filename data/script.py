@@ -11,22 +11,22 @@ def get_freeze_config_str(config):
 		if C=='0'and B==_A or C=='-1':A+=f"-{B};"
 	return A
 def freeze_feature(font,moving_rules,config):
-	Q='GSUB';I=config;A=font;J=A[Q].table.FeatureList;K=J.FeatureRecord;L={A.FeatureTag:(B,A.Feature)for(B,A)in enumerate(K)if A.FeatureTag!=_A};M=[A.Feature for A in K if A.FeatureTag==_A]
+	R='GSUB';I=config;A=font;J=A[R].table.FeatureList;K=J.FeatureRecord;L={A.FeatureTag:(B,A.Feature)for(B,A)in enumerate(K)if A.FeatureTag!=_A};M=[A.Feature for A in K if A.FeatureTag==_A]
 	if I.get(_A)!='1':
 		for B in M:B.LookupListIndex.clear();B.LookupCount=0
 	N=[]
-	for(G,R)in I.items():
-		if G not in L:continue
-		H,O=L[G]
-		if R=='-1':N.append(H);continue
+	for(G,O)in I.items():
+		if G not in L or O=='0':continue
+		H,P=L[G]
+		if O=='-1':N.append(H);continue
 		if G in moving_rules:
-			for B in M:B.LookupListIndex.extend(O.LookupListIndex)
+			for B in M:B.LookupListIndex.extend(P.LookupListIndex)
 		else:
 			C=A['glyf'].glyphs;D=A['hmtx'].metrics
-			for S in O.LookupListIndex:
-				P=getattr(A[Q].table.LookupList.Lookup[S].SubTable[0],'mapping',None)
-				if not P:continue
-				for(E,F)in P.items():
+			for S in P.LookupListIndex:
+				Q=getattr(A[R].table.LookupList.Lookup[S].SubTable[0],'mapping',None)
+				if not Q:continue
+				for(E,F)in Q.items():
 					if E in C and E in D and F in C and F in D:C[E]=C[F];D[E]=D[F]
 	for H in sorted(N,reverse=True):del J.FeatureRecord[H]
 def set_font_name(font,name,id):font['name'].setName(name,nameID=id,platformID=3,platEncID=1,langID=1033)
