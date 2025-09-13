@@ -7,8 +7,8 @@
     "build": "bunx astro build",
     "preview": "bunx astro preview --host",
     "astro": "bunx astro",
-    "format": "bunx eslint --fix --cache",
-    "release": "bunx bumpp --all"
+    "format": "tsc --noEmit && bunx eslint --fix --cache",
+    "release": "bun run format && bunx bumpp --all"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.4.1",
