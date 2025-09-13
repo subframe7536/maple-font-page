@@ -13,8 +13,6 @@ import {
 } from '@/components/ui/text-field'
 import { FILE_FORMAT } from '@/utils/feature'
 
-import GuideLink from './guide-link'
-
 // UI: Format selector
 function FormatSelector(props: {
   fileFormat: RefSignal<FileFormat>
