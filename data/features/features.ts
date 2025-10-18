@@ -65,6 +65,8 @@ export interface FeatureDescription {
   cv64: string
   /** Alternative `&` in handwriting style */
   cv65: string
+  /** Alternative pipe arrows */
+  cv66: string
   /** Full width quotes (`“` / `”` / `‘` / `’`) */
   cv96: string
   /** Full width ellipsis (`…`) */
@@ -131,6 +133,7 @@ export const featureArray = [
   "cv63",
   "cv64",
   "cv65",
+  "cv66",
   "cv96",
   "cv97",
   "cv98",
