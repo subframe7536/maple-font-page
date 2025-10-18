@@ -33,6 +33,7 @@ const description: FeatureDescription = {
   cv63: 'Alternative left arrow',
   cv64: 'Alternative left and right arrow',
   cv65: 'Alternative ampersand',
+  cv66: 'Alternative pipe arrows',
   cv96: 'Full width quotes',
   cv97: 'Full width ellipsis',
   cv98: 'Full width emdash',

@@ -34,6 +34,7 @@ const description: FeatureDescription = {
   cv63: '替换左箭头',
   cv64: '替换左右箭头',
   cv65: '替换并符号',
+  cv66: '替换管道箭头',
   cv96: '全角引号',
   cv97: '全角省略号',
   cv98: '全角破折号',
