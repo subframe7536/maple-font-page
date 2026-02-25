@@ -236,6 +236,7 @@ export default function Playground(props: PlaygroundProps) {
               t={props.t.action.build}
               tGuide={props.t.action.guide}
               features={feat()}
+              width={width()}
               downloadURL={props.downloadURL}
             />
           </div>

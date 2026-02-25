@@ -1,3 +1,4 @@
+import type { ConfigActionDialogProps } from './config'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFormat } from '@/utils/feature'
 import type { DialogTriggerProps } from '@kobalte/core/dialog'
@@ -30,7 +31,8 @@ import { useFontPatcher } from '../patcher/hook'
 interface Props {
   t: PlaygroundTranslation['action']['build']
   tGuide: PlaygroundTranslation['action']['guide']
-  features: Record<string, '0' | '1'>
+  features: ConfigActionDialogProps['features']
+  width: ConfigActionDialogProps['width']
   downloadURL: string
 }
 
@@ -77,7 +79,7 @@ export default function FreezeActionDialog(props: Props) {
       if (isSupportWorker() === undefined) {
         setIsSupportWorker(checkModuleWorkerSupport())
       }
-      init(isSupportWorker())
+      init(isSupportWorker(), props.width)
       const parsedId = parseIdString(props.features)
       if (id !== parsedId) {
         id = parsedId

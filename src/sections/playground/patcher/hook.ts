@@ -75,31 +75,36 @@ export function useFontPatcher(
     URL.revokeObjectURL(url)
   }
 
-  function init(isSupportWorker: boolean = false) {
-    if (!worker && isSupportWorker) {
-      worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' })
-      worker.onmessage = (e: MessageEvent<WorkerResult>) => {
-        const data = e.data
-        switch (data.type) {
-          case 'ready':
-            setStatus('ready')
-            break
-          case 'result':
-            log(`Total time: ${(Date.now() - startTime!) / 1000}s`)
-            log(`Download as ${fileName}`)
-            download(data.buffer, fileName)
-            setStatus('ready')
-            break
-          case 'log':
-            log(data.msg, data.isError)
-            if (data.isError) {
-              setStatus('ready')
-            }
-        }
-      }
-      worker.postMessage({ type: 'init' } satisfies WorkerMessage)
-      setStatus('loading')
+  function init(isSupportWorker: boolean = false, width: string) {
+    if (worker || !isSupportWorker) {
+      return
     }
+
+    if (width !== 'normal') {
+      log('❗ The width option has no effect in Browser Build')
+    }
+    worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' })
+    worker.onmessage = (e: MessageEvent<WorkerResult>) => {
+      const data = e.data
+      switch (data.type) {
+        case 'ready':
+          setStatus('ready')
+          break
+        case 'result':
+          log(`Total time: ${(Date.now() - startTime!) / 1000}s`)
+          log(`Download as ${fileName}`)
+          download(data.buffer, fileName)
+          setStatus('ready')
+          break
+        case 'log':
+          log(data.msg, data.isError)
+          if (data.isError) {
+            setStatus('ready')
+          }
+      }
+    }
+    worker.postMessage({ type: 'init' } satisfies WorkerMessage)
+    setStatus('loading')
   }
 
   async function patch(target: string | File) {
