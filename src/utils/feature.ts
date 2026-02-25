@@ -1,3 +1,5 @@
+import type { ConfigActionDialogProps } from '@/sections/playground/dialog/config'
+
 import defaultConfig from '@data/config.json'
 import { normalFeatureArray } from '@data/features/features'
 
@@ -24,7 +26,7 @@ export function toStyleObject(features: FeatureState, normal?: boolean) {
   )
 }
 
-export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
+export function toConfigJson(features: FeatureState, width: ConfigActionDialogProps['width'], extra: ExtraConfig) {
   const result = { ...defaultConfig }
   for (const [k, v] of Object.entries(features)) {
     if (k === 'calt' && v === '0') {
@@ -39,19 +41,20 @@ export function toConfigJson(features: FeatureState, extra: ExtraConfig) {
     }
   }
 
+  result.width = width
   result.nerd_font.enable = extra.nf
   result.cn.enable = extra.cn
   result.use_hinted = extra.hinted
 
   return JSON.stringify(result, null, 2)
 }
-export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
+export function toCliFlag(features: FeatureState, width: ConfigActionDialogProps['width'], extra: ExtraConfig) {
   let result = []
   if (features.calt === '0') {
     result.push('--no-liga')
   }
   if (!extra.nf) {
-    result.push('--no-nerd-font')
+    result.push('--no-nf')
   }
   if (extra.cn) {
     result.push('--cn')
@@ -61,6 +64,9 @@ export function toCliFlag(features: FeatureState, extra: ExtraConfig) {
   }
   if (extra.normal) {
     result.push('--normal')
+  }
+  if (width !== 'default') {
+    result.push(`--width ${width}`)
   }
 
   const feat = Object.entries(features)

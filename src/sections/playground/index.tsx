@@ -1,10 +1,11 @@
 import type { FeatureState, FeatureValue } from '../../utils/feature'
+import type { ConfigActionDialogProps } from './dialog/config'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 import { featureArray } from '@data/features/features'
 import { createRef, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
-import { createSignal, For, onMount, Show } from 'solid-js'
+import { createMemo, createSignal, For, onMount, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
@@ -67,6 +68,7 @@ export default function Playground(props: PlaygroundProps) {
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
+  const [width, setWidth] = createSignal<ConfigActionDialogProps['width']>('default')
   const [feat, setFeat] = createSignal<FeatureState>(
     Object.fromEntries(featureArray.map(k => [k, k === 'calt' ? '1' : '0'])),
   )
@@ -75,6 +77,16 @@ export default function Playground(props: PlaygroundProps) {
   // -1: no load; 0: loading; 1: loaded; 2: load failed
   const [monoLoadState, setMonoLoadState] = createSignal<LoadingStatus>(STATE.INIT)
   const [cnLoadState, setCNLoadState] = createSignal<LoadingStatus>(STATE.INIT)
+
+  const targetWeight = createMemo(() => {
+    switch (width()) {
+      case 'slim':
+        return weight() + 100
+      case 'narrow':
+        return weight() + 50
+    }
+    return weight()
+  })
 
   onMount(() => {
     const ref = textareaRef()!
@@ -123,8 +135,8 @@ export default function Playground(props: PlaygroundProps) {
   return (
     <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
       <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
-        <div class="flex flex-col items-start lg:flex-row sm:flex-row md:flex-col md:gap-4">
-          <div class="w-full flex flex-col select-none gap-2 p-2 lg:w-40% md:w-full sm:w-40%">
+        <div class="grid gap-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2">
+          <div class="w-full flex flex-col select-none gap-2 p-2">
             <div class="text-sm leading-none font-500">{props.t.fontStyle.title}</div>
             <Tabs onChange={setItalic}>
               <TabsList>
@@ -138,66 +150,87 @@ export default function Playground(props: PlaygroundProps) {
               </TabsList>
             </Tabs>
           </div>
-          <div class="w-full lg:w-30% md:w-full sm:w-30%">
-            <Slider
-              minValue={props.sizeRange[0]}
-              maxValue={props.sizeRange[1]}
-              defaultValue={[size()]}
-              onChange={([s]) => setSize(s)}
-              getValueLabel={params => `${params.values[0]}`}
-              class="gap-3 p-2 sm:gap-5.5"
-            >
-              <div class="w-full flex justify-between">
-                <SliderLabel for="font-size-slider">{props.t.fontSize}</SliderLabel>
-                <SliderValueLabel for="font-size-slider" />
-              </div>
-              <SliderTrack id="font-size-slider">
-                <SliderFill />
-                <SliderThumb />
-              </SliderTrack>
-            </Slider>
+          <div class="w-full flex flex-col select-none gap-2 p-2">
+            <div class="text-sm leading-none font-500">{props.t.glyphWidth}</div>
+            <Tabs onChange={setWidth}>
+              <TabsList>
+                <TabsTrigger value="default">
+                  Default
+                </TabsTrigger>
+                <TabsTrigger value="narrow" class="scale-x-92">
+                  Narrow
+                </TabsTrigger>
+                <TabsTrigger value="slim" class="scale-x-83">
+                  Slim
+                </TabsTrigger>
+                <TabsIndicator />
+              </TabsList>
+            </Tabs>
           </div>
-          <div class="w-full lg:w-30% md:w-full sm:w-30%">
-            <Slider
-              minValue={props.weightRange[0]}
-              maxValue={props.weightRange[1]}
-              defaultValue={[weight()]}
-              onChange={([w]) => setWeight(w)}
-              getValueLabel={params => `${params.values[0]}`}
-              class="gap-3 p-2 sm:gap-5.5"
-            >
-              <div class="w-full flex justify-between">
-                <SliderLabel for="font-weight-slider">{props.t.fontWeight}</SliderLabel>
-                <SliderValueLabel for="font-weight-slider" />
-              </div>
-              <SliderTrack id="font-weight-slider">
-                <SliderFill />
-                <SliderThumb />
-              </SliderTrack>
-            </Slider>
-          </div>
+
+          <Slider
+            minValue={props.sizeRange[0]}
+            maxValue={props.sizeRange[1]}
+            defaultValue={[size()]}
+            onChange={([s]) => setSize(s)}
+            getValueLabel={params => `${params.values[0]}`}
+            class="w-full gap-3 p-2 sm:gap-5.5"
+          >
+            <div class="w-full flex justify-between">
+              <SliderLabel for="font-size-slider">{props.t.fontSize}</SliderLabel>
+              <SliderValueLabel for="font-size-slider" />
+            </div>
+            <SliderTrack id="font-size-slider">
+              <SliderFill />
+              <SliderThumb />
+            </SliderTrack>
+          </Slider>
+
+          <Slider
+            minValue={props.weightRange[0]}
+            maxValue={props.weightRange[1]}
+            defaultValue={[weight()]}
+            onChange={([w]) => setWeight(w)}
+            getValueLabel={params => `${params.values[0]}`}
+            class="w-full gap-3 p-2 sm:gap-5.5"
+          >
+            <div class="w-full flex justify-between">
+              <SliderLabel for="font-weight-slider">{props.t.fontWeight}</SliderLabel>
+              <SliderValueLabel for="font-weight-slider" />
+            </div>
+            <SliderTrack id="font-weight-slider">
+              <SliderFill />
+              <SliderThumb />
+            </SliderTrack>
+          </Slider>
+
         </div>
         <div class="relative size-full max-h-45vh flex flex-col gap-2 px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
-          <textarea
-            ref={textareaRef}
-            spellcheck="false"
-            title="Playground for Maple Mono"
-            class={cls(
-              'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg',
-              cnLoadState() === STATE.SUCCESS && 'font-cn',
-            )}
-            style={{
-              '--fw': weight(),
-              'font-size': `${size()}px`,
-              'font-style': italic(),
-              ...toStyleObject(feat()),
-            }}
-          />
+          <div class="size-full overflow-hidden">
+            <textarea
+              ref={textareaRef}
+              spellcheck="false"
+              title="Playground for Maple Mono"
+              class={cls(
+                'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg origin-tl',
+                cnLoadState() === STATE.SUCCESS && 'font-cn',
+                width() === 'narrow' && 'scale-x-92 w-108%',
+                width() === 'slim' && 'scale-x-83 w-120%',
+              )}
+              style={{
+                '--fw': targetWeight(),
+                'font-size': `${size()}px`,
+                'font-style': italic(),
+                ...toStyleObject(feat()),
+              }}
+            />
+          </div>
           <div class="w-full flex gap-2 xs:gap-4">
             <ConfigActionDialog
               t={props.t.action.config}
               tGuide={props.t.action.guide}
               features={feat()}
+              width={width()}
             />
             <FreezeActionDialog
               t={props.t.action.build}

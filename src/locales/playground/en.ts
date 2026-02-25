@@ -60,6 +60,7 @@ const en = {
   },
   fontSize: 'Font Size',
   fontWeight: 'Font Weight',
+  glyphWidth: 'Font Width',
   loading: 'Loading...',
   loadCN: 'Load Chinese Font',
   alert: {

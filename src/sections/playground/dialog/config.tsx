@@ -20,17 +20,19 @@ import { toCliFlag, toConfigJson } from '@/utils/feature'
 
 import GuideLink from '../components/guide-link'
 
-export interface Props {
+export interface ConfigActionDialogProps {
   t: PlaygroundTranslation['action']['config']
   tGuide: PlaygroundTranslation['action']['guide']
   features: Record<string, '0' | '1'>
+  width: 'default' | 'narrow' | 'slim'
 }
 
 function ConfigSection(
   props: {
     type: 'cli' | 'json'
     title: string
-    data: Props['features']
+    feat: ConfigActionDialogProps['features']
+    width: ConfigActionDialogProps['width']
     fallback: string
     extra: ExtraConfig
   },
@@ -47,8 +49,8 @@ function ConfigSection(
 
   const parsedText = createMemo(
     () => props.type === 'cli'
-      ? toCliFlag(props.data, props.extra)
-      : toConfigJson(props.data, props.extra).replace('"scale_factor": 1', '"scale_factor": 1.0'),
+      ? toCliFlag(props.feat, props.width, props.extra)
+      : toConfigJson(props.feat, props.width, props.extra).replace('"scale_factor": 1', '"scale_factor": 1.0'),
   )
 
   return (
@@ -81,7 +83,7 @@ function ConfigSection(
   )
 }
 
-export default function ConfigActionDialog(props: Props) {
+export default function ConfigActionDialog(props: ConfigActionDialogProps) {
   const [extraConfig, setExtraConfig] = createSignal<ExtraConfig>({
     nf: true,
     cn: false,
@@ -130,14 +132,16 @@ export default function ConfigActionDialog(props: Props) {
           <ConfigSection
             type="cli"
             title={props.t.cliFlags}
-            data={props.features}
+            feat={props.features}
+            width={props.width}
             fallback={props.t.noNeed}
             extra={extraConfig()}
           />
           <ConfigSection
             type="json"
             title="config.json"
-            data={props.features}
+            feat={props.features}
+            width={props.width}
             fallback={props.t.noNeed}
             extra={extraConfig()}
           />
