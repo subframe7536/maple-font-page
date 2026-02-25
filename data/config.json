@@ -18,6 +18,7 @@
     "extrabold": 800
   },
   "line_height": 1.0,
+  "width": "default",
   "feature_freeze": {
     "cv01": "ignore",
     "cv02": "ignore",
