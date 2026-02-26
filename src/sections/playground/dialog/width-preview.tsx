@@ -77,7 +77,7 @@ export default function WidthPreviewDialog(props: WidthPreviewDialogProps) {
           预览
         </DialogTitle>
         <DialogDescription>
-          使用 CSS 模拟，可能会有误差或者连字不生效，实际使用时中英文宽度2：1 ；同时由于浏览器渲染机制限制，目前无法实时显示。
+          使用 CSS 模拟，可能会有误差或者连字不生效，实际使用时中英文宽度2：1 ；同时由于浏览器渲染机制限制，目前无法实时显示；如果中文字符显示异常，请等待字体加载完成。
         </DialogDescription>
         <div
           class="of-auto rounded-lg p-2 font-liga font-cn"
