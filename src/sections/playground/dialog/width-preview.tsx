@@ -1,6 +1,5 @@
 import type { ConfigActionDialogProps } from './config'
 import type { FeatureState } from '@/utils/feature'
-import type { Accessor } from 'solid-js'
 
 import { cls } from 'cls-variant'
 import { createMemo, For, Show } from 'solid-js'
