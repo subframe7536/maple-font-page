@@ -26,6 +26,7 @@ import ConfigActionDialog from './dialog/config'
 import FreezeActionDialog from './dialog/freeze'
 import LoadCnDialog from './dialog/load-cn'
 import LoadErrorDialog from './dialog/load-error'
+import WidthPreviewDialog from './dialog/width-preview'
 
 export interface FontFeatureItem {
   desc: string
@@ -68,11 +69,13 @@ export default function Playground(props: PlaygroundProps) {
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
-  const [width, setWidth] = createSignal<ConfigActionDialogProps['width']>('default')
+  const [width, setWidth] = createSignal<Capitalize<ConfigActionDialogProps['width']>>('Default')
   const [feat, setFeat] = createSignal<FeatureState>(
     Object.fromEntries(featureArray.map(k => [k, k === 'calt' ? '1' : '0'])),
   )
   const [normal, setNormal] = createSignal(false)
+  const [widthPreviewOpen, setWidthPreviewOpen] = createSignal(false)
+  const [text, setText] = createSignal('')
 
   // -1: no load; 0: loading; 1: loaded; 2: load failed
   const [monoLoadState, setMonoLoadState] = createSignal<LoadingStatus>(STATE.INIT)
@@ -80,9 +83,9 @@ export default function Playground(props: PlaygroundProps) {
 
   const targetWeight = createMemo(() => {
     switch (width()) {
-      case 'slim':
+      case 'Slim':
         return weight() + 100
-      case 'narrow':
+      case 'Narrow':
         return weight() + 50
     }
     return weight()
@@ -100,11 +103,14 @@ export default function Playground(props: PlaygroundProps) {
         ref.value = props.defaultText
         ref.focus()
         setMonoLoadState(STATE.SUCCESS)
+        return ref.value
       })
       .catch(() => {
         ref.value = 'Fail to load Maple Mono.'
         setMonoLoadState(STATE.FAILED)
+        return ref.value
       })
+      .then(setText)
   })
 
   const handleChange = (feat: string, stat: FeatureValue): void => {
@@ -129,6 +135,7 @@ export default function Playground(props: PlaygroundProps) {
       textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
       textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
       textarea.scroll({ top: 99999 })
+      setText(textarea.value)
     }
   })
 
@@ -152,15 +159,22 @@ export default function Playground(props: PlaygroundProps) {
           </div>
           <div class="w-full flex flex-col select-none gap-2 p-2">
             <div class="text-sm leading-none font-500">{props.t.glyphWidth}</div>
-            <Tabs onChange={setWidth}>
+            <Tabs
+              onChange={(value: string) => {
+                if (setWidth(value as any) !== 'Default' && cnLoadState() === STATE.SUCCESS) {
+                  setWidthPreviewOpen(true)
+                }
+              }}
+              disabled={props.isCn && cnLoadState() !== STATE.SUCCESS}
+            >
               <TabsList>
-                <TabsTrigger value="default">
+                <TabsTrigger value="Default">
                   Default
                 </TabsTrigger>
-                <TabsTrigger value="narrow" class="scale-x-92">
+                <TabsTrigger value="Narrow" class="scale-x-92">
                   Narrow
                 </TabsTrigger>
-                <TabsTrigger value="slim" class="scale-x-83">
+                <TabsTrigger value="Slim" class="scale-x-83">
                   Slim
                 </TabsTrigger>
                 <TabsIndicator />
@@ -214,8 +228,8 @@ export default function Playground(props: PlaygroundProps) {
               class={cls(
                 'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg origin-tl',
                 cnLoadState() === STATE.SUCCESS && 'font-cn',
-                width() === 'narrow' && 'scale-x-92 w-108%',
-                width() === 'slim' && 'scale-x-83 w-120%',
+                cnLoadState() !== STATE.SUCCESS && width() === 'Narrow' && 'scale-x-92 w-108%',
+                cnLoadState() !== STATE.SUCCESS && width() === 'Slim' && 'scale-x-83 w-120%',
               )}
               style={{
                 '--fw': targetWeight(),
@@ -223,6 +237,7 @@ export default function Playground(props: PlaygroundProps) {
                 'font-style': italic(),
                 ...toStyleObject(feat()),
               }}
+              onChange={e => setText(e.target.value)}
             />
           </div>
           <div class="w-full flex gap-2 xs:gap-4">
@@ -230,13 +245,13 @@ export default function Playground(props: PlaygroundProps) {
               t={props.t.action.config}
               tGuide={props.t.action.guide}
               features={feat()}
-              width={width()}
+              width={width().toLowerCase() as Lowercase<ConfigActionDialogProps['width']>}
             />
             <FreezeActionDialog
               t={props.t.action.build}
               tGuide={props.t.action.guide}
               features={feat()}
-              width={width()}
+              width={width().toLowerCase() as Lowercase<ConfigActionDialogProps['width']>}
               downloadURL={props.downloadURL}
             />
           </div>
@@ -348,6 +363,18 @@ export default function Playground(props: PlaygroundProps) {
       </div>
       <Show when={props.isCn && monoLoadState() === STATE.SUCCESS}>
         <LoadCnDialog $shouldLoad={loadCN} />
+      </Show>
+      <Show when={cnLoadState() === STATE.SUCCESS && width() !== 'Default'}>
+        <WidthPreviewDialog
+          open={widthPreviewOpen()}
+          onOpenChange={setWidthPreviewOpen}
+          text={text()}
+          width={width() as Lowercase<ConfigActionDialogProps['width']>}
+          fontWeight={targetWeight()}
+          fontSize={size()}
+          fontStyle={italic()}
+          features={feat()}
+        />
       </Show>
       <Show when={monoLoadState() === STATE.FAILED || cnLoadState() === STATE.FAILED}>
         <LoadErrorDialog

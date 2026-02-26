@@ -77,7 +77,7 @@ export function DialogDescription<T extends ValidComponent = 'p'>(props: Polymor
 
   return (
     <DialogPrimitive.Description
-      class={cls('text-sm text-muted-foreground', local.class)}
+      class={cls('text-sm text-note', local.class)}
       {...rest}
     />
   )

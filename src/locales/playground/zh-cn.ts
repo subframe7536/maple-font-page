@@ -61,7 +61,7 @@ const zh: PlaygroundTranslation = {
   },
   fontSize: '字体大小',
   fontWeight: '字体粗细',
-  glyphWidth: '字形宽度（目前仅英文预览）',
+  glyphWidth: '字形宽度（需加载中文字体）',
   loading: '加载中...',
   loadCN: '加载中文字体',
   alert: {
