@@ -36,14 +36,15 @@ section[id], .prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 4rem; }
 .maple-button-secondary { background: var(--secondary); color: var(--secondary-foreground); }
 .maple-button-outline.maple-button { border: 2px solid var(--border); color: var(--border); background: var(--background); }
 .maple-button-link.maple-button { background: transparent; color: inherit; border: 0; box-shadow: none; width: fit-content; }
+.maple-button-link.maple-button:hover { text-decoration: none; }
 .maple-button-link.maple-button[aria-current="page"] { color: var(--secondary); }
 .maple-button-default:hover, .maple-button-secondary:hover { opacity: .9; }
 .maple-button-default.maple-button, .maple-button-outline.maple-button, .maple-button-secondary.maple-button { box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
-.maple-button-md.maple-button { height: 2rem; padding: 0 1rem; font-size: .75rem; }
-.maple-button-default.maple-button:not(.maple-button-md):not(.maple-button-lg):not(.maple-button-icon):not(.maple-button-sm) { height: 2.25rem; padding: .5rem 1rem; font-size: .875rem; }
-.maple-button-sm.maple-button { height: 2rem; padding: 0 .75rem; font-size: .75rem; }
-.maple-button-lg.maple-button { height: 3rem; padding: 0 2rem; font-size: 1.125rem; }
-.maple-button-icon.maple-button { width: 2.25rem; height: 2.25rem; padding: 0; }
+.maple-button-size-md.maple-button { height: 2rem; padding: 0 1rem; font-size: .75rem; }
+.maple-button-size-default.maple-button { height: 2.25rem; padding: .5rem 1rem; font-size: .875rem; }
+.maple-button-size-sm.maple-button { height: 2rem; padding: 0 .75rem; font-size: .75rem; }
+.maple-button-size-lg.maple-button { height: 3rem; padding: 0 2rem; font-size: 1.125rem; }
+.maple-button-size-icon.maple-button { width: 2.25rem; height: 2.25rem; padding: 0; }
 .maple-button:disabled { pointer-events: none; opacity: .5; }
 .maple-button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 [data-slot="tabs-list"] { background: var(--muted); border-radius: .5rem; padding: .25rem; width: 100%; }
@@ -63,7 +64,7 @@ section[id], .prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 4rem; }
 .prose pre code { display: grid; font-size: .875rem; }
 .prose table { width: 100%; }
 .prose img { max-width: 100%; height: auto; }
-@media (min-width: 768px) { .maple-button-md.maple-button { font-size: .875rem; } }
+@media (min-width: 768px) { .maple-button-size-md.maple-button { font-size: .875rem; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

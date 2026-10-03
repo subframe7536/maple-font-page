@@ -19,7 +19,7 @@ export function Button<T extends ValidComponent = 'button'>(props: ButtonProps<T
       class={cls(
         'maple-button',
         `maple-button-${local.variant ?? 'default'}`,
-        `maple-button-${local.size ?? 'default'}`,
+        `maple-button-size-${local.size ?? 'default'}`,
         local.variant === 'link' && 'animated-underline',
         typeof local.class === 'string' ? local.class : '',
       )}

@@ -158,6 +158,7 @@ test('editing while fonts load preserves text and dialog focus', async ({ page, 
 
 test('home feature controls, font comparison and testimonial keyboard navigation', async ({ page }) => {
   await page.goto('/en/')
+  await expect(page.locator('#credits').getByRole('link', { name: 'JetBrains Mono', exact: true })).toHaveCSS('box-shadow', 'none')
   const features = page.locator('#features')
   const ligatures = features.getByRole('tablist', { name: 'calt', exact: true })
   await ligatures.getByRole('tab', { name: 'Ligature OFF', exact: true }).click()
