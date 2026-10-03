@@ -35,8 +35,8 @@ section[id], .prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 4rem; }
 .maple-button-default { background: var(--primary); color: var(--primary-foreground); }
 .maple-button-secondary { background: var(--secondary); color: var(--secondary-foreground); }
 .maple-button-outline.maple-button { border: 2px solid var(--border); color: var(--border); background: var(--background); }
-.maple-button-link.maple-button { background: transparent; color: inherit; border: 0; }
-.maple-button-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+.maple-button-link.maple-button { background: transparent; color: inherit; border: 0; box-shadow: none; width: fit-content; }
+.maple-button-link.maple-button[aria-current="page"] { color: var(--secondary); }
 .maple-button-default:hover, .maple-button-secondary:hover { opacity: .9; }
 .maple-button-default.maple-button, .maple-button-outline.maple-button, .maple-button-secondary.maple-button { box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
 .maple-button-md.maple-button { height: 2rem; padding: 0 1rem; font-size: .75rem; }

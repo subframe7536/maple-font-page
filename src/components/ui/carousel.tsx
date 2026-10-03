@@ -10,6 +10,7 @@ import {
   createMemo,
   createSignal,
   mergeProps,
+  onCleanup,
   splitProps,
   useContext,
 } from 'solid-js'
@@ -108,17 +109,19 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
   })
 
   createEffect(() => {
-    if (!api()) {
+    const instance = api()
+    if (!instance) {
       return
     }
 
-    onSelect(api()!)
-    api()!.on('reInit', onSelect)
-    api()!.on('select', onSelect)
+    onSelect(instance)
+    instance.on('reInit', onSelect)
+    instance.on('select', onSelect)
 
-    return () => {
-      api()?.off('select', onSelect)
-    }
+    onCleanup(() => {
+      instance.off('reInit', onSelect)
+      instance.off('select', onSelect)
+    })
   })
 
   const value = createMemo(

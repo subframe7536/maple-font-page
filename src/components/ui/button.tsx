@@ -20,6 +20,7 @@ export function Button<T extends ValidComponent = 'button'>(props: ButtonProps<T
         'maple-button',
         `maple-button-${local.variant ?? 'default'}`,
         `maple-button-${local.size ?? 'default'}`,
+        local.variant === 'link' && 'animated-underline',
         typeof local.class === 'string' ? local.class : '',
       )}
     />

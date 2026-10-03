@@ -40,13 +40,13 @@ export default function Nav() {
           <Button as="a" size="md" variant="link" href="https://github.com/subframe7536/maple-font" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
             <Icon name="lucide:github" class="sm:mr-1" /><span class="hidden sm:block">GitHub</span>
           </Button>
-          <Button as="a" size="md" variant="link" href={localePath(siteLocale(), 'playground')} class={current('playground') ? 'c-secondary' : ''} title={content.messages.titles.playground.value} aria-label={content.messages.titles.playground.value}>
+          <Button as="a" size="md" variant="link" href={localePath(siteLocale(), 'playground')} aria-current={current('playground') ? 'page' : undefined} title={content.messages.titles.playground.value} aria-label={content.messages.titles.playground.value}>
             <Icon name="lucide:bug-play" class="sm:mr-1" /><span class="hidden sm:block">{content.messages.titles.playground}</span>
           </Button>
-          <Button as="a" size="md" variant="link" href={localePath(siteLocale(), 'usage')} class={current('usage') ? 'c-secondary' : ''} title={content.messages.titles.usage.value} aria-label={content.messages.titles.usage.value}>
+          <Button as="a" size="md" variant="link" href={localePath(siteLocale(), 'usage')} aria-current={current('usage') ? 'page' : undefined} title={content.messages.titles.usage.value} aria-label={content.messages.titles.usage.value}>
             <Icon name="lucide:book-open-text" class="sm:mr-1" /><span class="hidden sm:block">{content.messages.titles.usage}</span>
           </Button>
-          <Button as="a" size="md" variant={current('download') ? 'secondary' : 'default'} class="ml-2" href={localePath(siteLocale(), 'download')} title={content.messages.titles.download.value} aria-label={content.messages.titles.download.value}>{content.messages.get}</Button>
+          <Button as="a" size="md" variant={current('download') ? 'secondary' : 'default'} class="ml-2" href={localePath(siteLocale(), 'download')} aria-current={current('download') ? 'page' : undefined} title={content.messages.titles.download.value} aria-label={content.messages.titles.download.value}>{content.messages.get}</Button>
           <a class="ml-3 mr-1 text-xs c-note hover:c-primary focus-visible:effect-fv" href={localePath(siteLocale() === 'en' ? 'zh-cn' : 'en', pathname().split('/').slice(2).join('/')) + location.search + location.hash} aria-label={siteLocale() === 'en' ? '简体中文' : 'English'}>
             {siteLocale() === 'en' ? '中' : 'EN'}
           </a>

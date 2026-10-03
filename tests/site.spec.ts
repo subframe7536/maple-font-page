@@ -116,6 +116,66 @@ test('language switch, SPA navigation, metadata, and history', async ({ page }) 
   await page.getByRole('link', { name: 'English', exact: true }).click()
   await expect(page).toHaveTitle('Usage | Maple Mono')
   await expect(page.locator('main')).toContainText('Documents in GitHub')
+  const current = page.locator('nav [aria-current="page"]')
+  await expect(current).toHaveAccessibleName('Usage')
+  await expect(current).toHaveCSS('color', 'rgb(164, 204, 177)')
+  await expect(current).toHaveCSS('box-shadow', 'none')
+})
+
+test('editing while fonts load preserves text and dialog focus', async ({ page, context }) => {
+  let release!: () => void
+  const loaded = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  let requests = 0
+  await context.route('https://esm.sh/gh/subframe7536/maple-font@*/woff2/var/*', async (route) => {
+    requests++
+    await loaded
+    await route.fulfill({
+      contentType: 'font/woff2',
+      body: readFileSync(`public/fonts/MapleMono${route.request().url().includes('Italic') ? '-Italic' : ''}[wght]-VF.woff2`),
+      headers: { 'access-control-allow-origin': '*' },
+    })
+  })
+  try {
+    await page.goto('/en/playground/', { waitUntil: 'domcontentloaded' })
+    await expect.poll(() => requests).toBe(2)
+    const sample = page.getByTitle('Playground for Maple Mono')
+    await sample.fill('Keep my text while the font loads')
+    await page.getByRole('button', { name: 'Generate Config', exact: true }).click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog).toBeVisible()
+    await dialog.locator('textarea[name="json"]').focus()
+    release()
+    await expect(page.getByRole('button', { name: 'Load Chinese Font', exact: true })).toBeEnabled()
+    await expect(dialog.locator('textarea[name="json"]')).toBeFocused()
+    await page.keyboard.press('Escape')
+    await expect(sample).toHaveValue('Keep my text while the font loads')
+  } finally {
+    release()
+  }
+})
+
+test('home feature controls, font comparison and testimonial keyboard navigation', async ({ page }) => {
+  await page.goto('/en/')
+  const features = page.locator('#features')
+  const ligatures = features.getByRole('tablist', { name: 'calt', exact: true })
+  await ligatures.getByRole('tab', { name: 'Ligature OFF', exact: true }).click()
+  await expect(features.locator('[style*="--feat-calt"]')).toHaveCSS('--feat-calt', '0')
+  const feature = features.getByRole('switch').first()
+  const checked = await feature.getAttribute('aria-checked')
+  await feature.click()
+  await expect(feature).toHaveAttribute('aria-checked', checked === 'true' ? 'false' : 'true')
+  const comparison = page.locator('#comparison')
+  await comparison.getByRole('tab', { name: 'Fira Code', exact: true }).click()
+  await expect(comparison.getByRole('tabpanel')).toContainText('Cloudflare')
+  await comparison.getByRole('switch', { name: 'Italic', exact: true }).check()
+  await expect(comparison.getByRole('tabpanel').locator('> div')).toHaveCSS('font-style', 'italic')
+  const testimonial = page.getByRole('button', { name: 'Show testimonial 2', exact: true })
+  await testimonial.scrollIntoViewIfNeeded()
+  await testimonial.focus()
+  await page.keyboard.press('Enter')
+  await expect(testimonial).toHaveAttribute('aria-pressed', 'true')
 })
 
 test('browser locale redirect and unknown routes', async ({ browser, page }) => {

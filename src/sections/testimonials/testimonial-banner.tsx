@@ -2,7 +2,7 @@ import type { CarouselApi } from '@/components/ui/carousel'
 
 import { cls } from 'cls-variant'
 import Autoplay from 'embla-carousel-autoplay'
-import { createEffect, createSignal, Index } from 'solid-js'
+import { createEffect, createSignal, Index, onCleanup } from 'solid-js'
 
 import {
   Carousel,
@@ -61,6 +61,9 @@ export function TestimonialBanner(props: Props) {
     }
     updateIndex(inner)
     inner.on('reInit', updateIndex).on('select', updateIndex)
+    onCleanup(() => {
+      inner.off('reInit', updateIndex).off('select', updateIndex)
+    })
   })
   const autoplay = Autoplay({
     delay: 5000,
@@ -84,9 +87,12 @@ export function TestimonialBanner(props: Props) {
       <div class="mt-4 flex justify-center">
         <Index each={Array.from({ length: props.items.length })}>
           {(_, i) => (
-            <div
+            <button
+              type="button"
+              aria-label={`Show testimonial ${i + 1}`}
+              aria-pressed={selectedIndex() === i}
               class={cls(
-                'm-1 size-2 cursor-pointer rounded-full transition-background-color-500',
+                'm-1 size-2 cursor-pointer rounded-full transition-background-color-500 focus-visible:effect-fv',
                 selectedIndex() === i ? 'bg-secondary' : 'bg-muted',
               )}
               onClick={() => {
