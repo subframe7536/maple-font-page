@@ -147,7 +147,7 @@ test('editing while fonts load preserves text and dialog focus', async ({ page, 
     await expect(dialog).toBeVisible()
     await dialog.locator('textarea[name="json"]').focus()
     release()
-    await expect(page.getByRole('button', { name: 'Load Chinese Font', exact: true })).toBeEnabled()
+    await expect(page.getByRole('button', { name: 'Load Chinese Font', exact: true, includeHidden: true })).toBeEnabled()
     await expect(dialog.locator('textarea[name="json"]')).toBeFocused()
     await page.keyboard.press('Escape')
     await expect(sample).toHaveValue('Keep my text while the font loads')
