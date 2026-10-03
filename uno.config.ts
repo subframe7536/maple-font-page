@@ -308,22 +308,16 @@ export default defineConfig<PresetWind3Theme>({
     },
     animation: {
       keyframes: {
-        'accordion-down': '{ from { height: 0 } to { height: var(--kb-accordion-content-height) } }',
-        'accordion-up': '{ from { height: var(--kb-accordion-content-height) } to { height: 0 } }',
-        'typing': '{ from { width: 0 } to { width: 10ch } }',
-        'flashing': '{ from, to { opacity: 0 } 50% { opacity: 1 } }',
+        typing: '{ from { width: 0 } to { width: 10ch } }',
+        flashing: '{ from, to { opacity: 0 } 50% { opacity: 1 } }',
       },
       timingFns: {
-        'accordion-down': 'ease-in-out',
-        'accordion-up': 'ease-in-out',
-        'typing': 'steps(10)',
-        'flashing': 'ease-in',
+        typing: 'steps(10)',
+        flashing: 'ease-in',
       },
       durations: {
-        'accordion-down': '0.3s',
-        'accordion-up': '0.3s',
-        'typing': '1s',
-        'flashing': '2s',
+        typing: '1s',
+        flashing: '2s',
       },
       counts: {
         flashing: 'infinite',

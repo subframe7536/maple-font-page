@@ -14,7 +14,10 @@ export default function FileUploader(props: Props) {
       aria-label={props.t.upload.title}
       icon="i-lucide:upload"
       fileIcon="i-lucide:file-archive"
-      classes={{ control: 'h-40 b-(2 input dashed) rounded-md text-center', files: 'min-h-40' }}
+      classes={{
+        control: ['h-40 border-2 border-input border-dashed rounded-md text-center', props.zipFile() && 'hidden'],
+        files: 'min-h-40',
+      }}
     />
   )
 }

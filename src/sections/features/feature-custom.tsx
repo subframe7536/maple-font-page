@@ -1,9 +1,9 @@
 import { normalFeatureArray } from '@data/features/features'
+import { Button } from 'moraine'
 
 import samples from '@/assets/code-samples'
 import mapleTheme from '@/assets/maple-dark-color-theme.json'
 import Code from '@/components/code'
-import { Button } from '@/components/ui/button'
 import { useFeatureTranslation } from '@/locales/i18n'
 import { localePath, siteLocale } from '@/locales/i18n'
 

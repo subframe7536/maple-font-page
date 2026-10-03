@@ -11,6 +11,7 @@ import { CodeHtml } from '@/components/code-html'
 import DocumentLayout from '@/layouts/document'
 import { routePath } from '@/locales/i18n'
 import Nav from '@/sections/nav'
+import { mapleTheme } from '@/theme'
 import { loadMapleMono } from '@/utils/loadFont'
 
 function Shell(props: ParentProps) {
@@ -50,7 +51,7 @@ function Shell(props: ParentProps) {
     <Show when={locale()} keyed>
       {lang => (
         <IntlayerProvider locale={lang} isCookieEnabled={false}>
-          <MoraineProvider>
+          <MoraineProvider theme={mapleTheme}>
             <MDXProvider components={{ DocumentLayout, CodeHtml }}>
               <Nav />
               <main ref={main} class={playground() ? 'h-dvh w-full pt-8' : 'h-dvh w-full of-(x-hidden y-scroll) scroll-smooth'}>

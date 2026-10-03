@@ -1,4 +1,4 @@
-import { cls } from 'cls-variant'
+import { useCn } from 'moraine'
 import { createSignal, onMount } from 'solid-js'
 
 import { loadMapleMono } from '@/utils/loadFont'
@@ -6,6 +6,7 @@ import { loadMapleMono } from '@/utils/loadFont'
 import Placeholder from './placeholder'
 
 export default function Title(props: { slogan: string }) {
+  const cn = useCn()
   const [isLoading, setIsLoading] = createSignal(false)
 
   onMount(() => {
@@ -26,7 +27,7 @@ export default function Title(props: { slogan: string }) {
         aria-label="Maple Mono"
       >
         <div
-          class={cls(
+          class={cn(
             'absolute left-0 right-0 top-0 bottom-0 transition',
             isLoading() ? 'animate-flashing' : 'op-0',
           )}
@@ -34,7 +35,7 @@ export default function Title(props: { slogan: string }) {
           <Placeholder />
         </div>
         <div
-          class={cls(
+          class={cn(
             'inline-block',
             isLoading() ? 'invisible' : 'animate-typing',
           )}

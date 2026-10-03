@@ -1,6 +1,4 @@
-import { cls } from 'cls-variant'
-import { Switch } from 'moraine'
-import { Tabs } from 'moraine'
+import { Switch, Tabs, useCn } from 'moraine'
 import { createSignal } from 'solid-js'
 
 interface Props {
@@ -14,6 +12,7 @@ const families = [
 ]
 
 export default function ComparisonTabs(props: Props) {
+  const cn = useCn()
   const [isItalic, setIsItalic] = createSignal(false)
   return (
     <div class={props.class}>
@@ -24,7 +23,7 @@ export default function ComparisonTabs(props: Props) {
           aria-label="Compare programming fonts"
           classes={{ list: 'max-w-5xl w-full sm:(max-w-70% min-w-fit) xs:max-w-90%' }}
           items={families.map(item => ({ value: item, label: item, content: (
-            <div class={cls(
+            <div class={cn(
               'pr-0 max-w-5xl of-(x-scroll y-hidden)',
               'text-12 leading-16 h-32',
               'xs:(text-14 leading-20 h-42)',

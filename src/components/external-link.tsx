@@ -1,9 +1,9 @@
 import type { ParentProps } from 'solid-js'
 
+import { Button } from 'moraine'
 import { For } from 'solid-js'
 
 import Icon from './icon'
-import { Button } from './ui/button'
 
 export interface Props extends ParentProps {
   title: string

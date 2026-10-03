@@ -2,8 +2,7 @@ import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFormat } from '@/utils/feature'
 import type { RefSignal } from '@solid-hooks/core'
 
-import { Checkbox } from 'moraine'
-import { Field, Input, Select } from 'moraine'
+import { Checkbox, Field, Input, Select } from 'moraine'
 
 import { FILE_FORMAT } from '@/utils/feature'
 

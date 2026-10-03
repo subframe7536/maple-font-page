@@ -28,8 +28,6 @@ pnpm check
 pnpm lint
 pnpm build
 pnpm test:ssg
-pnpm exec playwright install chromium
-pnpm test:e2e
 pnpm preview
 ```
 

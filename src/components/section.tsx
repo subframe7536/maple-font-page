@@ -1,6 +1,6 @@
 import type { ParentProps } from 'solid-js'
 
-import { cls } from 'cls-variant'
+import { useCn } from 'moraine'
 
 interface Props extends ParentProps {
   id: string
@@ -10,11 +10,12 @@ interface Props extends ParentProps {
 }
 
 export default function SectionView(props: Props) {
+  const cn = useCn()
   return (
     <>
       <section
         id={props.id}
-        class={cls(
+        class={cn(
           'no-inview:scroll-mt-12 mx-auto max-w-4xl w-96% xs:w-90% text-left *:px-6',
           props.title && 'flex flex-col gap-8 md:gap-12 mb-16 pt-20',
           props.class,
@@ -34,7 +35,7 @@ export default function SectionView(props: Props) {
             </p>
           )
         }
-        <div class={cls(props.title && props.subTitle && 'inview-3')}>
+        <div class={cn(props.title && props.subTitle && 'inview-3')}>
           {props.children}
         </div>
       </section>

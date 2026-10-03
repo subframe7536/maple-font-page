@@ -3,18 +3,10 @@ import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFormat } from '@/utils/feature'
 
 import { createRef, watch } from '@solid-hooks/core'
-import { Tabs } from 'moraine'
+import { Button, Dialog, Tabs } from 'moraine'
 import { createMemo, createSignal, For, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 
 import {
   buildTargetURL,
@@ -117,7 +109,7 @@ export default function FreezeActionDialog(props: Props) {
         {' '}
         <GuideLink
           link={props.downloadURL}
-          class="!c-primary"
+          class="text-primary"
           text={props.t.file.get.text}
         />
         {' '}
@@ -132,17 +124,17 @@ export default function FreezeActionDialog(props: Props) {
 
   return (
     <Dialog open={open()} onOpenChange={listenOpenChange}>
-      <DialogTrigger
+      <Dialog.Trigger
         as={Button}
         size="md"
-        class="w-full !px-2"
+        class="w-full px-2"
         variant="secondary"
       >
         <Icon name="lucide:hammer" class="mr-2" />
         {props.t.btnText}
-      </DialogTrigger>
-      <DialogContent>
-        <DialogTitle class="flex items-center c-primary">
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Title class="flex items-center c-primary">
           <Show
             when={!isSupportWorker()}
             fallback={<Icon name="lucide:hammer" class="mr-2 size-6 c-accent" />}
@@ -150,7 +142,7 @@ export default function FreezeActionDialog(props: Props) {
             <Icon name="lucide:circle-x" class="mr-2 size-6 c-red" />
           </Show>
           {props.t.title}
-        </DialogTitle>
+        </Dialog.Title>
         <Show
           when={isSupportWorker()}
           fallback={(
@@ -180,7 +172,7 @@ export default function FreezeActionDialog(props: Props) {
             </For>
           </div>
         </Show>
-        <DialogFooter>
+        <Dialog.Footer>
           <Button
             disabled={shouldDisabled()}
             onClick={() => patch(curTab() === 'up' ? zipFile()! : targetURL())}
@@ -195,8 +187,8 @@ export default function FreezeActionDialog(props: Props) {
           >
             {props.t.chooseGuide.text}
           </Button>
-        </DialogFooter>
-      </DialogContent>
+        </Dialog.Footer>
+      </Dialog.Content>
     </Dialog>
   )
 }

@@ -1,6 +1,7 @@
+import { Button } from 'moraine'
+
 import Icon from '@/components/icon'
 import Section from '@/components/section'
-import { Button } from '@/components/ui/button'
 import { useIndexTranslation } from '@/locales/i18n'
 import { localePath, siteLocale } from '@/locales/i18n'
 
@@ -28,11 +29,11 @@ export default function SectionView() {
           {beforeFont}<span class="font-(italic 500)">Maple Mono</span>{afterFont}
         </p>
         <div class="mt-6 flex flex-wrap items-center justify-start gap-6">
-          <Button as="a" href="#why" size="lg">
+          <Button as="a" href="#why" size="xl">
             {learnMoreText}
             <Icon name="lucide:arrow-down" class="ml-2" />
           </Button>
-          <Button as="a" size="lg" href={playgroundLink} variant="outline">
+          <Button as="a" size="xl" href={playgroundLink} variant="outline">
             {tryItText}
             <Icon name="lucide:arrow-right" class="ml-2" />
           </Button>

@@ -1,7 +1,7 @@
 import type { CarouselApi } from '@/components/ui/carousel'
 
-import { cls } from 'cls-variant'
 import Autoplay from 'embla-carousel-autoplay'
+import { useCn } from 'moraine'
 import { createEffect, createSignal, Index, onCleanup } from 'solid-js'
 
 import {
@@ -49,6 +49,7 @@ function TestimonialItem(props: ItemData) {
 }
 
 export function TestimonialBanner(props: Props) {
+  const cn = useCn()
   const [api, setApi] = createSignal<API | undefined>()
   const [selectedIndex, setSelectedIndex] = createSignal(0)
   const updateIndex = (a: API) => {
@@ -91,7 +92,7 @@ export function TestimonialBanner(props: Props) {
               type="button"
               aria-label={`Show testimonial ${i + 1}`}
               aria-pressed={selectedIndex() === i}
-              class={cls(
+              class={cn(
                 'm-1 size-2 cursor-pointer rounded-full transition-background-color-500 focus-visible:effect-fv',
                 selectedIndex() === i ? 'bg-secondary' : 'bg-muted',
               )}

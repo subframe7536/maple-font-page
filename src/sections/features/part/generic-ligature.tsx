@@ -1,6 +1,5 @@
+import { Tabs, useCn } from 'moraine'
 /* eslint-disable solid/prefer-for */
-import { cls } from 'cls-variant'
-import { Tabs } from 'moraine'
 import { createSignal } from 'solid-js'
 
 const arr = [
@@ -9,6 +8,7 @@ const arr = [
   ['<=', '###', ':=', '<==>', '|>'],
 ]
 export default function GenericLigature() {
+  const cn = useCn()
   const [calt, setCalt] = createSignal('1')
   return (
     <div
@@ -22,7 +22,7 @@ export default function GenericLigature() {
         items={[{ value: '1', label: 'Ligature ON' }, { value: '0', label: 'Ligature OFF' }]}
       />
       <div
-        class={cls(
+        class={cn(
           'mt-8 flex flex-col gap-6 text-3xl c-muted lg:text-7xl md:text-6xl sm:text-5xl xs:text-4xl',
           calt() === '1' ? '[&_span]:c-secondary' : '[&_span]:c-secondary-alt',
         )}

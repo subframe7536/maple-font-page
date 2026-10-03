@@ -1,7 +1,6 @@
 import type { JSX } from 'solid-js'
 
-import { cls } from 'cls-variant'
-import { Switch } from 'moraine'
+import { Switch, useCn } from 'moraine'
 import { createMemo, createSignal, Show } from 'solid-js'
 
 export interface FeatureCardProps {
@@ -19,6 +18,7 @@ export interface FeatureCardProps {
  * Card with feature switch
  */
 export default function FeatureCard(props: FeatureCardProps) {
+  const cn = useCn()
   // eslint-disable-next-line solid/reactivity
   const [fea, setFea] = createSignal(props.enable || false)
 
@@ -45,7 +45,7 @@ export default function FeatureCard(props: FeatureCardProps) {
   return (
     <div class="mx-auto mt--8 w-full py-4">
       <div
-        class={cls(
+        class={cn(
           'leading-normal',
           props.sizeClass ?? 'text-20',
         )}

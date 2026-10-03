@@ -1,8 +1,7 @@
 import type { FeatureValue } from '@/utils/feature'
 
 import { watchOnce } from '@solid-hooks/core'
-import { cls } from 'cls-variant'
-import { Tabs } from 'moraine'
+import { Tabs, useCn } from 'moraine'
 import { createMemo, createSignal } from 'solid-js'
 
 import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '@/utils/feature'
@@ -19,6 +18,7 @@ interface Props {
 }
 
 export default function LigaSwitch(props: Props) {
+  const cn = useCn()
   const ver = createMemo(() => `v${props.version}00`)
   // eslint-disable-next-line solid/reactivity
   const [value, setValue] = createSignal<FeatureValue>(props.feat === 'calt' ? '1' : '0')
@@ -44,7 +44,7 @@ export default function LigaSwitch(props: Props) {
         class="select-none"
         items={['0', '1'].map(state => ({ value: state, label: (
           <span
-            class={cls(props.italic && '!font-italic', props.cn && 'font-cn')}
+            class={cn(props.italic && '!font-italic', props.cn && 'font-cn')}
             style={{ [`--feat-${props.feat}`]: state }}
             title={`${state === '1' ? 'turn on' : 'turn off'} "${props.feat}"`}
           >

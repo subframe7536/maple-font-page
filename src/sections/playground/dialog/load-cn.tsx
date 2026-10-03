@@ -1,13 +1,7 @@
+import { Button, Dialog } from 'moraine'
 import { createSignal } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-} from '@/components/ui/dialog'
 
 import GuideLink from '../components/guide-link'
 
@@ -19,11 +13,11 @@ export default function LoadCnDialog(props: Props) {
   const [isOpen, setIsOpen] = createSignal(true)
   return (
     <Dialog open={isOpen()} onOpenChange={setIsOpen}>
-      <DialogContent>
-        <DialogTitle class="flex items-center text-primary">
+      <Dialog.Content>
+        <Dialog.Title class="flex items-center text-primary">
           <Icon name="lucide:lightbulb" class="mr-2 size-6 c-accent" />
           提示
-        </DialogTitle>
+        </Dialog.Title>
         <div class="mt-2">
           是否加载中文字体？
         </div>
@@ -44,7 +38,7 @@ export default function LoadCnDialog(props: Props) {
             link="https://zeoseven.com/donate/"
           />
         </div>
-        <DialogFooter>
+        <Dialog.Footer>
           <Button
             onClick={() => {
               props.$shouldLoad()
@@ -59,8 +53,8 @@ export default function LoadCnDialog(props: Props) {
           >
             取消
           </Button>
-        </DialogFooter>
-      </DialogContent>
+        </Dialog.Footer>
+      </Dialog.Content>
     </Dialog>
   )
 }

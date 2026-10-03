@@ -32,6 +32,3 @@ Thumbs.db
 .eslintcache
 .intlayer
 src/routes.d.ts
-playwright-report
-test-results
-base-results

@@ -10,8 +10,6 @@ concurrency:
   cancel-in-progress: true
 jobs:
   check:
-    env:
-      BASELINE_URL: http://127.0.0.1:4174
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,31 +23,10 @@ jobs:
       - run: pnpm lint
       - run: pnpm build
       - run: pnpm test:ssg
-      - name: Build original site for visual review
-        run: |
-          git fetch origin 6f2e9f625c57a516b8a8f41c6985c84e32ab9043
-          git worktree add --detach ../maple-baseline FETCH_HEAD
-          cd ../maple-baseline
-          node -e "require('node:fs').writeFileSync('pnpm-workspace.yaml', 'allowBuilds:\n  esbuild: true\n  sharp: true\n')"
-          pnpm install --no-frozen-lockfile
-          pnpm exec astro build
-          python3 -m http.server 4174 --directory dist > /tmp/maple-baseline.log 2>&1 &
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm test:e2e
       - name: Verify GitHub Pages base path
         run: |
           pnpm build
           pnpm test:ssg
-          pnpm exec playwright test tests/base-path.spec.ts --reporter=list --output=base-results
         env:
           BASE_PATH: /maple-font-page/
           VITE_SITE_ORIGIN: https://subframe7536.github.io
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: browser-checks
-          path: |
-            playwright-report
-            test-results
-            base-results

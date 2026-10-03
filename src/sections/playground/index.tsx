@@ -4,12 +4,10 @@ import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 import { featureArray } from '@data/features/features'
 import { createRef, watch } from '@solid-hooks/core'
-import { cls } from 'cls-variant'
-import { Field, Slider, Tabs } from 'moraine'
+import { Button, Field, Slider, Tabs, useCn } from 'moraine'
 import { createMemo, createSignal, For, onCleanup, onMount, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
 import { toStyleObject } from '@/utils/feature'
 import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
 
@@ -57,6 +55,7 @@ const STATE = {
 type LoadingStatus = typeof STATE[keyof typeof STATE]
 
 export default function Playground(props: PlaygroundProps) {
+  const cn = useCn()
   const textareaRef = createRef<HTMLTextAreaElement>()
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
@@ -166,11 +165,11 @@ export default function Playground(props: PlaygroundProps) {
             />
           </div>
 
-          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontSize}</span><output aria-hidden="true" class="tabular-nums">{size()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: '!mt-0' }}>
+          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontSize}</span><output aria-hidden="true" class="tabular-nums">{size()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: 'mt-0' }}>
             <Slider value={size()} onValueChange={setSize} min={props.sizeRange[0]} max={props.sizeRange[1]} step={1} aria-label={props.t.fontSize} />
           </Field>
 
-          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontWeight}</span><output aria-hidden="true" class="tabular-nums">{weight()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: '!mt-0' }}>
+          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontWeight}</span><output aria-hidden="true" class="tabular-nums">{weight()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: 'mt-0' }}>
             <Slider value={weight()} onValueChange={setWeight} min={props.weightRange[0]} max={props.weightRange[1]} step={1} aria-label={props.t.fontWeight} />
           </Field>
 
@@ -182,7 +181,7 @@ export default function Playground(props: PlaygroundProps) {
               prop:value={text()}
               spellcheck="false"
               title="Playground for Maple Mono"
-              class={cls(
+              class={cn(
                 'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg origin-tl',
                 cnLoadState() === STATE.SUCCESS && 'font-cn',
                 cnLoadState() !== STATE.SUCCESS && width() === 'Narrow' && 'scale-x-92 w-108%',

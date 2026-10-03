@@ -1,4 +1,3 @@
-import { cls } from 'cls-variant'
 import { For } from 'solid-js'
 
 import { useFeatureTranslation } from '@/locales/i18n'
@@ -19,14 +18,7 @@ export default function SectionView() {
     <>
       <SubSection {...data}>
         <div
-          class={cls(
-            'mt-4 flex text-6xl c-accent',
-            'text-12',
-            'xs:text-16',
-            'sm:text-24',
-            'md:text-28',
-            'lg:text-32',
-          )}
+          class="mt-4 flex text-12 c-accent xs:text-16 sm:text-24 md:text-28 lg:text-32"
         >
           <For each={showcaseText.split('')}>
             {(char, index) => (

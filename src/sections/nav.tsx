@@ -1,9 +1,9 @@
 import { useLocation } from '@solidjs/router'
+import { Button } from 'moraine'
 import { useIntlayer } from 'solid-intlayer'
 import { Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
 import { localePath, routePath, siteLocale } from '@/locales/i18n'
 import { tag } from '@/utils/constant'
 

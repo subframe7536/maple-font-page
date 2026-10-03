@@ -3,18 +3,10 @@ import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
 
 import { createRef } from '@solid-hooks/core'
 import { useCopy } from '@solid-hooks/core/web'
-import { cls } from 'cls-variant'
-import { Checkbox } from 'moraine'
+import { Button, Checkbox, Dialog, useCn } from 'moraine'
 import { createMemo, createSignal, For } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { toCliFlag, toConfigJson } from '@/utils/feature'
 
 import GuideLink from '../components/guide-link'
@@ -36,6 +28,7 @@ function ConfigSection(
     extra: ExtraConfig
   },
 ) {
+  const cn = useCn()
   const { copy, isCopied } = useCopy()
   const textareaRef = createRef<HTMLTextAreaElement>()
 
@@ -57,10 +50,10 @@ function ConfigSection(
       <h2 class="mb-2 flex select-none items-center gap-2">
         <div class="c-accent sm:text-lg">{props.title}</div>
         <Button
-          size="icon"
+          size="icon-lg"
           variant="outline"
           disabled={!parsedText() || isCopied()}
-          class={cls('!b-0', (!parsedText() || isCopied()) && 'cursor-not-allowed')}
+          class={['border-0', (!parsedText() || isCopied()) && 'cursor-not-allowed']}
           onClick={copyTextArea}
         >
           <Icon name={isCopied() ? 'lucide:copy-check' : 'lucide:copy'} title="copy" />
@@ -71,7 +64,7 @@ function ConfigSection(
         name={props.type}
         title={props.title}
         disabled={!parsedText()}
-        class={cls(
+        class={cn(
           'w-full resize-none bg-#0000 !b-0 !outline-none',
           props.type === 'json' && 'h-40 sm:h-60',
           props.type === 'cli' && 'h-10 whitespace-nowrap',
@@ -94,19 +87,19 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
 
   return (
     <Dialog>
-      <DialogTrigger
+      <Dialog.Trigger
         as={Button}
         size="md"
-        class="w-full !px-2"
+        class="w-full px-2"
       >
         <Icon name="lucide:braces" class="mr-2" />
         {props.t.btnText}
-      </DialogTrigger>
-      <DialogContent>
-        <DialogTitle class="flex items-center text-primary">
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Title class="flex items-center text-primary">
           <Icon name="lucide:braces" class="mr-2 size-6 c-accent" />
           {props.t.title}
-        </DialogTitle>
+        </Dialog.Title>
         <div>
           <p class="text-sm">
             {props.t.description}
@@ -141,7 +134,7 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
             extra={extraConfig()}
           />
         </div>
-      </DialogContent>
+      </Dialog.Content>
     </Dialog>
   )
 }
