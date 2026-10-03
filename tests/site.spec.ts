@@ -161,7 +161,7 @@ test('home feature controls, font comparison and testimonial keyboard navigation
   const features = page.locator('#features')
   const ligatures = features.getByRole('tablist', { name: 'calt', exact: true })
   await ligatures.getByRole('tab', { name: 'Ligature OFF', exact: true }).click()
-  await expect(features.locator('[style*="--feat-calt"]')).toHaveCSS('--feat-calt', '0')
+  await expect(ligatures.locator('../..').locator('[style*="--feat-calt"]')).toHaveCSS('--feat-calt', '0')
   const feature = features.getByRole('switch').first()
   const checked = await feature.getAttribute('aria-checked')
   await feature.click()
