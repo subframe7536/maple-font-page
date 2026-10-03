@@ -14,9 +14,8 @@ test.beforeEach(async ({ context }) => {
 })
 async function closeChinesePrompt(page: Page) {
   const cancel = page.getByRole('button', { name: '取消', exact: true })
-  if (await cancel.isVisible()) {
-    await cancel.click()
-  }
+  await expect(cancel).toBeVisible()
+  await cancel.click()
 }
 for (const locale of ['en', 'zh-cn']) {
   for (const route of ['', 'usage', 'download', 'playground']) {
@@ -30,8 +29,10 @@ for (const locale of ['en', 'zh-cn']) {
       await expect(page.locator('main')).not.toBeEmpty()
       if (route === 'playground') {
         await expect(page.getByTitle('Playground for Maple Mono')).toHaveValue(/Maple Mono, smooth your coding flow/)
+        if (locale === 'zh-cn') {
+          await closeChinesePrompt(page)
+        }
         await expect(page.getByRole('button', { name: locale === 'en' ? 'Load Chinese Font' : '加载中文字体', exact: true })).toBeEnabled()
-        await closeChinesePrompt(page)
       }
       if (route === 'download') {
         await expect(page.locator('.prose pre').first()).toBeVisible()
@@ -43,7 +44,7 @@ for (const locale of ['en', 'zh-cn']) {
       await page.screenshot({ path: testInfo.outputPath('page.png'), animations: 'disabled' })
       if (!route) {
         for (const id of ['features', 'preview', 'credits']) {
-          await page.locator(`#${id}`).scrollIntoViewIfNeeded()
+          await page.locator(`#${id}`).evaluate(element => element.scrollIntoView({ behavior: 'instant', block: 'start' }))
           await page.screenshot({ path: testInfo.outputPath(`${id}.png`), animations: 'disabled' })
         }
       }
@@ -93,6 +94,8 @@ test('custom build upload, removal and nested format selector', async ({ page })
   await expect(dialog.getByText(/https:\/\/cors.*MapleMono-TTF\.zip/)).toBeVisible()
   await dialog.getByRole('combobox').click()
   await page.keyboard.press('Escape')
+  await expect(page.getByRole('listbox')).toHaveCount(0)
+  await expect(dialog.getByRole('combobox')).toBeFocused()
   await expect(dialog).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(dialog).not.toBeVisible()
@@ -133,6 +136,8 @@ test('MDX documents work without JavaScript', async ({ browser }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'zh-CN')
   await expect(page.locator('.prose pre').first()).toBeVisible()
   await expect(page.getByRole('link', { name: '使用文档', exact: true })).toBeVisible()
+  await page.goto('http://127.0.0.1:4173/en/playground/')
+  await expect(page.getByTitle('Playground for Maple Mono')).toHaveValue(/Maple Mono, smooth your coding flow/)
   await context.close()
 })
 

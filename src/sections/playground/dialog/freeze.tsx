@@ -166,8 +166,8 @@ export default function FreezeActionDialog(props: Props) {
             aria-label={props.t.title}
             classes={{ content: 'pt-4' }}
             items={[
-              { value: 'up', label: <><Icon name="lucide:upload" /><span class="hidden xs:block">{props.t.tab.upload}</span></>, content: <UploadContent /> },
-              { value: 'dl', label: <><Icon name="lucide:link" /><span class="hidden xs:block">{props.t.tab.download}</span></>, content: <DownloadContent /> },
+              { value: 'up', label: <><Icon name="lucide:upload" /><span class="sr-only xs:not-sr-only xs:block">{props.t.tab.upload}</span></>, content: <UploadContent /> },
+              { value: 'dl', label: <><Icon name="lucide:link" /><span class="sr-only xs:not-sr-only xs:block">{props.t.tab.download}</span></>, content: <DownloadContent /> },
             ]}
           />
           <h3 class="text-lg c-accent font-bold">{props.t.log}</h3>

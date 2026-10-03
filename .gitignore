@@ -34,3 +34,4 @@ Thumbs.db
 src/routes.d.ts
 playwright-report
 test-results
+base-results

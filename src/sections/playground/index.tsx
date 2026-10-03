@@ -159,13 +159,11 @@ export default function Playground(props: PlaygroundProps) {
             />
           </div>
 
-          <Field label={props.t.fontSize} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'leading-none font-500' }}>
-            <output class="absolute right-2 top-2 text-sm leading-none tabular-nums">{size()}</output>
+          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontSize}</span><output aria-hidden="true" class="tabular-nums">{size()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: '!mt-0' }}>
             <Slider value={size()} onValueChange={setSize} min={props.sizeRange[0]} max={props.sizeRange[1]} step={1} aria-label={props.t.fontSize} />
           </Field>
 
-          <Field label={props.t.fontWeight} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'leading-none font-500' }}>
-            <output class="absolute right-2 top-2 text-sm leading-none tabular-nums">{weight()}</output>
+          <Field label={<span class="w-full flex justify-between"><span>{props.t.fontWeight}</span><output aria-hidden="true" class="tabular-nums">{weight()}</output></span>} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'w-full leading-none font-500', container: '!mt-0' }}>
             <Slider value={weight()} onValueChange={setWeight} min={props.weightRange[0]} max={props.weightRange[1]} step={1} aria-label={props.t.fontWeight} />
           </Field>
 

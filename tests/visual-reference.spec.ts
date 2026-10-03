@@ -26,7 +26,8 @@ for (const locale of ['en', 'zh-cn']) {
       await page.screenshot({ path: testInfo.outputPath('original.png'), animations: 'disabled' })
       if (!route) {
         for (const id of ['features', 'preview', 'credits']) {
-          await page.locator(`#${id}`).scrollIntoViewIfNeeded()
+          await page.locator(`#${id}`).evaluate(element => element.scrollIntoView({ behavior: 'instant', block: 'start' }))
+          await expect(page.locator(`#${id} h1`).first()).toHaveCSS('opacity', '1')
           await page.screenshot({ path: testInfo.outputPath(`original-${id}.png`), animations: 'disabled' })
         }
       }

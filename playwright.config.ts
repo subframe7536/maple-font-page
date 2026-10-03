@@ -18,7 +18,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'pnpm preview --port 4173',
-    url: 'http://127.0.0.1:4173/en/',
+    url: `http://127.0.0.1:4173${process.env.BASE_PATH?.replace(/\/$/, '') ?? ''}/en/`,
     reuseExistingServer: !process.env.CI,
   },
 })
