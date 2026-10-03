@@ -30,6 +30,7 @@ jobs:
           git fetch origin 6f2e9f625c57a516b8a8f41c6985c84e32ab9043
           git worktree add --detach ../maple-baseline FETCH_HEAD
           cd ../maple-baseline
+          node -e "require('node:fs').writeFileSync('pnpm-workspace.yaml', 'allowBuilds:\n  esbuild: true\n  sharp: true\n')"
           pnpm install --no-frozen-lockfile
           pnpm exec astro build
           python3 -m http.server 4174 --directory dist > /tmp/maple-baseline.log 2>&1 &
