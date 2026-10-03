@@ -7,7 +7,7 @@ import { MDXProvider } from 'solid-file-router/mdx'
 import { IntlayerProvider } from 'solid-intlayer'
 import { createEffect, on, onMount, Show, Suspense } from 'solid-js'
 
-import { CodeHtml } from '@/components/code'
+import { CodeHtml } from '@/components/code-html'
 import DocumentLayout from '@/layouts/document'
 import { routePath } from '@/locales/i18n'
 import Nav from '@/sections/nav'
@@ -24,6 +24,13 @@ function Shell(props: ParentProps) {
   })
   createEffect(() => {
     document.documentElement.lang = locale()
+    // The router updates head links after navigation; retain hreflang attributes.
+    void location.pathname
+    queueMicrotask(() => {
+      document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"]').forEach((link) => {
+        link.hreflang = link.href.includes('/zh-cn') ? 'zh-CN' : 'en'
+      })
+    })
   })
   createEffect(on(() => [location.pathname, location.hash, isRouting()] as const, ([, hash, routing]) => {
     if (routing) {

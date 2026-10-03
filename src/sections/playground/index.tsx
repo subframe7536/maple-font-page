@@ -159,12 +159,14 @@ export default function Playground(props: PlaygroundProps) {
             />
           </div>
 
-          <Field label={props.t.fontSize} class="w-full gap-3 p-2 sm:gap-5.5">
-            <div class="flex items-center gap-4"><Slider value={size()} onValueChange={setSize} min={props.sizeRange[0]} max={props.sizeRange[1]} step={1} aria-label={props.t.fontSize} class="flex-1" /><output class="text-sm tabular-nums">{size()}</output></div>
+          <Field label={props.t.fontSize} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'leading-none font-500' }}>
+            <output class="absolute right-2 top-2 text-sm leading-none tabular-nums">{size()}</output>
+            <Slider value={size()} onValueChange={setSize} min={props.sizeRange[0]} max={props.sizeRange[1]} step={1} aria-label={props.t.fontSize} />
           </Field>
 
-          <Field label={props.t.fontWeight} class="w-full gap-3 p-2 sm:gap-5.5">
-            <div class="flex items-center gap-4"><Slider value={weight()} onValueChange={setWeight} min={props.weightRange[0]} max={props.weightRange[1]} step={1} aria-label={props.t.fontWeight} class="flex-1" /><output class="text-sm tabular-nums">{weight()}</output></div>
+          <Field label={props.t.fontWeight} class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5" classes={{ label: 'leading-none font-500' }}>
+            <output class="absolute right-2 top-2 text-sm leading-none tabular-nums">{weight()}</output>
+            <Slider value={weight()} onValueChange={setWeight} min={props.weightRange[0]} max={props.weightRange[1]} step={1} aria-label={props.t.fontWeight} />
           </Field>
 
         </div>
@@ -172,7 +174,7 @@ export default function Playground(props: PlaygroundProps) {
           <div class="size-full overflow-hidden">
             <textarea
               ref={textareaRef}
-              value={text()}
+              prop:value={text()}
               spellcheck="false"
               title="Playground for Maple Mono"
               class={cls(
@@ -188,7 +190,9 @@ export default function Playground(props: PlaygroundProps) {
                 ...toStyleObject(feat()),
               }}
               onInput={e => setText(e.currentTarget.value)}
-            />
+            >
+              {props.defaultText}
+            </textarea>
           </div>
           <div class="w-full flex gap-2 xs:gap-4">
             <ConfigActionDialog

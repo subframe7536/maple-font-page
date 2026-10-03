@@ -12,7 +12,6 @@ export default function FileUploader(props: Props) {
       label={`${props.t.upload.btnStart} ${props.t.upload.btnEnd}`}
       description={props.t.upload.alert}
       aria-label={props.t.upload.title}
-      preview={false}
       icon="i-lucide:upload"
       fileIcon="i-lucide:file-archive"
       classes={{ control: 'h-40 b-(2 input dashed) rounded-md text-center', files: 'min-h-40' }}

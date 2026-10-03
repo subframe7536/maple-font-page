@@ -76,8 +76,10 @@ function ConfigSection(
           props.type === 'json' && 'h-40 sm:h-60',
           props.type === 'cli' && 'h-10 whitespace-nowrap',
         )}
-        value={parsedText() || props.fallback}
-      />
+        prop:value={parsedText() || props.fallback}
+      >
+        {parsedText() || props.fallback}
+      </textarea>
     </>
   )
 }
