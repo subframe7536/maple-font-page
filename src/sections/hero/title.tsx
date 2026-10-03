@@ -6,17 +6,13 @@ import { loadMapleMono } from '@/utils/loadFont'
 import Placeholder from './placeholder'
 
 export default function Title(props: { slogan: string }) {
-  let placeholder: HTMLImageElement | undefined
-  const [isLoading, setIsLoading] = createSignal(true)
+  const [isLoading, setIsLoading] = createSignal(false)
 
   onMount(() => {
+    setIsLoading(true)
     loadMapleMono()
       .then(() => {
-        placeholder!.addEventListener(
-          'animationiteration',
-          () => setIsLoading(false),
-          { once: true },
-        )
+        setIsLoading(false)
       })
       .catch((error) => {
         console.error('Error loading font:', error)
@@ -30,7 +26,6 @@ export default function Title(props: { slogan: string }) {
         aria-label="Maple Mono"
       >
         <div
-          ref={placeholder}
           class={cls(
             'absolute left-0 right-0 top-0 bottom-0 transition',
             isLoading() ? 'animate-flashing' : 'op-0',

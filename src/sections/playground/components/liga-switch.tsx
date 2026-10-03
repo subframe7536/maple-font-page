@@ -2,9 +2,9 @@ import type { FeatureValue } from '@/utils/feature'
 
 import { watchOnce } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
+import { Tabs } from 'moraine'
 import { createMemo, createSignal } from 'solid-js'
 
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '@/utils/feature'
 
 interface Props {
@@ -40,34 +40,18 @@ export default function LigaSwitch(props: Props) {
       <Tabs
         value={value()}
         onChange={state => props.$change(props.feat, setValue(state as FeatureValue))}
+        aria-label={props.feat}
         class="select-none"
-      >
-        <TabsList>
-          <TabsTrigger
-            value="0"
-            class={cls(
-              props.italic && '!font-italic',
-              props.cn && 'font-cn',
-            )}
-            style={{ [`--feat-${props.feat}`]: '0' }}
-            title={`turn off "${props.feat}"`}
+        items={['0', '1'].map(state => ({ value: state, label: (
+          <span
+            class={cls(props.italic && '!font-italic', props.cn && 'font-cn')}
+            style={{ [`--feat-${props.feat}`]: state }}
+            title={`${state === '1' ? 'turn on' : 'turn off'} "${props.feat}"`}
           >
             {props.text}
-          </TabsTrigger>
-          <TabsTrigger
-            value="1"
-            class={cls(
-              props.italic && '!font-italic',
-              props.cn && 'font-cn',
-            )}
-            style={{ [`--feat-${props.feat}`]: '1' }}
-            title={`turn on "${props.feat}"`}
-          >
-            {props.text}
-          </TabsTrigger>
-          <TabsIndicator />
-        </TabsList>
-      </Tabs>
+          </span>
+        ) }))}
+      />
     </div>
   )
 }

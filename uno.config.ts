@@ -1,19 +1,19 @@
-import type { Preset, PresetWind3Theme } from 'unocss'
+import type { Preset, PresetWind3Theme } from '@subf/unocss'
 
 import {
   defineConfig,
   presetIcons,
-  presetTypography,
   presetWind3,
   transformerDirectives,
   transformerVariantGroup,
-} from 'unocss'
+} from '@subf/unocss'
+import { presetCompletion } from '@subf/unocss'
+import presetTypography from '@unocss/preset-typography'
+import { presetMoraine } from 'moraine/unocss'
 import { presetAnimations } from 'unocss-preset-animations'
-import { presetCompletion } from 'unocss-preset-completion'
-import { presetInView } from 'unocss-preset-inview'
 
-import { featureArray } from './data/features/features'
-import { cdnPrefix } from './src/utils/constant'
+import { featureArray } from './data/features/features.ts'
+import { cdnPrefix } from './src/utils/constant.ts'
 
 function generateBaseFontface(name: string, src: string, isItalic?: boolean) {
   return `
@@ -265,14 +265,14 @@ export default defineConfig<PresetWind3Theme>({
         }
       },
     }),
-    presetInView(),
+    presetMoraine({ wind3: true, themeDefaults: false }),
   ],
   shortcuts: [
     ['effect-fv', 'outline-none ring-1.5 ring-ring ring-offset-(2 background)'],
     ['effect-dis', 'pointer-events-none opacity-50 cursor-not-allowed'],
     ['animated-underline', 'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
     ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)'],
-    [/^inview-(\d+)$/, ([, index]) => `translate-y-8 op-0 transition-500 delay-${index}00 ease-in-out inview:(translate-y-0 op-300)`],
+    [/^inview-\d+$/, () => 'motion-safe:transition-transform'],
   ],
   theme: {
     colors: {

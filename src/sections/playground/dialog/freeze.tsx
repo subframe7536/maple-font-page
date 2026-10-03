@@ -1,9 +1,9 @@
 import type { ConfigActionDialogProps } from './config'
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFormat } from '@/utils/feature'
-import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
 import { createRef, watch } from '@solid-hooks/core'
+import { Tabs } from 'moraine'
 import { createMemo, createSignal, For, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
@@ -15,7 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import {
   buildTargetURL,
@@ -69,7 +68,7 @@ export default function FreezeActionDialog(props: Props) {
     if (!isSupportWorker()) {
       return true
     }
-    return curTab() === 'up' ? !zipFile() : status() !== 'ready'
+    return status() !== 'ready' || (curTab() === 'up' && !zipFile())
   })
 
   let id = ''
@@ -88,21 +87,60 @@ export default function FreezeActionDialog(props: Props) {
     }
   }
 
+  const DownloadContent = () => (
+    <div>
+      <UrlForm
+        t={props.t}
+        guide={props.tGuide}
+        fileFormat={fileFormat}
+        useHinted={useHinted}
+        proxyURL={proxyURL}
+      />
+      <div class="mt-4">
+        <div class="mb-2 text-sm text-primary">
+          {props.t.options.finalURL}
+        </div>
+        <div class="break-all text-xs">
+          {targetURL()}
+        </div>
+      </div>
+    </div>
+  )
+
+  const UploadContent = () => (
+    <div>
+      <div class="mb-2 text-sm text-secondary">
+        {props.t.file.get.title}
+      </div>
+      <div class="my-3 text-sm">
+        {props.t.file.get.descStart}
+        {' '}
+        <GuideLink
+          link={props.downloadURL}
+          class="!c-primary"
+          text={props.t.file.get.text}
+        />
+        {' '}
+        {props.t.file.get.descEnd}
+      </div>
+      <FileUploader
+        t={props.t.file}
+        zipFile={zipFile}
+      />
+    </div>
+  )
+
   return (
     <Dialog open={open()} onOpenChange={listenOpenChange}>
       <DialogTrigger
-        as={(triggerProps: DialogTriggerProps) => (
-          <Button
-            size="md"
-            class="w-full !px-2"
-            variant="secondary"
-            {...triggerProps}
-          >
-            <Icon name="lucide:hammer" class="mr-2" />
-            {props.t.btnText}
-          </Button>
-        )}
-      />
+        as={Button}
+        size="md"
+        class="w-full !px-2"
+        variant="secondary"
+      >
+        <Icon name="lucide:hammer" class="mr-2" />
+        {props.t.btnText}
+      </DialogTrigger>
       <DialogContent>
         <DialogTitle class="flex items-center c-primary">
           <Show
@@ -122,56 +160,16 @@ export default function FreezeActionDialog(props: Props) {
             </div>
           )}
         >
-          <Tabs value={curTab()} onChange={setCurTab}>
-            <TabsList>
-              <TabsTrigger value="up" class="w-full flex items-center justify-center gap-2">
-                <Icon name="lucide:upload" />
-                <span class="hidden xs:block">{props.t.tab.upload}</span>
-              </TabsTrigger>
-              <TabsTrigger value="dl" class="w-full flex items-center justify-center gap-2">
-                <Icon name="lucide:link" />
-                <span class="hidden xs:block">{props.t.tab.download}</span>
-              </TabsTrigger>
-              <TabsIndicator />
-            </TabsList>
-            <TabsContent value="dl" class="pt-4">
-              <UrlForm
-                t={props.t}
-                guide={props.tGuide}
-                fileFormat={fileFormat}
-                useHinted={useHinted}
-                proxyURL={proxyURL}
-              />
-              <div class="mt-4">
-                <div class="mb-2 text-sm text-primary">
-                  {props.t.options.finalURL}
-                </div>
-                <div class="break-all text-xs">
-                  {targetURL()}
-                </div>
-              </div>
-            </TabsContent>
-            <TabsContent value="up" class="pt-4">
-              <div class="mb-2 text-sm text-secondary">
-                {props.t.file.get.title}
-              </div>
-              <div class="my-3 text-sm">
-                {props.t.file.get.descStart}
-                {' '}
-                <GuideLink
-                  link={props.downloadURL}
-                  class="!c-primary"
-                  text={props.t.file.get.text}
-                />
-                {' '}
-                {props.t.file.get.descEnd}
-              </div>
-              <FileUploader
-                t={props.t.file}
-                zipFile={zipFile}
-              />
-            </TabsContent>
-          </Tabs>
+          <Tabs
+            value={curTab()}
+            onChange={value => setCurTab(value as 'dl' | 'up')}
+            aria-label={props.t.title}
+            classes={{ content: 'pt-4' }}
+            items={[
+              { value: 'up', label: <><Icon name="lucide:upload" /><span class="hidden xs:block">{props.t.tab.upload}</span></>, content: <UploadContent /> },
+              { value: 'dl', label: <><Icon name="lucide:link" /><span class="hidden xs:block">{props.t.tab.download}</span></>, content: <DownloadContent /> },
+            ]}
+          />
           <h3 class="text-lg c-accent font-bold">{props.t.log}</h3>
           <div class="text-xs c-note">{props.t.memoryAlert}</div>
           <div ref={logPanelRef} class="h-25 of-scroll text-sm sm:h-50">

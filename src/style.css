@@ -1,0 +1,71 @@
+:root {
+  color-scheme: dark;
+  --background: hsl(212 30% 22%);
+  --foreground: hsl(202 50% 90%);
+  --primary: hsl(202 64% 80%);
+  --primary-foreground: hsl(202 47% 12%);
+  --secondary: hsl(140 28% 72%);
+  --secondary-foreground: hsl(140 40% 20%);
+  --muted: hsl(202 20% 30%);
+  --muted-foreground: hsl(202 30% 88%);
+  --accent: hsl(32 90% 85%);
+  --accent-foreground: hsl(202 33% 18%);
+  --border: hsl(212 64% 80%);
+  --input: hsl(212 36% 50%);
+  --ring: hsl(212 27% 84%);
+  --control: var(--background);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --backdrop: hsl(212 30% 22% / .8);
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --radius: .5rem;
+  --fw: 400;
+}
+html, body, #app { height: 100%; overflow: hidden; }
+button, input, select, textarea { font: inherit; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+section[id], .prose :is(h1,h2,h3,h4,h5,h6) { scroll-margin-top: 4rem; }
+.maple-button.maple-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0;
+  border-radius: .375rem; font-weight: 500; --fw: 500;
+  cursor: pointer; user-select: none; white-space: nowrap;
+  transition: color .15s, background-color .15s, opacity .15s;
+}
+.maple-button-default { background: var(--primary); color: var(--primary-foreground); }
+.maple-button-secondary { background: var(--secondary); color: var(--secondary-foreground); }
+.maple-button-outline.maple-button { border: 2px solid var(--border); color: var(--border); background: var(--background); }
+.maple-button-link.maple-button { background: transparent; color: inherit; border: 0; }
+.maple-button-link:hover { text-decoration: underline; text-underline-offset: 5px; }
+.maple-button-default:hover, .maple-button-secondary:hover { opacity: .9; }
+.maple-button-default.maple-button, .maple-button-outline.maple-button, .maple-button-secondary.maple-button { box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.maple-button-md.maple-button { height: 2rem; padding: 0 1rem; font-size: .75rem; }
+.maple-button-default.maple-button:not(.maple-button-md):not(.maple-button-lg):not(.maple-button-icon):not(.maple-button-sm) { height: 2.25rem; padding: .5rem 1rem; font-size: .875rem; }
+.maple-button-sm.maple-button { height: 2rem; padding: 0 .75rem; font-size: .75rem; }
+.maple-button-lg.maple-button { height: 3rem; padding: 0 2rem; font-size: 1.125rem; }
+.maple-button-icon.maple-button { width: 2.25rem; height: 2.25rem; padding: 0; }
+.maple-button:disabled { pointer-events: none; opacity: .5; }
+.maple-button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+[data-slot="tabs-list"] { background: var(--muted); border-radius: .5rem; padding: .25rem; width: 100%; }
+[data-slot="tabs-trigger"] { flex: 1; height: 1.75rem; min-width: 3rem; justify-content: center; font-size: .875rem; padding: .25rem .75rem; color: var(--foreground); }
+[data-slot="tabs-trigger"][data-selected] { --fw: 600; }
+[data-slot="tabs-indicator"] { background: var(--background); border-radius: .375rem; }
+[data-slot="switch-track"] { background: var(--input); }
+[data-slot="switch-track"][data-checked] { background: var(--primary); }
+[data-slot="switch-thumb"] { background: var(--background); }
+[data-slot="dialog-content"] { background: var(--background); color: var(--foreground); border: 1px solid var(--border); width: 90%; max-width: 36rem; padding: 1rem; gap: 1rem; border-radius: .5rem; max-height: 90dvh; overflow: auto; }
+[data-slot="dialog-footer"] { background: transparent; padding: 0; margin-top: 1rem; }
+[data-slot="dialog-title"] { font-size: 1.25rem; }
+.code-panel pre { border-radius: inherit; padding: 0; margin: 0; overflow: auto; }
+.code-panel { background: #222a35; overflow: auto; }
+.code-panel code { display: block; font-size: inherit; font-family: inherit; }
+.prose pre { background: #222a35; padding: 1rem; }
+.prose pre code { display: grid; font-size: .875rem; }
+.prose table { width: 100%; }
+.prose img { max-width: 100%; height: auto; }
+@media (min-width: 768px) { .maple-button-md.maple-button { font-size: .875rem; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+.maple-button [data-slot="button-label"] { display: inline-flex; align-items: center; justify-content: center; }

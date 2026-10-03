@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+  '@parcel/watcher': true
+minimumReleaseAgeExclude:
+  - '@subf/unocss@0.4.0'
+  - moraine@0.6.0-beta.3

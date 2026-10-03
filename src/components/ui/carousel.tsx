@@ -173,7 +173,7 @@ const CarouselItem: Component<ComponentProps<'div'>> = (props) => {
       class={cls(
         'min-w-0 shrink-0 grow-0 basis-full flex justify-center',
         orientation === 'horizontal' ? 'pl-4' : 'pt-4',
-        local.class,
+        typeof local.class === 'string' ? local.class : '',
       )}
       {...others}
     />
@@ -196,7 +196,7 @@ const CarouselPrevious: Component<CarouselButtonProps> = (rawProps) => {
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
-        local.class,
+        typeof local.class === 'string' ? local.class : '',
       )}
       disabled={!canScrollPrev()}
       onClick={scrollPrev}
@@ -222,7 +222,7 @@ const CarouselNext: Component<CarouselButtonProps> = (rawProps) => {
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
-        local.class,
+        typeof local.class === 'string' ? local.class : '',
       )}
       disabled={!canScrollNext()}
       onClick={scrollNext}

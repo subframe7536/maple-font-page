@@ -1,15 +1,14 @@
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
-import type { DialogTriggerProps } from '@kobalte/core/dialog'
 
 import { createRef } from '@solid-hooks/core'
 import { useCopy } from '@solid-hooks/core/web'
 import { cls } from 'cls-variant'
+import { Checkbox } from 'moraine'
 import { createMemo, createSignal, For } from 'solid-js'
 
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
-import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogContent,
@@ -94,17 +93,13 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
   return (
     <Dialog>
       <DialogTrigger
-        as={(triggerProps: DialogTriggerProps) => (
-          <Button
-            size="md"
-            class="w-full !px-2"
-            {...triggerProps}
-          >
-            <Icon name="lucide:braces" class="mr-2" />
-            {props.t.btnText}
-          </Button>
-        )}
-      />
+        as={Button}
+        size="md"
+        class="w-full !px-2"
+      >
+        <Icon name="lucide:braces" class="mr-2" />
+        {props.t.btnText}
+      </DialogTrigger>
       <DialogContent>
         <DialogTitle class="flex items-center text-primary">
           <Icon name="lucide:braces" class="mr-2 size-6 c-accent" />
@@ -120,12 +115,10 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
               {([key, str]) => (
                 <Checkbox
                   checked={extraConfig()[key as ExtraConfigKey]}
-                  onChange={v => setExtraConfig(old => ({ ...old, ...{ [key]: v } }))}
+                  onCheckedChange={v => setExtraConfig(old => ({ ...old, ...{ [key]: v } }))}
                   class="flex items-center space-x-2"
-                >
-                  <CheckboxControl />
-                  <CheckboxLabel>{str}</CheckboxLabel>
-                </Checkbox>
+                  label={str}
+                />
               )}
             </For>
           </div>

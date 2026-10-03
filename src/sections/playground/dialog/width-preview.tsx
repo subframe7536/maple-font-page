@@ -26,8 +26,8 @@ export interface WidthPreviewDialogProps {
 }
 
 const LETTER_SPACING: Record<string, string> = {
-  Narrow: '-0.1em',
-  Slim: '-0.17em',
+  narrow: '-0.1em',
+  slim: '-0.17em',
 }
 
 function PreviewLine(props: { line: string, width: string }) {

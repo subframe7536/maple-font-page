@@ -5,19 +5,11 @@ import type { PlaygroundTranslation } from '@/locales/playground/en'
 import { featureArray } from '@data/features/features'
 import { createRef, watch } from '@solid-hooks/core'
 import { cls } from 'cls-variant'
+import { Field, Slider, Tabs } from 'moraine'
 import { createMemo, createSignal, For, onMount, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
 import { Button } from '@/components/ui/button'
-import {
-  Slider,
-  SliderFill,
-  SliderLabel,
-  SliderThumb,
-  SliderTrack,
-  SliderValueLabel,
-} from '@/components/ui/slider'
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { toStyleObject } from '@/utils/feature'
 import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
 
@@ -75,7 +67,7 @@ export default function Playground(props: PlaygroundProps) {
   )
   const [normal, setNormal] = createSignal(false)
   const [widthPreviewOpen, setWidthPreviewOpen] = createSignal(false)
-  const [text, setText] = createSignal('')
+  const [text, setText] = createSignal(props.defaultText)
 
   // -1: no load; 0: loading; 1: loaded; 2: load failed
   const [monoLoadState, setMonoLoadState] = createSignal<LoadingStatus>(STATE.INIT)
@@ -94,16 +86,15 @@ export default function Playground(props: PlaygroundProps) {
   onMount(() => {
     const ref = textareaRef()!
     setMonoLoadState(STATE.LOADING)
-    ref.value = 'Loading...'
+
     if (location.search.includes('normal')) {
       setNormal(true)
     }
     loadMapleMono()
       .then(() => {
-        ref.value = props.defaultText
-        ref.focus()
+        ref.focus({ preventScroll: true })
         setMonoLoadState(STATE.SUCCESS)
-        return ref.value
+        return props.defaultText
       })
       .catch(() => {
         ref.value = 'Fail to load Maple Mono.'
@@ -132,7 +123,7 @@ export default function Playground(props: PlaygroundProps) {
       const textarea = textareaRef()!
       const oldText = textarea.value
       textarea.focus()
-      textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
+      setText(`${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`)
       textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
       textarea.scroll({ top: 99999 })
       setText(textarea.value)
@@ -140,89 +131,48 @@ export default function Playground(props: PlaygroundProps) {
   })
 
   return (
-    <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
-      <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
+    <div class="h-full min-h-0 w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
+      <div class="min-h-0 size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
         <div class="grid gap-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2">
           <div class="w-full flex flex-col select-none gap-2 p-2">
             <div class="text-sm leading-none font-500">{props.t.fontStyle.title}</div>
-            <Tabs onChange={setItalic}>
-              <TabsList>
-                <TabsTrigger value="normal">
-                  {props.t.fontStyle.regular}
-                </TabsTrigger>
-                <TabsTrigger value="italic" class="font-italic">
-                  {props.t.fontStyle.italic}
-                </TabsTrigger>
-                <TabsIndicator />
-              </TabsList>
-            </Tabs>
+            <Tabs
+              value={italic()}
+              onChange={setItalic}
+              aria-label={props.t.fontStyle.title}
+              items={[{ value: 'normal', label: props.t.fontStyle.regular }, { value: 'italic', label: <span class="font-italic">{props.t.fontStyle.italic}</span> }]}
+            />
           </div>
           <div class="w-full flex flex-col select-none gap-2 p-2">
             <div class="text-sm leading-none font-500">{props.t.glyphWidth}</div>
             <Tabs
-              onChange={(value: string) => {
-                if (setWidth(value as any) !== 'Default' && cnLoadState() === STATE.SUCCESS) {
+              value={width()}
+              onChange={(value) => {
+                setWidth(value as Capitalize<ConfigActionDialogProps['width']>)
+                if (value !== 'Default' && cnLoadState() === STATE.SUCCESS) {
                   setWidthPreviewOpen(true)
                 }
               }}
               disabled={props.isCn && cnLoadState() !== STATE.SUCCESS}
-            >
-              <TabsList>
-                <TabsTrigger value="Default">
-                  Default
-                </TabsTrigger>
-                <TabsTrigger value="Narrow" class="scale-x-92">
-                  Narrow
-                </TabsTrigger>
-                <TabsTrigger value="Slim" class="scale-x-83">
-                  Slim
-                </TabsTrigger>
-                <TabsIndicator />
-              </TabsList>
-            </Tabs>
+              aria-label={props.t.glyphWidth}
+              items={['Default', 'Narrow', 'Slim'].map(value => ({ value, label: value }))}
+            />
           </div>
 
-          <Slider
-            minValue={props.sizeRange[0]}
-            maxValue={props.sizeRange[1]}
-            defaultValue={[size()]}
-            onChange={([s]) => setSize(s)}
-            getValueLabel={params => `${params.values[0]}`}
-            class="w-full gap-3 p-2 sm:gap-5.5"
-          >
-            <div class="w-full flex justify-between">
-              <SliderLabel for="font-size-slider">{props.t.fontSize}</SliderLabel>
-              <SliderValueLabel for="font-size-slider" />
-            </div>
-            <SliderTrack id="font-size-slider">
-              <SliderFill />
-              <SliderThumb />
-            </SliderTrack>
-          </Slider>
+          <Field label={props.t.fontSize} class="w-full gap-3 p-2 sm:gap-5.5">
+            <div class="flex items-center gap-4"><Slider value={size()} onValueChange={setSize} min={props.sizeRange[0]} max={props.sizeRange[1]} step={1} aria-label={props.t.fontSize} class="flex-1" /><output class="text-sm tabular-nums">{size()}</output></div>
+          </Field>
 
-          <Slider
-            minValue={props.weightRange[0]}
-            maxValue={props.weightRange[1]}
-            defaultValue={[weight()]}
-            onChange={([w]) => setWeight(w)}
-            getValueLabel={params => `${params.values[0]}`}
-            class="w-full gap-3 p-2 sm:gap-5.5"
-          >
-            <div class="w-full flex justify-between">
-              <SliderLabel for="font-weight-slider">{props.t.fontWeight}</SliderLabel>
-              <SliderValueLabel for="font-weight-slider" />
-            </div>
-            <SliderTrack id="font-weight-slider">
-              <SliderFill />
-              <SliderThumb />
-            </SliderTrack>
-          </Slider>
+          <Field label={props.t.fontWeight} class="w-full gap-3 p-2 sm:gap-5.5">
+            <div class="flex items-center gap-4"><Slider value={weight()} onValueChange={setWeight} min={props.weightRange[0]} max={props.weightRange[1]} step={1} aria-label={props.t.fontWeight} class="flex-1" /><output class="text-sm tabular-nums">{weight()}</output></div>
+          </Field>
 
         </div>
         <div class="relative size-full max-h-45vh flex flex-col gap-2 px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
           <div class="size-full overflow-hidden">
             <textarea
               ref={textareaRef}
+              value={text()}
               spellcheck="false"
               title="Playground for Maple Mono"
               class={cls(
@@ -237,7 +187,7 @@ export default function Playground(props: PlaygroundProps) {
                 'font-style': italic(),
                 ...toStyleObject(feat()),
               }}
-              onChange={e => setText(e.target.value)}
+              onInput={e => setText(e.currentTarget.value)}
             />
           </div>
           <div class="w-full flex gap-2 xs:gap-4">
@@ -369,7 +319,7 @@ export default function Playground(props: PlaygroundProps) {
           open={widthPreviewOpen()}
           onOpenChange={setWidthPreviewOpen}
           text={text()}
-          width={width() as Lowercase<ConfigActionDialogProps['width']>}
+          width={width().toLowerCase() as ConfigActionDialogProps['width']}
           fontWeight={targetWeight()}
           fontSize={size()}
           fontStyle={italic()}

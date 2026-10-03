@@ -2,14 +2,14 @@ import type { PyodideInterface } from '@subframe7536/fonttools'
 
 import { cdnPrefix, isDEV } from '../../../utils/constant'
 
-export type WorkerMessage =
-  | { type: 'init' }
-  | { type: 'patch', buf: ArrayBuffer, config: Record<string, '0' | '1'> }
+export type WorkerMessage
+  = | { type: 'init' }
+    | { type: 'patch', buf: ArrayBuffer, config: Record<string, '0' | '1'> }
 
-export type WorkerResult =
-  | { type: 'ready' }
-  | { type: 'result', buffer: Uint8Array }
-  | { type: 'log', msg: string, isError?: boolean }
+export type WorkerResult
+  = | { type: 'ready' }
+    | { type: 'result', buffer: Uint8Array }
+    | { type: 'log', msg: string, isError?: boolean }
 
 let py: PyodideInterface | null = null
 

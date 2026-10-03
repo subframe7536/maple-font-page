@@ -3,7 +3,7 @@ import type { RefSignal } from '@solid-hooks/core'
 import type { Accessor } from 'solid-js'
 
 import { createArray } from '@solid-hooks/core'
-import { createSignal } from 'solid-js'
+import { createSignal, onCleanup } from 'solid-js'
 
 const DEFAULT_ZIP_NAME = 'MapleMono-patch.zip'
 
@@ -36,6 +36,7 @@ export function useFontPatcher(
   features: Accessor<Record<string, '0' | '1'>>,
 ) {
   let worker: Worker | null = null
+  onCleanup(() => worker?.terminate())
   let startTime: number | null = null
   let fileName = DEFAULT_ZIP_NAME
   const [status, setStatus] = createSignal<'loading' | 'ready' | 'running'>()
@@ -80,10 +81,16 @@ export function useFontPatcher(
       return
     }
 
-    if (width !== 'normal') {
+    if (width !== 'default') {
       log('❗ The width option has no effect in Browser Build')
     }
     worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' })
+    worker.onerror = (event) => {
+      log(event.message || 'Cannot initialize font patcher', true)
+      worker?.terminate()
+      worker = null
+      setStatus(undefined)
+    }
     worker.onmessage = (e: MessageEvent<WorkerResult>) => {
       const data = e.data
       switch (data.type) {
@@ -99,7 +106,13 @@ export function useFontPatcher(
         case 'log':
           log(data.msg, data.isError)
           if (data.isError) {
-            setStatus('ready')
+            if (status() === 'loading') {
+              worker?.terminate()
+              worker = null
+              setStatus(undefined)
+            } else {
+              setStatus('ready')
+            }
           }
       }
     }

@@ -22,12 +22,17 @@ function getMapleMonoFontFace(italic: boolean) {
     style: italic ? 'italic' : 'normal',
   })
 }
-export async function loadMapleMono() {
-  const face = await Promise.all([
+let fontLoading: Promise<void> | undefined
+export function loadMapleMono() {
+  return fontLoading ??= Promise.all([
     getMapleMonoFontFace(false).load(),
     getMapleMonoFontFace(true).load(),
-  ])
-  face.forEach(f => document.fonts.add(f))
+  ]).then((faces) => {
+    faces.forEach(face => document.fonts.add(face))
+  }).catch((error) => {
+    fontLoading = undefined
+    throw error
+  })
 }
 
 export function getCNFromRemote(italic: boolean): Promise<void> {

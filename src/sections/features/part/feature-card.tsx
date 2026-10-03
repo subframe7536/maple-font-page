@@ -1,9 +1,8 @@
 import type { JSX } from 'solid-js'
 
 import { cls } from 'cls-variant'
+import { Switch } from 'moraine'
 import { createMemo, createSignal, Show } from 'solid-js'
-
-import { Switch, SwitchControl, SwitchLabel, SwitchThumb } from '@/components/ui/switch'
 
 export interface FeatureCardProps {
   showText: string
@@ -61,14 +60,10 @@ export default function FeatureCard(props: FeatureCardProps) {
       <Switch
         class="mt-4 flex items-center sm:mx-auto"
         checked={fea()}
-        onChange={setFea}
+        onCheckedChange={setFea}
         title={`Click to toggle the feature: ${props.activeFeatures}`}
-      >
-        <SwitchControl>
-          <SwitchThumb />
-        </SwitchControl>
-        <SwitchLabel class="pl-2">{props.feature}</SwitchLabel>
-      </Switch>
+        label={props.feature}
+      />
       <div class="mt-6 c-note">{props.description}</div>
     </div>
 

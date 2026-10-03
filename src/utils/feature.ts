@@ -27,7 +27,7 @@ export function toStyleObject(features: FeatureState, normal?: boolean) {
 }
 
 export function toConfigJson(features: FeatureState, width: ConfigActionDialogProps['width'], extra: ExtraConfig) {
-  const result = { ...defaultConfig }
+  const result = structuredClone(defaultConfig)
   for (const [k, v] of Object.entries(features)) {
     if (k === 'calt' && v === '0') {
       result.enable_ligature = false
