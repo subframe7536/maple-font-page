@@ -1,8 +1,7 @@
-import type { ConfigActionDialogProps } from '@/sections/playground/dialog/config'
-
 import defaultConfig from '@data/config.json'
 import { normalFeatureArray } from '@data/features/features'
 
+import type { ConfigActionDialogProps } from '@/sections/playground/dialog/config'
 import { tag } from '@/utils/constant'
 
 export type FeatureValue = '0' | '1'
@@ -13,28 +12,28 @@ export type ExtraConfigKey = 'nf' | 'cn' | 'hinted' | 'normal'
 export type ExtraConfig = Record<ExtraConfigKey, boolean>
 
 export function getDefaultLigaSwitchValue(feat: string, normal?: boolean) {
-  return (feat === 'calt' || (normal && normalFeatureArray.includes(feat))) ? '1' : '0'
+  return feat === 'calt' || (normal && normalFeatureArray.includes(feat)) ? '1' : '0'
 }
 
 export function toStyleObject(features: FeatureState, normal?: boolean) {
   return Object.fromEntries(
     Object.entries({
       ...features,
-      ...normal ? Object.fromEntries(normalFeatureArray.map(k => [k, '1'])) : {},
-    })
-      .map(([k, v]) => [`--feat-${k}`, v]),
+      ...(normal ? Object.fromEntries(normalFeatureArray.map((k) => [k, '1'])) : {}),
+    }).map(([k, v]) => [`--feat-${k}`, v]),
   )
 }
 
-export function toConfigJson(features: FeatureState, width: ConfigActionDialogProps['width'], extra: ExtraConfig) {
+export function toConfigJson(
+  features: FeatureState,
+  width: ConfigActionDialogProps['width'],
+  extra: ExtraConfig,
+) {
   const result = structuredClone(defaultConfig)
   for (const [k, v] of Object.entries(features)) {
     if (k === 'calt' && v === '0') {
       result.enable_ligature = false
-    } else if (
-      (k !== 'calt' && v === '1')
-      || (extra.normal && normalFeatureArray.includes(k))
-    ) {
+    } else if ((k !== 'calt' && v === '1') || (extra.normal && normalFeatureArray.includes(k))) {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'enable'
     } else if (k !== 'calt') {
       result.feature_freeze[k as keyof typeof result.feature_freeze] = 'ignore'
@@ -48,7 +47,11 @@ export function toConfigJson(features: FeatureState, width: ConfigActionDialogPr
 
   return JSON.stringify(result, null, 2)
 }
-export function toCliFlag(features: FeatureState, width: ConfigActionDialogProps['width'], extra: ExtraConfig) {
+export function toCliFlag(
+  features: FeatureState,
+  width: ConfigActionDialogProps['width'],
+  extra: ExtraConfig,
+) {
   let result = []
   if (features.calt === '0') {
     result.push('--no-liga')
@@ -71,14 +74,13 @@ export function toCliFlag(features: FeatureState, width: ConfigActionDialogProps
 
   const feat = Object.entries(features)
     .filter(
-      ([k, v]) => (v === '1'
-        && !k.includes('calt')
-        && (extra.normal ? !normalFeatureArray.includes(k) : true)),
+      ([k, v]) =>
+        v === '1' && !k.includes('calt') && (extra.normal ? !normalFeatureArray.includes(k) : true),
     )
     .map(([k]) => k)
 
   if (feat.length) {
-    result.push(`--feat ${feat}`)
+    result.push(`--feat ${feat.join(',')}`)
   }
 
   return result.length ? result.join(' ') : undefined
@@ -99,18 +101,18 @@ export function checkModuleWorkerSupport(): boolean {
       },
     }).terminate()
   } finally {
-    // eslint-disable-next-line no-unsafe-finally
+    // oxlint-disable-next-line no-unsafe-finally
     return supports
   }
 }
 
 export const FILE_FORMAT = ['TTF', 'OTF', 'NF', 'CN', 'NF-CN'] as const
 
-export type FileFormat = typeof FILE_FORMAT[number]
+export type FileFormat = (typeof FILE_FORMAT)[number]
 
 export function parseIdString(features: Record<string, '0' | '1'>) {
   return Object.entries(features)
-    .map(([k, v]) => v === '1' ? `+${k}` : (v === '0' && k === 'calt') ? '-calt' : null)
+    .map(([k, v]) => (v === '1' ? `+${k}` : v === '0' && k === 'calt' ? '-calt' : null))
     .filter(Boolean)
     .join('; ')
 }

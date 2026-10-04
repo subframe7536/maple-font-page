@@ -1,7 +1,6 @@
 import { For } from 'solid-js'
 
-import { useFeatureTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useFeatureTranslation, siteLocale } from '@/locales/i18n'
 
 import SubSection from './part/sub-section'
 
@@ -17,9 +16,7 @@ export default function SectionView() {
   return (
     <>
       <SubSection {...data}>
-        <div
-          class="mt-4 flex text-12 c-accent xs:text-16 sm:text-24 md:text-28 lg:text-32"
-        >
+        <div class="mt-4 flex text-12 c-accent xs:text-16 sm:text-24 md:text-28 lg:text-32">
           <For each={showcaseText.split('')}>
             {(char, index) => (
               <span

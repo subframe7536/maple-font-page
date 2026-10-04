@@ -1,6 +1,5 @@
 import Section from '@/components/section'
-import { useIndexTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useIndexTranslation, siteLocale } from '@/locales/i18n'
 
 import FeatureCustom from './feature-custom'
 import FeatureDesign from './feature-design'

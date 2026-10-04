@@ -1,9 +1,7 @@
 import type { Props as ExternalLinkProps } from '@/components/external-link'
-
 import ExternalLink from '@/components/external-link'
 import Section from '@/components/section'
-import { useIndexTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useIndexTranslation, siteLocale } from '@/locales/i18n'
 
 export default function SectionView() {
   const { subTitle, title, items } = useIndexTranslation(siteLocale(), 'credits')
@@ -17,24 +15,15 @@ export default function SectionView() {
   const creaditData: ExternalLinkProps[] = [
     {
       title: items.base,
-      links: [
-        ['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono'],
-      ],
+      links: [['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono']],
     },
     {
       title: items.icon,
-      links: [
-        ['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts'],
-      ],
+      links: [['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts']],
     },
     {
       title: items.cn,
-      links: [
-        [
-          'Resource Han Rounded',
-          'https://github.com/CyanoHao/Resource-Han-Rounded',
-        ],
-      ],
+      links: [['Resource Han Rounded', 'https://github.com/CyanoHao/Resource-Han-Rounded']],
     },
     {
       title: items.inspiration,

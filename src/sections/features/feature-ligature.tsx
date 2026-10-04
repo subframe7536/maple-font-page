@@ -1,19 +1,12 @@
+import { useFeatureTranslation, siteLocale } from '@/locales/i18n'
+
 import type { FeatureCardProps } from './part/feature-card'
-
-import { useFeatureTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
-
 import FeatureCard from './part/feature-card'
 import GenericLigature from './part/generic-ligature'
 import SubSection from './part/sub-section'
 
 export default function SectionView() {
-  const {
-    description,
-    items,
-    title,
-    subTitle,
-  } = useFeatureTranslation(siteLocale(), 'ligature')
+  const { description, items, title, subTitle } = useFeatureTranslation(siteLocale(), 'ligature')
 
   const data = {
     title,

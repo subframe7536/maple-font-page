@@ -3,27 +3,15 @@
     "target": "ES2022",
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@data/*": [
-        "./data/*"
-      ]
+      "@/*": ["./src/*"],
+      "@data/*": ["./data/*"]
     },
     "resolveJsonModule": true,
-    "types": [
-      "vite/client",
-      "solid-file-router/client",
-      "node"
-    ],
+    "types": ["vite/client", "solid-file-router/client", "node"],
     "allowImportingTsExtensions": true,
     "strict": true,
     "noEmit": true,
@@ -36,10 +24,10 @@
     "vite.config.ts",
     "intlayer.config.ts",
     "uno.config.ts",
-    ".intlayer/types/**/*.ts"
+    ".intlayer/types/**/*.ts",
+    "build",
+    "oxlint.config.ts",
+    "oxfmt.config.ts"
   ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "exclude": ["dist", "node_modules"]
 }

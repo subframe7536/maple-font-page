@@ -1,6 +1,6 @@
-import type { ParentProps } from 'solid-js'
-
 import { useCn } from 'moraine'
+import type { ParentProps } from 'solid-js'
+import { Show } from 'solid-js'
 
 interface Props extends ParentProps {
   id: string
@@ -21,23 +21,13 @@ export default function SectionView(props: Props) {
           props.class,
         )}
       >
-        {
-          props.title && (
-            <h1 class="inview-1 text-4xl c-secondary font-bold">
-              {props.title}
-            </h1>
-          )
-        }
-        {
-          props.subTitle && (
-            <p class="inview-2 text-xl c-note md:text-2xl">
-              {props.subTitle}
-            </p>
-          )
-        }
-        <div class={cn(props.title && props.subTitle && 'inview-3')}>
-          {props.children}
-        </div>
+        <Show when={props.title}>
+          <h1 class="inview-1 text-4xl c-secondary font-bold">{props.title}</h1>
+        </Show>
+        <Show when={props.subTitle}>
+          <p class="inview-2 text-xl c-note md:text-2xl">{props.subTitle}</p>
+        </Show>
+        <div class={cn(props.title && props.subTitle && 'inview-3')}>{props.children}</div>
       </section>
     </>
   )

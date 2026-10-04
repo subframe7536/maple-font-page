@@ -1,12 +1,9 @@
-import type { PlaygroundTranslation } from '@/locales/playground/en'
-import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
-
-import { createRef } from '@solid-hooks/core'
-import { useCopy } from '@solid-hooks/core/web'
 import { Button, Checkbox, Dialog, useCn } from 'moraine'
-import { createMemo, createSignal, For } from 'solid-js'
+import { createMemo, createSignal, For, onCleanup } from 'solid-js'
 
 import Icon from '@/components/icon'
+import type { PlaygroundTranslation } from '@/locales/playground/en'
+import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
 import { toCliFlag, toConfigJson } from '@/utils/feature'
 
 import GuideLink from '../components/guide-link'
@@ -18,31 +15,45 @@ export interface ConfigActionDialogProps {
   width: 'default' | 'narrow' | 'slim'
 }
 
-function ConfigSection(
-  props: {
-    type: 'cli' | 'json'
-    title: string
-    feat: ConfigActionDialogProps['features']
-    width: ConfigActionDialogProps['width']
-    fallback: string
-    extra: ExtraConfig
-  },
-) {
+function ConfigSection(props: {
+  type: 'cli' | 'json'
+  title: string
+  feat: ConfigActionDialogProps['features']
+  width: ConfigActionDialogProps['width']
+  fallback: string
+  extra: ExtraConfig
+}) {
   const cn = useCn()
-  const { copy, isCopied } = useCopy()
-  const textareaRef = createRef<HTMLTextAreaElement>()
+  const [isCopied, setCopied] = createSignal(false)
+  let textareaRef!: HTMLTextAreaElement
+  let timer: ReturnType<typeof setTimeout> | undefined
+  let disposed = false
+  onCleanup(() => {
+    disposed = true
+    clearTimeout(timer)
+  })
 
-  function copyTextArea() {
-    const val = textareaRef()?.value
-    if (val) {
-      copy(val)
+  async function copyTextArea() {
+    const val = textareaRef.value
+    if (!val || !navigator.clipboard) {
+      return
     }
+    await navigator.clipboard.writeText(val)
+    if (disposed) {
+      return
+    }
+    setCopied(true)
+    clearTimeout(timer)
+    timer = setTimeout(() => setCopied(false), 1500)
   }
 
-  const parsedText = createMemo(
-    () => props.type === 'cli'
+  const parsedText = createMemo(() =>
+    props.type === 'cli'
       ? toCliFlag(props.feat, props.width, props.extra)
-      : toConfigJson(props.feat, props.width, props.extra).replace('"scale_factor": 1', '"scale_factor": 1.0'),
+      : toConfigJson(props.feat, props.width, props.extra).replace(
+          '"scale_factor": 1',
+          '"scale_factor": 1.0',
+        ),
   )
 
   return (
@@ -54,13 +65,13 @@ function ConfigSection(
           variant="outline"
           disabled={!parsedText() || isCopied()}
           class={['border-0', (!parsedText() || isCopied()) && 'cursor-not-allowed']}
-          onClick={copyTextArea}
+          onClick={() => void copyTextArea().catch(console.error)}
         >
           <Icon name={isCopied() ? 'lucide:copy-check' : 'lucide:copy'} title="copy" />
         </Button>
       </h2>
       <textarea
-        ref={textareaRef}
+        ref={(element) => (textareaRef = element)}
         name={props.type}
         title={props.title}
         disabled={!parsedText()}
@@ -87,11 +98,7 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
 
   return (
     <Dialog>
-      <Dialog.Trigger
-        as={Button}
-        size="md"
-        class="w-full px-2"
-      >
+      <Dialog.Trigger as={Button} size="md" class="w-full px-2">
         <Icon name="lucide:braces" class="mr-2" />
         {props.t.btnText}
       </Dialog.Trigger>
@@ -110,7 +117,12 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
               {([key, str]) => (
                 <Checkbox
                   checked={extraConfig()[key as ExtraConfigKey]}
-                  onCheckedChange={v => setExtraConfig(old => ({ ...old, ...{ [key]: v } }))}
+                  onCheckedChange={(v) =>
+                    setExtraConfig((old) => ({
+                      ...old,
+                      [key]: v,
+                    }))
+                  }
                   class="flex items-center space-x-2"
                   label={str}
                 />

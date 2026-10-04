@@ -1,16 +1,14 @@
 import type { Preset, PresetWind3Theme } from '@subf/unocss'
-
 import {
   defineConfig,
   presetIcons,
   presetWind3,
   transformerDirectives,
   transformerVariantGroup,
+  presetCompletion,
 } from '@subf/unocss'
-import { presetCompletion } from '@subf/unocss'
 import presetTypography from '@unocss/preset-typography'
 import { presetMoraine } from 'moraine/unocss'
-import { presetAnimations } from 'unocss-preset-animations'
 
 import { featureArray } from './data/features/features.ts'
 import { cdnPrefix } from './src/utils/constant.ts'
@@ -49,9 +47,7 @@ function getFiraCode() {
 }
 
 function getIosevka(isItalic: boolean) {
-  const src = [
-    `local("Iosevka${isItalic ? ' Italic' : ''}")`,
-  ]
+  const src = [`local("Iosevka${isItalic ? ' Italic' : ''}")`]
   if (isItalic) {
     src.push(`local("Iosevka-Italic")`)
   }
@@ -68,26 +64,26 @@ const fallbackFamily = [
   'Lucida Console',
   'Consolas',
   'monospace',
-  'Noto Sans CJK SC', /* Google Noto Sans - Excellent Simplified Chinese coverage */
-  'Noto Sans CJK TC', /* Google Noto Sans - Excellent Traditional Chinese coverage */
+  'Noto Sans CJK SC' /* Google Noto Sans - Excellent Simplified Chinese coverage */,
+  'Noto Sans CJK TC' /* Google Noto Sans - Excellent Traditional Chinese coverage */,
 
   /* 2. Mobile System Fonts (Prioritized for mobile OS defaults) */
-  'PingFang SC', /* iOS - Simplified Chinese (Modern, very common on iOS in China) */
-  'PingFang TC', /* iOS - Traditional Chinese (Modern, very common on iOS in Taiwan/HK) */
-  'Heiti SC', /* iOS/macOS - Simplified Chinese (System default & good on mobile) */
-  'STHeiti', /* iOS/macOS - Simplified Chinese (older but still present) */
-  'Heiti TC', /* iOS/macOS - Traditional Chinese (System default & good on mobile) */
-  'STHeitiTC', /* iOS/macOS - Traditional Chinese (older but still present) */
-  'Source Han Sans SC', /* Android/Cross-platform - Excellent open-source, good mobile rendering */
-  'Source Han Sans TC', /* Android/Cross-platform - Excellent open-source, good mobile rendering */
-  'Droid Sans Fallback', /* Android - Older Android default, still decent fallback */
-  'sans-serif-cjk', /* Android - Generic CJK sans-serif (may work as a broad fallback) */
+  'PingFang SC' /* iOS - Simplified Chinese (Modern, very common on iOS in China) */,
+  'PingFang TC' /* iOS - Traditional Chinese (Modern, very common on iOS in Taiwan/HK) */,
+  'Heiti SC' /* iOS/macOS - Simplified Chinese (System default & good on mobile) */,
+  'STHeiti' /* iOS/macOS - Simplified Chinese (older but still present) */,
+  'Heiti TC' /* iOS/macOS - Traditional Chinese (System default & good on mobile) */,
+  'STHeitiTC' /* iOS/macOS - Traditional Chinese (older but still present) */,
+  'Source Han Sans SC' /* Android/Cross-platform - Excellent open-source, good mobile rendering */,
+  'Source Han Sans TC' /* Android/Cross-platform - Excellent open-source, good mobile rendering */,
+  'Droid Sans Fallback' /* Android - Older Android default, still decent fallback */,
+  'sans-serif-cjk' /* Android - Generic CJK sans-serif (may work as a broad fallback) */,
 
   /* 3. Desktop System Fonts (Fallback for desktop environments - Windows primarily) */
-  'Microsoft YaHei', /* Windows - Simplified Chinese (Common desktop font) */
-  '微软雅黑', /* Windows - Simplified Chinese (Localized name) */
-  'Microsoft JhengHei', /* Windows - Traditional Chinese (Good desktop choice) */
-  '微軟正黑體', /* Windows - Traditional Chinese (Localized name) */
+  'Microsoft YaHei' /* Windows - Simplified Chinese (Common desktop font) */,
+  '微软雅黑' /* Windows - Simplified Chinese (Localized name) */,
+  'Microsoft JhengHei' /* Windows - Traditional Chinese (Good desktop choice) */,
+  '微軟正黑體' /* Windows - Traditional Chinese (Localized name) */,
 
   /* 4. Generic Fallback (Always include at the very end) */
   'sans-serif',
@@ -103,7 +99,9 @@ const presetMaple: Preset<PresetWind3Theme> = {
         'font-feature-settings': 'var(--feat)',
         'font-variation-settings': '"wght" var(--fw)',
         'font-family': `var(--ff), ${fallbackFamily} !important`,
-        '--feat': featureArray.map(fea => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`).join(', '),
+        '--feat': featureArray
+          .map((fea) => `"${fea}" var(--feat-${fea}, ${fea === 'calt' ? 1 : 0})`)
+          .join(', '),
       },
     ],
     ['font-cn', { 'font-family': 'Maple Mono CN, Maple Mono NF CN, MapleMono !important' }],
@@ -179,7 +177,7 @@ function hslToRgb(hslString: string): string {
   let [h, s, l] = hslString
     .slice(4, -1)
     .split(' ')
-    .map(str => str.endsWith('%') ? Number(str.slice(0, -1)) / 100 : Number(str) / 360)
+    .map((str) => (str.endsWith('%') ? Number(str.slice(0, -1)) / 100 : Number(str) / 360))
 
   let r, g, b
 
@@ -210,7 +208,6 @@ export default defineConfig<PresetWind3Theme>({
     presetWind3({
       preflight: 'on-demand',
     }),
-    presetAnimations(),
     presetMaple,
     presetIcons({
       scale: 1.2,
@@ -231,28 +228,28 @@ export default defineConfig<PresetWind3Theme>({
             'font-style': 'normal !important',
             '--fw': 650,
           },
-          'a': {
+          a: {
             color: accessDefault(accent),
           },
           'h1 a, h2 a, h3 a, h4 a, h5 a, h6 a': {
-            'width': '100%',
-            'display': 'inline-block',
-            'color': 'unset',
+            width: '100%',
+            display: 'inline-block',
+            color: 'unset',
             'text-decoration': 'unset',
           },
           'h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover': {
             'text-decoration': 'underline',
           },
-          'code': {
-            'color': '#edabab',
-            'border': `2px solid ${note}`,
+          code: {
+            color: '#edabab',
+            border: `2px solid ${accessDefault(note ?? 'none')}`,
             'border-radius': '6px',
-            'padding': '2px 4px',
+            padding: '2px 4px',
           },
           'code::after, code::before': {
             content: 'none',
           },
-          'pre': {
+          pre: {
             'border-radius': '.5rem',
             'line-height': 1.5,
             'max-height': '490px',
@@ -270,8 +267,14 @@ export default defineConfig<PresetWind3Theme>({
   shortcuts: [
     ['effect-fv', 'outline-none ring-1.5 ring-ring ring-offset-(2 background)'],
     ['effect-dis', 'pointer-events-none opacity-50 cursor-not-allowed'],
-    ['animated-underline', 'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])'],
-    ['hero-gradient', 'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)'],
+    [
+      'animated-underline',
+      'relative decoration-none before:(content-empty bg-secondary absolute transition-all-200 transform-origin-right rounded bottom-4px h-2px w-0 right-8px) hover:before:(transform-origin-left left-8px w-[calc(100%-16px)])',
+    ],
+    [
+      'hero-gradient',
+      'supports-[(background-clip:text)]:(from-#C8E2C6 to-#6F9AF8 bg-(gradient-to-r clip-text) !c-transparent)',
+    ],
     [/^inview-\d+$/, () => 'motion-safe:transition-transform'],
   ],
   theme: {
@@ -353,17 +356,20 @@ export default defineConfig<PresetWind3Theme>({
       }
     }
   },
-  transformers: [
-    transformerVariantGroup(),
-    transformerDirectives(),
-  ],
+  transformers: [transformerVariantGroup(), transformerDirectives()],
   preflights: [
     {
-      getCSS: ({ theme }: { theme: any & { colors: any } }) => {
+      getCSS: ({ theme }) => {
+        const colors = {
+          foreground: accessDefault(theme.colors?.foreground ?? 'none'),
+          background: accessDefault(theme.colors?.background ?? 'none'),
+          input: accessDefault(theme.colors?.input ?? 'none'),
+          border: accessDefault(theme.colors?.border ?? 'none'),
+        }
         return `
           ::selection {
-            background-color: ${theme.colors.foreground};
-            color: ${theme.colors.background};
+            background-color: ${colors.foreground};
+            color: ${colors.background};
           }
           :root {
             --scrollbar-width: max(0.85vw, 10px);
@@ -398,11 +404,11 @@ export default defineConfig<PresetWind3Theme>({
             border: calc(var(--scrollbar-width) * 2 / 9) solid transparent !important;
             background-clip: content-box;
             background-color: transparent !important;
-            color: ${theme.colors.input} !important;
+            color: ${colors.input} !important;
           }
 
           *::-webkit-scrollbar-thumb:active {
-            color: ${theme.colors.border} !important;
+            color: ${colors.border} !important;
           }
 
           ::-webkit-scrollbar-corner {
@@ -411,7 +417,7 @@ export default defineConfig<PresetWind3Theme>({
 
           @supports not selector(::-webkit-scrollbar) {
             html {
-              scrollbar-color: ${theme.colors.input};
+              scrollbar-color: ${colors.input};
               scrollbar-width: thin;
             }
           }

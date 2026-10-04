@@ -4,8 +4,8 @@ export const mapleTheme = defineTheme({
   button: {
     defaultVariants: { size: 'lg' },
     base: {
-      'root': 'gap-0 rounded-md font-500',
-      'label': 'inline-flex items-center justify-center',
+      root: 'gap-0 rounded-md font-500',
+      label: 'inline-flex items-center justify-center',
       '--fw': 500,
     },
     variants: {
@@ -13,13 +13,15 @@ export const mapleTheme = defineTheme({
         default: { root: 'shadow-sm' },
         secondary: { root: 'shadow-sm' },
         outline: { root: 'border-2 text-border shadow-sm' },
-        link: { root: 'animated-underline w-fit text-inherit hover:no-underline aria-[current=page]:text-secondary' },
+        link: {
+          root: 'animated-underline w-fit text-inherit hover:no-underline aria-[current=page]:text-secondary',
+        },
       },
       size: {
-        'sm': { root: 'h-8 px-3 text-xs' },
-        'md': { root: 'px-4 text-xs md:text-sm' },
-        'lg': { root: 'px-4 py-2 text-sm' },
-        'xl': { root: 'h-12 px-8' },
+        sm: { root: 'h-8 px-3 text-xs' },
+        md: { root: 'px-4 text-xs md:text-sm' },
+        lg: { root: 'px-4 py-2 text-sm' },
+        xl: { root: 'h-12 px-8' },
         'icon-lg': { root: 'p-0' },
       },
     },

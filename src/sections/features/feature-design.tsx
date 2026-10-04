@@ -1,19 +1,13 @@
-import type { FeatureCardProps } from './part/feature-card'
-
 import { For } from 'solid-js'
 
-import { useFeatureTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useFeatureTranslation, siteLocale } from '@/locales/i18n'
 
+import type { FeatureCardProps } from './part/feature-card'
 import FeatureCard from './part/feature-card'
 import SubSection from './part/sub-section'
 
 export default function SectionView() {
-  const {
-    description,
-    title,
-    items,
-  } = useFeatureTranslation(siteLocale(), 'design')
+  const { description, title, items } = useFeatureTranslation(siteLocale(), 'design')
 
   const data = {
     title,
@@ -54,7 +48,7 @@ export default function SectionView() {
     <>
       <SubSection {...data}>
         <div class="grid grid-cols-1 content-center gap-6 sm:grid-cols-2">
-          <For each={features}>{feat => <FeatureCard {...feat} />}</For>
+          <For each={features}>{(feat) => <FeatureCard {...feat} />}</For>
         </div>
       </SubSection>
     </>

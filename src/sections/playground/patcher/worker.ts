@@ -2,14 +2,14 @@ import type { PyodideInterface } from '@subframe7536/fonttools'
 
 import { cdnPrefix, isDEV } from '../../../utils/constant'
 
-export type WorkerMessage
-  = | { type: 'init' }
-    | { type: 'patch', buf: ArrayBuffer, config: Record<string, '0' | '1'> }
+export type WorkerMessage =
+  | { type: 'init' }
+  | { type: 'patch'; buf: ArrayBuffer; config: Record<string, '0' | '1'> }
 
-export type WorkerResult
-  = | { type: 'ready' }
-    | { type: 'result', buffer: Uint8Array }
-    | { type: 'log', msg: string, isError?: boolean }
+export type WorkerResult =
+  | { type: 'ready' }
+  | { type: 'result'; buffer: Uint8Array }
+  | { type: 'log'; msg: string; isError?: boolean }
 
 let py: PyodideInterface | null = null
 
@@ -54,11 +54,7 @@ async function loadInBrowser(): Promise<PyodideInterface> {
 }
 
 declare const __PY_SCRIPT__: string
-function patchFont(
-  py: PyodideInterface,
-  buf: Uint8Array,
-  config: Record<string, '0' | '1'>,
-) {
+function patchFont(py: PyodideInterface, buf: Uint8Array, config: Record<string, '0' | '1'>) {
   const sourcePath = '/tmp/data.zip'
   const targetPath = '/tmp/patch.zip'
   try {
@@ -76,13 +72,13 @@ main('${sourcePath}','${targetPath}',${JSON.stringify(config)})`)
 onmessage = async (e: MessageEvent<WorkerMessage>) => {
   try {
     switch (e.data.type) {
-      case 'init': {
+      case 'init':
         log('Loading pyodide...')
         py = await loadInBrowser()
         postMessage({ type: 'ready' } satisfies WorkerResult)
         log('Loaded pyodide')
         break
-      }
+
       case 'patch': {
         if (!py) {
           throw new Error('Pyodide not initialized')

@@ -16,13 +16,9 @@ export default function LoadErrorDialog(props: Props) {
           <Icon name="lucide:circle-alert" class="mr-2 size-6 c-red" />
           {props.title}
         </Dialog.Title>
-        <div>
-          {props.content}
-        </div>
+        <div>{props.content}</div>
         <Dialog.Footer>
-          <Button onClick={() => location.reload()}>
-            {props.reload}
-          </Button>
+          <Button onClick={() => location.reload()}>{props.reload}</Button>
         </Dialog.Footer>
       </Dialog.Content>
     </Dialog>

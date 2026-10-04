@@ -12,6 +12,8 @@ Landing page for [Maple Mono](https://github.com/subframe7536/maple-font)
 ### Development
 
 Use Node.js 24 and pnpm (the version is pinned in `package.json`).
+TypeScript 7 checks types; Oxlint and Oxfmt use `@subf/config` for linting and
+formatting. Run `pnpm format` to apply formatting.
 
 ```sh
 pnpm install
@@ -26,6 +28,7 @@ and `zh-CN`. Public URLs retain the original `/en/` and `/zh-cn/` spelling.
 ```sh
 pnpm check
 pnpm lint
+pnpm format:check
 pnpm build
 pnpm test:ssg
 pnpm preview

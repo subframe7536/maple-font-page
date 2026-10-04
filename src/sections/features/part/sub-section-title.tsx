@@ -1,6 +1,6 @@
-import type { Props as IProps } from '@/components/icon'
 import type { ParentProps } from 'solid-js'
 
+import type { Props as IProps } from '@/components/icon'
 import Icon from '@/components/icon'
 
 interface Props extends ParentProps {

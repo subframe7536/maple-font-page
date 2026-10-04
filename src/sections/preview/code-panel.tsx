@@ -18,7 +18,7 @@ export default function SectionView(props: Props) {
           class="rounded-lg p-4 text-sm"
           code={props.code}
           lang={props.lang}
-          theme={mapleTheme as any}
+          theme={mapleTheme}
         />
       </div>
     </>

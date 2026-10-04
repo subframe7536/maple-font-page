@@ -1,14 +1,9 @@
-import type { CarouselApi } from '@/components/ui/carousel'
-
 import Autoplay from 'embla-carousel-autoplay'
 import { useCn } from 'moraine'
 import { createEffect, createSignal, Index, onCleanup } from 'solid-js'
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel'
+import type { CarouselApi } from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 
 export interface ItemData {
   content: string
@@ -27,9 +22,7 @@ function TestimonialItem(props: ItemData) {
   return (
     <div class="flex flex-col select-none items-center justify-center gap-8 text-center md:(flex-row justify-between gap-12 text-left)">
       <div class="flex flex-row items-center gap-4">
-        <div
-          class="size-16 rounded-full bg-primary text-(center 10) c-background leading-[4rem]"
-        >
+        <div class="size-16 rounded-full bg-primary text-(center 10) c-background leading-[4rem]">
           {props.author[0].toUpperCase()}
         </div>
         <div class="flex flex-col items-start gap-1">
@@ -39,9 +32,7 @@ function TestimonialItem(props: ItemData) {
       </div>
       <blockquote class="relative max-w-xl p-4 text-lg font-light leading-relaxed md:(mb-0 mr-8 w-60%)">
         <span class="absolute left--2 top--4 text-4xl c-primary/50 md:left--6">&#x250F</span>
-        <span class="inline-block font-italic">
-          {props.content}
-        </span>
+        <span class="inline-block font-italic">{props.content}</span>
         <span class="absolute bottom--4 right--2 text-4xl c-primary/50">&#x251B</span>
       </blockquote>
     </div>
@@ -71,14 +62,10 @@ export function TestimonialBanner(props: Props) {
     stopOnMouseEnter: true,
   })
   return (
-    <Carousel
-      class={props.class}
-      plugins={[autoplay]}
-      setApi={setApi}
-    >
+    <Carousel class={props.class} plugins={[autoplay]} setApi={setApi}>
       <CarouselContent>
         <Index each={props.items}>
-          {item => (
+          {(item) => (
             <CarouselItem>
               <TestimonialItem {...item()} />
             </CarouselItem>

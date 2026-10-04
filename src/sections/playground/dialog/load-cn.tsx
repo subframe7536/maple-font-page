@@ -18,25 +18,12 @@ export default function LoadCnDialog(props: Props) {
           <Icon name="lucide:lightbulb" class="mr-2 size-6 c-accent" />
           提示
         </Dialog.Title>
-        <div class="mt-2">
-          是否加载中文字体？
-        </div>
-        <div class="text-sm">
-          (也可以之后点击右侧或上侧的“加载中文字体”按钮手动加载)
-        </div>
+        <div class="mt-2">是否加载中文字体？</div>
+        <div class="text-sm">(也可以之后点击右侧或上侧的“加载中文字体”按钮手动加载)</div>
         <div class="text-sm c-note">
-          感谢
-          {' '}
-          <GuideLink
-            text="ZeoSeven Fonts"
-            link="https://fonts.zeoseven.com/items/442/"
-          />
-          {' '}
+          感谢 <GuideLink text="ZeoSeven Fonts" link="https://fonts.zeoseven.com/items/442/" />{' '}
           提供的 CDN 资源，
-          <GuideLink
-            text="打赏"
-            link="https://zeoseven.com/donate/"
-          />
+          <GuideLink text="打赏" link="https://zeoseven.com/donate/" />
         </div>
         <Dialog.Footer>
           <Button
@@ -47,10 +34,7 @@ export default function LoadCnDialog(props: Props) {
           >
             加载
           </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setIsOpen(false)}
-          >
+          <Button variant="secondary" onClick={() => setIsOpen(false)}>
             取消
           </Button>
         </Dialog.Footer>

@@ -29,6 +29,5 @@ gitignore
 Thumbs.db
 
 .astro
-.eslintcache
 .intlayer
 src/routes.d.ts

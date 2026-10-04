@@ -1,9 +1,8 @@
-import type { ThemeRegistration } from 'shiki'
-
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import uno from '@subf/unocss/vite'
+import type { ThemeRegistration } from 'shiki'
 import { codeToHtml } from 'shiki'
 import { fileRouter } from 'solid-file-router/plugin'
 import { defineConfig } from 'vite'
@@ -29,12 +28,22 @@ export default defineConfig({
       mdx: {
         ...markdownPlugins(base),
         extendLoad(_document, context) {
-          const [, locale, file] = context.sourcePath.replaceAll('\\', '/').match(/\/pages\/(en|zh-cn)\/(usage|download)\.mdx$/) ?? []
+          const [, locale, file] =
+            context.sourcePath
+              .replaceAll('\\', '/')
+              .match(/\/pages\/(en|zh-cn)\/(usage|download)\.mdx$/) ?? []
           if (!locale || !file) {
             return
           }
           return {
-            routeConfig: { metadata: pageMetadata(locale as 'en' | 'zh-cn', file as 'usage' | 'download', base, origin) },
+            routeConfig: {
+              metadata: pageMetadata(
+                locale as 'en' | 'zh-cn',
+                file as 'usage' | 'download',
+                base,
+                origin,
+              ),
+            },
             mdxContent: `<components.DocumentLayout page="${file}"><MDXContent {...props} /></components.DocumentLayout>`,
           }
         },
@@ -52,15 +61,40 @@ export default defineConfig({
         if (id !== '\0maple-code-highlights') {
           return
         }
-        const languages: Record<string, string> = { code: 'jsonc', normalCode: 'typescript', tsxCode: 'tsx', vueCode: 'vue', javaCode: 'java', goCode: 'go', pythonCode: 'python', cppCode: 'cpp' }
-        const examples = [...Object.entries(samples).map(([key, code]) => [languages[key], code]), ['text', `"${normalFeatureArray.join('", "')}"`]]
-        const entries = await Promise.all(examples.map(async ([lang, code]) => [`${lang}:${code}`, await codeToHtml(code!, { lang: lang!, theme: theme as unknown as ThemeRegistration })]))
+        const languages: Record<string, string> = {
+          code: 'jsonc',
+          normalCode: 'typescript',
+          tsxCode: 'tsx',
+          vueCode: 'vue',
+          javaCode: 'java',
+          goCode: 'go',
+          pythonCode: 'python',
+          cppCode: 'cpp',
+        }
+        const examples = [
+          ...Object.entries(samples).map(([key, code]) => [languages[key], code]),
+          ['text', `"${normalFeatureArray.join('", "')}"`],
+        ]
+        const entries = await Promise.all(
+          examples.map(async ([lang, code]) => [
+            `${lang}:${code}`,
+            await codeToHtml(code, { lang, theme: theme as unknown as ThemeRegistration }),
+          ]),
+        )
         return `export default ${JSON.stringify(Object.fromEntries(entries))}`
       },
     },
     // Fonttools serves its Python assets only when the browser patcher is used in dev.
-    ...(process.env.NODE_ENV === 'development' ? [(await import('@subframe7536/fonttools/vite')).fonttools()] : []),
+    ...(process.env.NODE_ENV === 'development'
+      ? [(await import('@subframe7536/fonttools/vite')).fonttools()]
+      : []),
   ],
-  resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)), '@data': fileURLToPath(new URL('./data', import.meta.url)) }, dedupe: ['solid-js', '@solidjs/router'] },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@data': fileURLToPath(new URL('./data', import.meta.url)),
+    },
+    dedupe: ['solid-js', '@solidjs/router'],
+  },
   define: { __PY_SCRIPT__: JSON.stringify(readFileSync('./data/script.py', 'utf8')) },
 })

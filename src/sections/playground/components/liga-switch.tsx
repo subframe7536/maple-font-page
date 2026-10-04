@@ -1,9 +1,7 @@
-import type { FeatureValue } from '@/utils/feature'
-
-import { watchOnce } from '@solid-hooks/core'
 import { Tabs, useCn } from 'moraine'
-import { createMemo, createSignal } from 'solid-js'
+import { createMemo, createReaction, createSignal, untrack } from 'solid-js'
 
+import type { FeatureValue } from '@/utils/feature'
 import { getDefaultLigaSwitchValue as getLigaSwitchValue } from '@/utils/feature'
 
 interface Props {
@@ -20,11 +18,14 @@ interface Props {
 export default function LigaSwitch(props: Props) {
   const cn = useCn()
   const ver = createMemo(() => `v${props.version}00`)
-  // eslint-disable-next-line solid/reactivity
-  const [value, setValue] = createSignal<FeatureValue>(props.feat === 'calt' ? '1' : '0')
-  watchOnce(() => props.normal, (normal) => {
-    props.$change(props.feat, setValue(getLigaSwitchValue(props.feat, normal)))
+  const [value, setValue] = createSignal<FeatureValue>(
+    untrack(() => (props.feat === 'calt' ? '1' : '0')),
+  )
+  const trackNormal = createReaction(() => {
+    props.$change(props.feat, setValue(getLigaSwitchValue(props.feat, props.normal)))
   })
+  // createReaction tracks this accessor until its first change.
+  trackNormal(() => props.normal)
   return (
     <div>
       <div class="flex items-center gap-2">
@@ -39,18 +40,21 @@ export default function LigaSwitch(props: Props) {
       <div class="mb-2 text-sm c-note font-italic">{props.desc}</div>
       <Tabs
         value={value()}
-        onChange={state => props.$change(props.feat, setValue(state as FeatureValue))}
+        onChange={(state) => props.$change(props.feat, setValue(state as FeatureValue))}
         aria-label={props.feat}
         class="select-none"
-        items={['0', '1'].map(state => ({ value: state, label: (
-          <span
-            class={cn(props.italic && '!font-italic', props.cn && 'font-cn')}
-            style={{ [`--feat-${props.feat}`]: state }}
-            title={`${state === '1' ? 'turn on' : 'turn off'} "${props.feat}"`}
-          >
-            {props.text}
-          </span>
-        ) }))}
+        items={['0', '1'].map((state) => ({
+          value: state,
+          label: (
+            <span
+              class={cn(props.italic && '!font-italic', props.cn && 'font-cn')}
+              style={{ [`--feat-${props.feat}`]: state }}
+              title={`${state === '1' ? 'turn on' : 'turn off'} "${props.feat}"`}
+            >
+              {props.text}
+            </span>
+          ),
+        }))}
       />
     </div>
   )

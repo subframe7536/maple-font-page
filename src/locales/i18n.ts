@@ -1,13 +1,13 @@
+import { getIntlayer } from 'intlayer'
+import { useLocale } from 'solid-intlayer'
+
 import type { DownloadTranslation } from './download/en'
 import type { IndexTranslation } from './index/en'
 import type { NavTranslation } from './nav/en'
 import type { PlaygroundTranslation } from './playground/en'
 
-import { getIntlayer } from 'intlayer'
-import { useLocale } from 'solid-intlayer'
-
 export const LOCALES = ['en', 'zh-cn'] as const
-export type SiteLocale = typeof LOCALES[number]
+export type SiteLocale = (typeof LOCALES)[number]
 export function siteLocale(): SiteLocale {
   return useLocale().locale() === 'zh-CN' ? 'zh-cn' : 'en'
 }
@@ -22,18 +22,26 @@ export function localePath(locale: SiteLocale = siteLocale(), page = '') {
 function intlayerLocale(locale = siteLocale()) {
   return locale === 'zh-cn' ? 'zh-CN' : 'en'
 }
-export function useIndexTranslation<K extends keyof IndexTranslation>(locale: SiteLocale | undefined, section: K): IndexTranslation[K] {
+export function useIndexTranslation<K extends keyof IndexTranslation>(
+  locale: SiteLocale | undefined,
+  section: K,
+): IndexTranslation[K] {
   return (getIntlayer('index', intlayerLocale(locale)).messages as IndexTranslation)[section]
 }
-export function useFeatureTranslation<K extends keyof IndexTranslation['features']>(locale: SiteLocale | undefined, section: K): IndexTranslation['features'][K] {
-  return (getIntlayer('index', intlayerLocale(locale)).messages as IndexTranslation).features[section]
+export function useFeatureTranslation<K extends keyof IndexTranslation['features']>(
+  locale: SiteLocale | undefined,
+  section: K,
+): IndexTranslation['features'][K] {
+  return (getIntlayer('index', intlayerLocale(locale)).messages as IndexTranslation).features[
+    section
+  ]
 }
 export function usePlaygroundTranslation(locale?: SiteLocale): PlaygroundTranslation {
-  return getIntlayer('playground', intlayerLocale(locale)).messages as PlaygroundTranslation
+  return getIntlayer('playground', intlayerLocale(locale)).messages
 }
 export function useNavTranslation(locale?: SiteLocale): NavTranslation {
-  return getIntlayer('nav', intlayerLocale(locale)).messages as NavTranslation
+  return getIntlayer('nav', intlayerLocale(locale)).messages
 }
 export function useDownloadTranslation(locale?: SiteLocale): DownloadTranslation {
-  return getIntlayer('download', intlayerLocale(locale)).messages as DownloadTranslation
+  return getIntlayer('download', intlayerLocale(locale)).messages
 }

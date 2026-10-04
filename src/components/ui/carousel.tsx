@@ -1,9 +1,8 @@
 import type { CreateEmblaCarouselType } from 'embla-carousel-solid'
-import type { ButtonProps } from 'moraine'
-import type { Accessor, Component, ComponentProps, VoidProps } from 'solid-js'
-
 import createEmblaCarousel from 'embla-carousel-solid'
+import type { ButtonProps } from 'moraine'
 import { Button, useCn } from 'moraine'
+import type { Accessor, Component, ComponentProps, VoidProps } from 'solid-js'
 import {
   createContext,
   createEffect,
@@ -55,18 +54,9 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
   const cn = useCn()
   type MergedType = (CarouselProps & ComponentProps<'div'>)[]
 
-  const props = mergeProps<MergedType>(
-    { orientation: 'horizontal' },
-    rawProps,
-  )
+  const props = mergeProps<MergedType>({ orientation: 'horizontal' }, rawProps)
 
-  const [local, others] = splitProps(props, [
-    'orientation',
-    'opts',
-    'setApi',
-    'plugins',
-    'class',
-  ])
+  const [local, others] = splitProps(props, ['orientation', 'opts', 'setApi', 'plugins', 'class'])
 
   const [carouselRef, api] = createEmblaCarousel(
     () => ({

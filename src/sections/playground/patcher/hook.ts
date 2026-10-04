@@ -1,9 +1,7 @@
-import type { WorkerMessage, WorkerResult } from './worker'
-import type { RefSignal } from '@solid-hooks/core'
 import type { Accessor } from 'solid-js'
-
-import { createArray } from '@solid-hooks/core'
 import { createSignal, onCleanup } from 'solid-js'
+
+import type { WorkerMessage, WorkerResult } from './worker'
 
 const DEFAULT_ZIP_NAME = 'MapleMono-patch.zip'
 
@@ -32,7 +30,7 @@ function parseNameWithPatch(input: File | string): string {
 }
 
 export function useFontPatcher(
-  logPanelRef: RefSignal<HTMLDivElement | undefined>,
+  logPanelRef: Accessor<HTMLDivElement | undefined>,
   features: Accessor<Record<string, '0' | '1'>>,
 ) {
   let worker: Worker | null = null
@@ -40,11 +38,12 @@ export function useFontPatcher(
   let startTime: number | null = null
   let fileName = DEFAULT_ZIP_NAME
   const [status, setStatus] = createSignal<'loading' | 'ready' | 'running'>()
-  const [logList, setLogList] = createArray<[msg: string, isError?: boolean][]>()
+  const [logList, setLogList] = createSignal<[msg: string, isError?: boolean][]>([])
 
   function log(msg: string, isError?: boolean) {
-    setLogList(arr => arr.push([msg, isError]))
-    logPanelRef()?.scrollTo({ behavior: 'smooth', top: logPanelRef()!.scrollHeight })
+    setLogList((arr) => [...arr, [msg, isError]])
+    const panel = logPanelRef()
+    panel?.scrollTo({ behavior: 'smooth', top: panel.scrollHeight })
   }
 
   async function fetchFromURL(url: string): Promise<ArrayBuffer | undefined> {
@@ -62,7 +61,7 @@ export function useFontPatcher(
 
       return await bufResp.arrayBuffer()
     } catch (error) {
-      log(error instanceof Error ? String(error) : `Unkown Error: ${error}`, true)
+      log(error instanceof Error ? String(error) : `Unknown Error: ${String(error)}`, true)
       return undefined
     }
   }
@@ -76,7 +75,7 @@ export function useFontPatcher(
     URL.revokeObjectURL(url)
   }
 
-  function init(isSupportWorker: boolean = false, width: string) {
+  function init(isSupportWorker: boolean | undefined, width: string) {
     if (worker || !isSupportWorker) {
       return
     }
@@ -130,9 +129,7 @@ export function useFontPatcher(
       log('Downloading font ZIP file...')
     }
 
-    const buf = target instanceof File
-      ? await target.arrayBuffer()
-      : await fetchFromURL(target)
+    const buf = target instanceof File ? await target.arrayBuffer() : await fetchFromURL(target)
 
     if (!buf) {
       log('Cannot get zip file', true)
@@ -151,7 +148,7 @@ export function useFontPatcher(
       }
     }
 
-    worker!.postMessage({
+    worker.postMessage({
       type: 'patch',
       buf,
       config,

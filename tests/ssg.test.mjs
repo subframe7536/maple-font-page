@@ -11,14 +11,19 @@ for (const locale of ['en', 'zh-cn']) {
     test(`SSG ${locale}/${page}: content, metadata and assets`, () => {
       const html = readFileSync(resolve(output, locale, page, 'index.html'), 'utf8')
       assert.match(html, new RegExp(`<html lang="${locale === 'en' ? 'en' : 'zh-CN'}"`))
-      assert.ok(html.includes(`rel="canonical" href="${origin}${base}${locale}${page ? `/${page}` : '/'}"`))
+      assert.ok(
+        html.includes(`rel="canonical" href="${origin}${base}${locale}${page ? `/${page}` : '/'}"`),
+      )
       assert.ok(html.includes('hreflang="en"'))
       assert.ok(html.includes('hreflang="zh-CN"'))
       assert.match(html, /<main[^>]*>[\s\S]+<\/main>/)
       assert.ok(html.includes(`href="${base}${locale}/usage"`))
       for (const [, url] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
         if (url.startsWith(`${base}assets/`) || url.startsWith(`${base}favicon`)) {
-          assert.ok(existsSync(resolve(output, url.slice(base.length))), `Missing generated asset: ${url}`)
+          assert.ok(
+            existsSync(resolve(output, url.slice(base.length))),
+            `Missing generated asset: ${url}`,
+          )
         }
       }
       if (page === 'download') {

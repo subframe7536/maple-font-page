@@ -1,11 +1,12 @@
+import './image.css'
+
+import { Show } from 'solid-js'
+
 import Section from '@/components/section'
-import { useIndexTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useIndexTranslation, siteLocale } from '@/locales/i18n'
 
 import Reason from './reason.mdx'
 import ReasonCN from './reason_cn.mdx'
-
-import './image.css'
 
 export default function SectionView() {
   const locale = siteLocale()
@@ -19,7 +20,9 @@ export default function SectionView() {
     <>
       <Section {...data}>
         <div class="inview-2 text-xl leading-relaxed prose">
-          {locale!.startsWith('zh') ? <ReasonCN /> : <Reason /> }
+          <Show when={locale.startsWith('zh')} fallback={<Reason />}>
+            <ReasonCN />
+          </Show>
         </div>
       </Section>
     </>

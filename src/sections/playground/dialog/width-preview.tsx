@@ -1,12 +1,12 @@
-import type { ConfigActionDialogProps } from './config'
-import type { FeatureState } from '@/utils/feature'
-
 import { Dialog, useCn } from 'moraine'
 import { createMemo, For, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
 import { segmentText } from '@/utils/cjk'
+import type { FeatureState } from '@/utils/feature'
 import { toStyleObject } from '@/utils/feature'
+
+import type { ConfigActionDialogProps } from './config'
 
 export interface WidthPreviewDialogProps {
   open: boolean
@@ -24,17 +24,17 @@ const LETTER_SPACING: Record<string, string> = {
   slim: '-0.17em',
 }
 
-function PreviewLine(props: { line: string, width: string }) {
+function PreviewLine(props: { line: string; width: string }) {
   const cn = useCn()
   const segments = createMemo(() => segmentText(props.line))
 
   return (
     <div class="min-h-1em whitespace-pre">
       <For each={segments()}>
-        {seg => (
+        {(seg) => (
           <Show
             when={seg.isCJK}
-            fallback={(
+            fallback={
               <span
                 class={cn(
                   'inline-block origin-left',
@@ -43,12 +43,13 @@ function PreviewLine(props: { line: string, width: string }) {
               >
                 {seg.text}
               </span>
-            )}
+            }
           >
-            <span style={{
-              'letter-spacing': LETTER_SPACING[props.width],
-              'margin-inline-start': LETTER_SPACING[props.width],
-            }}
+            <span
+              style={{
+                'letter-spacing': LETTER_SPACING[props.width],
+                'margin-inline-start': LETTER_SPACING[props.width],
+              }}
             >
               {seg.text}
             </span>
@@ -67,12 +68,11 @@ export default function WidthPreviewDialog(props: WidthPreviewDialogProps) {
       <Dialog.Content class="max-h-[80vh] sm:max-h-[80vh] max-w-3xl">
         <Dialog.Title class="flex items-center text-primary">
           <Icon name="lucide:scan-text" class="mr-3 size-6 c-accent" />
-          {props.width}
-          {' '}
-          预览
+          {props.width} 预览
         </Dialog.Title>
         <Dialog.Description>
-          使用 CSS 模拟，可能会有误差或者连字不生效，实际使用时中英文宽度2：1 ；同时由于浏览器渲染机制限制，目前无法实时显示；如果中文字符显示异常，请等待字体加载完成。
+          使用 CSS 模拟，可能会有误差或者连字不生效，实际使用时中英文宽度2：1
+          ；同时由于浏览器渲染机制限制，目前无法实时显示；如果中文字符显示异常，请等待字体加载完成。
         </Dialog.Description>
         <div
           class="of-auto rounded-lg p-2 font-liga font-cn"
@@ -83,9 +83,7 @@ export default function WidthPreviewDialog(props: WidthPreviewDialogProps) {
             ...toStyleObject(props.features),
           }}
         >
-          <For each={lines()}>
-            {line => <PreviewLine line={line} width={props.width} />}
-          </For>
+          <For each={lines()}>{(line) => <PreviewLine line={line} width={props.width} />}</For>
         </div>
       </Dialog.Content>
     </Dialog>

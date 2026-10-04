@@ -34,18 +34,11 @@ export default function Title(props: { slogan: string }) {
         >
           <Placeholder />
         </div>
-        <div
-          class={cn(
-            'inline-block',
-            isLoading() ? 'invisible' : 'animate-typing',
-          )}
-        >
+        <div class={cn('inline-block', isLoading() ? 'invisible' : 'animate-typing')}>
           Maple Mono
         </div>
       </h1>
-      <p
-        class="mt-2 w-fit text-5.5 c-accent font-(italic 600) lg:text-10 md:text-8 xs:text-6"
-      >
+      <p class="mt-2 w-fit text-5.5 c-accent font-(italic 600) lg:text-10 md:text-8 xs:text-6">
         {props.slogan}
       </p>
     </>

@@ -1,6 +1,5 @@
-import type { JSX } from 'solid-js'
-
 import { Switch, useCn } from 'moraine'
+import type { JSX } from 'solid-js'
 import { createMemo, createSignal, Show } from 'solid-js'
 
 export interface FeatureCardProps {
@@ -19,12 +18,12 @@ export interface FeatureCardProps {
  */
 export default function FeatureCard(props: FeatureCardProps) {
   const cn = useCn()
-  // eslint-disable-next-line solid/reactivity
+  // oxlint-disable-next-line subf/solid-reactivity
   const [fea, setFea] = createSignal(props.enable || false)
 
   const styleObject = createMemo<JSX.CSSProperties>(() => {
     const val = fea() ? 1 : 0
-    const extraFeatures = props.activeFeatures.map(item => [`--feat-${item}`, val])
+    const extraFeatures = props.activeFeatures.map((item) => [`--feat-${item}`, val])
     return {
       ...Object.fromEntries(extraFeatures),
       'font-style': props.italic ? 'italic' : 'normal',
@@ -39,18 +38,18 @@ export default function FeatureCard(props: FeatureCardProps) {
       return text
     }
     const [start, end] = text.split('>>')
-    return <span>{start}<span class="c-secondary">{'>>'}</span>{end}</span>
+    return (
+      <span>
+        {start}
+        <span class="c-secondary">{'>>'}</span>
+        {end}
+      </span>
+    )
   }
 
   return (
     <div class="mx-auto mt--8 w-full py-4">
-      <div
-        class={cn(
-          'leading-normal',
-          props.sizeClass ?? 'text-20',
-        )}
-        style={styleObject()}
-      >
+      <div class={cn('leading-normal', props.sizeClass ?? 'text-20')} style={styleObject()}>
         {parseMultipleGreaters(props.showText)}
         <Show when={props.showText1}>
           <br />
@@ -61,11 +60,10 @@ export default function FeatureCard(props: FeatureCardProps) {
         class="mt-4 flex items-center sm:mx-auto"
         checked={fea()}
         onCheckedChange={setFea}
-        title={`Click to toggle the feature: ${props.activeFeatures}`}
+        title={`Click to toggle the feature: ${props.activeFeatures.join(',')}`}
         label={props.feature}
       />
       <div class="mt-6 c-note">{props.description}</div>
     </div>
-
   )
 }

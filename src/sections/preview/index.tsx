@@ -2,8 +2,7 @@ import { For } from 'solid-js'
 
 import samples from '@/assets/code-samples'
 import Section from '@/components/section'
-import { useIndexTranslation } from '@/locales/i18n'
-import { siteLocale } from '@/locales/i18n'
+import { useIndexTranslation, siteLocale } from '@/locales/i18n'
 
 import CodePanel from './code-panel'
 
@@ -64,7 +63,7 @@ export default function SectionView() {
     <>
       <Section {...data}>
         <div class="grid grid-cols-1 gap-(col-8 row-4) md:grid-cols-2">
-          <For each={items}>{info => <CodePanel {...info} />}</For>
+          <For each={items}>{(info) => <CodePanel {...info} />}</For>
         </div>
       </Section>
     </>

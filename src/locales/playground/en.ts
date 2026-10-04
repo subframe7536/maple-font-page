@@ -85,7 +85,8 @@ const en = {
     config: {
       btnText: 'Generate Config',
       title: 'Configuration of Custom Build',
-      description: 'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. ',
+      description:
+        'Custom build is used to build your own font. It can change font metadata (e.g. family name), modify OpenType Features and so on at build time. ',
       noNeed: 'Nothing changed, no need to setup',
       cliFlags: 'CLI Flags',
       extra: {
@@ -99,7 +100,8 @@ const en = {
       btnText: 'Custom Build',
       title: 'Build Font In Browser',
       download: 'Build and Download',
-      unsupported: 'Custom build is not supported in legacy browser, please upgrade your browser, or build locally.',
+      unsupported:
+        'Custom build is not supported in legacy browser, please upgrade your browser, or build locally.',
       tab: {
         download: 'Auto Download',
         upload: 'Upload File',

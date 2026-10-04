@@ -14,14 +14,24 @@ for (const locale of ['en', 'zh-cn']) {
     mkdirSync(directory, { recursive: true })
     const filename = resolve(directory, 'index.html')
     const suffix = page ? `/${page}` : '/'
-    let html = readFileSync(flatFilename, 'utf8').replace('<html lang="en"', `<html lang="${locale === 'en' ? 'en' : 'zh-CN'}"`)
-    html = html.replace(/<link rel="alternate" href="([^"]+)"\s*\/?>/g, (_tag, href: string) => `<link rel="alternate" hreflang="${href.includes('/zh-cn') ? 'zh-CN' : 'en'}" href="${href}">`)
+    let html = readFileSync(flatFilename, 'utf8').replace(
+      '<html lang="en"',
+      `<html lang="${locale === 'en' ? 'en' : 'zh-CN'}"`,
+    )
+    html = html.replace(
+      /<link rel="alternate" href="([^"]+)"\s*\/?>/g,
+      (_tag, href: string) =>
+        `<link rel="alternate" hreflang="${href.includes('/zh-cn') ? 'zh-CN' : 'en'}" href="${href}">`,
+    )
     writeFileSync(flatFilename, html)
     writeFileSync(filename, html)
     urls.push(`${origin}${base}${locale}${suffix}`)
   }
 }
-writeFileSync(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(url => `  <url><loc>${url}</loc></url>`).join('\n')}\n</urlset>\n`)
+writeFileSync(
+  resolve(output, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${url}</loc></url>`).join('\n')}\n</urlset>\n`,
+)
 const robots = `User-agent: *\nAllow: /\nSitemap: ${origin}${base}sitemap.xml\n`
 writeFileSync(resolve(output, 'robots.txt'), robots)
 // Preserve the old (singular) robots endpoint as well.

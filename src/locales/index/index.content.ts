@@ -1,5 +1,4 @@
 import type { Dictionary } from 'intlayer'
-
 import { t } from 'intlayer'
 
 import en from './en'

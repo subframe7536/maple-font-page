@@ -1,6 +1,6 @@
-import type { PlaygroundTranslation } from '@/locales/playground/en'
-
 import { useCn } from 'moraine'
+
+import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 export default function GuideLink(
   props: PlaygroundTranslation['action']['guide'] & { class?: string },

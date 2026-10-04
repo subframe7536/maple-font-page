@@ -1,20 +1,13 @@
 import type { ParentProps } from 'solid-js'
-
 import { For } from 'solid-js'
 
 import { siteLocale, useDownloadTranslation } from '@/locales/i18n'
 import { tag } from '@/utils/constant'
 export default function DownloadLayout(props: ParentProps) {
-  const {
-    donations,
-    afdian,
-    buttons,
-    choice,
-  } = useDownloadTranslation(siteLocale())
+  const { donations, afdian, buttons, choice } = useDownloadTranslation(siteLocale())
 
   return (
     <>
-
       <div class="mx-auto max-w-4xl w-96% px-4 pt-20 text-left prose xs:w-90%">
         <div class="mb-8 rounded-xl bg-gray-8 p-6 text-xl c-muted-foreground font-bold">
           <div class="mb-4 text-center">{donations.title}</div>
@@ -46,7 +39,7 @@ export default function DownloadLayout(props: ParentProps) {
           <h2>{choice}</h2>
           <div class="flex flex-wrap select-none gap-4">
             <For each={buttons}>
-              {props => (
+              {(props) => (
                 <a
                   href={`https://github.com/subframe7536/maple-font/releases/download/${tag}/${props.fileName}`}
                   class="whitespace-nowrap b-(2 primary solid) rounded-md p-(x-3 y-2) decoration-none hover:(bg-muted c-muted-foreground)"
@@ -60,7 +53,6 @@ export default function DownloadLayout(props: ParentProps) {
         </div>
         {props.children}
       </div>
-
     </>
   )
 }

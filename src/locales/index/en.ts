@@ -1,7 +1,8 @@
 const en = {
   hero: {
     slogan: 'Smooth your coding flow',
-    description: 'We use code to bring ideas to life as products, but the font we choose is the silent architect that shapes how we experience that journey. Crafted for programmers, Maple Mono boosts your productivity with a subtle elegance, making every line of code a joy and smooth to read and write.',
+    description:
+      'We use code to bring ideas to life as products, but the font we choose is the silent architect that shapes how we experience that journey. Crafted for programmers, Maple Mono boosts your productivity with a subtle elegance, making every line of code a joy and smooth to read and write.',
     learnMoreText: 'Learn More',
     tryItText: 'Try it now',
   },
@@ -20,7 +21,7 @@ const en = {
       items: {
         cv01: {
           name: 'cv01',
-          desc: 'Brand new glyphs with small gaps, disable it if you don\'t like it.',
+          desc: "Brand new glyphs with small gaps, disable it if you don't like it.",
         },
         plain: {
           name: 'plain style',
@@ -38,7 +39,8 @@ const en = {
     },
     ligature: {
       title: 'Smart Ligatures, Large Variety',
-      description: 'Plain text tags, connected letters, brings the font capability to the next level.',
+      description:
+        'Plain text tags, connected letters, brings the font capability to the next level.',
       subTitle: 'Special Ligatures',
       items: {
         tag: 'Create tags from plain text, beautify your logs and tasks.',
@@ -57,12 +59,14 @@ const en = {
     },
     custom: {
       title: 'Your favor, Your Font',
-      description: 'Configure or freeze OpenType features as you want, create your own perfect font.',
+      description:
+        'Configure or freeze OpenType features as you want, create your own perfect font.',
       buttonText: 'See Guide',
       link: 'https://github.com/subframe7536/maple-font#custom-build',
       normal: {
         title: '😡: "Why these glyphs are SOOOOO WEIRD ???"',
-        description: '🤗: "Yeah I get that, so this one is for you: @, a preset that reset all strange glyphs, make the glyph style similar to JetBrains Mono (with slashed 0). Direct download, no build required.',
+        description:
+          '🤗: "Yeah I get that, so this one is for you: @, a preset that reset all strange glyphs, make the glyph style similar to JetBrains Mono (with slashed 0). Direct download, no build required.',
         enable: 'Enabled font features',
         preview: 'Preview',
         testInPlayground: 'Test In Playground Page',
@@ -82,27 +86,32 @@ const en = {
     subTitle: 'Join thousands of developers who have already fallen in love with Maple Mono.',
     items: [
       {
-        content: 'Needed a font with some pazzazz🌟 and good italics. Maple Mono NF by @subframe7536 is my new favorite coding font. Just the font I was looking for after getting bored with JetBrains Mono. It takes inspiration from JBM and other great fonts',
+        content:
+          'Needed a font with some pazzazz🌟 and good italics. Maple Mono NF by @subframe7536 is my new favorite coding font. Just the font I was looking for after getting bored with JetBrains Mono. It takes inspiration from JBM and other great fonts',
         author: 'Siddharth Pant',
         platform: 'Twitter',
       },
       {
-        content: 'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
+        content:
+          'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
         author: 'TechEnthusiast',
         platform: 'Discord',
       },
       {
-        content: 'Having switched to the Maple Mono font and enabled italic ligatures for some parts, it feels a bit more lively on top of being clear and easy to use, which is nice.',
+        content:
+          'Having switched to the Maple Mono font and enabled italic ligatures for some parts, it feels a bit more lively on top of being clear and easy to use, which is nice.',
         author: 'Nero',
         platform: 'Twitter',
       },
       {
-        content: 'For those who prefer a rounder, more "adorable" font, Maple Mono might be a great choice. It includes CJK fonts and ensures a 2:1 width ratio. I\'ve had about two or three colleagues compliment me on how good my editor and terminal look.',
+        content:
+          'For those who prefer a rounder, more "adorable" font, Maple Mono might be a great choice. It includes CJK fonts and ensures a 2:1 width ratio. I\'ve had about two or three colleagues compliment me on how good my editor and terminal look.',
         author: 'Beiyanyunyi',
         platform: 'ZhiHu',
       },
       {
-        content: 'I love Maple Mono because it is very similar to my handwriting. I write in a mixture of print and cursive so it feels like im looking at my handwriting. It also is very pleasing to look at the code with cursive flair instead of the more monotonous print.',
+        content:
+          'I love Maple Mono because it is very similar to my handwriting. I write in a mixture of print and cursive so it feels like im looking at my handwriting. It also is very pleasing to look at the code with cursive flair instead of the more monotonous print.',
         author: 'ez_roma',
         platform: 'Reddit',
       },

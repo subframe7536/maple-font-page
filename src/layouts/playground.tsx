@@ -1,13 +1,11 @@
-import type { FontFeatureItem } from '@/sections/playground'
-
 import featBasic from '@data/features/basic.json'
 import featCN from '@data/features/cn.json'
 import featCV from '@data/features/cv.json'
 import featItalic from '@data/features/italic.json'
 import featSS from '@data/features/ss.json'
 
-import { usePlaygroundTranslation } from '@/locales/i18n'
-import { localePath, siteLocale } from '@/locales/i18n'
+import { usePlaygroundTranslation, localePath, siteLocale } from '@/locales/i18n'
+import type { FontFeatureItem } from '@/sections/playground'
 import PlaygroundArea from '@/sections/playground'
 export default function PlaygroundPage() {
   const { description, ...rest } = usePlaygroundTranslation(siteLocale())
@@ -24,7 +22,7 @@ export default function PlaygroundPage() {
         })
       }
     }
-    return result.sort((a, b) => a.feat > b.feat ? 1 : -1)
+    return result.sort((a, b) => (a.feat > b.feat ? 1 : -1))
   }
 
   const locale = siteLocale()
@@ -42,5 +40,21 @@ export default function PlaygroundPage() {
     'Input your text here.',
   ].join('\n\n')
 
-  return <PlaygroundArea features={{ basic: parseFeature(featBasic), cv: parseFeature(featCV), italic: parseFeature(featItalic), cn: parseFeature(featCN), ss: parseFeature(featSS) }} sizeRange={[8, 144]} weightRange={[100, 800]} defaultText={defaultText} t={rest} downloadURL={downloadLink} isCn={locale.startsWith('zh')} />
+  return (
+    <PlaygroundArea
+      features={{
+        basic: parseFeature(featBasic),
+        cv: parseFeature(featCV),
+        italic: parseFeature(featItalic),
+        cn: parseFeature(featCN),
+        ss: parseFeature(featSS),
+      }}
+      sizeRange={[8, 144]}
+      weightRange={[100, 800]}
+      defaultText={defaultText}
+      t={rest}
+      downloadURL={downloadLink}
+      isCn={locale.startsWith('zh')}
+    />
+  )
 }

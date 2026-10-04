@@ -24,15 +24,17 @@ function getMapleMonoFontFace(italic: boolean) {
 }
 let fontLoading: Promise<void> | undefined
 export function loadMapleMono() {
-  return fontLoading ??= Promise.all([
+  return (fontLoading ??= Promise.all([
     getMapleMonoFontFace(false).load(),
     getMapleMonoFontFace(true).load(),
-  ]).then((faces) => {
-    faces.forEach(face => document.fonts.add(face))
-  }).catch((error) => {
-    fontLoading = undefined
-    throw error
-  })
+  ])
+    .then((faces) => {
+      faces.forEach((face) => document.fonts.add(face))
+    })
+    .catch((error) => {
+      fontLoading = undefined
+      throw error
+    }))
 }
 
 export function getCNFromRemote(italic: boolean): Promise<void> {
