@@ -1,0 +1,33 @@
+name: Check migration
+on:
+  pull_request:
+  push:
+    branches: [main, feat/solid-moraine-intlayer]
+permissions:
+  contents: read
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm build
+      - run: pnpm test:ssg
+      - name: Verify GitHub Pages base path
+        run: |
+          pnpm build
+          pnpm test:ssg
+        env:
+          BASE_PATH: /maple-font-page/
+          VITE_SITE_ORIGIN: https://subframe7536.github.io

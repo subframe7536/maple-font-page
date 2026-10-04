@@ -1,13 +1,9 @@
-import type json from '@iconify-json/lucide/icons.json'
-
-import { cls } from 'cls-variant'
-
+import { Icon as MoraineIcon } from 'moraine'
 export interface Props {
-  name: `lucide:${keyof typeof json['icons']}`
+  name: `lucide:${string}`
   class?: string
   title?: string
 }
-
 export default function Icon(props: Props) {
-  return <div class={cls(`i-${props.name}`, props.class)} title={props.title || props.name} />
+  return <MoraineIcon name={`i-${props.name}`} class={props.class} title={props.title} />
 }

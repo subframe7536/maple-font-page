@@ -3,7 +3,8 @@ import type { IndexTranslation } from './en'
 const zh: IndexTranslation = {
   hero: {
     slogan: 'Smooth your coding flow',
-    description: '我们用代码将创意构筑成产品，而字体如同旅途中沉默的基石，熟视无睹，却塑造着每天编码的体验。Maple Mono 专为极客匠心打造，它以一种内敛的优雅，提升您的工作效率，让您在阅读和编写每一行代码时都能感受到丝滑和愉悦。',
+    description:
+      '我们用代码将创意构筑成产品，而字体如同旅途中沉默的基石，熟视无睹，却塑造着每天编码的体验。Maple Mono 专为极客匠心打造，它以一种内敛的优雅，提升您的工作效率，让您在阅读和编写每一行代码时都能感受到丝滑和愉悦。',
     learnMoreText: '了解更多',
     tryItText: '去试一试',
   },
@@ -64,7 +65,8 @@ const zh: IndexTranslation = {
       link: 'https://github.com/subframe7536/maple-font/blob/variable/README_CN.md#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA',
       normal: {
         title: '😡：“为什么有些字符看起来这么奇怪？？？”',
-        description: '🤗：“这我懂，所以我专门制作了 @: 一个重置所有奇怪字符的预设, 让整体风格和 JetBrains Mono 类似（除了 0 的中间保留为斜线）。直接下载，无需构建。”',
+        description:
+          '🤗：“这我懂，所以我专门制作了 @: 一个重置所有奇怪字符的预设, 让整体风格和 JetBrains Mono 类似（除了 0 的中间保留为斜线）。直接下载，无需构建。”',
         enable: '启用的字体特性',
         preview: '预览',
         testInPlayground: '在 特性测试页面 尝试',
@@ -84,27 +86,32 @@ const zh: IndexTranslation = {
     subTitle: '加入成千上万喜爱上 Maple Mono 的开发者行列。',
     items: [
       {
-        content: '需要一款带点个性的🌟和优秀的斜体的字体。@subframe7536 的 Maple Mono NF 是我的新宠编程字体。正是我在厌倦 JetBrains Mono 后一直在寻找的字体。它从 JBM 和其他优秀的字体中汲取了灵感。',
+        content:
+          '需要一款带点个性的🌟和优秀的斜体的字体。@subframe7536 的 Maple Mono NF 是我的新宠编程字体。正是我在厌倦 JetBrains Mono 后一直在寻找的字体。它从 JBM 和其他优秀的字体中汲取了灵感。',
         author: 'Siddharth Pant',
         platform: 'Twitter',
       },
       {
-        content: '使用 Maple Mono 已经一个月了。Nerd Font 支持非常棒，并且能够自定义字体功能正是我所需要的。干得漂亮！',
+        content:
+          '使用 Maple Mono 已经一个月了。Nerd Font 支持非常棒，并且能够自定义字体功能正是我所需要的。干得漂亮！',
         author: 'TechEnthusiast',
         platform: 'Discord',
       },
       {
-        content: '换了 Maple Mono 字体，部分内容开了斜体连笔，感觉在清晰好用的基础上又多了几分灵动😄不错',
+        content:
+          '换了 Maple Mono 字体，部分内容开了斜体连笔，感觉在清晰好用的基础上又多了几分灵动😄不错',
         author: 'Nero',
         platform: 'Twitter',
       },
       {
-        content: '对于希望字体圆一些、“可爱”一些的人，Maple Mono 可能是一个很好的选择。它封装了 CJK 字体，且保证 2:1 的宽度。前后大概有两三个同事夸过我编辑器和终端配得很好看。',
+        content:
+          '对于希望字体圆一些、“可爱”一些的人，Maple Mono 可能是一个很好的选择。它封装了 CJK 字体，且保证 2:1 的宽度。前后大概有两三个同事夸过我编辑器和终端配得很好看。',
         author: '北雁云依',
         platform: '知乎',
       },
       {
-        content: '我喜欢 Maple Mono，因为它非常像我的笔迹。我写字时混合了印刷体和手写体，所以感觉就像在看我的笔迹。而且用手写体的风格而不是更单调的印刷体来查看代码也让人非常愉悦。',
+        content:
+          '我喜欢 Maple Mono，因为它非常像我的笔迹。我写字时混合了印刷体和手写体，所以感觉就像在看我的笔迹。而且用手写体的风格而不是更单调的印刷体来查看代码也让人非常愉悦。',
         author: 'ez_roma',
         platform: 'Reddit',
       },

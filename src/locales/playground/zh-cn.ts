@@ -1,5 +1,6 @@
-import type { PlaygroundTranslation } from './en'
 import type { FeatureDescription } from '@data/features/features'
+
+import type { PlaygroundTranslation } from './en'
 
 const description: FeatureDescription = {
   calt: '启用连字',
@@ -86,7 +87,8 @@ const zh: PlaygroundTranslation = {
     config: {
       btnText: '生成配置',
       title: '自定义构建配置',
-      description: '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
+      description:
+        '自定义构建可以让你构建属于你自己的字体。它可以在构建字体时实现改变字体元属性（例如字体名称）、修改 OpenType Feature 等诸多功能。',
       noNeed: '配置无修改，无需设置',
       cliFlags: '命令行参数',
       extra: {
@@ -100,7 +102,8 @@ const zh: PlaygroundTranslation = {
       btnText: '自定义构建',
       title: '浏览器内构建字体',
       download: '构建并下载',
-      unsupported: '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版，或者本地构建。',
+      unsupported:
+        '自定义构建不支持在版本过低的浏览器内运行，请升级您的浏览器至最新版，或者本地构建。',
       tab: {
         download: '自动下载',
         upload: '上传文件',

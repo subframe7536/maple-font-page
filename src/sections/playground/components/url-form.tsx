@@ -1,87 +1,79 @@
+import { Checkbox, Field, Input, Select } from 'moraine'
+import type { Accessor, Setter } from 'solid-js'
+
 import type { PlaygroundTranslation } from '@/locales/playground/en'
 import type { FileFormat } from '@/utils/feature'
-import type { RefSignal } from '@solid-hooks/core'
-
-import { For } from 'solid-js'
-
-import Icon from '@/components/icon'
-import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
-import {
-  TextField,
-  TextFieldInput,
-  TextFieldLabel,
-} from '@/components/ui/text-field'
 import { FILE_FORMAT } from '@/utils/feature'
 
 // UI: Format selector
 function FormatSelector(props: {
-  fileFormat: RefSignal<FileFormat>
+  fileFormat: Accessor<FileFormat>
+  setFileFormat: Setter<FileFormat>
   translate: PlaygroundTranslation['action']['build']['options']
 }) {
   return (
-    <div class="relative flex flex-col gap-2 sm:w-50%">
-      <div class="text-sm c-secondary">
-        {props.translate.formatTitle}
-      </div>
-      <select
-        id="select-format"
-        class="size-full appearance-none b-(1 input) rounded-md bg-background p-(x-2 y-1) text-sm disabled:effect-dis focus-visible:effect-fv"
+    <Field label={props.translate.formatTitle} class="sm:w-50%">
+      <Select
         value={props.fileFormat()}
-        onChange={e => props.fileFormat(e.target.value as FileFormat)}
-      >
-        <For each={FILE_FORMAT}>{data => <option>{data}</option>}</For>
-      </select>
-      <Icon name="lucide:chevron-down" class="pointer-events-none absolute bottom-1.2 right-2" />
-    </div>
+        items={[...FILE_FORMAT]}
+        onValueChange={(value) => {
+          if (value) {
+            props.setFileFormat(value)
+          }
+        }}
+        aria-label={props.translate.formatTitle}
+      />
+    </Field>
   )
 }
 
 // UI: Hinted checkbox
 function HintedCheckbox(props: {
-  useHinted: RefSignal<boolean>
+  useHinted: Accessor<boolean>
+  setUseHinted: Setter<boolean>
   translate: PlaygroundTranslation['action']['build']['options']
 }) {
   return (
     <div class="flex flex-col gap-2 sm:(w-50% gap-3)">
-      <div class="text-sm c-secondary">
-        {props.translate.hintTitle}
-      </div>
+      <div class="text-sm c-secondary">{props.translate.hintTitle}</div>
       <Checkbox
         checked={props.useHinted()}
-        onChange={props.useHinted}
+        onCheckedChange={props.setUseHinted}
         class="flex items-center gap-2"
-      >
-        <CheckboxControl />
-        <CheckboxLabel class="text-sm">
-          {props.translate.useHinted}
-        </CheckboxLabel>
-      </Checkbox>
+        label={props.translate.useHinted}
+      />
     </div>
   )
 }
 
 // UI: Proxy input
 function ProxyInput(props: {
-  proxyURL: RefSignal<string>
+  proxyURL: Accessor<string>
+  setProxyURL: Setter<string>
   translate: PlaygroundTranslation['action']['build']['options']
   guide: PlaygroundTranslation['action']['guide']
 }) {
   return (
-    <TextField value={props.proxyURL()} onChange={props.proxyURL} class="gap-3">
-      <TextFieldLabel class="c-secondary font-bold">
-        {props.translate.proxyURL}
-      </TextFieldLabel>
-      <TextFieldInput placeholder={props.translate.proxyURLPlaceholder} class="of-x-auto" />
-    </TextField>
+    <Field label={props.translate.proxyURL} class="gap-3">
+      <Input
+        value={props.proxyURL()}
+        onValueChange={props.setProxyURL}
+        placeholder={props.translate.proxyURLPlaceholder}
+        class="of-x-auto"
+      />
+    </Field>
   )
 }
 
 interface Props {
   t: PlaygroundTranslation['action']['build']
   guide: PlaygroundTranslation['action']['guide']
-  fileFormat: RefSignal<FileFormat>
-  useHinted: RefSignal<boolean>
-  proxyURL: RefSignal<string>
+  fileFormat: Accessor<FileFormat>
+  setFileFormat: Setter<FileFormat>
+  useHinted: Accessor<boolean>
+  setUseHinted: Setter<boolean>
+  proxyURL: Accessor<string>
+  setProxyURL: Setter<string>
 }
 
 export function UrlForm(props: Props) {
@@ -90,15 +82,18 @@ export function UrlForm(props: Props) {
       <div class="mb-3 flex flex-col gap-4 sm:(mb-2 flex-row)">
         <FormatSelector
           fileFormat={props.fileFormat}
+          setFileFormat={props.setFileFormat}
           translate={props.t.options}
         />
         <HintedCheckbox
           useHinted={props.useHinted}
+          setUseHinted={props.setUseHinted}
           translate={props.t.options}
         />
       </div>
       <ProxyInput
         proxyURL={props.proxyURL}
+        setProxyURL={props.setProxyURL}
         translate={props.t.options}
         guide={props.guide}
       />

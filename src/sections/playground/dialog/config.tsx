@@ -1,21 +1,9 @@
-import type { PlaygroundTranslation } from '@/locales/playground/en'
-import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
-import type { DialogTriggerProps } from '@kobalte/core/dialog'
-
-import { createRef } from '@solid-hooks/core'
-import { useCopy } from '@solid-hooks/core/web'
-import { cls } from 'cls-variant'
-import { createMemo, createSignal, For } from 'solid-js'
+import { Button, Checkbox, Dialog, useCn } from 'moraine'
+import { createMemo, createSignal, For, onCleanup } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
-import { Checkbox, CheckboxControl, CheckboxLabel } from '@/components/ui/checkbox'
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
+import type { PlaygroundTranslation } from '@/locales/playground/en'
+import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
 import { toCliFlag, toConfigJson } from '@/utils/feature'
 
 import GuideLink from '../components/guide-link'
@@ -27,30 +15,45 @@ export interface ConfigActionDialogProps {
   width: 'default' | 'narrow' | 'slim'
 }
 
-function ConfigSection(
-  props: {
-    type: 'cli' | 'json'
-    title: string
-    feat: ConfigActionDialogProps['features']
-    width: ConfigActionDialogProps['width']
-    fallback: string
-    extra: ExtraConfig
-  },
-) {
-  const { copy, isCopied } = useCopy()
-  const textareaRef = createRef<HTMLTextAreaElement>()
+function ConfigSection(props: {
+  type: 'cli' | 'json'
+  title: string
+  feat: ConfigActionDialogProps['features']
+  width: ConfigActionDialogProps['width']
+  fallback: string
+  extra: ExtraConfig
+}) {
+  const cn = useCn()
+  const [isCopied, setCopied] = createSignal(false)
+  let textareaRef!: HTMLTextAreaElement
+  let timer: ReturnType<typeof setTimeout> | undefined
+  let disposed = false
+  onCleanup(() => {
+    disposed = true
+    clearTimeout(timer)
+  })
 
-  function copyTextArea() {
-    const val = textareaRef()?.value
-    if (val) {
-      copy(val)
+  async function copyTextArea() {
+    const val = textareaRef.value
+    if (!val || !navigator.clipboard) {
+      return
     }
+    await navigator.clipboard.writeText(val)
+    if (disposed) {
+      return
+    }
+    setCopied(true)
+    clearTimeout(timer)
+    timer = setTimeout(() => setCopied(false), 1500)
   }
 
-  const parsedText = createMemo(
-    () => props.type === 'cli'
+  const parsedText = createMemo(() =>
+    props.type === 'cli'
       ? toCliFlag(props.feat, props.width, props.extra)
-      : toConfigJson(props.feat, props.width, props.extra).replace('"scale_factor": 1', '"scale_factor": 1.0'),
+      : toConfigJson(props.feat, props.width, props.extra).replace(
+          '"scale_factor": 1',
+          '"scale_factor": 1.0',
+        ),
   )
 
   return (
@@ -58,27 +61,29 @@ function ConfigSection(
       <h2 class="mb-2 flex select-none items-center gap-2">
         <div class="c-accent sm:text-lg">{props.title}</div>
         <Button
-          size="icon"
+          size="icon-lg"
           variant="outline"
           disabled={!parsedText() || isCopied()}
-          class={cls('!b-0', (!parsedText() || isCopied()) && 'cursor-not-allowed')}
-          onClick={copyTextArea}
+          class={['border-0', (!parsedText() || isCopied()) && 'cursor-not-allowed']}
+          onClick={() => void copyTextArea().catch(console.error)}
         >
           <Icon name={isCopied() ? 'lucide:copy-check' : 'lucide:copy'} title="copy" />
         </Button>
       </h2>
       <textarea
-        ref={textareaRef}
+        ref={(element) => (textareaRef = element)}
         name={props.type}
         title={props.title}
         disabled={!parsedText()}
-        class={cls(
+        class={cn(
           'w-full resize-none bg-#0000 !b-0 !outline-none',
           props.type === 'json' && 'h-40 sm:h-60',
           props.type === 'cli' && 'h-10 whitespace-nowrap',
         )}
-        value={parsedText() || props.fallback}
-      />
+        prop:value={parsedText() || props.fallback}
+      >
+        {parsedText() || props.fallback}
+      </textarea>
     </>
   )
 }
@@ -93,23 +98,15 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
 
   return (
     <Dialog>
-      <DialogTrigger
-        as={(triggerProps: DialogTriggerProps) => (
-          <Button
-            size="md"
-            class="w-full !px-2"
-            {...triggerProps}
-          >
-            <Icon name="lucide:braces" class="mr-2" />
-            {props.t.btnText}
-          </Button>
-        )}
-      />
-      <DialogContent>
-        <DialogTitle class="flex items-center text-primary">
+      <Dialog.Trigger as={Button} size="md" class="w-full px-2">
+        <Icon name="lucide:braces" class="mr-2" />
+        {props.t.btnText}
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Title class="flex items-center text-primary">
           <Icon name="lucide:braces" class="mr-2 size-6 c-accent" />
           {props.t.title}
-        </DialogTitle>
+        </Dialog.Title>
         <div>
           <p class="text-sm">
             {props.t.description}
@@ -120,12 +117,15 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
               {([key, str]) => (
                 <Checkbox
                   checked={extraConfig()[key as ExtraConfigKey]}
-                  onChange={v => setExtraConfig(old => ({ ...old, ...{ [key]: v } }))}
+                  onCheckedChange={(v) =>
+                    setExtraConfig((old) => ({
+                      ...old,
+                      [key]: v,
+                    }))
+                  }
                   class="flex items-center space-x-2"
-                >
-                  <CheckboxControl />
-                  <CheckboxLabel>{str}</CheckboxLabel>
-                </Checkbox>
+                  label={str}
+                />
               )}
             </For>
           </div>
@@ -146,7 +146,7 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
             extra={extraConfig()}
           />
         </div>
-      </DialogContent>
+      </Dialog.Content>
     </Dialog>
   )
 }

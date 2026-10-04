@@ -1,15 +1,16 @@
-import type { PlaygroundTranslation } from '@/locales/playground/en'
+import { useCn } from 'moraine'
 
-import { cls } from 'cls-variant'
+import type { PlaygroundTranslation } from '@/locales/playground/en'
 
 export default function GuideLink(
   props: PlaygroundTranslation['action']['guide'] & { class?: string },
 ) {
+  const cn = useCn()
   return (
     <a
       href={props.link}
       target="_blank"
-      class={cls('w-full text-secondary font-bold xs:w-fit hover:underline', props.class)}
+      class={cn('w-full text-secondary font-bold xs:w-fit hover:underline', props.class)}
       title={props.text}
     >
       {props.text}

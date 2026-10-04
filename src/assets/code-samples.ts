@@ -1,0 +1,19 @@
+// Code examples intentionally contain literal template interpolation syntax.
+/* oxlint-disable no-template-curly-in-string */
+export default {
+  code: '{\n  "$schema": "./source/schema.json",\n  "family_name": "Maple Mono",\n  "use_hinted": true,\n  "pool_size": 4,\n  "ligature": true,\n  "feature_freeze": {\n    // ...\n  }\n}',
+  normalCode:
+    'class Example {\n    private name: string;\n\n    @Log\n    public query(value: string): void {\n        const localVariable = `Hello, ${this.name}! Query -> ${value}`;\n        console.log(localVariable, 0x2312);\n    }\n}',
+  tsxCode:
+    'function Counter() {\n  const [val, setVal] = createSignal(10);\n  const dec = () => val() !== ~~3.1415926\n    && setVal(prev => prev--);\n\n  return (\n    <button type="button" onClick={dec}>\n      {val()}\n    </button>\n  );\n}',
+  vueCode:
+    '<script setup>\nimport { ref, computed } from \'vue\'\n\nconst count = ref(0)\nconst dbl = computed(() => count.value * 2)\n</script>\n\n<template>\n  {{ dbl }}<br />\n  <button @click="count++">Count</button>\n</template>',
+  javaCode:
+    '@SpringBootApplication\npublic class TodoApplication {\n\n    public static void main(String[] args) {\n        SpringApplication.run(TodoApplication.class, args);\n\n        Arrays.asList("foo", "bar", "baz")\n          .stream()\n          .map(String::toUpperCase)\n          .forEach(System.out::println)\n    }\n\n}',
+  goCode:
+    'func main() {\n    http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {\n        message := strings.Join([]string{"Hello", "world!"}, " ")\n        _, err := writer.Write([]byte(message))\n        if err != nil {\n            panic(err)\n        }\n    })\n\n    if err := http.ListenAndServe(":8080", nil); err != nil {\n        panic(err)\n    }\n}',
+  pythonCode:
+    'class Merger(object):\n    def merge(x1, x2):\n        if isinstance(x1, dict) and isinstance(x2, dict):\n            res = x1.copy()\n            for k, v in x2.items():\n                res[k] = merge(res[k], v) if k in res else v\n            return res\n        elif isinstance(x1, list) and isinstance(x2, list):\n            res = list(x1)\n            res.extend(x2)\n            return res\n        else:\n            raise ValueError(f"Cannot merge \'{x1!r}\' and \'{x2!r}\'")\n\n\nif __main__ == "main":\n    merger = Merger()\n    merger.merge(0x23, 0xa1)',
+  cppCode:
+    'void quicksort(auto begin, auto end) {\n    if (begin != end) {\n        Comparable auto pivot = *std::next(begin, std::distance(begin, end) / 2);\n        const auto [lt, gt] = ::partition(begin, end, pivot, std::less<>());\n        quicksort(begin, lt);\n        quicksort(gt, end);\n    }\n}\n\nint main() {\n    std::vector<int> Vec{5, 0, 1, 5, 3, 7, 4, 2};\n    quicksort(Vec.begin(), Vec.end());\n    std::for_each(\n        Vec.begin(),\n        Vec.end(),\n        [](const int Elem) {std::cout << Elem << " "; }\n    );\n}',
+}

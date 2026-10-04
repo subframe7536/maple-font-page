@@ -1,75 +1,47 @@
+import { getIntlayer } from 'intlayer'
+import { useLocale } from 'solid-intlayer'
+
 import type { DownloadTranslation } from './download/en'
 import type { IndexTranslation } from './index/en'
 import type { NavTranslation } from './nav/en'
 import type { PlaygroundTranslation } from './playground/en'
 
-// reference from https://github.com/psephopaiktes/astro-i18n-starter/blob/main/src/i18n.ts
-import { getRelativeLocaleUrl } from 'astro:i18n'
-
-import { DEFAULT_LOCALE, LOCALES_SETTING } from '../utils/constant'
-
-export const LOCALES = Object.keys(LOCALES_SETTING) as unknown as (keyof typeof LOCALES_SETTING)[]
-
-async function useTranslation(
-  namespace: 'index' | 'playground' | 'nav' | 'download',
-  locale = DEFAULT_LOCALE,
-): Promise<any> {
-  return (await import(`../locales/${namespace}/${locale}.ts`)).default
+export const LOCALES = ['en', 'zh-cn'] as const
+export type SiteLocale = (typeof LOCALES)[number]
+export function siteLocale(): SiteLocale {
+  return useLocale().locale() === 'zh-CN' ? 'zh-cn' : 'en'
 }
-
-export async function useIndexTranslation<K extends keyof IndexTranslation>(
-  locale: string | undefined,
+// SSG receives unprefixed routes; the browser can live under a Pages base path.
+export function routePath(pathname: string) {
+  const base = import.meta.env.BASE_URL
+  return base !== '/' && pathname.startsWith(base) ? `/${pathname.slice(base.length)}` : pathname
+}
+export function localePath(locale: SiteLocale = siteLocale(), page = '') {
+  return `${import.meta.env.BASE_URL}${locale}${page ? `/${page}` : '/'}`
+}
+function intlayerLocale(locale = siteLocale()) {
+  return locale === 'zh-cn' ? 'zh-CN' : 'en'
+}
+export function useIndexTranslation<K extends keyof IndexTranslation>(
+  locale: SiteLocale | undefined,
   section: K,
-): Promise<IndexTranslation[K]> {
-  return (await useTranslation('index', locale))[section]
+): IndexTranslation[K] {
+  return (getIntlayer('index', intlayerLocale(locale)).messages as IndexTranslation)[section]
 }
-
-export async function useFeatureTranslation<K extends keyof IndexTranslation['features']>(
-  locale: string | undefined,
+export function useFeatureTranslation<K extends keyof IndexTranslation['features']>(
+  locale: SiteLocale | undefined,
   section: K,
-): Promise<IndexTranslation['features'][K]> {
-  return (await useTranslation('index', locale)).features[section]
+): IndexTranslation['features'][K] {
+  return (getIntlayer('index', intlayerLocale(locale)).messages as IndexTranslation).features[
+    section
+  ]
 }
-
-export async function usePlaygroundTranslation(
-  locale: string | undefined,
-): Promise<PlaygroundTranslation> {
-  return (await useTranslation('playground', locale))
+export function usePlaygroundTranslation(locale?: SiteLocale): PlaygroundTranslation {
+  return getIntlayer('playground', intlayerLocale(locale)).messages
 }
-
-export async function useNavTranslation(
-  locale: string | undefined,
-): Promise<NavTranslation> {
-  return (await useTranslation('nav', locale))
+export function useNavTranslation(locale?: SiteLocale): NavTranslation {
+  return getIntlayer('nav', intlayerLocale(locale)).messages
 }
-
-export async function useDownloadTranslation(
-  locale: string | undefined,
-): Promise<DownloadTranslation> {
-  return (await useTranslation('download', locale))
-}
-
-/**
- * Helper to get corresponding path list for all locales
- * @param url - The current URL object
- * @returns - The list of locale paths
- */
-export function getLocalePaths(url: URL) {
-  return LOCALES.map((lang) => {
-    return {
-      lang,
-      path: getRelativeLocaleUrl(lang, url.pathname.replace(/^\/[a-z-]+/i, '')),
-    }
-  })
-}
-
-/**
- * Helper to get locale parms for Astro's `getStaticPaths` function
- * @returns - The list of locale params
- * @see https://docs.astro.build/en/guides/routing/#dynamic-routes
- */
-export function getStaticPaths() {
-  return LOCALES.map(lang => ({
-    params: { lang },
-  }))
+export function useDownloadTranslation(locale?: SiteLocale): DownloadTranslation {
+  return getIntlayer('download', intlayerLocale(locale)).messages
 }

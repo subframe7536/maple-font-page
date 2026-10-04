@@ -1,12 +1,12 @@
 export function isCJK(code: number): boolean {
   return (
-    (code >= 0x4E00 && code <= 0x9FFF) // CJK Unified Ideographs
-    || (code >= 0x3400 && code <= 0x4DBF) // Extension A
-    || (code >= 0xF900 && code <= 0xFAFF) // Compatibility Ideographs
-    || (code >= 0x3000 && code <= 0x303F) // CJK Symbols & Punctuation
-    || (code >= 0xFF00 && code <= 0xFFEF) // Fullwidth Forms
-    || (code >= 0x2018 && code <= 0x201F) // Curly quotes
-    || (code >= 0xFE30 && code <= 0xFE4F) // CJK Compatibility Forms
+    (code >= 0x4e00 && code <= 0x9fff) || // CJK Unified Ideographs
+    (code >= 0x3400 && code <= 0x4dbf) || // Extension A
+    (code >= 0xf900 && code <= 0xfaff) || // Compatibility Ideographs
+    (code >= 0x3000 && code <= 0x303f) || // CJK Symbols & Punctuation
+    (code >= 0xff00 && code <= 0xffef) || // Fullwidth Forms
+    (code >= 0x2018 && code <= 0x201f) || // Curly quotes
+    (code >= 0xfe30 && code <= 0xfe4f) // CJK Compatibility Forms
   )
 }
 
