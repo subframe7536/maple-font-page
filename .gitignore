@@ -29,4 +29,4 @@ gitignore
 Thumbs.db
 
 .astro
-.eslintcache
+src/routes.d.ts

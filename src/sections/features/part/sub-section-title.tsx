@@ -1,0 +1,25 @@
+import type { ParentProps } from 'solid-js'
+
+import type { Props as IProps } from '@/components/icon'
+import Icon from '@/components/icon'
+
+interface Props extends ParentProps {
+  title: string
+  icon: IProps['name']
+}
+
+export default function SectionView(props: Props) {
+  return (
+    <>
+      <div class="mb-8 flex flex-col gap-8 py-8 md:gap-12">
+        <h2 class="flex flex-col inview-1 items-start gap-4 text-2xl c-primary font-600 xs:(flex-row items-center)">
+          <div class="flex items-center justify-center rounded-2 bg-primary p-1">
+            <Icon name={props.icon} class="c-background" />
+          </div>
+          {props.title}
+        </h2>
+        {props.children}
+      </div>
+    </>
+  )
+}

@@ -1,21 +1,20 @@
-import type { ButtonProps } from './button'
 import type { CreateEmblaCarouselType } from 'embla-carousel-solid'
-import type { Accessor, Component, ComponentProps, VoidProps } from 'solid-js'
-
-import { cls } from 'cls-variant'
 import createEmblaCarousel from 'embla-carousel-solid'
+import type { ButtonProps } from 'moraine'
+import { Button, useCn } from 'moraine'
+import type { Accessor, Component, ComponentProps, VoidProps } from 'solid-js'
 import {
   createContext,
   createEffect,
   createMemo,
   createSignal,
   mergeProps,
+  onCleanup,
   splitProps,
   useContext,
 } from 'solid-js'
 
 import Icon from '../icon'
-import { Button } from './button'
 
 export type CarouselApi = CreateEmblaCarouselType[1]
 
@@ -52,20 +51,12 @@ function useCarousel() {
 }
 
 const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) => {
+  const cn = useCn()
   type MergedType = (CarouselProps & ComponentProps<'div'>)[]
 
-  const props = mergeProps<MergedType>(
-    { orientation: 'horizontal' },
-    rawProps,
-  )
+  const props = mergeProps<MergedType>({ orientation: 'horizontal' }, rawProps)
 
-  const [local, others] = splitProps(props, [
-    'orientation',
-    'opts',
-    'setApi',
-    'plugins',
-    'class',
-  ])
+  const [local, others] = splitProps(props, ['orientation', 'opts', 'setApi', 'plugins', 'class'])
 
   const [carouselRef, api] = createEmblaCarousel(
     () => ({
@@ -108,17 +99,19 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
   })
 
   createEffect(() => {
-    if (!api()) {
+    const instance = api()
+    if (!instance) {
       return
     }
 
-    onSelect(api()!)
-    api()!.on('reInit', onSelect)
-    api()!.on('select', onSelect)
+    onSelect(instance)
+    instance.on('reInit', onSelect)
+    instance.on('select', onSelect)
 
-    return () => {
-      api()?.off('select', onSelect)
-    }
+    onCleanup(() => {
+      instance.off('reInit', onSelect)
+      instance.off('select', onSelect)
+    })
   })
 
   const value = createMemo(
@@ -139,7 +132,7 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
     <CarouselContext.Provider value={value}>
       <div
         onKeyDown={handleKeyDown}
-        class={cls('relative', local.class)}
+        class={cn('relative', local.class)}
         role="region"
         aria-roledescription="carousel"
         {...others}
@@ -149,13 +142,14 @@ const Carousel: Component<CarouselProps & ComponentProps<'div'>> = (rawProps) =>
 }
 
 const CarouselContent: Component<ComponentProps<'div'>> = (props) => {
+  const cn = useCn()
   const [local, others] = splitProps(props, ['class'])
   const { carouselRef, orientation } = useCarousel()
 
   return (
     <div ref={carouselRef} class="of-hidden">
       <div
-        class={cls('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', local.class)}
+        class={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', local.class)}
         {...others}
       />
     </div>
@@ -163,6 +157,7 @@ const CarouselContent: Component<ComponentProps<'div'>> = (props) => {
 }
 
 const CarouselItem: Component<ComponentProps<'div'>> = (props) => {
+  const cn = useCn()
   const [local, others] = splitProps(props, ['class'])
   const { orientation } = useCarousel()
 
@@ -170,7 +165,7 @@ const CarouselItem: Component<ComponentProps<'div'>> = (props) => {
     <div
       role="group"
       aria-roledescription="slide"
-      class={cls(
+      class={cn(
         'min-w-0 shrink-0 grow-0 basis-full flex justify-center',
         orientation === 'horizontal' ? 'pl-4' : 'pt-4',
         local.class,
@@ -183,7 +178,7 @@ const CarouselItem: Component<ComponentProps<'div'>> = (props) => {
 type CarouselButtonProps = VoidProps<ButtonProps>
 
 const CarouselPrevious: Component<CarouselButtonProps> = (rawProps) => {
-  const props = mergeProps<CarouselButtonProps[]>({ variant: 'outline', size: 'icon' }, rawProps)
+  const props = mergeProps<CarouselButtonProps[]>({ variant: 'outline', size: 'icon-lg' }, rawProps)
   const [local, others] = splitProps(props, ['class', 'variant', 'size'])
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
@@ -191,13 +186,13 @@ const CarouselPrevious: Component<CarouselButtonProps> = (rawProps) => {
     <Button
       variant={local.variant}
       size={local.size}
-      class={cls(
+      class={[
         'absolute size-8 touch-manipulation rounded-full',
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         local.class,
-      )}
+      ]}
       disabled={!canScrollPrev()}
       onClick={scrollPrev}
       {...others}
@@ -209,7 +204,7 @@ const CarouselPrevious: Component<CarouselButtonProps> = (rawProps) => {
 }
 
 const CarouselNext: Component<CarouselButtonProps> = (rawProps) => {
-  const props = mergeProps<CarouselButtonProps[]>({ variant: 'outline', size: 'icon' }, rawProps)
+  const props = mergeProps<CarouselButtonProps[]>({ variant: 'outline', size: 'icon-lg' }, rawProps)
   const [local, others] = splitProps(props, ['class', 'variant', 'size'])
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
@@ -217,13 +212,13 @@ const CarouselNext: Component<CarouselButtonProps> = (rawProps) => {
     <Button
       variant={local.variant}
       size={local.size}
-      class={cls(
+      class={[
         'absolute size-8 touch-manipulation rounded-full',
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         local.class,
-      )}
+      ]}
       disabled={!canScrollNext()}
       onClick={scrollNext}
       {...others}

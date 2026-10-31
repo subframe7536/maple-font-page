@@ -1,27 +1,16 @@
-import type { FeatureState, FeatureValue } from '../../utils/feature'
-import type { ConfigActionDialogProps } from './dialog/config'
-import type { PlaygroundTranslation } from '@/locales/playground/en'
-
 import { featureArray } from '@data/features/features'
-import { createRef, watch } from '@solid-hooks/core'
-import { cls } from 'cls-variant'
-import { createMemo, createSignal, For, onMount, Show } from 'solid-js'
+import { Button, Field, Slider, Tabs, useCn } from 'moraine'
+import { createEffect, createMemo, createSignal, For, on, onCleanup, onMount, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { Button } from '@/components/ui/button'
-import {
-  Slider,
-  SliderFill,
-  SliderLabel,
-  SliderThumb,
-  SliderTrack,
-  SliderValueLabel,
-} from '@/components/ui/slider'
-import { Tabs, TabsIndicator, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useI18n } from '@/locales/i18n'
 import { toStyleObject } from '@/utils/feature'
 import { getCNFromRemote, loadMapleMono } from '@/utils/loadFont'
 
+import type { FeatureState, FeatureValue } from '../../utils/feature'
+
 import LigaSwitch from './components/liga-switch'
+import type { ConfigActionDialogProps } from './dialog/config'
 import ConfigActionDialog from './dialog/config'
 import FreezeActionDialog from './dialog/freeze'
 import LoadCnDialog from './dialog/load-cn'
@@ -50,7 +39,6 @@ export interface PlaygroundProps {
   sizeRange: [start: number, end: number]
   weightRange: [start: number, end: number]
   defaultText: string
-  t: Omit<PlaygroundTranslation, 'description'>
   downloadURL: string
   isCn: boolean | undefined
 }
@@ -62,24 +50,30 @@ const STATE = {
   FAILED: 2,
 } as const
 
-type LoadingStatus = typeof STATE[keyof typeof STATE]
+type LoadingStatus = (typeof STATE)[keyof typeof STATE]
 
 export default function Playground(props: PlaygroundProps) {
-  const textareaRef = createRef<HTMLTextAreaElement>()
+  const { t } = useI18n()
+  const cn = useCn()
+  let textareaRef!: HTMLTextAreaElement
   const [size, setSize] = createSignal(24)
   const [weight, setWeight] = createSignal(400)
   const [italic, setItalic] = createSignal('normal')
   const [width, setWidth] = createSignal<Capitalize<ConfigActionDialogProps['width']>>('Default')
   const [feat, setFeat] = createSignal<FeatureState>(
-    Object.fromEntries(featureArray.map(k => [k, k === 'calt' ? '1' : '0'])),
+    Object.fromEntries(featureArray.map((k) => [k, k === 'calt' ? '1' : '0'])),
   )
   const [normal, setNormal] = createSignal(false)
   const [widthPreviewOpen, setWidthPreviewOpen] = createSignal(false)
-  const [text, setText] = createSignal('')
+  const [text, setText] = createSignal(props.defaultText)
 
   // -1: no load; 0: loading; 1: loaded; 2: load failed
   const [monoLoadState, setMonoLoadState] = createSignal<LoadingStatus>(STATE.INIT)
   const [cnLoadState, setCNLoadState] = createSignal<LoadingStatus>(STATE.INIT)
+  let disposed = false
+  onCleanup(() => {
+    disposed = true
+  })
 
   const targetWeight = createMemo(() => {
     switch (width()) {
@@ -87,34 +81,40 @@ export default function Playground(props: PlaygroundProps) {
         return weight() + 100
       case 'Narrow':
         return weight() + 50
+      default:
+        return weight()
     }
-    return weight()
   })
 
   onMount(() => {
-    const ref = textareaRef()!
+    const ref = textareaRef
     setMonoLoadState(STATE.LOADING)
-    ref.value = 'Loading...'
+
     if (location.search.includes('normal')) {
       setNormal(true)
     }
     loadMapleMono()
       .then(() => {
-        ref.value = props.defaultText
-        ref.focus()
+        if (disposed) {
+          return
+        }
+        if (document.activeElement === document.body) {
+          ref.focus({ preventScroll: true })
+        }
         setMonoLoadState(STATE.SUCCESS)
-        return ref.value
       })
       .catch(() => {
-        ref.value = 'Fail to load Maple Mono.'
-        setMonoLoadState(STATE.FAILED)
-        return ref.value
+        if (!disposed) {
+          setMonoLoadState(STATE.FAILED)
+        }
       })
-      .then(setText)
   })
 
   const handleChange = (feat: string, stat: FeatureValue): void => {
-    setFeat(val => ({ ...val, ...{ [feat]: stat } }))
+    setFeat((val) => ({
+      ...val,
+      [feat]: stat,
+    }))
   }
 
   const loadCN = () => {
@@ -127,105 +127,120 @@ export default function Playground(props: PlaygroundProps) {
       .catch(() => setCNLoadState(STATE.FAILED))
   }
 
-  watch(() => cnLoadState(), (state) => {
-    if (state === STATE.SUCCESS) {
-      const textarea = textareaRef()!
-      const oldText = textarea.value
-      textarea.focus()
-      textarea.value = `${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`
-      textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
-      textarea.scroll({ top: 99999 })
-      setText(textarea.value)
-    }
-  })
+  createEffect(
+    on(
+      cnLoadState,
+      (state) => {
+        if (state === STATE.SUCCESS) {
+          const textarea = textareaRef
+          const oldText = textarea.value
+          textarea.focus()
+          setText(`${oldText || ''}\n\n中文测试：“‘’” …… —— ，。`)
+          textarea.selectionStart = textarea.selectionEnd = oldText.length + 7
+          textarea.scroll({ top: 99999 })
+          setText(textarea.value)
+        }
+      },
+      { defer: true },
+    ),
+  )
 
   return (
-    <div class="h-full w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
-      <div class="size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
+    <div class="h-full min-h-0 w-full flex flex-col-reverse gap-4 p-4 md:(flex-row pr-0)">
+      <div class="min-h-0 size-full flex flex-col gap-4 md:(w-50% gap-8 pt-4) sm:pt-2">
         <div class="grid gap-2 lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-2">
           <div class="w-full flex flex-col select-none gap-2 p-2">
-            <div class="text-sm leading-none font-500">{props.t.fontStyle.title}</div>
-            <Tabs onChange={setItalic}>
-              <TabsList>
-                <TabsTrigger value="normal">
-                  {props.t.fontStyle.regular}
-                </TabsTrigger>
-                <TabsTrigger value="italic" class="font-italic">
-                  {props.t.fontStyle.italic}
-                </TabsTrigger>
-                <TabsIndicator />
-              </TabsList>
-            </Tabs>
+            <div class="text-sm leading-none font-500">{t('playground.fontStyle.title')}</div>
+            <Tabs
+              value={italic()}
+              onChange={setItalic}
+              aria-label={t('playground.fontStyle.title')}
+              items={[
+                { value: 'normal', label: t('playground.fontStyle.regular') },
+                {
+                  value: 'italic',
+                  label: <span class="font-italic">{t('playground.fontStyle.italic')}</span>,
+                },
+              ]}
+            />
           </div>
           <div class="w-full flex flex-col select-none gap-2 p-2">
-            <div class="text-sm leading-none font-500">{props.t.glyphWidth}</div>
+            <div class="text-sm leading-none font-500">{t('playground.glyphWidth')}</div>
             <Tabs
-              onChange={(value: string) => {
-                if (setWidth(value as any) !== 'Default' && cnLoadState() === STATE.SUCCESS) {
+              value={width()}
+              onChange={(value) => {
+                setWidth(value as Capitalize<ConfigActionDialogProps['width']>)
+                if (value !== 'Default' && cnLoadState() === STATE.SUCCESS) {
                   setWidthPreviewOpen(true)
                 }
               }}
               disabled={props.isCn && cnLoadState() !== STATE.SUCCESS}
-            >
-              <TabsList>
-                <TabsTrigger value="Default">
-                  Default
-                </TabsTrigger>
-                <TabsTrigger value="Narrow" class="scale-x-92">
-                  Narrow
-                </TabsTrigger>
-                <TabsTrigger value="Slim" class="scale-x-83">
-                  Slim
-                </TabsTrigger>
-                <TabsIndicator />
-              </TabsList>
-            </Tabs>
+              aria-label={t('playground.glyphWidth')}
+              items={['Default', 'Narrow', 'Slim'].map((value) => ({
+                value,
+                label: (
+                  <span
+                    class={value === 'Narrow' ? 'scale-x-92' : value === 'Slim' ? 'scale-x-83' : ''}
+                  >
+                    {value}
+                  </span>
+                ),
+              }))}
+            />
           </div>
 
-          <Slider
-            minValue={props.sizeRange[0]}
-            maxValue={props.sizeRange[1]}
-            defaultValue={[size()]}
-            onChange={([s]) => setSize(s)}
-            getValueLabel={params => `${params.values[0]}`}
-            class="w-full gap-3 p-2 sm:gap-5.5"
+          <Field
+            label={
+              <span class="w-full flex justify-between">
+                <span>{t('playground.fontSize')}</span>
+                <output aria-hidden="true" class="tabular-nums">
+                  {size()}
+                </output>
+              </span>
+            }
+            class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5"
+            classes={{ label: 'w-full leading-none font-500', container: 'mt-0' }}
           >
-            <div class="w-full flex justify-between">
-              <SliderLabel for="font-size-slider">{props.t.fontSize}</SliderLabel>
-              <SliderValueLabel for="font-size-slider" />
-            </div>
-            <SliderTrack id="font-size-slider">
-              <SliderFill />
-              <SliderThumb />
-            </SliderTrack>
-          </Slider>
+            <Slider
+              value={size()}
+              onValueChange={setSize}
+              min={props.sizeRange[0]}
+              max={props.sizeRange[1]}
+              step={1}
+              aria-label={t('playground.fontSize')}
+            />
+          </Field>
 
-          <Slider
-            minValue={props.weightRange[0]}
-            maxValue={props.weightRange[1]}
-            defaultValue={[weight()]}
-            onChange={([w]) => setWeight(w)}
-            getValueLabel={params => `${params.values[0]}`}
-            class="w-full gap-3 p-2 sm:gap-5.5"
+          <Field
+            label={
+              <span class="w-full flex justify-between">
+                <span>{t('playground.fontWeight')}</span>
+                <output aria-hidden="true" class="tabular-nums">
+                  {weight()}
+                </output>
+              </span>
+            }
+            class="relative w-full flex flex-col gap-3 p-2 sm:gap-5.5"
+            classes={{ label: 'w-full leading-none font-500', container: 'mt-0' }}
           >
-            <div class="w-full flex justify-between">
-              <SliderLabel for="font-weight-slider">{props.t.fontWeight}</SliderLabel>
-              <SliderValueLabel for="font-weight-slider" />
-            </div>
-            <SliderTrack id="font-weight-slider">
-              <SliderFill />
-              <SliderThumb />
-            </SliderTrack>
-          </Slider>
-
+            <Slider
+              value={weight()}
+              onValueChange={setWeight}
+              min={props.weightRange[0]}
+              max={props.weightRange[1]}
+              step={1}
+              aria-label={t('playground.fontWeight')}
+            />
+          </Field>
         </div>
         <div class="relative size-full max-h-45vh flex flex-col gap-2 px-1 sm:max-h-unset supports-[(width:1dvh)]:max-h-45dvh">
           <div class="size-full overflow-hidden">
             <textarea
-              ref={textareaRef}
+              ref={(element) => (textareaRef = element)}
+              prop:value={text()}
               spellcheck="false"
               title="Playground for Maple Mono"
-              class={cls(
+              class={cn(
                 'size-full resize-none !b-0 bg-#0000 p-2 !outline-none scroll-smooth rounded-lg origin-tl',
                 cnLoadState() === STATE.SUCCESS && 'font-cn',
                 cnLoadState() !== STATE.SUCCESS && width() === 'Narrow' && 'scale-x-92 w-108%',
@@ -237,19 +252,17 @@ export default function Playground(props: PlaygroundProps) {
                 'font-style': italic(),
                 ...toStyleObject(feat()),
               }}
-              onChange={e => setText(e.target.value)}
-            />
+              onInput={(e) => setText(e.currentTarget.value)}
+            >
+              {props.defaultText}
+            </textarea>
           </div>
           <div class="w-full flex gap-2 xs:gap-4">
             <ConfigActionDialog
-              t={props.t.action.config}
-              tGuide={props.t.action.guide}
               features={feat()}
               width={width().toLowerCase() as Lowercase<ConfigActionDialogProps['width']>}
             />
             <FreezeActionDialog
-              t={props.t.action.build}
-              tGuide={props.t.action.guide}
               features={feat()}
               width={width().toLowerCase() as Lowercase<ConfigActionDialogProps['width']>}
               downloadURL={props.downloadURL}
@@ -259,52 +272,35 @@ export default function Playground(props: PlaygroundProps) {
       </div>
       <div class="h-40% w-full of-(x-hidden y-scroll) p-2 md:(h-full w-50% p-6 pt-4)">
         <h2 class="whitespace-nowrap pb-3 text-5 c-primary font-bold md:(pb-4 text-7)">
-          {props.t.sectionTitle.basic}
+          {t('playground.sectionTitle.basic')}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.basic}>
-            {feature => (
-              <LigaSwitch
-                {...feature}
-                normal={normal()}
-                $change={handleChange}
-              />
-            )}
+            {(feature) => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
           </For>
         </div>
         <h2 class="whitespace-nowrap p-(b-4 t-6) text-5 c-primary font-bold md:text-7">
-          {props.t.sectionTitle.cv}
+          {t('playground.sectionTitle.cv')}
         </h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.cv}>
-            {feature => (
-              <LigaSwitch
-                {...feature}
-                normal={normal()}
-                $change={handleChange}
-              />
-            )}
+            {(feature) => <LigaSwitch {...feature} normal={normal()} $change={handleChange} />}
           </For>
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          {props.t.sectionTitle.italic}
+          {t('playground.sectionTitle.italic')}
         </h3>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.italic}>
-            {feature => (
-              <LigaSwitch
-                {...feature}
-                normal={normal()}
-                italic={true}
-                $change={handleChange}
-              />
+            {(feature) => (
+              <LigaSwitch {...feature} normal={normal()} italic={true} $change={handleChange} />
             )}
           </For>
         </div>
 
         <h3 class="p-(b-4 t-6) text-4.5 c-secondary font-bold md:text-6">
-          <span>{props.t.sectionTitle.cn}</span>
+          <span>{t('playground.sectionTitle.cn')}</span>
           <Button
             as="a"
             href="https://github.com/subframe7536/maple-font/issues/358"
@@ -312,7 +308,7 @@ export default function Playground(props: PlaygroundProps) {
             target="_blank"
             class="parent"
           >
-            <span class="c-foreground">{props.t.sectionTitle.issue}</span>
+            <span class="c-foreground">{t('playground.sectionTitle.issue')}</span>
             <Icon
               name="lucide:external-link"
               class="ml-1 c-secondary transition parent-hover:translate-(x-.5 y--.5)"
@@ -321,36 +317,29 @@ export default function Playground(props: PlaygroundProps) {
         </h3>
         <Show
           when={cnLoadState() === STATE.SUCCESS}
-          fallback={(
+          fallback={
             <Button
               disabled={cnLoadState() === STATE.LOADING || monoLoadState() !== STATE.SUCCESS}
               onClick={loadCN}
               class="w-full"
             >
-              {cnLoadState() === STATE.LOADING ? props.t.loading : props.t.loadCN}
+              {cnLoadState() === STATE.LOADING ? t('playground.loading') : t('playground.loadCN')}
             </Button>
-          )}
+          }
         >
           <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
             <For each={props.features.cn}>
-              {feature => (
-                <LigaSwitch
-                  {...feature}
-                  normal={normal()}
-                  cn={true}
-                  $change={handleChange}
-                />
+              {(feature) => (
+                <LigaSwitch {...feature} normal={normal()} cn={true} $change={handleChange} />
               )}
             </For>
           </div>
         </Show>
 
-        <h2 class="py-4 text-5 c-primary font-bold md:text-7">
-          {props.t.sectionTitle.ss}
-        </h2>
+        <h2 class="py-4 text-5 c-primary font-bold md:text-7">{t('playground.sectionTitle.ss')}</h2>
         <div class="grid gap-4 lg:grid-cols-2 md:grid-cols-1 xs:grid-cols-2">
           <For each={props.features.ss}>
-            {feature => (
+            {(feature) => (
               <LigaSwitch
                 {...feature}
                 normal={normal()}
@@ -369,7 +358,7 @@ export default function Playground(props: PlaygroundProps) {
           open={widthPreviewOpen()}
           onOpenChange={setWidthPreviewOpen}
           text={text()}
-          width={width() as Lowercase<ConfigActionDialogProps['width']>}
+          width={width().toLowerCase() as ConfigActionDialogProps['width']}
           fontWeight={targetWeight()}
           fontSize={size()}
           fontStyle={italic()}
@@ -378,9 +367,11 @@ export default function Playground(props: PlaygroundProps) {
       </Show>
       <Show when={monoLoadState() === STATE.FAILED || cnLoadState() === STATE.FAILED}>
         <LoadErrorDialog
-          title={props.t.alert.title}
-          content={cnLoadState() === STATE.FAILED ? props.t.alert.cn : props.t.alert.mono}
-          reload={props.t.alert.reloadPage}
+          title={t('playground.alert.title')}
+          content={
+            cnLoadState() === STATE.FAILED ? t('playground.alert.cn') : t('playground.alert.mono')
+          }
+          reload={t('playground.alert.reloadPage')}
         />
       </Show>
     </div>

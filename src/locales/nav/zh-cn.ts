@@ -1,4 +1,4 @@
-import type { NavTranslation } from './en'
+import type { NavTranslation } from './en.ts'
 
 const zh: NavTranslation = {
   why: '缘由',
