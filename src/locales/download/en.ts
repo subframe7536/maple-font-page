@@ -5,11 +5,6 @@ const en = {
       'It helps me cover the costs for the software and the time I put into it, and it means I can keep working on making the font even better!',
   },
   afdian: 'Afdian (PayPal)',
-  channel: {
-    minimal: 'Minimal Options',
-    github: 'Download From Github',
-    custom: 'Custom Build',
-  },
   choice: 'Recommend choice',
   buttons: {
     ttf: {

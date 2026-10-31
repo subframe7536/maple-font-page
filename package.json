@@ -12,7 +12,7 @@
     "lint": "oxlint --max-warnings 0 --report-unused-disable-directives",
     "test:ssg": "node --test tests/ssg.test.mjs",
     "format:check": "oxfmt --check",
-    "i18n:check": "x18n check"
+    "i18n:check": "x18n check --max-warnings 0"
   },
   "dependencies": {
     "@solid-primitives/i18n": "^2.2.1",
