@@ -2,16 +2,16 @@ import { For } from 'solid-js'
 
 import Zsh from '@/assets/img/zsh.webp'
 import ExternalLink from '@/components/external-link'
-import { useFeatureTranslation, siteLocale } from '@/locales/i18n'
+import { useI18n } from '@/locales/i18n'
 
 import SubSection from './part/sub-section'
 
 export default function SectionView() {
-  const { description, ref, title } = useFeatureTranslation(siteLocale(), 'icon')
+  const { t } = useI18n()
 
   const data = {
-    title,
-    description,
+    title: t('index.features.icon.title'),
+    description: t('index.features.icon.description'),
     icon: 'lucide:terminal',
   } as const
 
@@ -23,17 +23,17 @@ export default function SectionView() {
 
   const references: ReferenceData[] = [
     {
-      title: ref.artBy,
+      title: t('index.features.icon.ref.artBy'),
       name: 'CodeImg',
       href: 'https://github.com/subframe7536/vscode-codeimg',
     },
     {
-      title: ref.theme,
+      title: t('index.features.icon.ref.theme'),
       name: 'Maple',
       href: 'https://github.com/subframe7536/vscode-theme-maple',
     },
     {
-      title: ref.prompt,
+      title: t('index.features.icon.ref.prompt'),
       name: 'Starship',
       href: 'https://starship.rs',
     },

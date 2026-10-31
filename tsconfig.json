@@ -22,9 +22,8 @@
     "src",
     "data",
     "vite.config.ts",
-    "intlayer.config.ts",
+    "x18n.config.ts",
     "uno.config.ts",
-    ".intlayer/types/**/*.ts",
     "build",
     "oxlint.config.ts",
     "oxfmt.config.ts"

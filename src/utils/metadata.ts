@@ -1,9 +1,7 @@
 import type { RouteMetadata } from 'solid-file-router'
 
-import type { SiteLocale } from '@/locales/i18n'
-
-import navEn from '../locales/nav/en.ts'
-import navZh from '../locales/nav/zh-cn.ts'
+import type { SiteLocale } from '../locales/translator.ts'
+import { createTranslator } from '../locales/translator.ts'
 
 export const SITE_ORIGIN = 'https://font.subf.dev'
 const description =
@@ -12,12 +10,12 @@ const image =
   'https://repository-images.githubusercontent.com/479451389/00c67e39-1c75-43d6-8e0e-b0b831c0cb85'
 export function pageMetadata(
   locale: SiteLocale,
-  page?: keyof typeof navEn.titles,
+  page?: 'usage' | 'playground' | 'download',
   base = import.meta.env.BASE_URL,
   origin = import.meta.env.VITE_SITE_ORIGIN ?? SITE_ORIGIN,
 ): RouteMetadata {
   const title = page
-    ? `${(locale === 'en' ? navEn : navZh).titles[page]} | Maple Mono`
+    ? `${createTranslator(() => locale)(`nav.titles.${page}`)} | Maple Mono`
     : 'Maple Mono: Open source monospace font'
   const suffix = page ? `/${page}` : '/'
   const url = `${origin}${base}${locale}${suffix}`

@@ -21,14 +21,18 @@ pnpm dev
 ```
 
 The site uses Solid, Moraine, UnoCSS and `solid-file-router`. Markdown/MDX is
-compiled with the router's Satteri pipeline; Shiki runs at build time. Intlayer's
-Vite plugin compiles the dictionaries in `src/locales/**/*.content.ts` for `en`
-and `zh-CN`. Public URLs retain the original `/en/` and `/zh-cn/` spelling.
+compiled with the router's Satteri pipeline; Shiki runs at build time.
+Translations use `@solid-primitives/i18n`: each namespace in `src/locales/<namespace>/`
+has an `en.ts` and a `zh-cn.ts` dictionary, and components read them with
+`const { t } = useI18n()` and dot-path keys such as `t('nav.titles.usage')`.
+[x18n](https://x18n.dev) checks the locale files and the `t` calls for missing,
+unused and mismatched keys (`pnpm i18n:check`).
 
 ```sh
 pnpm check
 pnpm lint
 pnpm format:check
+pnpm i18n:check
 pnpm build
 pnpm test:ssg
 pnpm preview
@@ -50,5 +54,6 @@ continues to load on request from ZeoSeven Fonts.
 
 Implementation references:
 [Dev Toolkit](https://github.com/subframe7536/dev-toolkit),
-[Moraine docs](https://github.com/subframe7536/moraine/tree/main/docs), and
-[Intlayer's Vite + Solid guide](https://intlayer.org/doc/environment/vite-and-solid).
+[Moraine docs](https://github.com/subframe7536/moraine/tree/main/docs),
+[Solid Primitives i18n](https://primitives.solidjs.community/package/i18n), and
+[x18n's solid-primitives-i18n preset](https://x18n.dev/presets/solid-primitives-i18n).

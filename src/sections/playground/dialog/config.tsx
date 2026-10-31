@@ -2,15 +2,13 @@ import { Button, Checkbox, Dialog, useCn } from 'moraine'
 import { createMemo, createSignal, For, onCleanup } from 'solid-js'
 
 import Icon from '@/components/icon'
-import type { PlaygroundTranslation } from '@/locales/playground/en'
+import { useI18n } from '@/locales/i18n'
 import type { ExtraConfig, ExtraConfigKey } from '@/utils/feature'
 import { toCliFlag, toConfigJson } from '@/utils/feature'
 
 import GuideLink from '../components/guide-link'
 
 export interface ConfigActionDialogProps {
-  t: PlaygroundTranslation['action']['config']
-  tGuide: PlaygroundTranslation['action']['guide']
   features: Record<string, '0' | '1'>
   width: 'default' | 'narrow' | 'slim'
 }
@@ -88,7 +86,10 @@ function ConfigSection(props: {
   )
 }
 
+const EXTRA_KEYS: ExtraConfigKey[] = ['nf', 'cn', 'hinted', 'normal']
+
 export default function ConfigActionDialog(props: ConfigActionDialogProps) {
+  const { t } = useI18n()
   const [extraConfig, setExtraConfig] = createSignal<ExtraConfig>({
     nf: true,
     cn: false,
@@ -100,23 +101,26 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
     <Dialog>
       <Dialog.Trigger as={Button} size="md" class="w-full px-2">
         <Icon name="lucide:braces" class="mr-2" />
-        {props.t.btnText}
+        {t('playground.action.config.btnText')}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Title class="flex items-center text-primary">
           <Icon name="lucide:braces" class="mr-2 size-6 c-accent" />
-          {props.t.title}
+          {t('playground.action.config.title')}
         </Dialog.Title>
         <div>
           <p class="text-sm">
-            {props.t.description}
-            <GuideLink {...props.tGuide} />
+            {t('playground.action.config.description')}
+            <GuideLink
+              text={t('playground.action.guide.text')}
+              link={t('playground.action.guide.link')}
+            />
           </p>
           <div class="grid my-6 gap-3 sm:(grid-cols-2 my-6)">
-            <For each={Object.entries(props.t.extra)}>
-              {([key, str]) => (
+            <For each={EXTRA_KEYS}>
+              {(key) => (
                 <Checkbox
-                  checked={extraConfig()[key as ExtraConfigKey]}
+                  checked={extraConfig()[key]}
                   onCheckedChange={(v) =>
                     setExtraConfig((old) => ({
                       ...old,
@@ -124,17 +128,17 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
                     }))
                   }
                   class="flex items-center space-x-2"
-                  label={str}
+                  label={t(`playground.action.config.extra.${key}`)}
                 />
               )}
             </For>
           </div>
           <ConfigSection
             type="cli"
-            title={props.t.cliFlags}
+            title={t('playground.action.config.cliFlags')}
             feat={props.features}
             width={props.width}
-            fallback={props.t.noNeed}
+            fallback={t('playground.action.config.noNeed')}
             extra={extraConfig()}
           />
           <ConfigSection
@@ -142,7 +146,7 @@ export default function ConfigActionDialog(props: ConfigActionDialogProps) {
             title="config.json"
             feat={props.features}
             width={props.width}
-            fallback={props.t.noNeed}
+            fallback={t('playground.action.config.noNeed')}
             extra={extraConfig()}
           />
         </div>

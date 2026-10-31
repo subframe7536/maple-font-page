@@ -2,7 +2,7 @@ import { Button, Dialog, Tabs } from 'moraine'
 import { createEffect, createMemo, createSignal, For, on, Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import type { PlaygroundTranslation } from '@/locales/playground/en'
+import { useI18n } from '@/locales/i18n'
 import type { FileFormat } from '@/utils/feature'
 
 import {
@@ -19,14 +19,13 @@ import { useFontPatcher } from '../patcher/hook'
 import type { ConfigActionDialogProps } from './config'
 
 interface Props {
-  t: PlaygroundTranslation['action']['build']
-  tGuide: PlaygroundTranslation['action']['guide']
   features: ConfigActionDialogProps['features']
   width: ConfigActionDialogProps['width']
   downloadURL: string
 }
 
 export default function FreezeActionDialog(props: Props) {
+  const { t } = useI18n()
   const [open, setOpen] = createSignal(false)
   const [isSupportWorker, setIsSupportWorker] = createSignal<boolean>()
   const [curTab, setCurTab] = createSignal<'dl' | 'up'>('up')
@@ -89,8 +88,6 @@ export default function FreezeActionDialog(props: Props) {
   const DownloadContent = () => (
     <div>
       <UrlForm
-        t={props.t}
-        guide={props.tGuide}
         fileFormat={fileFormat}
         setFileFormat={setFileFormat}
         useHinted={useHinted}
@@ -99,7 +96,7 @@ export default function FreezeActionDialog(props: Props) {
         setProxyURL={setProxyURL}
       />
       <div class="mt-4">
-        <div class="mb-2 text-sm text-primary">{props.t.options.finalURL}</div>
+        <div class="mb-2 text-sm text-primary">{t('playground.action.build.options.finalURL')}</div>
         <div class="break-all text-xs">{targetURL()}</div>
       </div>
     </div>
@@ -107,13 +104,17 @@ export default function FreezeActionDialog(props: Props) {
 
   const UploadContent = () => (
     <div>
-      <div class="mb-2 text-sm text-secondary">{props.t.file.get.title}</div>
+      <div class="mb-2 text-sm text-secondary">{t('playground.action.build.file.get.title')}</div>
       <div class="my-3 text-sm">
-        {props.t.file.get.descStart}{' '}
-        <GuideLink link={props.downloadURL} class="text-primary" text={props.t.file.get.text} />{' '}
-        {props.t.file.get.descEnd}
+        {t('playground.action.build.file.get.descStart')}{' '}
+        <GuideLink
+          link={props.downloadURL}
+          class="text-primary"
+          text={t('playground.action.build.file.get.text')}
+        />{' '}
+        {t('playground.action.build.file.get.descEnd')}
       </div>
-      <FileUploader t={props.t.file} zipFile={zipFile()} onZipFileChange={setZipFile} />
+      <FileUploader zipFile={zipFile()} onZipFileChange={setZipFile} />
     </div>
   )
 
@@ -121,7 +122,7 @@ export default function FreezeActionDialog(props: Props) {
     <Dialog open={open()} onOpenChange={listenOpenChange}>
       <Dialog.Trigger as={Button} size="md" class="w-full px-2" variant="secondary">
         <Icon name="lucide:hammer" class="mr-2" />
-        {props.t.btnText}
+        {t('playground.action.build.btnText')}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Title class="flex items-center c-primary">
@@ -131,21 +132,24 @@ export default function FreezeActionDialog(props: Props) {
           >
             <Icon name="lucide:circle-x" class="mr-2 size-6 c-red" />
           </Show>
-          {props.t.title}
+          {t('playground.action.build.title')}
         </Dialog.Title>
         <Show
           when={isSupportWorker()}
           fallback={
             <div class="py-4">
-              {props.t.unsupported}
-              <GuideLink {...props.tGuide} />
+              {t('playground.action.build.unsupported')}
+              <GuideLink
+                text={t('playground.action.guide.text')}
+                link={t('playground.action.guide.link')}
+              />
             </div>
           }
         >
           <Tabs
             value={curTab()}
             onChange={(value) => setCurTab(value as 'dl' | 'up')}
-            aria-label={props.t.title}
+            aria-label={t('playground.action.build.title')}
             classes={{ content: 'pt-4' }}
             items={[
               {
@@ -153,7 +157,9 @@ export default function FreezeActionDialog(props: Props) {
                 label: (
                   <>
                     <Icon name="lucide:upload" />
-                    <span class="sr-only xs:not-sr-only xs:block">{props.t.tab.upload}</span>
+                    <span class="sr-only xs:not-sr-only xs:block">
+                      {t('playground.action.build.tab.upload')}
+                    </span>
                   </>
                 ),
                 content: <UploadContent />,
@@ -163,15 +169,17 @@ export default function FreezeActionDialog(props: Props) {
                 label: (
                   <>
                     <Icon name="lucide:link" />
-                    <span class="sr-only xs:not-sr-only xs:block">{props.t.tab.download}</span>
+                    <span class="sr-only xs:not-sr-only xs:block">
+                      {t('playground.action.build.tab.download')}
+                    </span>
                   </>
                 ),
                 content: <DownloadContent />,
               },
             ]}
           />
-          <h3 class="text-lg c-accent font-bold">{props.t.log}</h3>
-          <div class="text-xs c-note">{props.t.memoryAlert}</div>
+          <h3 class="text-lg c-accent font-bold">{t('playground.action.build.log')}</h3>
+          <div class="text-xs c-note">{t('playground.action.build.memoryAlert')}</div>
           <div ref={(element) => (logPanelRef = element)} class="h-25 of-scroll text-sm sm:h-50">
             <For each={logList()}>
               {([msg, isError]) => (
@@ -187,10 +195,15 @@ export default function FreezeActionDialog(props: Props) {
             disabled={shouldDisabled()}
             onClick={() => patch(curTab() === 'up' ? zipFile()! : targetURL())}
           >
-            {props.t.download}
+            {t('playground.action.build.download')}
           </Button>
-          <Button as="a" href={props.t.chooseGuide.link} target="_blank" variant="secondary">
-            {props.t.chooseGuide.text}
+          <Button
+            as="a"
+            href={t('playground.action.build.chooseGuide.link')}
+            target="_blank"
+            variant="secondary"
+          >
+            {t('playground.action.build.chooseGuide.text')}
           </Button>
         </Dialog.Footer>
       </Dialog.Content>

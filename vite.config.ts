@@ -6,7 +6,6 @@ import type { ThemeRegistration } from 'shiki'
 import { codeToHtml } from 'shiki'
 import { fileRouter } from 'solid-file-router/plugin'
 import { defineConfig } from 'vite'
-import { intlayer } from 'vite-intlayer'
 import solid from 'vite-plugin-solid'
 
 import { markdownPlugins } from './build/markdown.ts'
@@ -23,7 +22,6 @@ export default defineConfig({
   plugins: [
     uno(unocfg),
     solid({ ssr: true, extensions: ['.mdx', '.md'] }),
-    intlayer(),
     fileRouter({
       mdx: {
         ...markdownPlugins(base),

@@ -1,14 +1,14 @@
 import { For } from 'solid-js'
 
-import { useFeatureTranslation, siteLocale } from '@/locales/i18n'
+import { useI18n } from '@/locales/i18n'
 
 import SubSection from './part/sub-section'
 
 export default function SectionView() {
-  const { description, title } = useFeatureTranslation(siteLocale(), 'variable')
+  const { t } = useI18n()
   const data = {
-    title,
-    description,
+    title: t('index.features.variable.title'),
+    description: t('index.features.variable.description'),
     icon: 'lucide:infinity',
   } as const
 

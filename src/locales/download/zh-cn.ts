@@ -12,23 +12,23 @@ const zh: DownloadTranslation = {
   },
   afdian: '爱发电',
   choice: '推荐选项',
-  buttons: [
-    {
+  buttons: {
+    ttf: {
       name: 'Maple Mono',
       fileName: 'MapleMono-TTF.zip',
       description: '编辑器中使用',
     },
-    {
+    nf: {
       name: 'Maple Mono NF',
       fileName: 'MapleMono-NF-unhinted.zip',
       description: '控制台中使用，附带图标',
     },
-    {
+    nfCn: {
       name: 'Maple Mono NF CN',
       fileName: 'MapleMono-NF-CN-unhinted.zip',
       description: '附带图标、中文字符和日文字符',
     },
-  ],
+  },
 }
 
 export default zh

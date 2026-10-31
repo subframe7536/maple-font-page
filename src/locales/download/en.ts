@@ -11,23 +11,23 @@ const en = {
     custom: 'Custom Build',
   },
   choice: 'Recommend choice',
-  buttons: [
-    {
+  buttons: {
+    ttf: {
       name: 'Maple Mono',
       fileName: 'MapleMono-TTF.zip',
       description: 'For Editor Use',
     },
-    {
+    nf: {
       name: 'Maple Mono NF',
       fileName: 'MapleMono-NF-unhinted.zip',
       description: 'For Terminal Use, With Icons',
     },
-    {
+    nfCn: {
       name: 'Maple Mono NF CN',
       fileName: 'MapleMono-NF-CN-unhinted.zip',
       description: 'With Icons and CN & JP Glyphs',
     },
-  ],
+  },
 }
 
 export default en

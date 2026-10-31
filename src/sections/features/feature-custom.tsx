@@ -4,21 +4,18 @@ import { Button } from 'moraine'
 import samples from '@/assets/code-samples'
 import mapleTheme from '@/assets/maple-dark-color-theme.json'
 import Code from '@/components/code'
-import { useFeatureTranslation, localePath, siteLocale } from '@/locales/i18n'
+import { localePath, useI18n } from '@/locales/i18n'
 
 import SubSectionTitle from './part/sub-section-title'
 
 export default function SectionView() {
-  const { buttonText, link, description, title, normal } = useFeatureTranslation(
-    siteLocale(),
-    'custom',
-  )
+  const { t } = useI18n()
 
-  const [first, second] = normal.description.split('@')
+  const [first, second] = t('index.features.custom.normal.description').split('@')
 
   const data = {
-    title,
-    description,
+    title: t('index.features.custom.title'),
+    description: t('index.features.custom.description'),
     icon: 'lucide:hammer',
   } as const
 
@@ -40,13 +37,18 @@ export default function SectionView() {
           />
           <div class="flex flex-col inview-2 gap-8 *:w-fit">
             <p class="text-4 leading-relaxed md:text-5">{data.description}</p>
-            <Button as="a" variant="secondary" href={link} target="_blank">
-              {buttonText}
+            <Button
+              as="a"
+              variant="secondary"
+              href={t('index.features.custom.link')}
+              target="_blank"
+            >
+              {t('index.features.custom.buttonText')}
             </Button>
           </div>
         </div>
         <div class="flex flex-col gap-6">
-          <div class="inview-1 c-accent">{normal.title}</div>
+          <div class="inview-1 c-accent">{t('index.features.custom.normal.title')}</div>
           <div class="inview-1">
             {first}
             <span class="text-primary underline decoration-dashed font-bold">
@@ -54,16 +56,16 @@ export default function SectionView() {
             </span>
             {second}
           </div>
-          <div class="inview-1 c-note">{normal.enable}:</div>
+          <div class="inview-1 c-note">{t('index.features.custom.normal.enable')}:</div>
           <Code
             code={`"${normalFeatureArray.join('", "')}"`}
             class="inview-2 rounded-lg p-4 pb-2 text-3.5 sm:rounded-2xl sm:text-4"
           />
           <div class="inview-3 c-note">
-            {normal.preview}
+            {t('index.features.custom.normal.preview')}
             or
             <Button as="a" href={playgroundLink} variant="outline">
-              {normal.testInPlayground}
+              {t('index.features.custom.normal.testInPlayground')}
             </Button>
           </div>
           <Code

@@ -84,38 +84,38 @@ const zh: IndexTranslation = {
   testimonial: {
     title: '用户评价',
     subTitle: '加入成千上万喜爱上 Maple Mono 的开发者行列。',
-    items: [
-      {
+    items: {
+      siddharth: {
         content:
           '需要一款带点个性的🌟和优秀的斜体的字体。@subframe7536 的 Maple Mono NF 是我的新宠编程字体。正是我在厌倦 JetBrains Mono 后一直在寻找的字体。它从 JBM 和其他优秀的字体中汲取了灵感。',
         author: 'Siddharth Pant',
         platform: 'Twitter',
       },
-      {
+      techEnthusiast: {
         content:
           '使用 Maple Mono 已经一个月了。Nerd Font 支持非常棒，并且能够自定义字体功能正是我所需要的。干得漂亮！',
         author: 'TechEnthusiast',
         platform: 'Discord',
       },
-      {
+      nero: {
         content:
           '换了 Maple Mono 字体，部分内容开了斜体连笔，感觉在清晰好用的基础上又多了几分灵动😄不错',
         author: 'Nero',
         platform: 'Twitter',
       },
-      {
+      beiyanyunyi: {
         content:
           '对于希望字体圆一些、“可爱”一些的人，Maple Mono 可能是一个很好的选择。它封装了 CJK 字体，且保证 2:1 的宽度。前后大概有两三个同事夸过我编辑器和终端配得很好看。',
         author: '北雁云依',
         platform: '知乎',
       },
-      {
+      ezRoma: {
         content:
           '我喜欢 Maple Mono，因为它非常像我的笔迹。我写字时混合了印刷体和手写体，所以感觉就像在看我的笔迹。而且用手写体的风格而不是更单调的印刷体来查看代码也让人非常愉悦。',
         author: 'ez_roma',
         platform: 'Reddit',
       },
-    ],
+    },
   },
   credits: {
     title: '鸣谢',

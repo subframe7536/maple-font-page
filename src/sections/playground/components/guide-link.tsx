@@ -1,10 +1,6 @@
 import { useCn } from 'moraine'
 
-import type { PlaygroundTranslation } from '@/locales/playground/en'
-
-export default function GuideLink(
-  props: PlaygroundTranslation['action']['guide'] & { class?: string },
-) {
+export default function GuideLink(props: { text: string; link: string; class?: string }) {
   const cn = useCn()
   return (
     <a

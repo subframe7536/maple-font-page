@@ -1,32 +1,32 @@
 import type { Props as ExternalLinkProps } from '@/components/external-link'
 import ExternalLink from '@/components/external-link'
 import Section from '@/components/section'
-import { useIndexTranslation, siteLocale } from '@/locales/i18n'
+import { useI18n } from '@/locales/i18n'
 
 export default function SectionView() {
-  const { subTitle, title, items } = useIndexTranslation(siteLocale(), 'credits')
+  const { t } = useI18n()
 
   const data = {
     id: 'credits',
-    title,
-    subTitle,
+    title: t('index.credits.title'),
+    subTitle: t('index.credits.subTitle'),
   }
 
   const creaditData: ExternalLinkProps[] = [
     {
-      title: items.base,
+      title: t('index.credits.items.base'),
       links: [['JetBrains Mono', 'https://github.com/JetBrains/JetBrainsMono']],
     },
     {
-      title: items.icon,
+      title: t('index.credits.items.icon'),
       links: [['Nerd Fonts', 'https://github.com/ryanoasis/nerd-fonts']],
     },
     {
-      title: items.cn,
+      title: t('index.credits.items.cn'),
       links: [['Resource Han Rounded', 'https://github.com/CyanoHao/Resource-Han-Rounded']],
     },
     {
-      title: items.inspiration,
+      title: t('index.credits.items.inspiration'),
       links: [
         ['Commit Mono', 'https://github.com/eigilnikolajsen/commit-mono'],
         ['Fira Code', 'https://github.com/tonsky/FiraCode'],
@@ -39,7 +39,7 @@ export default function SectionView() {
       ],
     },
     {
-      title: items.font,
+      title: t('index.credits.items.font'),
       links: [
         ['Fonttools', 'https://github.com/fonttools/fonttools'],
         ['FoundryTools-CLI', 'https://github.com/ftCLI/FoundryTools-CLI'],
@@ -47,11 +47,11 @@ export default function SectionView() {
       ],
     },
     {
-      title: items.web,
+      title: t('index.credits.items.web'),
       links: [
         ['Moraine', 'https://moraine.subf.dev'],
         ['solid-file-router', 'https://github.com/subframe7536/solid-file-router'],
-        ['Intlayer', 'https://intlayer.org'],
+        ['Solid Primitives i18n', 'https://primitives.solidjs.community/package/i18n'],
         ['SolidJS', 'https://solidjs.com'],
         ['UnoCSS', 'https://unocss.dev'],
         ['ESM.sh', 'https://esm.sh'],

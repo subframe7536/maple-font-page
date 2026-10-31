@@ -1,15 +1,14 @@
 import { useLocation } from '@solidjs/router'
 import { Button } from 'moraine'
-import { useIntlayer } from 'solid-intlayer'
 import { Show } from 'solid-js'
 
 import Icon from '@/components/icon'
-import { localePath, routePath, siteLocale } from '@/locales/i18n'
+import { localePath, routePath, siteLocale, useI18n } from '@/locales/i18n'
 import { tag } from '@/utils/constant'
 
 export default function Nav() {
   const location = useLocation()
-  const content = useIntlayer('nav')
+  const { t } = useI18n()
   const pathname = () => routePath(location.pathname).replace(/\/$/, '')
   const home = () => /^\/(?:en|zh-cn)$/.test(pathname())
   const current = (page: string) => pathname().endsWith(`/${page}`)
@@ -40,16 +39,16 @@ export default function Nav() {
           >
             <div class="hidden whitespace-nowrap sm:block">
               <Button as="a" size="md" variant="link" href="#why">
-                {content.messages.why}
+                {t('nav.why')}
               </Button>
               <Button as="a" size="md" variant="link" href="#features">
-                {content.messages.features}
+                {t('nav.features')}
               </Button>
               <Button as="a" size="md" variant="link" href="#preview">
-                {content.messages.preview}
+                {t('nav.preview')}
               </Button>
               <Button as="a" size="md" variant="link" href="#credits">
-                {content.messages.credits}
+                {t('nav.credits')}
               </Button>
             </div>
           </Show>
@@ -74,11 +73,11 @@ export default function Nav() {
             variant="link"
             href={localePath(siteLocale(), 'playground')}
             aria-current={current('playground') ? 'page' : undefined}
-            title={content.messages.titles.playground.value}
-            aria-label={content.messages.titles.playground.value}
+            title={t('nav.titles.playground')}
+            aria-label={t('nav.titles.playground')}
           >
             <Icon name="lucide:bug-play" class="sm:mr-1" />
-            <span class="hidden sm:block">{content.messages.titles.playground}</span>
+            <span class="hidden sm:block">{t('nav.titles.playground')}</span>
           </Button>
           <Button
             as="a"
@@ -86,11 +85,11 @@ export default function Nav() {
             variant="link"
             href={localePath(siteLocale(), 'usage')}
             aria-current={current('usage') ? 'page' : undefined}
-            title={content.messages.titles.usage.value}
-            aria-label={content.messages.titles.usage.value}
+            title={t('nav.titles.usage')}
+            aria-label={t('nav.titles.usage')}
           >
             <Icon name="lucide:book-open-text" class="sm:mr-1" />
-            <span class="hidden sm:block">{content.messages.titles.usage}</span>
+            <span class="hidden sm:block">{t('nav.titles.usage')}</span>
           </Button>
           <Button
             as="a"
@@ -99,10 +98,10 @@ export default function Nav() {
             class="ml-2"
             href={localePath(siteLocale(), 'download')}
             aria-current={current('download') ? 'page' : undefined}
-            title={content.messages.titles.download.value}
-            aria-label={content.messages.titles.download.value}
+            title={t('nav.titles.download')}
+            aria-label={t('nav.titles.download')}
           >
-            {content.messages.get}
+            {t('nav.get')}
           </Button>
           <a
             class="ml-3 mr-1 text-xs c-note hover:c-primary focus-visible:effect-fv"

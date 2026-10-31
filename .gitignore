@@ -29,5 +29,4 @@ gitignore
 Thumbs.db
 
 .astro
-.intlayer
 src/routes.d.ts

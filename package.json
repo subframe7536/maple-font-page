@@ -11,15 +11,15 @@
     "release": "pnpm run check && pnpm run build && bumpp --all",
     "lint": "oxlint --max-warnings 0 --report-unused-disable-directives",
     "test:ssg": "node --test tests/ssg.test.mjs",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "i18n:check": "x18n check"
   },
   "dependencies": {
+    "@solid-primitives/i18n": "^2.2.1",
     "@solidjs/router": "^1.0.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-solid": "^8.6.0",
-    "intlayer": "^9.6.0",
     "moraine": "0.6.0-beta.3",
-    "solid-intlayer": "^9.6.0",
     "solid-js": "^1.9.15"
   },
   "devDependencies": {
@@ -29,6 +29,8 @@
     "@subframe7536/fonttools": "^0.3.2",
     "@types/node": "^24.0.0",
     "@unocss/preset-typography": "^66.10.5",
+    "@x18n/cli": "^0.1.3",
+    "@x18n/core": "^0.1.3",
     "bumpp": "^12.3.0",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
@@ -38,7 +40,6 @@
     "solid-file-router": "^0.7.3",
     "typescript": "^7.0.2",
     "vite": "^8.0.0",
-    "vite-intlayer": "^9.6.0",
     "vite-plugin-solid": "^2.11.0",
     "yaml": "^2.9.1"
   },

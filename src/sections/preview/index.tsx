@@ -2,17 +2,17 @@ import { For } from 'solid-js'
 
 import samples from '@/assets/code-samples'
 import Section from '@/components/section'
-import { useIndexTranslation, siteLocale } from '@/locales/i18n'
+import { useI18n } from '@/locales/i18n'
 
 import CodePanel from './code-panel'
 
 export default function SectionView() {
-  const { subTitle, title } = useIndexTranslation(siteLocale(), 'preview')
+  const { t } = useI18n()
 
   const data = {
     id: 'preview',
-    title,
-    subTitle,
+    title: t('index.preview.title'),
+    subTitle: t('index.preview.subTitle'),
   }
 
   const tsxCode = samples.tsxCode

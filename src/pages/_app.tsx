@@ -2,13 +2,13 @@ import { useIsRouting, useLocation } from '@solidjs/router'
 import { MoraineProvider } from 'moraine'
 import { createRoute } from 'solid-file-router'
 import { MDXProvider } from 'solid-file-router/mdx'
-import { IntlayerProvider } from 'solid-intlayer'
 import type { ParentProps } from 'solid-js'
 import { createEffect, on, onMount, Show, Suspense } from 'solid-js'
 
 import { CodeHtml } from '@/components/code-html'
 import DocumentLayout from '@/layouts/document'
-import { routePath } from '@/locales/i18n'
+import type { SiteLocale } from '@/locales/i18n'
+import { I18nProvider, routePath } from '@/locales/i18n'
 import Nav from '@/sections/nav'
 import { mapleTheme } from '@/theme'
 import { loadMapleMono } from '@/utils/loadFont'
@@ -17,13 +17,14 @@ function Shell(props: ParentProps) {
   const location = useLocation()
   const isRouting = useIsRouting()
   let main: HTMLElement | undefined
-  const locale = () => (routePath(location.pathname).split('/')[1] === 'zh-cn' ? 'zh-CN' : 'en')
+  const locale = (): SiteLocale =>
+    routePath(location.pathname).split('/')[1] === 'zh-cn' ? 'zh-cn' : 'en'
   const playground = () => routePath(location.pathname).replace(/\/$/, '').endsWith('/playground')
   onMount(() => {
     void loadMapleMono().catch(console.error)
   })
   createEffect(() => {
-    document.documentElement.lang = locale()
+    document.documentElement.lang = locale() === 'zh-cn' ? 'zh-CN' : 'en'
     // The router updates head links after navigation; retain hreflang attributes.
     void location.pathname
     queueMicrotask(() => {
@@ -54,7 +55,7 @@ function Shell(props: ParentProps) {
   return (
     <Show when={locale()} keyed>
       {(lang) => (
-        <IntlayerProvider locale={lang} isCookieEnabled={false}>
+        <I18nProvider locale={lang}>
           <MoraineProvider theme={mapleTheme}>
             <MDXProvider components={{ DocumentLayout, CodeHtml }}>
               <Nav />
@@ -70,7 +71,7 @@ function Shell(props: ParentProps) {
               </main>
             </MDXProvider>
           </MoraineProvider>
-        </IntlayerProvider>
+        </I18nProvider>
       )}
     </Show>
   )

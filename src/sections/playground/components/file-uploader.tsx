@@ -1,20 +1,21 @@
 import { FileUpload } from 'moraine'
 
-import type { PlaygroundTranslation } from '@/locales/playground/en'
+import { useI18n } from '@/locales/i18n'
+
 interface Props {
-  t: PlaygroundTranslation['action']['build']['file']
   zipFile: File | undefined
   onZipFileChange: (file: File | undefined) => void
 }
 export default function FileUploader(props: Props) {
+  const { t } = useI18n()
   return (
     <FileUpload
       accept=".zip"
       value={props.zipFile ?? null}
       onValueChange={(file) => props.onZipFileChange(file ?? undefined)}
-      label={`${props.t.upload.btnStart} ${props.t.upload.btnEnd}`}
-      description={props.t.upload.alert}
-      aria-label={props.t.upload.title}
+      label={`${t('playground.action.build.file.upload.btnStart')} ${t('playground.action.build.file.upload.btnEnd')}`}
+      description={t('playground.action.build.file.upload.alert')}
+      aria-label={t('playground.action.build.file.upload.title')}
       icon="i-lucide:upload"
       fileIcon="i-lucide:file-archive"
       classes={{

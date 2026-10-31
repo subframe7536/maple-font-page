@@ -84,38 +84,38 @@ const en = {
   testimonial: {
     title: 'What people say',
     subTitle: 'Join thousands of developers who have already fallen in love with Maple Mono.',
-    items: [
-      {
+    items: {
+      siddharth: {
         content:
           'Needed a font with some pazzazz🌟 and good italics. Maple Mono NF by @subframe7536 is my new favorite coding font. Just the font I was looking for after getting bored with JetBrains Mono. It takes inspiration from JBM and other great fonts',
         author: 'Siddharth Pant',
         platform: 'Twitter',
       },
-      {
+      techEnthusiast: {
         content:
           'Been using Maple Mono for a month now. The Nerd Font support is fantastic, and being able to customize font features is exactly what I needed. Great work!',
         author: 'TechEnthusiast',
         platform: 'Discord',
       },
-      {
+      nero: {
         content:
           'Having switched to the Maple Mono font and enabled italic ligatures for some parts, it feels a bit more lively on top of being clear and easy to use, which is nice.',
         author: 'Nero',
         platform: 'Twitter',
       },
-      {
+      beiyanyunyi: {
         content:
           'For those who prefer a rounder, more "adorable" font, Maple Mono might be a great choice. It includes CJK fonts and ensures a 2:1 width ratio. I\'ve had about two or three colleagues compliment me on how good my editor and terminal look.',
         author: 'Beiyanyunyi',
         platform: 'ZhiHu',
       },
-      {
+      ezRoma: {
         content:
           'I love Maple Mono because it is very similar to my handwriting. I write in a mixture of print and cursive so it feels like im looking at my handwriting. It also is very pleasing to look at the code with cursive flair instead of the more monotonous print.',
         author: 'ez_roma',
         platform: 'Reddit',
       },
-    ],
+    },
   },
   credits: {
     title: 'Credits',
